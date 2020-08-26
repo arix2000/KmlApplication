@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        style="@style/dialog_about_app_titles"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Zmień hasło:" />
+
+    <TextView
+        style="@style/form_text_views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Podaj stare hasło:" />
+
+    <EditText
+        android:id="@+id/dialog_old_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:layout_gravity="center"/>
+
+    <TextView
+        style="@style/form_text_views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Podaj nowe hasło:" />
+
+    <EditText
+        android:id="@+id/dialog_new_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:layout_gravity="center"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btn_dialog_change_pass_cancel"
+            style="@style/buttons"
+            android:layout_width="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content"
+            android:text="anuluj" />
+
+        <ProgressBar
+            android:id="@+id/dialog_change_password_progress_bar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_dialog_change_pass_accept"
+            style="@style/buttons"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Zmień hasło"
+            android:textColor="@android:color/holo_green_light" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

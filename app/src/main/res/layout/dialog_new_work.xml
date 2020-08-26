@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/dialog_bg">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nazwa nowego zadania:"/>
+
+        <EditText
+            android:id="@+id/timer_work_name_instant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Opis:"/>
+
+        <EditText
+            android:id="@+id/timer_work_description_instant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/dialog_timer_cancel"
+            android:layout_marginTop="25dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            style="@style/buttons"
+            android:text="Anuluj"/>
+
+        <Button
+            android:id="@+id/dialog_timer_confirm"
+            android:layout_marginTop="25dp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            style="@style/buttons"
+            android:text="Zakończ zadanie"
+            android:layout_alignParentRight="true"
+            android:paddingHorizontal="10dp"
+            android:textColor="@android:color/holo_green_light"/>
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+
+
+</ScrollView>

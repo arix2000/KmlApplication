@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f5fbe</color> <!-- #3f5fbe -->
+    <color name="colorPrimaryDark">#1B3EB3</color> <!-- #1B3EB3 -->
+    <color name="colorAccent">#06299F</color> <!-- #06299F -->
+    <color name="WhiteContent">#FFFFFF</color>
+    <color name="BlackContent">#000000</color>
+
+    <color name="colorZabaw">#DDb0f7a8</color>
+    <color name="colorDruzynowe">#DDaca8f7</color>
+    <color name="colorLina">#DDf7a8f6</color>
+    <color name="colorChusta">#DDf7f7a8</color>
+    <color name="colorTance">#DDf7a8ac</color>
+
+</resources>

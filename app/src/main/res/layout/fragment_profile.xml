@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileHeader"
+        android:layout_width="match_parent"
+        android:layout_height="157dp"
+        android:background="@color/colorPrimary"
+        android:padding="16dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <ImageView
+            android:id="@+id/profile_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:foreground="@drawable/circle"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pick_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/profile_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_photo"
+            android:layout_toRightOf="@id/profile_photo"
+            android:text="..."
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profile_photo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/profile_full_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_photo"
+            android:paddingTop="8dp"
+            android:text="Imie i Nazwisko"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileHeader">
+
+        <TableLayout
+            android:id="@+id/profileBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="3">
+
+            <TableRow
+
+                style="@style/row_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="10dp"
+                    app:srcCompat="@drawable/ic_join_date" />
+
+                <TextView
+                    style="@style/row_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Rok dołączenia: " />
+
+                <TextView
+                    android:id="@+id/profile_join_year"
+                    style="@style/row_style"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text=""
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                style="@style/row_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    style="@style/row_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Czas pracy: " />
+
+            </LinearLayout>
+
+            <HorizontalScrollView>
+
+                <TableRow
+                    style="@style/row_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="10dp"
+                        app:srcCompat="@drawable/ic_overall_work_time" />
+
+                    <TextView
+                        style="@style/row_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="W tym sezonie: "
+                        android:textStyle="" />
+
+                    <TextView
+                        android:id="@+id/profile_time_of_work_season"
+                        style="@style/row_style"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textStyle="bold" />
+                </TableRow>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView>
+
+                <TableRow
+                    style="@style/row_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="10dp"
+                        app:srcCompat="@drawable/ic_timer" />
+
+                    <TextView
+                        style="@style/row_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="W tym miesiącu:" />
+
+                    <TextView
+                        android:id="@+id/profile_time_of_work_month"
+                        style="@style/row_style"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textStyle="bold" />
+                </TableRow>
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/row_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sekcje:" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/profile_sections"
+                style="@style/row_style"
+                android:textIsSelectable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="" />
+
+            <ProgressBar
+                android:id="@+id/profile_progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </TableLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/change_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_key"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:clickable="true"/>
+
+</RelativeLayout>

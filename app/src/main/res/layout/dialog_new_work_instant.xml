@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nazwa nowego zadania:" />
+
+            <EditText
+                android:id="@+id/timer_work_name_instant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Opis:" />
+
+            <EditText
+                android:id="@+id/timer_work_description_instant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Czas wykonywania:" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/dialog_timer_hours"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/dialog_timer_hours"
+                android:text="godzin"
+                android:textColor="@color/BlackContent"
+                android:textSize="17dp" />
+
+            <EditText
+                android:id="@+id/dialog_timer_minutes"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/text_view_minut_dialog"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/text_view_minut_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:text="minut"
+                android:textColor="@color/BlackContent"
+                android:textSize="17dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/dialog_timer_cancel_instant"
+                style="@style/buttons"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Anuluj" />
+
+            <Button
+                android:id="@+id/dialog_timer_confirm_instant"
+                style="@style/buttons"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="25dp"
+                android:paddingHorizontal="10dp"
+                android:text="dodaj"
+                android:textColor="@android:color/holo_green_light" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>

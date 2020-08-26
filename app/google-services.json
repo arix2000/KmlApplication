@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "776845770831",
+    "firebase_url": "https://kmlappofficial.firebaseio.com",
+    "project_id": "kmlappofficial",
+    "storage_bucket": "kmlappofficial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776845770831:android:92c60c1bd35faf539e2a3a",
+        "android_client_info": {
+          "package_name": "com.kml"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776845770831-6umhtfm07e1r8qcvsepsjtk0k381tjco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUqCbNuDrBKjM4hCMQrn1udqPReMEa2Hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776845770831-6umhtfm07e1r8qcvsepsjtk0k381tjco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

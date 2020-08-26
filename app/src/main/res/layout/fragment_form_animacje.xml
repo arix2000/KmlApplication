@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="17dp"
+        tools:context=".fragments.SearchEngineFragment">
+
+        <TextView
+            style="@style/form_text_views"
+            android:text="Nazwa Zabawy:" />
+
+        <EditText
+            android:id="@+id/form_edit_text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="(Opcjonalna)"
+            android:inputType="textPersonName" />
+
+        <TextView
+            style="@style/form_text_views"
+            android:text="Liczba dzieci:" />
+
+        <Spinner
+            android:id="@+id/form_spinner_number_of_kids"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            style="@style/form_text_views"
+            android:text="Wiek dzieci:" />
+
+        <Spinner
+            android:id="@+id/form_spinner_kids_age"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            style="@style/form_text_views"
+            android:text="Rodzaj Zabaw:" />
+
+        <Spinner
+            android:id="@+id/form_spinner_type_of_games"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            style="@style/form_text_views"
+            android:text="Miejsce:" />
+
+        <Spinner
+            android:id="@+id/form_spinner_place"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            style="@style/form_text_views"
+            android:text="Kategoria:" />
+
+        <Spinner
+            android:id="@+id/form_spinner_category"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <View
+            android:id="@+id/divide5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/btn_search"
+            style="@style/buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="20dp"
+            android:text="szukaj" />
+
+    </LinearLayout>
+</ScrollView>
