@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.kml.fragments.ControlPanelFragment;
 import com.kml.supportClasses.TimerService;
 import com.kml.fragments.ProfileFragment;
 import com.kml.fragments.SearchEngineFragment;
@@ -30,13 +32,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     public static boolean isFirstClick = true;
     NavigationView navigationView;
+    private final int CONTROL_PANEL_ITEM_ID = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchEngineFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_search_engine);
             KmlApp.isFromRecycleViewActivity=false;
+        }
+
+        if(KmlApp.loginId == 9)
+        {
+            navigationView.getMenu().getItem(CONTROL_PANEL_ITEM_ID).setVisible(true);
         }
     }
 
@@ -119,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_search_engine:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchEngineFragment()).commit();
+                break;
+
+            case R.id.nav_control_panel:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ControlPanelFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

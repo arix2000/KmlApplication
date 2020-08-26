@@ -136,7 +136,6 @@ public class WorkTimerFragment extends Fragment
         returnStateFromService();
         setTimeOnLayout();
 
-
         Log.d("TAG_TAG", "onResume:  " + TimerService.seconds + "  " + TimerService.minutes + "  " + TimerService.hours);
 
         root.getContext().stopService(new Intent(root.getContext(), TimerService.class));
@@ -163,6 +162,26 @@ public class WorkTimerFragment extends Fragment
             root.getContext().startService(intent);
         }
     }
+
+   /* private void saveTimeToFile()
+    {
+        long timeWhenStopped = SystemClock.elapsedRealtime();
+        long actualTimeMillis = convertTimeToMillis();
+        fileOperations.saveStateToFile(actualTimeMillis + ";" + timeWhenStopped + ";" + isTimerRunning, FileOperations.SAVED_TIME_TXT);
+
+
+    }
+
+    private long convertTimeToMillis()
+    {
+        long timeInMillis;
+
+        timeInMillis = (hours * 60) + minutes;
+        timeInMillis = (timeInMillis * 60) + seconds;
+        timeInMillis = timeInMillis * 1000;
+
+        return timeInMillis;
+    }*/
 
     @Override
     public void onStop()
