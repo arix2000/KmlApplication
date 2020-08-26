@@ -273,7 +273,7 @@ public class WorkTimerFragment extends Fragment
                     return;
                 }
                 dialog.dismiss();
-                DbSendWork dbSendWork = new DbSendWork(workName, workDescription, KmlApp.name, KmlApp.lastName, minutes, hours);
+                DbSendWork dbSendWork = new DbSendWork(workName, workDescription, KmlApp.firstName, KmlApp.lastName, minutes, hours);
                 dbSendWork.start();
 
                 boolean result = dbSendWork.getResult();
@@ -322,7 +322,7 @@ public class WorkTimerFragment extends Fragment
                 dialog.dismiss();
 
                 DbSendWork dbSendWork = new DbSendWork
-                        (workName, workDescription, KmlApp.name, KmlApp.lastName, Integer.parseInt(instantMinutes), Integer.parseInt(instantHours));
+                        (workName, workDescription, KmlApp.firstName, KmlApp.lastName, Integer.parseInt(instantMinutes), Integer.parseInt(instantHours));
                 dbSendWork.start();
 
                 boolean result = dbSendWork.getResult();

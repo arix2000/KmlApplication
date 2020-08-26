@@ -14,7 +14,6 @@ package com.kml;
 * Creator and owner: Arek Mądry
 * Copyright © 2020
 */
-
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -28,7 +27,7 @@ public class KmlApp extends Application
 {
     public static final String CHANNEL_1_ID = "serviceChannel";
     public static int loginId;
-    public static String name;
+    public static String firstName;
     public static String lastName;
     public static boolean isFromRecycleViewActivity;
 

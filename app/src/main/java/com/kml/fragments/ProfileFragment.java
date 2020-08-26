@@ -217,16 +217,16 @@ public class ProfileFragment extends Fragment
                 }
                 progressBar.setVisibility(ProgressBar.GONE);
                 writeDataOnLayout(); //write data on layout with little changes :D
-                KmlApp.name = firstName;
+                KmlApp.firstName = firstName;
                 KmlApp.lastName = lastName;
                 if (LoginScreen.isLog) {
                     String toastWelcomeText;
-                    if (KmlApp.name.equals("Marta") && KmlApp.lastName.equals("Nowińska"))
+                    if (KmlApp.firstName.equals("Marta") && KmlApp.lastName.equals("Nowińska"))
                         toastWelcomeText = "<3 Dzień dobry piękna istotko! <3";
-                    else if (KmlApp.name.equals("Sebastian") && KmlApp.lastName.equals("Peret"))
+                    else if (KmlApp.firstName.equals("Sebastian") && KmlApp.lastName.equals("Peret"))
                         toastWelcomeText = "Dzień dobry Prezesie!";
                     else
-                        toastWelcomeText = "Dzień dobry " + KmlApp.name + "!";
+                        toastWelcomeText = "Dzień dobry " + KmlApp.firstName + "!";
 
                     if(getActivity() != null)
                     Snackbar.make(getActivity().findViewById(android.R.id.content), toastWelcomeText, Snackbar.LENGTH_SHORT).show();
