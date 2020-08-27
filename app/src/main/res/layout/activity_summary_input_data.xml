@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:context=".SummaryInputData">
+
+        <TextView
+            android:id="@+id/summary_input_text_view_chosen"
+            style="@style/form_text_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wybrani wolontariusze:" />
+
+        <TextView
+            android:id="@+id/summary_input_chosen_volunteers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/summary_input_text_view_chosen"
+            android:gravity="center"
+            android:text="Wybrani"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/summary_input_text_view_time"
+            style="@style/form_text_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/summary_input_chosen_volunteers"
+            android:text="Wpisz czas:" />
+
+
+        <EditText
+            android:id="@+id/dialog_timer_hours"
+            android:layout_width="60dp"
+            android:layout_below="@id/summary_input_text_view_time"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignBottom="@+id/dialog_timer_hours"
+            android:layout_toRightOf="@+id/dialog_timer_hours"
+            android:text="godzin"
+            android:textColor="@color/BlackContent"
+            android:textSize="17dp" />
+
+        <EditText
+            android:id="@+id/dialog_timer_minutes"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/dialog_timer_hours"
+            android:layout_toLeftOf="@+id/text_view_minut_dialog"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_alignBottom="@+id/dialog_timer_minutes"
+            android:id="@+id/text_view_minut_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:text="minut"
+            android:textColor="@color/BlackContent"
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/dialog_timer_confirm_instant"
+            style="@style/buttons"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/dialog_timer_hours"
+            android:layout_marginTop="25dp"
+            android:paddingHorizontal="10dp"
+            android:text="dodaj"
+            android:textColor="@android:color/holo_green_light" />
+
+    </RelativeLayout>
+</ScrollView>

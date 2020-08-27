@@ -51,6 +51,11 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
         notifyDataSetChanged();
     }
 
+    public List<Volunteer> getVolunteers()
+    {
+        return volunteers;
+    }
+
     public class VolunteerHolder extends RecyclerView.ViewHolder
     {
         private CheckBox checkBox;

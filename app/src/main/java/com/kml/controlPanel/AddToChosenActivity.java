@@ -1,13 +1,23 @@
 package com.kml.controlPanel;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.widget.CheckBox;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kml.SummaryInputData;
 import com.kml.aGlobalUses.KmlApp;
 import com.kml.R;
 
@@ -20,26 +30,122 @@ import java.util.List;
 
 public class AddToChosenActivity extends AppCompatActivity
 {
+    public static final String EXTRA_CHECKED_VOLUNTEERS = "com.kml.controlPanel.EXTRA_CHECKED_VOLUNTEERS";
 
     RecyclerView recyclerView;
     VolunteerAdapter adapter;
+    ArrayList<Volunteer> checkedVolunteers;
+    List<Volunteer> volunteers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_choosed);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Dodaj godziny wybranym wolontariuszom");
+        setTitle("Zaznacz wolontariuszy:");
         KmlApp.isFromControlPanel = true;
 
-
+        checkedVolunteers = new ArrayList<>();
         DbGetAllUsersData dbGetAllUsersData = new DbGetAllUsersData();
         dbGetAllUsersData.start();
         String result = dbGetAllUsersData.getResult();
 
         fillRecycleView(result);
 
+        volunteers = adapter.getVolunteers();
 
+        TextView selectAllTextView = findViewById(R.id.control_panel_select_all);
+        selectAllTextView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                selectAllVolunteers();
+            }
+        });
+
+        TextView deselectAllTextView = findViewById(R.id.control_panel_deselect);
+        deselectAllTextView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                deselectAllVolunteers();
+            }
+        });
+
+        EditText searchEditText = findViewById(R.id.control_panel_search_by_first_name);
+        searchEditText.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                filterArrayByName(editable.toString());
+            }
+        });
+
+        FloatingActionButton actionButton = findViewById(R.id.control_panel_floating_button);
+        actionButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                sendIntentWithCheckedList();
+            }
+        });
+    }
+
+    private void sendIntentWithCheckedList()
+    {
+        if (checkedVolunteers.size() > 0) {
+            Intent intent = new Intent(this, SummaryInputData.class);
+            intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Musisz wybrać przynajmniej jedną osobe!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void filterArrayByName(String typedText)
+    {
+        List<Volunteer> filteredVolunteers = new ArrayList<>();
+        for (Volunteer volunteer : volunteers) {
+            if (volunteer.getFirstName().toLowerCase().contains(typedText.toLowerCase())) {
+                filteredVolunteers.add(volunteer);
+            }
+        }
+        adapter.setVolunteers(filteredVolunteers);
+    }
+
+    private void selectAllVolunteers()
+    {
+        for (Volunteer volunteer : volunteers) {
+            volunteer.setChecked(true);
+        }
+        checkedVolunteers.addAll(volunteers);
+        adapter.setVolunteers(volunteers);
+    }
+
+    private void deselectAllVolunteers()
+    {
+        for (Volunteer volunteer : volunteers) {
+            volunteer.setChecked(false);
+        }
+        checkedVolunteers.removeAll(checkedVolunteers);
+        adapter.setVolunteers(volunteers);
     }
 
     private void fillRecycleView(String result)
@@ -66,27 +172,30 @@ public class AddToChosenActivity extends AppCompatActivity
             @Override
             public void OnItemClick(Volunteer volunteer)
             {
-                if(volunteer.isChecked())
-                {
+                if (volunteer.isChecked()) {
                     volunteer.setChecked(false);
-                    removeFromCheckedUsers(volunteer);
-                }
-                else
-                {
+                    removeFromCheckedVolunteers(volunteer);
+                } else {
                     volunteer.setChecked(true);
-                    addToCheckedUsers(volunteer);
+                    addToCheckedVolunteers(volunteer);
                 }
+
             }
         });
     }
 
-    private void addToCheckedUsers(Volunteer volunteer)
+    private void addToCheckedVolunteers(Volunteer volunteer)
     {
-
+        checkedVolunteers.add(volunteer);
     }
 
-    private void removeFromCheckedUsers(Volunteer volunteer)
+    private void removeFromCheckedVolunteers(Volunteer volunteer)
     {
+        for (int i = 0; i < checkedVolunteers.size(); i++) {
+            if (volunteer.getId() == checkedVolunteers.get(i).getId()) {
+                checkedVolunteers.remove(i);
+            }
+        }
 
     }
 
@@ -98,7 +207,7 @@ public class AddToChosenActivity extends AppCompatActivity
             JSONArray jsonArray = new JSONArray(result);
             volunteers = fillArrayFromJson(jsonArray);
         } catch (JSONException e) {
-            Log.d("RESULT_FROM_JSON", "onException: "+e.getMessage());
+            Log.d("RESULT_FROM_JSON", "onException: " + e.getMessage());
         }
         return volunteers;
     }
@@ -107,11 +216,10 @@ public class AddToChosenActivity extends AppCompatActivity
     {
         JSONObject jsonObject;
         List<Volunteer> volunteers = new ArrayList<>();
-        for (int i=0;i<=jsonArray.length()-1;i++)
-        {
+        for (int i = 0; i <= jsonArray.length() - 1; i++) {
             jsonObject = jsonArray.getJSONObject(i);
             volunteers.add(new Volunteer
-                    (jsonObject.getInt("id"),jsonObject.getString("imie"),jsonObject.getString("nazwisko"), false));
+                    (jsonObject.getInt("id"), jsonObject.getString("imie"), jsonObject.getString("nazwisko"), false));
         }
         return volunteers;
     }
