@@ -1,4 +1,4 @@
-package com.kml.internalRoomDatabase;
+package com.kml.searchEngine.internalRoomDatabase;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

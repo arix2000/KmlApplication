@@ -1,4 +1,4 @@
-package com.kml.supportClasses;
+package com.kml.aGlobalUses;
 
 import android.content.Context;
 import android.util.Log;

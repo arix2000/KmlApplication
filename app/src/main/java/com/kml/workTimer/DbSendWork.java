@@ -1,8 +1,8 @@
-package com.kml.externalDbOperations;
+package com.kml.workTimer;
 
 import android.util.Log;
 
-import com.kml.KmlApp;
+import com.kml.aGlobalUses.KmlApp;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

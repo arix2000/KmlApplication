@@ -1,4 +1,4 @@
-package com.kml.recycleViewThings;
+package com.kml.searchEngine.RecycleView;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -12,26 +12,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.kml.R;
-import com.kml.internalRoomDatabase.Game;
+import com.kml.searchEngine.internalRoomDatabase.Game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.NoteHolder>
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameHolder>
 {
     private List<Game> games = new ArrayList<>();
     private OnItemClickListener listener;
     @NonNull
     @Override
-    public NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public GameHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_layout, parent, false);
-        return new NoteHolder(itemView);
+        return new GameHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteHolder holder, int position)
+    public void onBindViewHolder(@NonNull GameHolder holder, int position)
     {
         Game currentGame = games.get(position);
         holder.textViewName.setText(currentGame.getName());
@@ -41,7 +41,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.NoteHolder>
 
     }
 
-    private void setColorsByCategories(NoteHolder holder, Game currentGame)
+    private void setColorsByCategories(GameHolder holder, Game currentGame)
     {
         String colorGreen = "#DDb0f7a8";
         String colorBlue = "#DDaca8f7";
@@ -69,15 +69,15 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.NoteHolder>
         this.games = games;
         notifyDataSetChanged();
     }
-    class NoteHolder extends RecyclerView.ViewHolder
+    class GameHolder extends RecyclerView.ViewHolder
     {
         private CardView itemBackground;
         private TextView textViewName;
         private TextView textViewDescription;
         private TextView textViewNumberOfKids;
-        public NoteHolder(View itemView) {
+        public GameHolder(View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.row_name);
+            textViewName = itemView.findViewById(R.id.row_user_name);
             textViewDescription = itemView.findViewById(R.id.row_description);
             textViewNumberOfKids = itemView.findViewById(R.id.row_number_of_kids);
             itemBackground = itemView.findViewById(R.id.item_background);
@@ -105,7 +105,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.NoteHolder>
     public void setOnItemClickListener(OnItemClickListener listener)
     {
         this.listener = listener;
-
     }
 }
 

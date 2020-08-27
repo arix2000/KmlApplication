@@ -1,4 +1,4 @@
-package com.kml.supportClasses;
+package com.kml.workTimer;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -12,11 +12,12 @@ import androidx.core.app.NotificationCompat;
 
 import com.kml.MainActivity;
 import com.kml.R;
+import com.kml.aGlobalUses.FileOperations;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.kml.KmlApp.CHANNEL_1_ID;
+import static com.kml.aGlobalUses.KmlApp.CHANNEL_1_ID;
 
 public class TimerService extends Service
 {

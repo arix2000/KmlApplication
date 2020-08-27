@@ -1,4 +1,4 @@
-package com.kml.fragments;
+package com.kml.searchEngine;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.kml.recycleViewThings.ShowRecycleViewActivity;
+import com.kml.searchEngine.RecycleView.ShowRecycleViewActivity;
 import com.kml.R;
 
 public class SearchEngineFragment extends Fragment

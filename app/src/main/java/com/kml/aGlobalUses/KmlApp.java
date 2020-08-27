@@ -1,4 +1,4 @@
-package com.kml;
+package com.kml.aGlobalUses;
 
 /*
 * Aplikacja stworzona dla Fundacji Klubu Młodych Liderow do wpisywania sobie godzin pracy a także oglądania aktualnych postępów
@@ -30,6 +30,7 @@ public class KmlApp extends Application
     public static String firstName;
     public static String lastName;
     public static boolean isFromRecycleViewActivity;
+    public static boolean isFromControlPanel;
 
 
     @Override

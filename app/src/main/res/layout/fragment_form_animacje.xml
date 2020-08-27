@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="17dp"
-        tools:context=".fragments.SearchEngineFragment">
+        tools:context=".searchEngine.SearchEngineFragment">
 
         <TextView
             style="@style/form_text_views"

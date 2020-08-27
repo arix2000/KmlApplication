@@ -1,4 +1,4 @@
-package com.kml.fragments;
+package com.kml.profile;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -26,12 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.kml.externalDbOperations.DbChangePass;
-import com.kml.externalDbOperations.DbGetUserData;
-import com.kml.KmlApp;
-import com.kml.LoginScreen;
+import com.kml.aGlobalUses.KmlApp;
+import com.kml.aLoginScreen.LoginScreen;
 import com.kml.R;
-import com.kml.supportClasses.FileOperations;
+import com.kml.aGlobalUses.FileOperations;
 
 
 public class ProfileFragment extends Fragment

@@ -1,4 +1,4 @@
-package com.kml;
+package com.kml.aLoginScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +14,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.kml.externalDbOperations.DbLogin;
-import com.kml.supportClasses.FileOperations;
+import com.kml.MainActivity;
+import com.kml.R;
+import com.kml.aGlobalUses.FileOperations;
+import com.kml.aGlobalUses.KmlApp;
 
 import java.util.concurrent.ExecutionException;
 

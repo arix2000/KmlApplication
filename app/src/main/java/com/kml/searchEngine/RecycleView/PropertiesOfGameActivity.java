@@ -1,4 +1,4 @@
-package com.kml.recycleViewThings;
+package com.kml.searchEngine.RecycleView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,9 +9,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.kml.R;
-import com.kml.fragments.SearchEngineFragment;
+import com.kml.searchEngine.SearchEngineFragment;
 
-public class PropertiesOfGame extends AppCompatActivity
+public class PropertiesOfGameActivity extends AppCompatActivity
 {
     ScrollView scrollView;
     TextView textViewName;

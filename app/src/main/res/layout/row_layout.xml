@@ -21,7 +21,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
-            android:id="@+id/row_name"
+            android:id="@+id/row_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -35,7 +35,7 @@
             android:id="@+id/row_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/row_name"
+            android:layout_below="@id/row_user_name"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Opis" />

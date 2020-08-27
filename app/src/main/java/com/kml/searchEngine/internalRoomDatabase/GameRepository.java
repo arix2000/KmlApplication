@@ -1,4 +1,4 @@
-package com.kml.internalRoomDatabase;
+package com.kml.searchEngine.internalRoomDatabase;
 
 import android.app.Application;
 

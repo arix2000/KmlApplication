@@ -1,7 +1,5 @@
-package com.kml.externalDbOperations;
+package com.kml.aLoginScreen;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 

@@ -8,7 +8,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,11 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
-import com.kml.fragments.ControlPanelFragment;
-import com.kml.supportClasses.TimerService;
-import com.kml.fragments.ProfileFragment;
-import com.kml.fragments.SearchEngineFragment;
-import com.kml.fragments.WorkTimerFragment;
+import com.kml.aGlobalUses.KmlApp;
+import com.kml.controlPanel.ControlPanelFragment;
+import com.kml.workTimer.TimerService;
+import com.kml.profile.ProfileFragment;
+import com.kml.searchEngine.SearchEngineFragment;
+import com.kml.workTimer.WorkTimerFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -67,6 +67,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchEngineFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_search_engine);
             KmlApp.isFromRecycleViewActivity=false;
+        }
+
+        if(KmlApp.isFromControlPanel)
+        {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ControlPanelFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_control_panel);
+            KmlApp.isFromControlPanel=false;
         }
 
         if(KmlApp.loginId == 9)

@@ -1,4 +1,4 @@
-package com.kml.fragments;
+package com.kml.workTimer;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,12 +23,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.kml.externalDbOperations.DbSendWork;
-import com.kml.KmlApp;
-import com.kml.supportClasses.FileOperations;
+import com.kml.aGlobalUses.KmlApp;
+import com.kml.aGlobalUses.FileOperations;
 import com.kml.MainActivity;
 import com.kml.R;
-import com.kml.supportClasses.TimerService;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,4 +1,4 @@
-package com.kml.recycleViewThings;
+package com.kml.searchEngine.RecycleView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +17,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.kml.KmlApp;
+import com.kml.aGlobalUses.KmlApp;
 import com.kml.R;
-import com.kml.internalRoomDatabase.Game;
-import com.kml.internalRoomDatabase.GameViewModel;
-import com.kml.fragments.SearchEngineFragment;
+import com.kml.searchEngine.internalRoomDatabase.Game;
+import com.kml.searchEngine.internalRoomDatabase.GameViewModel;
+import com.kml.searchEngine.SearchEngineFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class ShowRecycleViewActivity extends AppCompatActivity
         takenData = getIntent();
         getDataFromIntent();
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.search_engine_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         final GameAdapter adapter = new GameAdapter();
@@ -98,7 +98,7 @@ public class ShowRecycleViewActivity extends AppCompatActivity
             @Override
             public void OnItemClick(Game game)
             {
-                Intent intent = new Intent(ShowRecycleViewActivity.this, PropertiesOfGame.class);
+                Intent intent = new Intent(ShowRecycleViewActivity.this, PropertiesOfGameActivity.class);
                 intent.putExtra(SearchEngineFragment.EXTRA_NAME, game.getName());
                 intent.putExtra(SearchEngineFragment.EXTRA_DESCRIPTION, game.getDescription());
                 intent.putExtra(SearchEngineFragment.EXTRA_REQUIREMENTS, game.getRequirements());
