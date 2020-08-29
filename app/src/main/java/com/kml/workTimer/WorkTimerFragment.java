@@ -311,7 +311,7 @@ public class WorkTimerFragment extends Fragment
         dialog.setContentView(R.layout.dialog_new_work_instant);
         dialog.show();
 
-        Button confirm = dialog.findViewById(R.id.dialog_timer_confirm_instant);
+        Button confirm = dialog.findViewById(R.id.summary_activity_send_work);
         confirm.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -320,8 +320,8 @@ public class WorkTimerFragment extends Fragment
                 String instantHours, instantMinutes;
                 EditText workNameEditText = dialog.findViewById(R.id.timer_work_name_instant);
                 EditText workDescriptionEditText = dialog.findViewById(R.id.timer_work_description_instant);
-                EditText hoursEditText = dialog.findViewById(R.id.dialog_timer_hours);
-                EditText minutesEditText = dialog.findViewById(R.id.dialog_timer_minutes);
+                EditText hoursEditText = dialog.findViewById(R.id.summary_activity_hours);
+                EditText minutesEditText = dialog.findViewById(R.id.summary_activity_minutes);
 
                 workName = workNameEditText.getText().toString();
                 workDescription = workDescriptionEditText.getText().toString();

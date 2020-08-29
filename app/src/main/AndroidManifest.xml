@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SummaryInputData"
+        <activity android:name=".controlPanel.SummaryInputDataActivity"
             android:parentActivityName=".controlPanel.AddToChosenActivity"/>
         <activity
             android:name=".controlPanel.AddToChosenActivity"

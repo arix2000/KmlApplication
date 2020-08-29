@@ -20,7 +20,7 @@ public class DbGetAllUsersData extends Thread
 
     public DbGetAllUsersData()
     {
-        address = "http://192.168.1.106/KmlApp_WebApi/getAllDataAboutUser.php";
+        address = "http://sobos.ssd-linuxpl.com/getAllDataAboutUser.php";
         result = new StringBuilder();
     }
 
@@ -37,7 +37,6 @@ public class DbGetAllUsersData extends Thread
         }
 
         setResult(dataFromDb);
-
     }
 
     private void setConnection() throws IOException
@@ -47,7 +46,6 @@ public class DbGetAllUsersData extends Thread
         conn.setDoOutput(true);
         conn.setDoInput(true);
         conn.setRequestMethod("POST");
-
     }
 
     private StringBuilder getAllDataFromDb() throws IOException

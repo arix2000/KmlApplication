@@ -59,7 +59,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/dialog_timer_hours"
+                android:id="@+id/summary_activity_hours"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -70,13 +70,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/dialog_timer_hours"
+                android:layout_toRightOf="@+id/summary_activity_hours"
                 android:text="godzin"
                 android:textColor="@color/BlackContent"
                 android:textSize="17dp" />
 
             <EditText
-                android:id="@+id/dialog_timer_minutes"
+                android:id="@+id/summary_activity_minutes"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/text_view_minut_dialog"
@@ -108,7 +108,7 @@
                 android:text="Anuluj" />
 
             <Button
-                android:id="@+id/dialog_timer_confirm_instant"
+                android:id="@+id/summary_activity_send_work"
                 style="@style/buttons"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"

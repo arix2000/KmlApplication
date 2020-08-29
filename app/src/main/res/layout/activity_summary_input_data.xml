@@ -9,20 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        tools:context=".SummaryInputData">
+        tools:context=".controlPanel.SummaryInputDataActivity">
 
         <TextView
-            android:id="@+id/summary_input_text_view_chosen"
+            android:id="@+id/summary_activity_text_view_chosen"
             style="@style/form_text_views"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wybrani wolontariusze:" />
 
         <TextView
-            android:id="@+id/summary_input_chosen_volunteers"
+            android:id="@+id/summary_activity_chosen_volunteers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/summary_input_text_view_chosen"
+            android:layout_below="@+id/summary_activity_text_view_chosen"
             android:gravity="center"
             android:text="Wybrani"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -31,18 +31,32 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/summary_input_text_view_time"
+            android:id="@+id/summary_activity_text_view__work_name"
             style="@style/form_text_views"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/summary_input_chosen_volunteers"
+            android:layout_below="@id/summary_activity_chosen_volunteers"
+            android:text="Nazwa działania:" />
+
+        <EditText
+            android:id="@+id/summary_activity_work_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/summary_activity_text_view__work_name"/>
+
+        <TextView
+            android:id="@+id/summary_activity_text_view_time"
+            style="@style/form_text_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/summary_activity_work_name"
             android:text="Wpisz czas:" />
 
 
         <EditText
-            android:id="@+id/dialog_timer_hours"
+            android:id="@+id/summary_activity_hours"
             android:layout_width="60dp"
-            android:layout_below="@id/summary_input_text_view_time"
+            android:layout_below="@id/summary_activity_text_view_time"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:inputType="number" />
@@ -52,22 +66,22 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
-            android:layout_alignBottom="@+id/dialog_timer_hours"
-            android:layout_toRightOf="@+id/dialog_timer_hours"
+            android:layout_alignBottom="@+id/summary_activity_hours"
+            android:layout_toRightOf="@+id/summary_activity_hours"
             android:text="godzin"
             android:textColor="@color/BlackContent"
             android:textSize="17dp" />
 
         <EditText
-            android:id="@+id/dialog_timer_minutes"
+            android:id="@+id/summary_activity_minutes"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/dialog_timer_hours"
+            android:layout_alignBottom="@+id/summary_activity_hours"
             android:layout_toLeftOf="@+id/text_view_minut_dialog"
             android:inputType="number" />
 
         <TextView
-            android:layout_alignBottom="@+id/dialog_timer_minutes"
+            android:layout_alignBottom="@+id/summary_activity_minutes"
             android:id="@+id/text_view_minut_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,15 +93,15 @@
             android:textSize="17dp" />
 
         <Button
-            android:id="@+id/dialog_timer_confirm_instant"
+            android:id="@+id/summary_activity_send_work"
             style="@style/buttons"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/dialog_timer_hours"
+            android:layout_below="@+id/summary_activity_hours"
             android:layout_marginTop="25dp"
             android:paddingHorizontal="10dp"
-            android:text="dodaj"
+            android:text="wyślij"
             android:textColor="@android:color/holo_green_light" />
 
     </RelativeLayout>

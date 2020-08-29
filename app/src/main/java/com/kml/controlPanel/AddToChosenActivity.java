@@ -1,13 +1,11 @@
 package com.kml.controlPanel;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.kml.SummaryInputData;
 import com.kml.aGlobalUses.KmlApp;
 import com.kml.R;
 
@@ -111,7 +108,7 @@ public class AddToChosenActivity extends AppCompatActivity
     private void sendIntentWithCheckedList()
     {
         if (checkedVolunteers.size() > 0) {
-            Intent intent = new Intent(this, SummaryInputData.class);
+            Intent intent = new Intent(this, SummaryInputDataActivity.class);
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers);
             startActivity(intent);
         } else {
@@ -134,8 +131,9 @@ public class AddToChosenActivity extends AppCompatActivity
     {
         for (Volunteer volunteer : volunteers) {
             volunteer.setChecked(true);
+            addToCheckedVolunteers(volunteer);
         }
-        checkedVolunteers.addAll(volunteers);
+
         adapter.setVolunteers(volunteers);
     }
 
@@ -186,6 +184,7 @@ public class AddToChosenActivity extends AppCompatActivity
 
     private void addToCheckedVolunteers(Volunteer volunteer)
     {
+        if(!checkedVolunteers.contains(volunteer))
         checkedVolunteers.add(volunteer);
     }
 

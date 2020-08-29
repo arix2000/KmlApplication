@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             KmlApp.isFromControlPanel=false;
         }
 
-        if(KmlApp.loginId == 9)
+        if(KmlApp.loginId == 9 || KmlApp.loginId == 14)
         {
             navigationView.getMenu().getItem(CONTROL_PANEL_ITEM_ID).setVisible(true);
         }
