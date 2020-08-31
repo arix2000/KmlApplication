@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.kml.MainActivity;
 import com.kml.R;
-import com.kml.aGlobalUses.FileOperations;
+import com.kml.aGlobalUses.FileFactory;
 import com.kml.aGlobalUses.KmlApp;
 
 import java.util.concurrent.ExecutionException;
@@ -25,7 +25,7 @@ public class LoginScreen extends AppCompatActivity
 {
     private EditText editTextLogin, editTextPassword;
     private Button logIn;
-    private FileOperations cache;
+    private FileFactory cache;
     private ProgressBar progressBar;
     public static boolean isLog;
 
@@ -36,7 +36,7 @@ public class LoginScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        cache = new FileOperations(this);
+        cache = new FileFactory(this);
         editTextLogin = findViewById(R.id.login);
         editTextPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.login_screen_progres_bar);
@@ -70,9 +70,9 @@ public class LoginScreen extends AppCompatActivity
 
     private void tryToAutoLogIn()
     {
-        if (cache.readFromFile(FileOperations.DATA_TXT) != null) {
-            if (cache.readFromFile(FileOperations.DATA_TXT).contains(";")) {
-                String[] content = cache.readFromFile(FileOperations.DATA_TXT).split(";");
+        if (cache.readFromFile(FileFactory.DATA_TXT) != null) {
+            if (cache.readFromFile(FileFactory.DATA_TXT).contains(";")) {
+                String[] content = cache.readFromFile(FileFactory.DATA_TXT).split(";");
                 editTextLogin.setText(content[0]);
                 editTextPassword.setText(content[1]);
             }
@@ -97,7 +97,7 @@ public class LoginScreen extends AppCompatActivity
         long elapsedTime = timeOnEnd - timeOnStart;
 
         if (result.contains("true")) {
-            cache.saveStateToFile(login + ";" + password, FileOperations.DATA_TXT);
+            cache.saveStateToFile(login + ";" + password, FileFactory.DATA_TXT);
             getLoginId(result);
             startActivity(intent);
         } else if (elapsedTime > 6000) {

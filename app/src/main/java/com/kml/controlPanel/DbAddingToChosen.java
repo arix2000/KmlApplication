@@ -2,6 +2,7 @@ package com.kml.controlPanel;
 
 import android.util.Log;
 
+import com.kml.aGlobalUses.ExternalDbHelper;
 import com.kml.aGlobalUses.KmlApp;
 
 import java.io.BufferedReader;
@@ -15,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class DbAddingToChosen extends Thread
+public class DbAddingToChosen extends ExternalDbHelper
 {
     private String address;
     private String result;
@@ -43,23 +44,13 @@ public class DbAddingToChosen extends Thread
     public void run()
     {
         try {
-            setConnection();
+            conn = setConnection(address);
             convertTimeToSend();
             sendData();
-            result = readResults();
+            result = readResult(conn);
         } catch (IOException e) {
             Log.d("IO_EXCEPTION", "run: " + e.getMessage());
         }
-        Log.d("RESULT_FROM_DB", "run: "+result);
-    }
-
-    private void setConnection() throws IOException
-    {
-        URL url = new URL(address);
-        conn = (HttpURLConnection) url.openConnection();
-        conn.setDoOutput(true);
-        conn.setDoInput(true);
-        conn.setRequestMethod("POST");
     }
 
     private void convertTimeToSend()
@@ -88,23 +79,6 @@ public class DbAddingToChosen extends Thread
         writer.write(dataToSend);
         writer.flush();
         writer.close(); outStream.close();
-    }
-
-    private String readResults() throws IOException
-    {
-        InputStream inputStream = conn.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
-        String line;
-        StringBuilder readResult = new StringBuilder();
-
-        while((line=reader.readLine()) != null)
-        {
-            readResult.append(line);
-        }
-        inputStream.close(); reader.close();
-        conn.disconnect();
-
-        return readResult.toString();
     }
 
     public String getResult()

@@ -24,7 +24,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.kml.aGlobalUses.KmlApp;
-import com.kml.aGlobalUses.FileOperations;
+import com.kml.aGlobalUses.FileFactory;
 import com.kml.MainActivity;
 import com.kml.R;
 
@@ -40,7 +40,7 @@ public class WorkTimerFragment extends Fragment
     private Animation circleAnim;
     private TextView textViewSeconds, textViewMinutes, textViewHours;
     private CountingThread countingThread;
-    private FileOperations fileOperations;
+    private FileFactory fileFactory;
     private String workName, workDescription, secondsFormatted, minutesFormatted, hoursFormatted;
     private int minutes, seconds, hours;
     private long lastClickTime = 0;
@@ -57,7 +57,7 @@ public class WorkTimerFragment extends Fragment
         textViewSeconds = root.findViewById(R.id.timer_counter_seconds);
         textViewMinutes = root.findViewById(R.id.timer_counter_minutes);
         textViewHours = root.findViewById(R.id.timer_counter_hours);
-        fileOperations = new FileOperations(root.getContext());
+        fileFactory = new FileFactory(root.getContext());
 
         btnAddWork = root.findViewById(R.id.btn_add_work);
         btnAddWork.setOnClickListener(new View.OnClickListener()
@@ -83,8 +83,8 @@ public class WorkTimerFragment extends Fragment
 
                 if (!isTimerRunning) {
                     if (MainActivity.isFirstClick) {
-                        if (fileOperations.readFromFile(FileOperations.CURRENT_TIME_TXT) != null
-                                && fileOperations.readFromFile(FileOperations.CURRENT_TIME_TXT).contains(";")) {
+                        if (fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT) != null
+                                && fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT).contains(";")) {
                             showDialogToRestore();
                         } else startCounting();
                         MainActivity.isFirstClick = false;
@@ -185,7 +185,7 @@ public class WorkTimerFragment extends Fragment
     public void onStop()
     {
         if (!isTimerRunning && hours > 0 || minutes > 0 || seconds >= 10) {
-            fileOperations.saveStateToFile(seconds + ";" + minutes + ";" + hours, FileOperations.CURRENT_TIME_TXT);
+            fileFactory.saveStateToFile(seconds + ";" + minutes + ";" + hours, FileFactory.CURRENT_TIME_TXT);
         }
         super.onStop();
     }
@@ -198,7 +198,7 @@ public class WorkTimerFragment extends Fragment
         timerCircle.startAnimation(circleAnim);
         isTimerRunning = true;
         countingThread.start();
-        fileOperations.clearFileState(FileOperations.CURRENT_TIME_TXT);
+        fileFactory.clearFileState(FileFactory.CURRENT_TIME_TXT);
     }
 
     private void pauseCounting()
@@ -216,7 +216,7 @@ public class WorkTimerFragment extends Fragment
         minutes = 0;
         hours = 0;
         pauseCounting();
-        fileOperations.clearFileState(FileOperations.CURRENT_TIME_TXT);
+        fileFactory.clearFileState(FileFactory.CURRENT_TIME_TXT);
     }
 
     private void writeTimeOnLayout(String secondsFormatted, String minutesFormatted, String hoursFormatted)
@@ -433,7 +433,7 @@ public class WorkTimerFragment extends Fragment
 
     private void setTimeFromFile()
     {
-        String fromFile = fileOperations.readFromFile(FileOperations.CURRENT_TIME_TXT);
+        String fromFile = fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT);
         String[] HMS = fromFile.split(";");
         Log.d("ARRAY_HMS", "setTimeFromFile: " + HMS[0]);
         seconds = Integer.parseInt(HMS[0]);

@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class FileOperations
+public class FileFactory
 {
     public static final String CURRENT_TIME_TXT = "currentTime.txt";
     public static final String DATA_TXT = "data.txt";
@@ -18,7 +18,7 @@ public class FileOperations
     public static final String PROFILE_KEEP_DATA_TXT = "profileKeepData.txt";
     private Context context;
 
-    public FileOperations(Context context)
+    public FileFactory(Context context)
     {
         this.context = context;
     }

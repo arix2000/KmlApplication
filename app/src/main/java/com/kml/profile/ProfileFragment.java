@@ -29,7 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.kml.aGlobalUses.KmlApp;
 import com.kml.aLoginScreen.LoginScreen;
 import com.kml.R;
-import com.kml.aGlobalUses.FileOperations;
+import com.kml.aGlobalUses.FileFactory;
 
 
 public class ProfileFragment extends Fragment
@@ -37,7 +37,7 @@ public class ProfileFragment extends Fragment
     View root;
     public static final int PICK_IMAGE = 1;
     ImageView profilePhoto, changePassImageView;
-    FileOperations dataFile;
+    FileFactory dataFile;
     TextView textViewFullName, textViewJoinYear, textViewTimeOfWorkSeason, textViewTimeOfWorkMonth, textViewSections, textViewType;
     String firstName, lastName, joinYear, timeOfWorkSeason, sections, type, fullName, timeOfWorkMonth;
     ProgressBar progressBar;
@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment
         progressBar = root.findViewById(R.id.profile_progress_bar);
         changePassImageView = root.findViewById(R.id.change_pass);
 
-        dataFile = new FileOperations(root.getContext());
+        dataFile = new FileFactory(root.getContext());
         profilePhoto = root.findViewById(R.id.profile_photo);
         profilePhoto.setOnClickListener(new View.OnClickListener()
         {
@@ -253,7 +253,7 @@ public class ProfileFragment extends Fragment
         textViewTimeOfWorkMonth.setText(readAbleTimeMonth);
 
         dataFile.saveStateToFile(firstName + ";" + lastName + ";" + joinYear + ";" + timeOfWorkSeason
-                + ";" + sections + ";" + type + ";" + timeOfWorkMonth, FileOperations.PROFILE_KEEP_DATA_TXT);
+                + ";" + sections + ";" + type + ";" + timeOfWorkMonth, FileFactory.PROFILE_KEEP_DATA_TXT);
     }
 
     private String convertToReadable(String timeOfWork)
@@ -294,7 +294,7 @@ public class ProfileFragment extends Fragment
     private void fillDataFromFile()
     {
         Toast.makeText(root.getContext(), "Brak połącznia z internetem! wczytano ostatnie dane", Toast.LENGTH_SHORT).show();
-        String dataFromFile = dataFile.readFromFile(FileOperations.PROFILE_KEEP_DATA_TXT);
+        String dataFromFile = dataFile.readFromFile(FileFactory.PROFILE_KEEP_DATA_TXT);
 
         if (!dataFromFile.isEmpty() || !dataFromFile.equals("")) {
             String[] splitData = dataFromFile.split(";");
@@ -321,19 +321,19 @@ public class ProfileFragment extends Fragment
             }
         }
         if (data != null)
-            dataFile.saveStateToFile(data.getData().toString(), FileOperations.PROFILE_PHOTO_PATCH_TXT);
+            dataFile.saveStateToFile(data.getData().toString(), FileFactory.PROFILE_PHOTO_PATCH_TXT);
     }
 
     @Override
     public void onResume()
     {
-        if (dataFile.readFromFile(FileOperations.PROFILE_PHOTO_PATCH_TXT) != null) {
+        if (dataFile.readFromFile(FileFactory.PROFILE_PHOTO_PATCH_TXT) != null) {
             new Thread(new Runnable()
             {
                 @Override
                 public void run()
                 {
-                    String path = dataFile.readFromFile(FileOperations.PROFILE_PHOTO_PATCH_TXT);
+                    String path = dataFile.readFromFile(FileFactory.PROFILE_PHOTO_PATCH_TXT);
                     if (path != null && !path.isEmpty()) {
                         final Uri photoUri = Uri.parse(path);
 
@@ -347,7 +347,7 @@ public class ProfileFragment extends Fragment
                                     profilePhoto.setImageURI(photoUri);
                                 } catch (Exception e) {
                                     Log.e("PERMISSIONERROR", "onResume: " + e.getMessage());
-                                    dataFile.saveStateToFile("", FileOperations.PROFILE_PHOTO_PATCH_TXT); //clear state
+                                    dataFile.saveStateToFile("", FileFactory.PROFILE_PHOTO_PATCH_TXT); //clear state
                                 }
                             }
                         }, 300);

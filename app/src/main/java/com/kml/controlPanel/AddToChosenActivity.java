@@ -195,7 +195,6 @@ public class AddToChosenActivity extends AppCompatActivity
                 checkedVolunteers.remove(i);
             }
         }
-
     }
 
     private List<Volunteer> createListFromJson(String result)

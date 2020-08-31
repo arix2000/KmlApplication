@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.kml.MainActivity;
 import com.kml.R;
-import com.kml.aGlobalUses.FileOperations;
+import com.kml.aGlobalUses.FileFactory;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +27,7 @@ public class TimerService extends Service
     public static boolean isServiceRunning;
     public static boolean exitServiceThread;
     public static boolean wasPlayClicked;
-    FileOperations fileOperations;
+    FileFactory fileFactory;
 
     @Override
     public IBinder onBind(Intent intent)
@@ -41,8 +41,8 @@ public class TimerService extends Service
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
-        fileOperations = new FileOperations(this);
-        fileOperations.saveStateToFile(seconds + ";" + minutes + ";" + hours, FileOperations.CURRENT_TIME_TXT);
+        fileFactory = new FileFactory(this);
+        fileFactory.saveStateToFile(seconds + ";" + minutes + ";" + hours, FileFactory.CURRENT_TIME_TXT);
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 .setContentTitle("Stoper jest uruchomiony")
@@ -89,7 +89,7 @@ public class TimerService extends Service
 
     public void saveStateToFile()
     {
-        fileOperations.saveStateToFile(seconds + ";" + minutes + ";" + hours, FileOperations.CURRENT_TIME_TXT);
+        fileFactory.saveStateToFile(seconds + ";" + minutes + ";" + hours, FileFactory.CURRENT_TIME_TXT);
     }
 
 
