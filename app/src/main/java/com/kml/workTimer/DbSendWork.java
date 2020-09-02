@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -39,44 +40,56 @@ public class DbSendWork extends ExternalDbHelper
 
     @Override
     public void run()
-
     {
         mResult = false;
         float timeToSend;
-        int loginId = KmlApp.loginId;
         timeToSend = hours + (float) minutes / 60;
-
-        // zaokraglenie do dwóch miejsc po przecinku, inny sposób po prostu nie działał
-        timeToSend = timeToSend*100;
-        timeToSend= Math.round(timeToSend);
-        timeToSend = timeToSend / 100;
-
-        String workTimeExact = hours+"h "+minutes+"min";
-        StringBuilder result = new StringBuilder();
+        timeToSend = roundToTwoDecimalPoint(timeToSend);
 
         String address = "http://sobos.ssd-linuxpl.com/updateCzasPracy.php";
         HttpURLConnection httpConnection = setConnection(address);
         try {
-
-            OutputStream outStream = httpConnection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream,"UTF-8"));
-            String dataToSend = URLEncoder.encode("czasPracy","UTF-8")+"="+URLEncoder.encode(String.valueOf(timeToSend),"UTF-8")
-                    +"&&"+URLEncoder.encode("loginId","UTF-8")+"="+ URLEncoder.encode(String.valueOf(loginId),"UTF-8")
-                    +"&&"+URLEncoder.encode("nazwaZadania","UTF-8")+"="+URLEncoder.encode(workName,"UTF-8")
-                    +"&&"+URLEncoder.encode("opisZadania","UTF-8")+"="+ URLEncoder.encode(workDescription,"UTF-8")
-                    +"&&"+URLEncoder.encode("workTimeExact","UTF-8")+"="+ URLEncoder.encode(workTimeExact,"UTF-8")
-                    +"&&"+URLEncoder.encode("imie","UTF-8")+"="+ URLEncoder.encode(firstName,"UTF-8")
-                    +"&&"+URLEncoder.encode("nazwisko","UTF-8")+"="+ URLEncoder.encode(lastName,"UTF-8");
-
-            writer.write(dataToSend);
-            writer.flush();
-            writer.close(); outStream.close();
-
+            sendData(httpConnection, timeToSend);
             mResult = readResult(httpConnection).equals("true");
 
         } catch (IOException e) {
-            Log.d("IO_EXCEPTION", "run: "+result.append(e.getMessage()));
+            Log.d("IO_EXCEPTION", "run: " + e.getMessage());
         }
+    }
+
+    private float roundToTwoDecimalPoint(float timeToSend)
+    {
+        timeToSend = timeToSend * 100;
+        timeToSend = Math.round(timeToSend);
+        timeToSend = timeToSend / 100;
+        return timeToSend;
+    }
+
+    private void sendData(HttpURLConnection connection, float timeToSend) throws IOException
+    {
+        OutputStream outStream = connection.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream, "UTF-8"));
+
+        String dataToSend = setDataToSend(timeToSend);
+
+        writer.write(dataToSend);
+        writer.flush();
+        writer.close();
+        outStream.close();
+
+    }
+
+    private String setDataToSend(float timeToSend) throws UnsupportedEncodingException
+    {
+        String workTimeExact = hours + "h " + minutes + "min";
+        String dataToSend = URLEncoder.encode("czasPracy", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(timeToSend), "UTF-8")
+                + "&&" + URLEncoder.encode("loginId", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(KmlApp.loginId), "UTF-8")
+                + "&&" + URLEncoder.encode("nazwaZadania", "UTF-8") + "=" + URLEncoder.encode(workName, "UTF-8")
+                + "&&" + URLEncoder.encode("opisZadania", "UTF-8") + "=" + URLEncoder.encode(workDescription, "UTF-8")
+                + "&&" + URLEncoder.encode("czasPracyDokladny", "UTF-8") + "=" + URLEncoder.encode(workTimeExact, "UTF-8")
+                + "&&" + URLEncoder.encode("imie", "UTF-8") + "=" + URLEncoder.encode(firstName, "UTF-8")
+                + "&&" + URLEncoder.encode("nazwisko", "UTF-8") + "=" + URLEncoder.encode(lastName, "UTF-8");
+        return dataToSend;
     }
 
     public boolean getResult()
@@ -84,7 +97,7 @@ public class DbSendWork extends ExternalDbHelper
         try {
             this.join();
         } catch (InterruptedException e) {
-            Log.d("INTERRUPTEDEXCEPTION", "getResult: "+e.getMessage());
+            Log.d("INTERRUPTEDEXCEPTION", "getResult: " + e.getMessage());
         }
         return mResult;
     }

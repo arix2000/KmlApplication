@@ -27,7 +27,7 @@ public class DbLogin extends AsyncTask<String,Void,String>
     }
 
     @Override
-    protected String doInBackground(String... strings)
+    protected String doInBackground(String... strings) //Old way
     {
         StringBuilder result = new StringBuilder();
         String login = strings[0];

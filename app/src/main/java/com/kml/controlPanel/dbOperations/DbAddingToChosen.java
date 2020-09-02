@@ -1,4 +1,4 @@
-package com.kml.controlPanel;
+package com.kml.controlPanel.dbOperations;
 
 import android.util.Log;
 

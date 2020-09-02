@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.kml.R;
+import com.kml.controlPanel.recycleViewThings.AddToChosenActivity;
 
 public class ControlPanelFragment extends Fragment
 {

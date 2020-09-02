@@ -6,6 +6,8 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kml.aGlobalUses.ExternalDbHelper;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -17,13 +19,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class DbChangePass extends Thread
+public class DbChangePass extends ExternalDbHelper
 {
     private Context context;
     private String newPassword, oldPassword;
     private int loginId;
     private String toastText;
-    private StringBuilder result;
+    private String result;
 
     public DbChangePass(Context context, String newPassword, String oldPassword, int loginId)
     {
@@ -38,45 +40,22 @@ public class DbChangePass extends Thread
     {
         super.run();
         String address = "http://sobos.ssd-linuxpl.com/changePass.php";
-        result = new StringBuilder();
 
         try {
-            URL url = new URL(address);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setRequestMethod("POST");
 
-            OutputStream outSteam = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outSteam,"UTF-8"));
-            String dataToSend = URLEncoder.encode("newPassword","UTF-8")+"="+URLEncoder.encode(newPassword,"UTF-8")
-                    +"&&"+URLEncoder.encode("oldPassword","UTF-8")+"="+ URLEncoder.encode(oldPassword,"UTF-8")
-                    +"&&"+URLEncoder.encode("loginId","UTF-8")+"="+URLEncoder.encode(String.valueOf(loginId),"UTF-8");
-            writer.write(dataToSend);
-            writer.flush();
-            writer.close(); outSteam.close();
+            HttpURLConnection conn = setConnection(address);
+            sendData(conn);
+            result = readResult(conn);
 
-            InputStream inStream = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inStream,"UTF-8"));
-            String line;
-
-            while((line=reader.readLine()) != null)
-            {
-                result.append(line);
-            }
-
-            inStream.close(); reader.close();
-            conn.disconnect();
-
-            if(result.toString().equals("1"))
+            if(result.equals("1"))
             {
                 toastText = "Pomyślnie zmieniono hasło!";
             }
-            else if(result.toString().equals("0"))
+            else if(result.equals("0"))
             {
                 toastText = "Coś poszło nie tak!";
             }
-            else toastText = result.toString();
+            else toastText = result;
 
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(new Runnable()
@@ -92,6 +71,18 @@ public class DbChangePass extends Thread
         } catch (IOException e) {
             Log.d("IOEXCEPTION_CHANGEPASS", "run: "+e.getMessage());
         }
+    }
+
+    private void sendData(HttpURLConnection conn) throws IOException
+    {
+        OutputStream outSteam = conn.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outSteam,"UTF-8"));
+        String dataToSend = URLEncoder.encode("newPassword","UTF-8")+"="+URLEncoder.encode(newPassword,"UTF-8")
+                +"&&"+URLEncoder.encode("oldPassword","UTF-8")+"="+ URLEncoder.encode(oldPassword,"UTF-8")
+                +"&&"+URLEncoder.encode("loginId","UTF-8")+"="+URLEncoder.encode(String.valueOf(loginId),"UTF-8");
+        writer.write(dataToSend);
+        writer.flush();
+        writer.close(); outSteam.close();
     }
 
     public String getResult()

@@ -1,4 +1,4 @@
-package com.kml.controlPanel;
+package com.kml.controlPanel.recycleViewThings;
 
 import android.os.Parcel;
 import android.os.Parcelable;

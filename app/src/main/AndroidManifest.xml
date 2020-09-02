@@ -19,9 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".controlPanel.SummaryInputDataActivity"
-            android:parentActivityName=".controlPanel.AddToChosenActivity"/>
+            android:parentActivityName=".controlPanel.recycleViewThings.AddToChosenActivity"/>
         <activity
-            android:name=".controlPanel.AddToChosenActivity"
+            android:name=".controlPanel.recycleViewThings.AddToChosenActivity"
             android:parentActivityName=".MainActivity" />
 
         <meta-data
