@@ -26,31 +26,36 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nazwa nowego zadania:" />
+                android:text="Nazwa nowego zadania:"
+                android:textColor="@color/BlackContent" />
 
             <EditText
                 android:id="@+id/timer_work_name_instant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:hint="Co robiłeś/aś" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Opis:" />
+                android:text="Opis:"
+                android:textColor="@color/BlackContent" />
 
             <EditText
                 android:id="@+id/timer_work_description_instant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:hint="Na jakie wydarzenie? / Kiedy? / Z kim? itp." />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Czas wykonywania:" />
+                android:text="Czas wykonywania:"
+                android:textColor="@color/BlackContent" />
         </LinearLayout>
 
         <RelativeLayout
