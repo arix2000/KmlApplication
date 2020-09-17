@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Co robiłeś/aś" />
+                android:hint="Co robiłeś/aś?" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 android:layout_toRightOf="@+id/summary_activity_hours"
                 android:text="godzin"
                 android:textColor="@color/BlackContent"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
 
             <EditText
                 android:id="@+id/summary_activity_minutes"
@@ -96,7 +96,7 @@
                 android:layout_marginTop="20dp"
                 android:text="minut"
                 android:textColor="@color/BlackContent"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
 
         </RelativeLayout>
 

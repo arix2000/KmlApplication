@@ -161,25 +161,6 @@ public class WorkTimerFragment extends Fragment
         }
     }
 
-   /* private void saveTimeToFile()
-    {
-        long timeWhenStopped = SystemClock.elapsedRealtime();
-        long actualTimeMillis = convertTimeToMillis();
-        fileOperations.saveStateToFile(actualTimeMillis + ";" + timeWhenStopped + ";" + isTimerRunning, FileOperations.SAVED_TIME_TXT);
-
-
-    }
-
-    private long convertTimeToMillis()
-    {
-        long timeInMillis;
-
-        timeInMillis = (hours * 60) + minutes;
-        timeInMillis = (timeInMillis * 60) + seconds;
-        timeInMillis = timeInMillis * 1000;
-
-        return timeInMillis;
-    }*/
 
     @Override
     public void onStop()

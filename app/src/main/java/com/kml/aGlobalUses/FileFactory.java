@@ -45,12 +45,11 @@ public class FileFactory
 
     public String readFromFile(String filename)
     {
-        StringBuilder sb = null;
+        StringBuilder sb = new StringBuilder();
         try {
             FileInputStream fis = context.openFileInput(filename);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
-            sb = new StringBuilder();
             String content;
             while ((content = br.readLine()) != null) {
                 sb.append(content);
@@ -62,9 +61,6 @@ public class FileFactory
         } catch (IOException e) {
             Log.d("PLIK!", "onClick: " + e.getMessage());
         }
-        if (sb != null)
-            return sb.toString();
-        else
-            return null;
+        return sb.toString();
     }
 }
