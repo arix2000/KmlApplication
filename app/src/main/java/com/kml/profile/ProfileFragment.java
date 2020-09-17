@@ -35,7 +35,7 @@ import com.kml.aGlobalUses.FileFactory;
 public class ProfileFragment extends Fragment
 {
     View root;
-    public static final int PICK_IMAGE = 1;
+    public static final int PICK_IMAGE_RESULT = 1;
     ImageView profilePhoto, changePassImageView;
     FileFactory dataFile;
     TextView textViewFullName, textViewJoinYear, textViewTimeOfWorkSeason, textViewTimeOfWorkMonth, textViewSections, textViewType;
@@ -73,7 +73,7 @@ public class ProfileFragment extends Fragment
                     imageIntent.setAction(Intent.ACTION_PICK);
 
                 imageIntent.setType("image/*");
-                startActivityForResult(imageIntent, PICK_IMAGE);
+                startActivityForResult(imageIntent, PICK_IMAGE_RESULT);
             }
         });
 
@@ -314,7 +314,7 @@ public class ProfileFragment extends Fragment
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == PICK_IMAGE_RESULT && resultCode == Activity.RESULT_OK) {
             if (data == null) {
                 Toast.makeText(root.getContext(), "???????????", Toast.LENGTH_SHORT).show();
                 return;
