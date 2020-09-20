@@ -1,7 +1,9 @@
 package com.kml.worksHistory;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,18 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kml.R;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
 {
-    List<Work> works;
+    List<Work> works = new ArrayList<>();
     private WorkAdapter.OnItemClickListener listener;
+    ProgressBar progressBar;
 
     @NonNull
     @Override
     public WorkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View itemView = View.inflate(parent.getContext(), R.layout.single_item_work_history, parent);
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.single_item_work_history, parent, false);
         return new WorkHolder(itemView);
     }
 
@@ -32,6 +37,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
         holder.workHistoryName.setText(work.getWorkName());
         holder.workHistoryDescription.setText(work.getWorkDescription());
         holder.workHistoryDate.setText(work.getWorkDate());
+        progressBar.setVisibility(ProgressBar.GONE);
     }
 
     @Override
@@ -55,10 +61,16 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
         }
     }
 
+
     public void setWorks(List<Work> works)
     {
         this.works = works;
         notifyDataSetChanged();
+    }
+
+    public void setProgressBar(ProgressBar progressBar)
+    {
+        this.progressBar = progressBar;
     }
 
     public interface OnItemClickListener
