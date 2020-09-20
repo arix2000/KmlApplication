@@ -23,8 +23,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
     @Override
     public VolunteerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_user, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_user, parent, false);
         return new VolunteerHolder(itemView);
     }
 

@@ -10,52 +10,53 @@
         android:id="@+id/control_panel_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/row_user"
         android:layout_marginBottom="100dp"
-        tools:itemCount="34"/>
+        tools:itemCount="34"
+        tools:listitem="@layout/row_user" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/control_panel_floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_arrow_forward"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        app:srcCompat="@drawable/ic_arrow_forward" />
+
     <TextView
         android:id="@+id/control_panel_select_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="zaznacz wszystkich"
+        android:layout_above="@+id/control_panel_search_by_first_name"
         android:layout_marginLeft="10dp"
         android:clickable="true"
-        android:textColor="@color/colorPrimary"
-        android:layout_above="@+id/control_panel_search_by_first_name"
-        android:focusable="true" />
+        android:focusable="true"
+        android:text="zaznacz wszystkich"
+        android:textColor="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/control_panel_deselect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="odznacz wszystkich"
-        android:layout_marginLeft="30dp"
-        android:clickable="true"
-        android:textColor="@android:color/holo_red_dark"
-        android:layout_toRightOf="@+id/control_panel_select_all"
         android:layout_above="@+id/control_panel_search_by_first_name"
-        android:focusable="true" />
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/control_panel_select_all"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="odznacz wszystkich"
+        android:textColor="@android:color/holo_red_dark" />
 
     <EditText
         android:id="@+id/control_panel_search_by_first_name"
         android:layout_width="300dp"
-        android:maxLines="1"
-        android:hint="Szukaj po imieniu"
-        android:layout_margin="10dp"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/control_panel_floating_button"
         android:layout_alignTop="@+id/control_panel_floating_button"
+        android:layout_margin="10dp"
+        android:layout_toLeftOf="@+id/control_panel_floating_button"
+        android:hint="Szukaj po imieniu"
+        android:maxLines="1"
         android:textColor="@color/BlackContent"
         android:textSize="20sp" />
-
 
 
 </RelativeLayout>

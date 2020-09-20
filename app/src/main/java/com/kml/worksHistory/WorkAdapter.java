@@ -1,0 +1,73 @@
+package com.kml.worksHistory;
+
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.kml.R;
+
+
+import java.util.List;
+
+public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
+{
+    List<Work> works;
+    private WorkAdapter.OnItemClickListener listener;
+
+    @NonNull
+    @Override
+    public WorkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
+        View itemView = View.inflate(parent.getContext(), R.layout.single_item_work_history, parent);
+        return new WorkHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull WorkHolder holder, int position)
+    {
+        Work work = works.get(position);
+        holder.workHistoryName.setText(work.getWorkName());
+        holder.workHistoryDescription.setText(work.getWorkDescription());
+        holder.workHistoryDate.setText(work.getWorkDate());
+    }
+
+    @Override
+    public int getItemCount()
+    {
+        return works.size();
+    }
+
+    public class WorkHolder extends RecyclerView.ViewHolder
+    {
+        private TextView workHistoryName;
+        private TextView workHistoryDescription;
+        private TextView workHistoryDate;
+
+        public WorkHolder(@NonNull View itemView)
+        {
+            super(itemView);
+            workHistoryName = itemView.findViewById(R.id.history_work_name);
+            workHistoryDescription = itemView.findViewById(R.id.history_work_description);
+            workHistoryDate = itemView.findViewById(R.id.history_work_date);
+        }
+    }
+
+    public void setWorks(List<Work> works)
+    {
+        this.works = works;
+        notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener
+    {
+        void OnItemClick(Work work);
+    }
+
+    public void setOnItemClickListener(WorkAdapter.OnItemClickListener listener)
+    {
+        this.listener = listener;
+    }
+}
