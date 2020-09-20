@@ -20,7 +20,7 @@ public class DbGetWorksHistory extends ExternalDbHelper
 
     public DbGetWorksHistory()
     {
-        address = "http://192.168.1.105/KmlApp_WebApi/getWorkHistory.php";
+        address = "http://sobos.ssd-linuxpl.com/getWorkHistory.php";
     }
 
     @Override

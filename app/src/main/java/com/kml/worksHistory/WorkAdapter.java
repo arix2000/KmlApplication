@@ -37,7 +37,6 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
         holder.workHistoryName.setText(work.getWorkName());
         holder.workHistoryDescription.setText(work.getWorkDescription());
         holder.workHistoryDate.setText(work.getWorkDate());
-        progressBar.setVisibility(ProgressBar.GONE);
     }
 
     @Override
