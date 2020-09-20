@@ -58,6 +58,19 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
             workHistoryName = itemView.findViewById(R.id.history_work_name);
             workHistoryDescription = itemView.findViewById(R.id.history_work_description);
             workHistoryDate = itemView.findViewById(R.id.history_work_date);
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    int position = getAdapterPosition();
+                    if(listener!=null && position != RecyclerView.NO_POSITION)
+                    {
+                        listener.OnItemClick(works.get(position));
+                    }
+                }
+            });
         }
     }
 

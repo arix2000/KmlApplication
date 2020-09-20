@@ -1,5 +1,8 @@
 package com.kml.worksHistory;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,9 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.kml.R;
-import com.kml.controlPanel.recycleViewThings.Volunteer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,9 +26,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-
-import kotlinx.coroutines.scheduling.WorkQueueKt;
 
 
 public class WorksHistoryFragment extends Fragment
@@ -46,9 +46,11 @@ public class WorksHistoryFragment extends Fragment
 
         initRecycleView();
         fillRecycleView();
+        initOnItemClickListener();
 
         return root;
     }
+
 
     private void initRecycleView()
     {
@@ -110,9 +112,41 @@ public class WorksHistoryFragment extends Fragment
         List<Work> works = new ArrayList<>();
         for (int i = 0; i <= jsonArray.length() - 1; i++) {
             jsonObject = jsonArray.getJSONObject(i);
-            works.add(new Work(jsonObject.getString("nazwaZadania"),
-                    jsonObject.getString("opisZadania"), jsonObject.getString("data")));
+            works.add(new Work(jsonObject.getString("nazwaZadania"), jsonObject.getString("opisZadania"),
+                    jsonObject.getString("data"), jsonObject.getString("czasWykonania")));
         }
         return works;
     }
+
+    private void initOnItemClickListener()
+    {
+        adapter.setOnItemClickListener(new WorkAdapter.OnItemClickListener()
+        {
+            @Override
+            public void OnItemClick(Work work)
+            {
+                extendInDialog(work);
+            }
+        });
+    }
+
+    private void extendInDialog(Work work)
+    {
+        Dialog dialog = new Dialog(root.getContext());
+        dialog.setContentView(R.layout.dialog_work_history_extended);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView workName = dialog.findViewById(R.id.dialog_history_work_name);
+        TextView workDescription = dialog.findViewById(R.id.dialog_history_work_description);
+        TextView workDate = dialog.findViewById(R.id.dialog_history_work_date);
+        TextView executionTime = dialog.findViewById(R.id.dialog_history_execution_time);
+        dialog.show();
+
+        workName.setText(work.getWorkName());
+        workDescription.setText(work.getWorkDescription());
+        workDate.setText(work.getWorkDate());
+        executionTime.setText(work.getExecutionTime());
+
+    }
+
 }
