@@ -14,9 +14,9 @@ import java.net.URLEncoder;
 
 public class DbGetWorksHistory extends ExternalDbHelper
 {
-    String address;
-    String result;
-    HttpURLConnection conn;
+    private String address;
+    private String result;
+    private HttpURLConnection conn;
 
     public DbGetWorksHistory()
     {
