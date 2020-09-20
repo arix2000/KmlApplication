@@ -25,6 +25,7 @@ import com.kml.workTimer.TimerService;
 import com.kml.profile.ProfileFragment;
 import com.kml.searchEngine.SearchEngineFragment;
 import com.kml.workTimer.WorkTimerFragment;
+import com.kml.worksHistory.WorksHistoryFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -137,6 +138,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_control_panel:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ControlPanelFragment()).commit();
+                break;
+
+            case R.id.nav_works_history:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WorksHistoryFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

@@ -21,6 +21,11 @@
             android:icon="@drawable/ic_keyboard"
             android:visible="false"
             android:title="Panel Sterowania" />
+
+        <item
+            android:id="@+id/nav_works_history"
+            android:icon="@drawable/ic_history_of_works"
+            android:title="Historia Zadań" />
     </group>
 
 </menu>

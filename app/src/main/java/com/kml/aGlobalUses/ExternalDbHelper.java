@@ -2,6 +2,8 @@ package com.kml.aGlobalUses;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +33,7 @@ public abstract class ExternalDbHelper extends Thread
         return conn;
     }
 
-    public String readResult(HttpURLConnection conn)
+    public String readResult(@NonNull HttpURLConnection conn)
     {
         InputStream inputStream;
         StringBuilder readResult = new StringBuilder();
