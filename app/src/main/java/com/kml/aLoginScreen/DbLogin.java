@@ -3,8 +3,11 @@ package com.kml.aLoginScreen;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.kml.aGlobalUses.ExternalDbHelper;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -13,78 +16,54 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class DbLogin extends AsyncTask<String,Void,String>
+public class DbLogin extends ExternalDbHelper
 {
+    private HttpURLConnection httpConnection;
+    private String result;
+    private final String address = "http://sobos.ssd-linuxpl.com/login.php";
+    private String login;
+    private String password;
 
-    @Override
-    protected void onPreExecute()
+    public DbLogin(String login, String password)
     {
-        super.onPreExecute();
-        //only for testing dialog_about_app
-        //dialog_about_app= new AlertDialog.Builder(context).create();
-        //dialog_about_app.setTitle("login Status");
-        //dialog_about_app.show();
+        this.login = login;
+        this.password = password;
     }
 
     @Override
-    protected String doInBackground(String... strings) //Old way
+    public void run()
     {
-        StringBuilder result = new StringBuilder();
-        String login = strings[0];
-        String password = strings[1];
+        httpConnection = setConnection(address);
+        sendData();
+        result = readResult(httpConnection);
+    }
 
-        String address = "http://sobos.ssd-linuxpl.com/login.php";
 
-        try
-        {
-            URL connUrl = new URL(address);
-
-            HttpURLConnection httpConnection = (HttpURLConnection)connUrl.openConnection();
-            httpConnection.setRequestMethod("POST");
-            httpConnection.setDoOutput(true);
-            httpConnection.setDoInput(true);
-
+    private void sendData()
+    {
+        try {
             OutputStream outStream = httpConnection.getOutputStream();
-
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream,"UTF-8"));
-            String dataToSend = URLEncoder.encode("user","UTF-8")+"="+URLEncoder.encode(login,"UTF-8")
-                    +"&&"+URLEncoder.encode("pass","UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream, "UTF-8"));
+            String dataToSend = URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(login, "UTF-8")
+                    + "&&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
 
             writer.write(dataToSend);
             writer.flush();
-            writer.close(); outStream.close();
-
-            InputStream inStream = httpConnection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, "ISO-8859-1"));
-            String line;
-
-            while((line=reader.readLine())!=null)
-            {
-                result.append(line);
-            }
-
-            inStream.close(); reader.close();
-            httpConnection.disconnect();
-
-
+            writer.close();
         }
-        catch (Exception e)
+        catch (IOException e)
         {
-            result.append(e.getMessage());
+            Log.d(IO_EXCEPTION_TAG, "sendData: "+e.getMessage());
         }
-
-        Log.d("DB_LOGIN_RESULT", "doInBackground: "+result);
-        return result.toString();
     }
 
-    @Override
-    protected void onPostExecute(String result)
+    public String getResult()
     {
-        super.onPostExecute(result);
-        //only for testing
-        //endResult = result;
-        //dialog_about_app.setMessage(endResult);
-
+        try {
+            join();
+        } catch (InterruptedException e) {
+            Log.d(IO_EXCEPTION_TAG, "getResult: "+e.getMessage());
+        }
+        return result;
     }
-
 }
