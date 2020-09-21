@@ -87,4 +87,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/login_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zapamietaj mnie"
+        app:layout_constraintBottom_toTopOf="@+id/log_in_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordContainer"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

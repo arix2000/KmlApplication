@@ -1,6 +1,7 @@
 package com.kml.aLoginScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class LoginScreen extends AppCompatActivity
     private FileFactory cache;
     private ProgressBar progressBar;
     public static boolean isLog;
+    private SwitchCompat rememberMe;
 
 
     @Override
@@ -40,6 +42,7 @@ public class LoginScreen extends AppCompatActivity
         editTextLogin = findViewById(R.id.login);
         editTextPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.login_screen_progres_bar);
+        rememberMe = findViewById(R.id.login_remember_me);
 
         editTextLogin.setSelectAllOnFocus(true);
         editTextPassword.setSelectAllOnFocus(true);
@@ -51,35 +54,19 @@ public class LoginScreen extends AppCompatActivity
             public void onClick(View v)
             {
                 progressBar.setVisibility(ProgressBar.VISIBLE);
-
                 new Thread(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-                        try {
-                            logIn();
-                        } catch (Exception e) {
-                            Log.d("LOGIN_EXCEPTION", "run: "+e.getMessage());
-                        }
+                        logIn();
                     }
                 }).start();
             }
         });
     }
 
-    private void tryToAutoLogIn()
-    {
-        if (cache.readFromFile(FileFactory.DATA_TXT) != null) {
-            if (cache.readFromFile(FileFactory.DATA_TXT).contains(";")) {
-                String[] content = cache.readFromFile(FileFactory.DATA_TXT).split(";");
-                editTextLogin.setText(content[0]);
-                editTextPassword.setText(content[1]);
-            }
-        }
-    }
-
-    protected void logIn() throws ExecutionException, InterruptedException
+    protected void logIn()
     {
         long timeOnStart = SystemClock.elapsedRealtime();
         Intent intent = new Intent(this, MainActivity.class);
@@ -89,22 +76,23 @@ public class LoginScreen extends AppCompatActivity
         String login = editTextLogin.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        DbLogin dbConnect = new DbLogin();
-        dbConnect.execute(login, password);
-        result = dbConnect.get();
+        DbLogin dbLogin = new DbLogin(login, password);
+        dbLogin.start();
+        result = dbLogin.getResult();
+
 
         long timeOnEnd = SystemClock.elapsedRealtime();
         long elapsedTime = timeOnEnd - timeOnStart;
 
         if (result.contains("true")) {
-            cache.saveStateToFile(login + ";" + password, FileFactory.DATA_TXT);
+            decideAboutSavingLogData(login, password);
             getLoginId(result);
             startActivity(intent);
         } else if (elapsedTime > 6000) {
             toastTXT = "Brak połączenia z bazą danych! Spróbuj ponownie później";
         } else {
             toastTXT = "Nieprawidłowy login, hasło lub brak połaczenia z intenetem!";
-            Log.d("SIEMA", "zaloguj: "+result);
+            Log.d("SIEMA", "zaloguj: " + result);
         }
 
         Handler handler = new Handler(Looper.getMainLooper());
@@ -114,15 +102,26 @@ public class LoginScreen extends AppCompatActivity
             @Override
             public void run()
             {
-                if(!finalToastTXT.isEmpty())
-                Toast.makeText(LoginScreen.this, finalToastTXT, Toast.LENGTH_SHORT).show();
-
+                if (!finalToastTXT.isEmpty())
+                    Toast.makeText(LoginScreen.this, finalToastTXT, Toast.LENGTH_SHORT).show();
                 editTextPassword.setText("");
                 progressBar.setVisibility(ProgressBar.GONE);
             }
         });
 
     }
+
+    private void decideAboutSavingLogData(String login, String password)
+    {
+        if (rememberMe.isChecked()) {
+            cache.saveStateToFile(login + ";" + password, FileFactory.DATA_TXT);
+        } else {
+            cache.saveStateToFile("", FileFactory.DATA_TXT); //clear File
+        }
+
+        cache.saveStateToFile(String.valueOf(rememberMe.isChecked()), FileFactory.LOGIN_KEEP_SWITCH_CHOICE_TXT);
+    }
+
 
     private void getLoginId(String result)
     {
@@ -137,6 +136,31 @@ public class LoginScreen extends AppCompatActivity
     {
         tryToAutoLogIn();
         isLog = true;
+        restoreSwitchState();
         super.onResume();
+    }
+
+    private void tryToAutoLogIn()
+    {
+        if (cache.readFromFile(FileFactory.DATA_TXT) != null) {
+            if (cache.readFromFile(FileFactory.DATA_TXT).contains(";")) {
+                String[] content = cache.readFromFile(FileFactory.DATA_TXT).split(";");
+                editTextLogin.setText(content[0]);
+                editTextPassword.setText(content[1]);
+            }
+        }
+    }
+
+    private void restoreSwitchState()
+    {
+        String fromFile = cache.readFromFile(FileFactory.LOGIN_KEEP_SWITCH_CHOICE_TXT);
+
+        if (fromFile != null) {
+            boolean previousSwitchState = Boolean.parseBoolean(fromFile);
+            rememberMe.setChecked(previousSwitchState);
+            Log.d("MYQUICKTAG", "restoreSwitchState: " + fromFile + "  AND  " + previousSwitchState);
+        }
+
+
     }
 }

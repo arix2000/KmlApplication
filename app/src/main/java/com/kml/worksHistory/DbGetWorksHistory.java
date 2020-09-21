@@ -55,7 +55,7 @@ public class DbGetWorksHistory extends ExternalDbHelper
         try {
             join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.d(IO_EXCEPTION_TAG, "getResult: "+e.getMessage());
         }
         return result;
     }

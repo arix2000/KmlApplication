@@ -17,6 +17,7 @@ public class FileFactory
     public static final String PROFILE_PHOTO_PATCH_TXT = "profilePhotoPath.txt";
     public static final String PROFILE_KEEP_DATA_TXT = "profileKeepData.txt";
     public static final String HISTORY_KEEP_DATA_TXT = "historyKeepData.txt";
+    public static final String LOGIN_KEEP_SWITCH_CHOICE_TXT = "loginKeepSwitchChoice.txt";
     private Context context;
 
     public FileFactory(Context context)
