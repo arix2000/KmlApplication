@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static boolean isFirstClick = true;
     NavigationView navigationView;
     private final int CONTROL_PANEL_ITEM_ID = 3;
+    public String test ="Heelo"; //TODO erase that
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
