@@ -1,8 +1,8 @@
-package com.kml.worksHistory;
+package com.kml.aGlobalUses.externalDbOperations;
 
 import android.util.Log;
 
-import com.kml.aGlobalUses.ExternalDbHelper;
+import com.kml.aGlobalUses.externalDbOperations.ExternalDbHelper;
 import com.kml.aGlobalUses.KmlApp;
 
 import java.io.BufferedWriter;
@@ -14,13 +14,15 @@ import java.net.URLEncoder;
 
 public class DbGetWorksHistory extends ExternalDbHelper
 {
+    private final String fileName = "getWorkHistory.php";
+
     private String address;
     private String result;
     private HttpURLConnection conn;
 
     public DbGetWorksHistory()
     {
-        address = "http://sobos.ssd-linuxpl.com/getWorkHistory.php";
+        address = BASE_URL+fileName;;
     }
 
     @Override
