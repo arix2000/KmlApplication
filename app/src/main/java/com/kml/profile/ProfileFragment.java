@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.kml.aGlobalUses.KmlApp;
+import com.kml.aGlobalUses.externalDbOperations.DbChangePass;
+import com.kml.aGlobalUses.externalDbOperations.DbGetUserData;
 import com.kml.aLoginScreen.LoginScreen;
 import com.kml.R;
 import com.kml.aGlobalUses.FileFactory;

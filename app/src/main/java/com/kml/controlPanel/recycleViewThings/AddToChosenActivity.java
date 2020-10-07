@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kml.aGlobalUses.KmlApp;
 import com.kml.R;
 import com.kml.controlPanel.SummaryInputDataActivity;
-import com.kml.controlPanel.dbOperations.DbGetAllUsersData;
+import com.kml.aGlobalUses.externalDbOperations.DbGetAllUsersData;
 
 import org.json.JSONArray;
 import org.json.JSONException;

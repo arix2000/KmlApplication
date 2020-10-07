@@ -20,9 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.kml.MainActivity;
 import com.kml.R;
 import com.kml.aGlobalUses.FileFactory;
+import com.kml.aGlobalUses.externalDbOperations.DbGetWorksHistory;
 import com.kml.workTimer.WorkTimerFragment;
 
 import org.json.JSONArray;
