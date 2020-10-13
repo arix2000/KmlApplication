@@ -8,22 +8,29 @@ import com.kml.data.models.Game
 
 @Database(entities = [Game::class], version = 1)
 abstract class GameDatabase : RoomDatabase() {
-    abstract fun gameDao(): GameDao?
+    abstract val gameDao: GameDao
 
     companion object {
-        private var instance: GameDatabase? = null
-        @Synchronized
-         fun getInstance(context: Context): GameDatabase? {
-            if (instance == null) {
-               synchronized(this) {
-                   instance = Room.databaseBuilder(context.applicationContext,
-                           GameDatabase::class.java, "gameDatabase.db")
-                           .createFromAsset("databases/gameDatabase.db")
-                           .fallbackToDestructiveMigration()
-                           .build()
-               }
+        private var INSTANCE: GameDatabase? = null
+
+        fun getInstance(context: Context): GameDatabase {
+            synchronized(this)
+            {
+                var instance = INSTANCE
+                if (instance == null) {
+
+                    instance = Room.databaseBuilder(context.applicationContext,
+                            GameDatabase::class.java, "gameDatabase.db")
+                            .createFromAsset("databases/gameDatabase.db")
+                            .fallbackToDestructiveMigration()
+                            .build()
+
+                    INSTANCE = instance
+                }
+
+                return instance
             }
-            return instance
+
         }
     }
 }
