@@ -60,7 +60,7 @@ public class SearchEngineFragment extends Fragment
             public void onClick(View view)
             {
                 getSetFormInfo();
-                Intent intent = new Intent(rootView.getContext(), ShowRecycleViewActivity.class);
+                Intent intent = new Intent(rootView.getContext(), GameRecycleViewActivity.class);
                 intent.putExtra(EXTRA_NAME, name);
                 intent.putExtra(EXTRA_NUMBER_OF_KIDS, numberOfKids);
                 intent.putExtra(EXTRA_KIDS_AGE, kidsAge);
