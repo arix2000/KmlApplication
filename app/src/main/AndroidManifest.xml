@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".aGlobalUses.KmlApp"
+        android:name=".data.app.KmlApp"
         android:allowBackup="false"
         android:description="@string/app_description"
         android:fullBackupContent="false"
@@ -18,11 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".controlPanel.SummaryInputDataActivity"
-            android:parentActivityName=".controlPanel.recycleViewThings.AddToChosenActivity"/>
+        <activity android:name=".views.SummaryInputDataActivity"
+            android:parentActivityName=".views.AddToChosenActivity"/>
         <activity
-            android:name=".controlPanel.recycleViewThings.AddToChosenActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".views.AddToChosenActivity"
+            android:parentActivityName=".views.MainActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -32,23 +32,23 @@
             android:resource="@color/colorAccent" />
 
         <service
-            android:name=".workTimer.TimerService"
+            android:name=".data.services.TimerService"
             android:enabled="true"
             android:stopWithTask="false" />
 
         <activity
-            android:name=".searchEngine.RecycleView.PropertiesOfGameActivity"
-            android:parentActivityName=".searchEngine.RecycleView.ShowRecycleViewActivity" />
+            android:name=".views.PropertiesOfGameActivity"
+            android:parentActivityName=".views.ShowRecycleViewActivity" />
         <activity
-            android:name=".searchEngine.RecycleView.ShowRecycleViewActivity"
+            android:name=".views.ShowRecycleViewActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".views.MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".views.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".aLoginScreen.LoginScreen"
+            android:name=".views.LoginScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
