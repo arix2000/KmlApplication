@@ -22,27 +22,12 @@ import com.kml.viewModels.GameViewModelFactory
 import java.util.*
 
 class GameRecycleViewActivity : AppCompatActivity() {
-    private var gameViewModel: GameViewModel? = null
-    private var takenData: Intent? = null
-    private var name: String? = null
-    private var numberOfKids: String? = null
-    private var kidsAge: String? = null
-    private var place: String? = null
-    private var typeOfGame: String? = null
-    private var category: String? = null
-
-    companion object {
-        const val DEFAULT_ALL_RANGES = "Wszystkie przedziały"
-        const val DEFAULT_ALL_OPTIONS = "Wszystkie"
-    }
+    private lateinit var gameViewModel: GameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_recycle_view)
-
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        takenData = intent
-        dataFromIntent
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val recyclerView = findViewById<RecyclerView>(R.id.search_engine_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -52,35 +37,19 @@ class GameRecycleViewActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         val dataSource = GameDatabase.getInstance(this).gameDao
-        val viewModelFactory = GameViewModelFactory(dataSource)
+        val viewModelFactory = GameViewModelFactory(dataSource, intent)
 
         gameViewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 
-        gameViewModel!!.allGames.observe(this, { games ->
-            var games = games
-            if (name!!.trim { it <= ' ' }.isNotEmpty()) {
-                games = filterByName(games)
-            }
-            if (numberOfKids != DEFAULT_ALL_RANGES) {
-                games = filterByNumberOfKids(games)
-            }
-            if (kidsAge != DEFAULT_ALL_RANGES) {
-                games = filterByKidsAge(games)
-            }
-            if (typeOfGame != DEFAULT_ALL_OPTIONS) {
-                games = filterByTypeOfGame(games)
-            }
-            if (place != "Każde") {
-                games = filterByPlace(games)
-            }
-            if (category != DEFAULT_ALL_OPTIONS) {
-                games = filterByCategory(games)
-            }
-            if (games.isEmpty()) {
+        gameViewModel.allGames.observe(this, { games ->
+
+            val filteredGames = gameViewModel.filterGames(games)
+
+            if (filteredGames.isEmpty()) {
                 Toast.makeText(this@GameRecycleViewActivity, "Nic nie znaleziono :(", Toast.LENGTH_SHORT).show()
             }
-            adapter.setGames(games)
-            title = "Znaleziono " + games.size + " wyników"
+            adapter.setGames(filteredGames)
+            title = "Znaleziono " + filteredGames.size + " wyników"
         })
 
         adapter.setOnItemClickListener { game ->
@@ -122,73 +91,4 @@ class GameRecycleViewActivity : AppCompatActivity() {
         aboutDialog.show()
     }
 
-    private fun filterByName(games: List<Game>): List<Game> {
-        val filteredGames: MutableList<Game> = ArrayList()
-        for (i in games.indices) {
-            if (games[i].name.contains(name!!.toUpperCase())) {
-                filteredGames.add(games[i])
-            }
-        }
-        return filteredGames
-    }
-
-    private fun filterByNumberOfKids(games: List<Game>): List<Game> {
-        val filteredGames: MutableList<Game> = ArrayList()
-        for (i in games.indices) {
-            if (games[i].numberOfKids.contains(numberOfKids!!.replace("+", "<"))) {
-                filteredGames.add(games[i])
-            }
-        }
-        return filteredGames
-    }
-
-    private fun filterByKidsAge(games: List<Game>): List<Game> {
-        val filteredGames: MutableList<Game> = ArrayList()
-        for (i in games.indices) {
-            if (games[i].kidsAge.contains(kidsAge!!.replace("+", "<"))) {
-                filteredGames.add(games[i])
-            }
-        }
-        return filteredGames
-    }
-
-    private fun filterByTypeOfGame(games: List<Game>): List<Game> {
-        val filteredGames: MutableList<Game> = ArrayList()
-        for (i in games.indices) {
-            if (games[i].typeOfGame.contains(typeOfGame!!)) {
-                filteredGames.add(games[i])
-            }
-        }
-        return filteredGames
-    }
-
-    private fun filterByPlace(games: List<Game>): List<Game> {
-        val filteredGames: MutableList<Game> = ArrayList()
-        for (i in games.indices) {
-            if (games[i].place.contains(place!!)) {
-                filteredGames.add(games[i])
-            }
-        }
-        return filteredGames
-    }
-
-    private fun filterByCategory(games: List<Game>): List<Game> {
-        val filteredGames: MutableList<Game> = ArrayList()
-        for (i in games.indices) {
-            if (games[i].category.contains(category!!)) {
-                filteredGames.add(games[i])
-            }
-        }
-        return filteredGames
-    }
-
-    private val dataFromIntent: Unit
-        get() {
-            name = takenData!!.getStringExtra(SearchEngineFragment.EXTRA_NAME)
-            numberOfKids = takenData!!.getStringExtra(SearchEngineFragment.EXTRA_NUMBER_OF_KIDS)
-            kidsAge = takenData!!.getStringExtra(SearchEngineFragment.EXTRA_KIDS_AGE)
-            place = takenData!!.getStringExtra(SearchEngineFragment.EXTRA_PLACE)
-            typeOfGame = takenData!!.getStringExtra(SearchEngineFragment.EXTRA_TYPE_OF_GAMES)
-            category = takenData!!.getStringExtra(SearchEngineFragment.EXTRA_CATEGORY)
-        }
 }
