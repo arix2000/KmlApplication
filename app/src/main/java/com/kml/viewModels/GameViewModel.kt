@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.kml.data.internalRoomDatabase.GameDao
 import com.kml.data.models.Game
 import com.kml.repositories.GameRepository
-import com.kml.views.GameRecycleViewActivity
 import com.kml.views.SearchEngineFragment
 import java.util.*
 
@@ -24,7 +23,6 @@ class GameViewModel(gameDao: GameDao, intent: Intent) : ViewModel() {
         const val DEFAULT_ALL_OPTIONS = "Wszystkie"
         const val DEFAULT_ANYTHING = "Każde"
     }
-
 
     private val repository = GameRepository(gameDao)
     val allGames: LiveData<List<Game>> = repository.allGames
@@ -46,16 +44,14 @@ class GameViewModel(gameDao: GameDao, intent: Intent) : ViewModel() {
 
     fun filterGames(gamesVal: List<Game>): List<Game> {
         var games = gamesVal
-        when(true)
-        {
-            name.trim().isNotEmpty() -> games = filterByName(games)
-            numberOfKids != DEFAULT_ALL_RANGES -> games = filterByNumberOfKids(games)
-            kidsAge != DEFAULT_ALL_RANGES -> games = filterByKidsAge(games)
-            typeOfGame != DEFAULT_ALL_OPTIONS -> games = filterByTypeOfGame(games)
-            place != DEFAULT_ANYTHING -> games = filterByPlace(games)
-            category != DEFAULT_ALL_OPTIONS -> games = filterByCategory(games)
 
-        }
+        if (name.trim().isNotEmpty()) games = filterByName(games)
+        if (numberOfKids != DEFAULT_ALL_RANGES) games = filterByNumberOfKids(games)
+        if (kidsAge != DEFAULT_ALL_RANGES) games = filterByKidsAge(games)
+        if (typeOfGame != DEFAULT_ALL_OPTIONS) games = filterByTypeOfGame(games)
+        if (place != DEFAULT_ANYTHING) games = filterByPlace(games)
+        if (category != DEFAULT_ALL_OPTIONS) games = filterByCategory(games)
+
         return games
     }
 
