@@ -29,17 +29,9 @@ class GameRecycleViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_show_recycle_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.search_engine_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
-
         val adapter = GameAdapter()
-        recyclerView.adapter = adapter
-
-        val dataSource = GameDatabase.getInstance(this).gameDao
-        val viewModelFactory = GameViewModelFactory(dataSource, intent)
-
-        gameViewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
+        initRecycleView(adapter)
+        initViewModel()
 
         gameViewModel.allGames.observe(this, { games ->
 
@@ -68,6 +60,20 @@ class GameRecycleViewActivity : AppCompatActivity() {
         KmlApp.isFromRecycleViewActivity = true
     }
 
+    private fun initRecycleView(adapter: GameAdapter) {
+        val recyclerView = findViewById<RecyclerView>(R.id.search_engine_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapter
+    }
+
+    private fun initViewModel() {
+        val dataSource = GameDatabase.getInstance(this).gameDao
+        val viewModelFactory = GameViewModelFactory(dataSource, intent)
+        gameViewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.about_colors, menu)
@@ -87,7 +93,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
     private fun showDialogAboutColors() {
         val aboutDialog = Dialog(this)
         aboutDialog.setContentView(R.layout.dialog_about_colors)
-        aboutDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        aboutDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         aboutDialog.show()
     }
 
