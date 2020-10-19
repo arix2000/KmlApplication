@@ -25,7 +25,6 @@ import com.kml.data.services.TimerService;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    // TODO moze by tak stad wpisywać dane na profil? #FUTURE
     private DrawerLayout drawer;
     public static boolean isFirstClick = true;
     NavigationView navigationView;
