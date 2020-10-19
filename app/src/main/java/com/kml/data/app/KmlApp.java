@@ -21,6 +21,10 @@ import android.os.Build;
 
 import androidx.multidex.MultiDexApplication;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 //TODO Stworzenie panelu sterowania z którego będzie można przeglądać oraz edytować baze danych
         //TODO Na Poczatek stworzenie panelu wyświetlającego tylko liste ostatnio wykonanych zadań
                 //TODO zmiana wygladu formularza #FUTURE
@@ -33,6 +37,7 @@ public class KmlApp extends MultiDexApplication
     public static String lastName;
     public static boolean isFromRecycleViewActivity;
     public static boolean isFromControlPanel;
+    public static List<Integer> adminIds = Arrays.asList(9 ,14 ,18, 13);
 
 
     @Override
