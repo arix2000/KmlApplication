@@ -110,9 +110,8 @@ public class AddToChosenActivity extends AppCompatActivity
     private void createRecycleView()
     {
         recyclerView = findViewById(R.id.control_panel_recycle_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
         adapter = new VolunteerAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 
