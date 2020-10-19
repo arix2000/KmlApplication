@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,15 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="100dp"
-        tools:itemCount="34"
+        android:scrollbars="vertical"
         tools:listitem="@layout/row_user" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/control_panel_floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
         android:layout_margin="20dp"
         app:srcCompat="@drawable/ic_arrow_forward" />
 
@@ -29,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/control_panel_search_by_first_name"
         android:layout_marginLeft="10dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="75dp"
         android:clickable="true"
         android:focusable="true"
         android:text="zaznacz wszystkich"
@@ -38,9 +39,9 @@
         android:id="@+id/control_panel_deselect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/control_panel_search_by_first_name"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@+id/control_panel_select_all"
+        android:layout_marginLeft="150dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="75dp"
         android:clickable="true"
         android:focusable="true"
         android:text="odznacz wszystkich"
@@ -50,13 +51,12 @@
         android:id="@+id/control_panel_search_by_first_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/control_panel_floating_button"
         android:layout_margin="10dp"
-        android:layout_toLeftOf="@+id/control_panel_floating_button"
         android:hint="Szukaj po imieniu"
+        android:layout_gravity="bottom"
         android:maxLines="1"
         android:textColor="@color/BlackContent"
         android:textSize="20sp" />
 
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
