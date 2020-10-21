@@ -16,13 +16,17 @@ import com.kml.R
 import com.kml.adapters.GameAdapter
 import com.kml.data.app.KmlApp
 import com.kml.data.internalRoomDatabase.GameDatabase
-import com.kml.data.models.Game
+import com.kml.data.models.GameFilterInfo
 import com.kml.viewModels.GameViewModel
 import com.kml.viewModels.GameViewModelFactory
-import java.util.*
+import java.lang.NullPointerException
 
 class GameRecycleViewActivity : AppCompatActivity() {
     private lateinit var gameViewModel: GameViewModel
+
+    companion object {
+        const val EXTRA_GAME = "com.kml.views.EXTRA_GAME"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +37,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
         initRecycleView(adapter)
         initViewModel()
 
-        gameViewModel.allGames.observe(this, { games ->
-
+        gameViewModel.games.observe(this, { games ->
             val filteredGames = gameViewModel.filterGames(games)
 
             if (filteredGames.isEmpty()) {
@@ -46,14 +49,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
 
         adapter.setOnItemClickListener { game ->
             val intent = Intent(this@GameRecycleViewActivity, PropertiesOfGameActivity::class.java)
-            intent.putExtra(SearchEngineFragment.EXTRA_NAME, game.name)
-            intent.putExtra(SearchEngineFragment.EXTRA_DESCRIPTION, game.description)
-            intent.putExtra(SearchEngineFragment.EXTRA_REQUIREMENTS, game.requirements)
-            intent.putExtra(SearchEngineFragment.EXTRA_NUMBER_OF_KIDS, game.numberOfKids)
-            intent.putExtra(SearchEngineFragment.EXTRA_KIDS_AGE, game.kidsAge)
-            intent.putExtra(SearchEngineFragment.EXTRA_PLACE, game.place)
-            intent.putExtra(SearchEngineFragment.EXTRA_TYPE_OF_GAMES, game.typeOfGame)
-            intent.putExtra(SearchEngineFragment.EXTRA_CATEGORY, game.category)
+            intent.putExtra(EXTRA_GAME, game)
             startActivity(intent)
         }
 
@@ -68,8 +64,11 @@ class GameRecycleViewActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
+        val filterInfo: GameFilterInfo = intent.getParcelableExtra(SearchEngineFragment.EXTRA_GAME_FILTER_INFO)
+                ?: throw NullPointerException("filterInfo is null")
+
         val dataSource = GameDatabase.getInstance(this).gameDao
-        val viewModelFactory = GameViewModelFactory(dataSource, intent)
+        val viewModelFactory = GameViewModelFactory(dataSource, filterInfo)
         gameViewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
     }
 
