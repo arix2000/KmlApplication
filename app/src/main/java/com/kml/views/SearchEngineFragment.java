@@ -16,17 +16,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.kml.R;
+import com.kml.data.models.GameFilterInfo;
+
+import org.jetbrains.annotations.NotNull;
 
 public class SearchEngineFragment extends Fragment
 {
-    public static final String EXTRA_NAME = "com.kml.fragments.EXTRA_NAME";
-    public static final String EXTRA_DESCRIPTION = "com.kml.fragments.EXTRA_DESCRIPTION";
-    public static final String EXTRA_REQUIREMENTS = "com.kml.fragments.EXTRA_REQUIREMENTS";
-    public static final String EXTRA_NUMBER_OF_KIDS = "com.kml.fragments.EXTRA_NUMBER_OF_KIDS";
-    public static final String EXTRA_KIDS_AGE = "com.kml.fragments.EXTRA_KIDS_AGE";
-    public static final String EXTRA_PLACE = "com.kml.fragments.EXTRA_PLACE";
-    public static final String EXTRA_TYPE_OF_GAMES = "com.kml.fragments.EXTRA_TYPE_OF_GAMES";
-    public static final String EXTRA_CATEGORY = "com.kml.fragments.EXTRA_CATEGORY";
+    public static final String EXTRA_GAME_FILTER_INFO = "com.kml.fragments.EXTRA_GAME_FILTER_INFO";
+
 
     private View rootView;
     private Context context;
@@ -59,14 +56,11 @@ public class SearchEngineFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                getSetFormInfo();
+                getFormInfo();
+                GameFilterInfo filterInfo = new GameFilterInfo(name,numberOfKids,kidsAge,place,typeOfGames,category);
+
                 Intent intent = new Intent(rootView.getContext(), GameRecycleViewActivity.class);
-                intent.putExtra(EXTRA_NAME, name);
-                intent.putExtra(EXTRA_NUMBER_OF_KIDS, numberOfKids);
-                intent.putExtra(EXTRA_KIDS_AGE, kidsAge);
-                intent.putExtra(EXTRA_PLACE, place);
-                intent.putExtra(EXTRA_TYPE_OF_GAMES, typeOfGames);
-                intent.putExtra(EXTRA_CATEGORY, category);
+                intent.putExtra(EXTRA_GAME_FILTER_INFO, filterInfo);
                 startActivity(intent);
             }
         });
@@ -77,7 +71,7 @@ public class SearchEngineFragment extends Fragment
     }
 
 
-    private void getSetFormInfo()
+    private void getFormInfo()
     {
         EditText editTextName = rootView.findViewById(R.id.form_edit_text_name);
         name = editTextName.getText().toString();

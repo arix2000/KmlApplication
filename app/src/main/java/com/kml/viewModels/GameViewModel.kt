@@ -5,11 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.kml.data.internalRoomDatabase.GameDao
 import com.kml.data.models.Game
+import com.kml.data.models.GameFilterInfo
 import com.kml.repositories.GameRepository
 import com.kml.views.SearchEngineFragment
 import java.util.*
 
-class GameViewModel(gameDao: GameDao, intent: Intent) : ViewModel() {
+class GameViewModel(gameDao: GameDao, filterInfo: GameFilterInfo) : ViewModel() {
 
     private lateinit var name: String
     private lateinit var numberOfKids: String
@@ -25,21 +26,20 @@ class GameViewModel(gameDao: GameDao, intent: Intent) : ViewModel() {
     }
 
     private val repository = GameRepository(gameDao)
-    val allGames: LiveData<List<Game>> = repository.allGames
+    val games: LiveData<List<Game>> = repository.games
 
     init {
-        getDataFrom(intent)
+        getDataFrom(filterInfo)
     }
 
-    private fun getDataFrom(intent: Intent) {
-        intent.apply {
-            name = getStringExtra(SearchEngineFragment.EXTRA_NAME).toString()
-            numberOfKids = getStringExtra(SearchEngineFragment.EXTRA_NUMBER_OF_KIDS).toString()
-            kidsAge = getStringExtra(SearchEngineFragment.EXTRA_KIDS_AGE).toString()
-            place = getStringExtra(SearchEngineFragment.EXTRA_PLACE).toString()
-            typeOfGame = getStringExtra(SearchEngineFragment.EXTRA_TYPE_OF_GAMES).toString()
-            category = getStringExtra(SearchEngineFragment.EXTRA_CATEGORY).toString()
-        }
+    private fun getDataFrom(filterInfo: GameFilterInfo) {
+        //zagwozdka -> lepiej wpisywać dane z obiektu do zmiennych tutaj czy usunąć te zmienne i korzystać z danych prosto z obiektu?
+        name = filterInfo.name
+        numberOfKids = filterInfo.numberOfKids
+        kidsAge = filterInfo.kidsAge
+        place = filterInfo.place
+        typeOfGame = filterInfo.typeOfGame
+        category = filterInfo.category
     }
 
     fun filterGames(gamesVal: List<Game>): List<Game> {

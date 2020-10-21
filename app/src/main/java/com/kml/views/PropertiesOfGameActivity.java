@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.kml.R;
+import com.kml.data.models.Game;
 import com.kml.views.SearchEngineFragment;
 
 public class PropertiesOfGameActivity extends AppCompatActivity
@@ -33,14 +34,15 @@ public class PropertiesOfGameActivity extends AppCompatActivity
 
         objInstance();
         Intent takenData = getIntent();
-        String name = takenData.getStringExtra(SearchEngineFragment.EXTRA_NAME);
-        String description = takenData.getStringExtra(SearchEngineFragment.EXTRA_DESCRIPTION);
-        String requirements = takenData.getStringExtra(SearchEngineFragment.EXTRA_REQUIREMENTS);
-        String numberOfKids = takenData.getStringExtra(SearchEngineFragment.EXTRA_NUMBER_OF_KIDS);
-        String kidsAge = takenData.getStringExtra(SearchEngineFragment.EXTRA_KIDS_AGE);
-        String place = takenData.getStringExtra(SearchEngineFragment.EXTRA_PLACE);
-        String typeOfGames = takenData.getStringExtra(SearchEngineFragment.EXTRA_TYPE_OF_GAMES);
-        String category = takenData.getStringExtra(SearchEngineFragment.EXTRA_CATEGORY);
+        Game game = takenData.getParcelableExtra(GameRecycleViewActivity.EXTRA_GAME);
+        String name = game.getName();
+        String description = game.getDescription();
+        String requirements = game.getRequirements();
+        String numberOfKids = game.getNumberOfKids();
+        String kidsAge = game.getKidsAge();
+        String place = game.getPlace();
+        String typeOfGames = game.getTypeOfGame();
+        String category = game.getCategory();
 
         int getColor = setColorForBackground(category);
 
