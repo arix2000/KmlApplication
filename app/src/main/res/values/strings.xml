@@ -6,7 +6,29 @@
     wyłączony przez system, w takim wypadku zapisuje postęp. Istnieje też opcja (w prawym górnym rogu) dodania sobie czasu pracy bez konieczności odliczania czasu!</string>
     <string name="animacje_description">Wyszukuje animacje według wybranych kryteriów. Baza zawiera 144 animacje. Kolory oznaczają kategorie :D
         \n Pomysłodawca wyszukiwarki:\n Gabi Łanocha</string>
+
     <string name="profile_description">Pokazuje wolontariuszowi jego dane oraz pozwala ustawić sobie zdjęcie profilowe. Kluczyk służy do zmiany hasła</string>
+    <string name="no_results_found">Nic nie znaleziono :(</string>
+    <string name="choose_one_at_least">Musisz wybrać przynajmniej jedną osobe!</string>
+    <string name="external_database_unavailable">Brak połączenia z bazą danych! Spróbuj ponownie później</string>
+    <string name="wrong_form_info">Nieprawidłowy login, hasło lub brak połaczenia z intenetem!</string>
+    <string name="no_empty_fields">Żadne z pól nie może być puste!</string>
+    <string name="too_many_chars">Hasło nie może mieć wiecej niż 64 znaki!</string>
+    <string name="something_wrong">Coś poszło nie tak!</string>
+    <string name="load_previous_data">Brak połącznia z internetem! wczytano ostatnie dane</string>
+    <string name="adding_work_confirmation">Dodano pomyślnie!</string>
+    <string name="adding_work_error">Nie udało się dodać, sprawdź połączenie z internetem.</string>
+    <string name="your_last_works">Twoje ostatnie zadania:</string>
+    <string name="no_minute_counted">Nie odliczono ani jednej minuty czasu!</string>
+    <string name="too_many_minutes">nie można wpisać więcej niż 60 minut</string>
+    <string name="cancel">anuluj</string>
+    <string name="reset">resetuj</string>
+    <string name="reset_confirmation">Napewno chcesz zresetować czas?\nTo bezpowrotnie usunie aktualny czas</string>
+    <string name="warning">Uwaga!</string>
+
+
+
+
 
     <string-array name="number_of_kids_options">
         <item>Wszystkie przedziały</item>

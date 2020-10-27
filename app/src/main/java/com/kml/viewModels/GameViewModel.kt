@@ -1,13 +1,11 @@
 package com.kml.viewModels
 
-import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.kml.data.internalRoomDatabase.GameDao
 import com.kml.data.models.Game
 import com.kml.data.models.GameFilterInfo
 import com.kml.repositories.GameRepository
-import com.kml.views.SearchEngineFragment
 import java.util.*
 
 class GameViewModel(gameDao: GameDao, filterInfo: GameFilterInfo) : ViewModel() {

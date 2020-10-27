@@ -50,7 +50,7 @@ public class SummaryInputDataActivity extends AppCompatActivity
                 String workName = workNameEditText.getText().toString();
                 if(hours.trim().isEmpty() || minutes.trim().isEmpty() || workName.trim().isEmpty())
                 {
-                    Toast.makeText(SummaryInputDataActivity.this, "Zostawiono puste pola!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SummaryInputDataActivity.this, R.string.no_empty_fields, Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -104,11 +104,11 @@ public class SummaryInputDataActivity extends AppCompatActivity
         String result = dbAddingToChosen.getResult();
         if(result.equals("true"))
         {
-            Toast.makeText(this, "Dodano pomyślnie!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Toast.makeText(this, "Nie udało się dodać, sprawdź połączenie z internetem.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.adding_work_error, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -138,7 +138,6 @@ public class SummaryInputDataActivity extends AppCompatActivity
             String oneVolunteer = volunteer.getFirstName()+" "+volunteer.getLastName()+", ";
             stringBuilder.append(oneVolunteer);
         }
-        //at the end we remove remaining comma
         return stringBuilder.toString();
     }
 }
