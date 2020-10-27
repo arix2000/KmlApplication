@@ -12,13 +12,16 @@ import java.io.InputStreamReader;
 
 public class FileFactory
 {
+
+    public static final String ERROR_TAG = "ERROR_TAG";
+    
     public static final String CURRENT_TIME_TXT = "currentTime.txt";
     public static final String DATA_TXT = "data.txt";
     public static final String PROFILE_PHOTO_PATCH_TXT = "profilePhotoPath.txt";
     public static final String PROFILE_KEEP_DATA_TXT = "profileKeepData.txt";
     public static final String HISTORY_KEEP_DATA_TXT = "historyKeepData.txt";
     public static final String LOGIN_KEEP_SWITCH_CHOICE_TXT = "loginKeepSwitchChoice.txt";
-    private Context context;
+    private final Context context;
 
     public FileFactory(Context context)
     {
@@ -33,9 +36,9 @@ public class FileFactory
             fos.close();
 
         } catch (FileNotFoundException e) {
-            Log.d("PLIK!", "saveStateToFile: " + e.getMessage());
+            Log.d(ERROR_TAG, "saveStateToFile: " + e.getMessage());
         } catch (IOException e) {
-            Log.d("PLIK!", "saveStateToFile: " + e.getMessage());
+            Log.d(ERROR_TAG, "saveStateToFile: " + e.getMessage());
         }
     }
 
@@ -57,11 +60,11 @@ public class FileFactory
                 sb.append(content);
             }
 
-            Log.d("PLIK!", "onReset: " + sb.toString());
+            Log.d(ERROR_TAG, "onReset: " + sb.toString());
             fis.close();
 
         } catch (IOException e) {
-            Log.d("PLIK!", "onClick: " + e.getMessage());
+            Log.d(ERROR_TAG, "onClick: " + e.getMessage());
         }
         return sb.toString();
     }
