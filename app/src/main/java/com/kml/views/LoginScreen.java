@@ -68,7 +68,7 @@ public class LoginScreen extends AppCompatActivity
     {
         long timeOnStart = SystemClock.elapsedRealtime();
         Intent intent = new Intent(this, MainActivity.class);
-        String toastTXT = "";
+        int toast = 0;
         String result;
 
         String login = editTextLogin.getText().toString();
@@ -87,21 +87,21 @@ public class LoginScreen extends AppCompatActivity
             getLoginId(result);
             startActivity(intent);
         } else if (elapsedTime > 6000) {
-            toastTXT = "Brak połączenia z bazą danych! Spróbuj ponownie później";
+            toast = R.string.external_database_unavailable;
         } else {
-            toastTXT = "Nieprawidłowy login, hasło lub brak połaczenia z intenetem!";
-            Log.d("SIEMA", "zaloguj: " + result);
+            toast = R.string.wrong_form_info;
         }
 
         Handler handler = new Handler(Looper.getMainLooper());
-        final String finalToastTXT = toastTXT;
+        final int finalToast = toast;
         handler.post(new Runnable()
         {
             @Override
             public void run()
             {
-                if (!finalToastTXT.isEmpty())
-                    Toast.makeText(LoginScreen.this, finalToastTXT, Toast.LENGTH_SHORT).show();
+                if(finalToast != 0)
+                Toast.makeText(LoginScreen.this, finalToast, Toast.LENGTH_SHORT).show();
+
                 editTextPassword.setText("");
                 progressBar.setVisibility(ProgressBar.GONE);
             }

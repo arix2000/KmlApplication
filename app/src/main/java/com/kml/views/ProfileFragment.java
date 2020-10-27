@@ -61,41 +61,22 @@ public class ProfileFragment extends Fragment
 
         dataFile = new FileFactory(root.getContext());
         profilePhoto = root.findViewById(R.id.profile_photo);
-        profilePhoto.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent imageIntent = new Intent();
+        profilePhoto.setOnClickListener(view -> {
+            Intent imageIntent = new Intent();
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    imageIntent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                } else
-                    imageIntent.setAction(Intent.ACTION_PICK);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                imageIntent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+            } else
+                imageIntent.setAction(Intent.ACTION_PICK);
 
-                imageIntent.setType("image/*");
-                startActivityForResult(imageIntent, PICK_IMAGE_RESULT);
-            }
+            imageIntent.setType("image/*");
+            startActivityForResult(imageIntent, PICK_IMAGE_RESULT);
         });
 
-        changePassImageView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                showDialogToChangePass();
-            }
-        });
+        changePassImageView.setOnClickListener(view -> showDialogToChangePass());
 
         progressBar.setVisibility(ProgressBar.VISIBLE);
-        Thread thread = new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                setDataFromExternalDatabase();
-            }
-        });
+        Thread thread = new Thread(() -> setDataFromExternalDatabase());
         thread.start();
 
         return root;
@@ -114,23 +95,9 @@ public class ProfileFragment extends Fragment
         Button btnAccept = dialogChangePass.findViewById(R.id.btn_dialog_change_pass_accept);
         Button btnCancel = dialogChangePass.findViewById(R.id.btn_dialog_change_pass_cancel);
 
-        btnAccept.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                changePass();
-            }
-        });
+        btnAccept.setOnClickListener(view -> changePass());
 
-        btnCancel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                dialogChangePass.dismiss();
-            }
-        });
+        btnCancel.setOnClickListener(view -> dialogChangePass.dismiss());
     }
 
     private void changePass()
@@ -148,14 +115,9 @@ public class ProfileFragment extends Fragment
                 String oldPassword = editTextOldPassword.getText().toString();
                 String newPassword = editTextNewPassword.getText().toString();
                 if (newPassword.isEmpty() || oldPassword.isEmpty()) {
-                    handler.post(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            Toast.makeText(root.getContext(), "żadne z pól nie może być puste!", Toast.LENGTH_SHORT).show();
-                            dialogProgressBar.setVisibility(View.GONE);
-                        }
+                    handler.post(() -> {
+                        Toast.makeText(root.getContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show();
+                        dialogProgressBar.setVisibility(View.GONE);
                     });
                     return;
                 } else if (newPassword.length() > 64) {
@@ -164,7 +126,7 @@ public class ProfileFragment extends Fragment
                         @Override
                         public void run()
                         {
-                            Toast.makeText(root.getContext(), "hasło nie może mieć wiecej niż 64 znaki!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(root.getContext(), R.string.too_many_chars, Toast.LENGTH_SHORT).show();
                             dialogProgressBar.setVisibility(View.GONE);
                         }
                     });
@@ -215,7 +177,7 @@ public class ProfileFragment extends Fragment
                     fillDataFromDatabase(result);
                 }
                 progressBar.setVisibility(ProgressBar.GONE);
-                writeDataOnLayout(); //write data on layout with little changes :D
+                formatAndShowDataOnLayout();
                 KmlApp.firstName = firstName;
                 KmlApp.lastName = lastName;
                 if (LoginScreen.isLog) {
@@ -236,7 +198,7 @@ public class ProfileFragment extends Fragment
 
     }
 
-    private void writeDataOnLayout()
+    private void formatAndShowDataOnLayout()
     {
         String readAbleTime = convertToReadable(timeOfWorkSeason);
         String readAbleTimeMonth = convertToReadable(timeOfWorkMonth);
@@ -269,8 +231,6 @@ public class ProfileFragment extends Fragment
         workTimeFloat = (float) helpingInteger / 100;
         int minutes = Math.round(workTimeFloat * 60);
 
-        Log.d("CONVERT_TO_READABLE", "convertToReadable: " + workTimeFloat + " ; " + hours + " ; " + minutes);
-
         convertedTime = hours + " godz " + minutes + " min";
         return convertedTime;
     }
@@ -288,13 +248,12 @@ public class ProfileFragment extends Fragment
             timeOfWorkMonth = splitResult[6];
             fullName = firstName + " " + lastName;
         } else
-            Toast.makeText(root.getContext(), "Wystąpił błąd podczas połączenia z bazą spróbuj ponownie później", Toast.LENGTH_SHORT).show();
-        Log.d("ARRAY_LENGTH", "setDataFromExternalDatabase: " + splitResult.length);
+            Toast.makeText(root.getContext(), R.string.external_database_unavailable, Toast.LENGTH_SHORT).show();
     }
 
     private void fillDataFromFile()
     {
-        Toast.makeText(root.getContext(), "Brak połącznia z internetem! wczytano ostatnie dane", Toast.LENGTH_SHORT).show();
+        Toast.makeText(root.getContext(), R.string.load_previous_data, Toast.LENGTH_SHORT).show();
         String dataFromFile = dataFile.readFromFile(FileFactory.PROFILE_KEEP_DATA_TXT);
 
         if (!dataFromFile.isEmpty() || !dataFromFile.equals("")) {
@@ -308,7 +267,7 @@ public class ProfileFragment extends Fragment
             timeOfWorkMonth = splitData[6];
             fullName = firstName + " " + lastName;
         } else
-            Toast.makeText(root.getContext(), "Coś poszło nie tak!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(root.getContext(), R.string.something_wrong, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -317,7 +276,6 @@ public class ProfileFragment extends Fragment
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_RESULT && resultCode == Activity.RESULT_OK) {
             if (data == null) {
-                Toast.makeText(root.getContext(), "???????????", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -329,30 +287,20 @@ public class ProfileFragment extends Fragment
     public void onResume()
     {
         if (dataFile.readFromFile(FileFactory.PROFILE_PHOTO_PATCH_TXT) != null) {
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    String path = dataFile.readFromFile(FileFactory.PROFILE_PHOTO_PATCH_TXT);
-                    if (path != null && !path.isEmpty()) {
-                        final Uri photoUri = Uri.parse(path);
+            new Thread(() -> {
+                String path = dataFile.readFromFile(FileFactory.PROFILE_PHOTO_PATCH_TXT);
+                if (path != null && !path.isEmpty()) {
+                    final Uri photoUri = Uri.parse(path);
 
-                        Handler handler = new Handler(Looper.getMainLooper());
-                        handler.postDelayed(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                try {
-                                    profilePhoto.setImageURI(photoUri);
-                                } catch (Exception e) {
-                                    Log.e("PERMISSIONERROR", "onResume: " + e.getMessage());
-                                    dataFile.saveStateToFile("", FileFactory.PROFILE_PHOTO_PATCH_TXT); //clear state
-                                }
-                            }
-                        }, 300);
-                    }
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(() -> {
+                        try {
+                            profilePhoto.setImageURI(photoUri);
+                        } catch (Exception e) {
+                            Log.e("PERMISSIONERROR", "onResume: " + e.getMessage());
+                            dataFile.saveStateToFile("", FileFactory.PROFILE_PHOTO_PATCH_TXT); //clear state
+                        }
+                    }, 300);
                 }
             }).start();
         }

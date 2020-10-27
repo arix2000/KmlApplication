@@ -61,68 +61,44 @@ public class WorkTimerFragment extends Fragment
         fileFactory = new FileFactory(root.getContext());
 
         btnAddWork = root.findViewById(R.id.btn_add_work);
-        btnAddWork.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                showDialogToInstantAddWork();
-            }
-        });
+        btnAddWork.setOnClickListener(view -> showDialogToInstantAddWork());
 
         btnStartWork = root.findViewById(R.id.btn_start_work);
-        btnStartWork.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                //prevent double click
-                if (SystemClock.elapsedRealtime() - lastClickTime < 500) {
-                    return;
-                }
-                lastClickTime = SystemClock.elapsedRealtime();
+        btnStartWork.setOnClickListener(view -> {
+            //prevent double click
+            if (SystemClock.elapsedRealtime() - lastClickTime < 500) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
 
-                if (!isTimerRunning) {
-                    if (MainActivity.isFirstClick) {
-                        if (fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT) != null
-                                && fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT).contains(";")) {
-                            showDialogToRestore();
-                        } else startCounting();
-                        MainActivity.isFirstClick = false;
-                    } else {
-                        startCounting();
-                    }
-
+            if (!isTimerRunning) {
+                if (MainActivity.isFirstClick) {
+                    if (fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT) != null
+                            && fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT).contains(";")) {
+                        showDialogToRestore();
+                    } else startCounting();
+                    MainActivity.isFirstClick = false;
                 } else {
-                    pauseCounting();
+                    startCounting();
                 }
 
-
+            } else {
+                pauseCounting();
             }
         });
 
         btnEndWork = root.findViewById(R.id.btn_end_work);
-        btnEndWork.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if (hours == 0 && minutes < 1) {
-                    Toast.makeText(getContext(), "Nie odliczono ani jednej minuty czasu!", Toast.LENGTH_SHORT).show();
-                } else
-                    showDialogToSetWork();
-            }
+        btnEndWork.setOnClickListener(view -> {
+            if (hours == 0 && minutes < 1) {
+                Toast.makeText(getContext(), R.string.no_minute_counted, Toast.LENGTH_SHORT).show();
+            } else
+                showDialogToSetWork();
         });
 
         btnResetWork = root.findViewById(R.id.btn_reset_work);
-        btnResetWork.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if (seconds != 0 || minutes != 0 || hours != 0)
-                    showDialogToMakeSure();
-            }
+        btnResetWork.setOnClickListener(view -> {
+            if (seconds != 0 || minutes != 0 || hours != 0)
+                showDialogToMakeSure();
         });
 
         return root;
@@ -131,11 +107,8 @@ public class WorkTimerFragment extends Fragment
     @Override
     public void onResume()
     {
-
         returnStateFromService();
         setTimeOnLayout();
-
-        Log.d("TAG_TAG", "onResume:  " + TimerService.seconds + "  " + TimerService.minutes + "  " + TimerService.hours);
 
         root.getContext().stopService(new Intent(root.getContext(), TimerService.class));
         if (TimerService.wasPlayClicked) {
@@ -249,40 +222,28 @@ public class WorkTimerFragment extends Fragment
         final EditText workDescriptionEditText = dialog.findViewById(R.id.timer_work_description_instant);
 
         Button cancel = dialog.findViewById(R.id.dialog_timer_cancel);
-        cancel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                dialog.dismiss();
-            }
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
 
         Button confirm = dialog.findViewById(R.id.dialog_timer_confirm);
-        confirm.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
+        confirm.setOnClickListener(view -> {
 
-                workName = workNameEditText.getText().toString();
-                workDescription = workDescriptionEditText.getText().toString();
-                if (workName.trim().isEmpty() || workDescription.trim().isEmpty()) {
-                    Toast.makeText(dialog.getContext(), "Jedno z pól jest puste!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                dialog.dismiss();
-                DbSendWork dbSendWork = new DbSendWork(workName, workDescription, KmlApp.firstName, KmlApp.lastName, minutes, hours);
-                dbSendWork.start();
-
-                boolean result = dbSendWork.getResult();
-
-                if (result) {
-                    Toast.makeText(root.getContext(), "wysłano!", Toast.LENGTH_SHORT).show();
-                    resetCounting();
-                } else
-                    Toast.makeText(root.getContext(), "brak połączenia z internetem!", Toast.LENGTH_SHORT).show();
+            workName = workNameEditText.getText().toString();
+            workDescription = workDescriptionEditText.getText().toString();
+            if (workName.trim().isEmpty() || workDescription.trim().isEmpty()) {
+                Toast.makeText(dialog.getContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show();
+                return;
             }
+            dialog.dismiss();
+            DbSendWork dbSendWork = new DbSendWork(workName, workDescription, KmlApp.firstName, KmlApp.lastName, minutes, hours);
+            dbSendWork.start();
+
+            boolean result = dbSendWork.getResult();
+
+            if (result) {
+                Toast.makeText(root.getContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show();
+                resetCounting();
+            } else
+                Toast.makeText(root.getContext(), R.string.adding_work_error, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -294,54 +255,42 @@ public class WorkTimerFragment extends Fragment
         dialog.show();
 
         Button confirm = dialog.findViewById(R.id.summary_activity_send_work);
-        confirm.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                String instantHours, instantMinutes;
-                EditText workNameEditText = dialog.findViewById(R.id.timer_work_name_instant);
-                EditText workDescriptionEditText = dialog.findViewById(R.id.timer_work_description_instant);
-                EditText hoursEditText = dialog.findViewById(R.id.summary_activity_hours);
-                EditText minutesEditText = dialog.findViewById(R.id.summary_activity_minutes);
+        confirm.setOnClickListener(view -> {
+            String instantHours, instantMinutes;
+            EditText workNameEditText = dialog.findViewById(R.id.timer_work_name_instant);
+            EditText workDescriptionEditText = dialog.findViewById(R.id.timer_work_description_instant);
+            EditText hoursEditText = dialog.findViewById(R.id.summary_activity_hours);
+            EditText minutesEditText = dialog.findViewById(R.id.summary_activity_minutes);
 
-                workName = workNameEditText.getText().toString();
-                workDescription = workDescriptionEditText.getText().toString();
-                instantHours = hoursEditText.getText().toString();
-                instantMinutes = minutesEditText.getText().toString();
+            workName = workNameEditText.getText().toString();
+            workDescription = workDescriptionEditText.getText().toString();
+            instantHours = hoursEditText.getText().toString();
+            instantMinutes = minutesEditText.getText().toString();
 
-                if (workName.trim().isEmpty() || workDescription.trim().isEmpty() || instantHours.trim().isEmpty() || instantMinutes.trim().isEmpty()) {
-                    Toast.makeText(dialog.getContext(), "Jedno z pól jest puste!", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (Integer.parseInt(instantMinutes) > 60) {
-                    Toast.makeText(dialog.getContext(), "nie można wpisać więcej niż 60 minut", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                dialog.dismiss();
-
-                DbSendWork dbSendWork = new DbSendWork
-                        (workName, workDescription, KmlApp.firstName, KmlApp.lastName, Integer.parseInt(instantMinutes), Integer.parseInt(instantHours));
-                dbSendWork.start();
-
-                boolean result = dbSendWork.getResult();
-
-                if (result) {
-                    Toast.makeText(root.getContext(), "wysłano!", Toast.LENGTH_SHORT).show();
-                } else
-                    Toast.makeText(root.getContext(), "brak połączenia z internetem!", Toast.LENGTH_SHORT).show();
+            if (workName.trim().isEmpty() || workDescription.trim().isEmpty() || instantHours.trim().isEmpty() || instantMinutes.trim().isEmpty()) {
+                Toast.makeText(dialog.getContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show();
+                return;
+            } else if (Integer.parseInt(instantMinutes) > 60) {
+                Toast.makeText(dialog.getContext(), R.string.too_many_minutes, Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            dialog.dismiss();
+
+            DbSendWork dbSendWork = new DbSendWork
+                    (workName, workDescription, KmlApp.firstName, KmlApp.lastName, Integer.parseInt(instantMinutes), Integer.parseInt(instantHours));
+            dbSendWork.start();
+
+            boolean result = dbSendWork.getResult();
+
+            if (result) {
+                Toast.makeText(root.getContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(root.getContext(), R.string.adding_work_error, Toast.LENGTH_SHORT).show();
         });
 
         Button cancel = dialog.findViewById(R.id.dialog_timer_cancel_instant);
-        cancel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                dialog.dismiss();
-            }
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
     }
 
     private void showDialogToRestore()
@@ -353,26 +302,16 @@ public class WorkTimerFragment extends Fragment
         dialog.show();
 
         Button btnTak = dialog.findViewById(R.id.btn_dialog_restore_yes);
-        btnTak.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                setTimeFromFile();
-                dialog.dismiss();
-                startCounting();
-            }
+        btnTak.setOnClickListener(view -> {
+            setTimeFromFile();
+            dialog.dismiss();
+            startCounting();
         });
 
         Button btnNie = dialog.findViewById(R.id.btn_dialog_restore_no);
-        btnNie.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                dialog.dismiss();
-                startCounting();
-            }
+        btnNie.setOnClickListener(view -> {
+            dialog.dismiss();
+            startCounting();
         });
 
     }
@@ -384,32 +323,20 @@ public class WorkTimerFragment extends Fragment
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         TextView textViewTitle = dialog.findViewById(R.id.y_y_znaleziono_postep);
-        textViewTitle.setText("Uwaga!");
+        textViewTitle.setText(R.string.warning);
         TextView textViewQuestion = dialog.findViewById(R.id.y_y_czy_przywracac);
-        textViewQuestion.setText("Napewno chcesz zresetować czas?\nTo bezpowrotnie usunie aktualny czas");
+        textViewQuestion.setText(R.string.reset_confirmation);
 
         Button btnTak = dialog.findViewById(R.id.btn_dialog_restore_yes);
-        btnTak.setText("resetuj");
-        btnTak.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                dialog.dismiss();
-                resetCounting();
-            }
+        btnTak.setText(R.string.reset);
+        btnTak.setOnClickListener(view -> {
+            dialog.dismiss();
+            resetCounting();
         });
 
         Button btnNie = dialog.findViewById(R.id.btn_dialog_restore_no);
-        btnNie.setText("anuluj");
-        btnNie.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                dialog.dismiss();
-            }
-        });
+        btnNie.setText(R.string.cancel);
+        btnNie.setOnClickListener(view -> dialog.dismiss());
 
     }
 
@@ -417,7 +344,6 @@ public class WorkTimerFragment extends Fragment
     {
         String fromFile = fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT);
         String[] HMS = fromFile.split(";");
-        Log.d("ARRAY_HMS", "setTimeFromFile: " + HMS[0]);
         seconds = Integer.parseInt(HMS[0]);
         minutes = Integer.parseInt(HMS[1]);
         hours = Integer.parseInt(HMS[2]);
@@ -460,14 +386,7 @@ public class WorkTimerFragment extends Fragment
                         this.cancel();
                         isThreadAlive = false;
                     } else {
-                        handler.post(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                setTimeOnLayoutRealTime();
-                            }
-                        });
+                        handler.post(() -> setTimeOnLayoutRealTime());
                         seconds += 1;
                     }
                 }

@@ -19,7 +19,6 @@ import com.kml.data.internalRoomDatabase.GameDatabase
 import com.kml.data.models.GameFilterInfo
 import com.kml.viewModels.GameViewModel
 import com.kml.viewModels.GameViewModelFactory
-import java.lang.NullPointerException
 
 class GameRecycleViewActivity : AppCompatActivity() {
     private lateinit var gameViewModel: GameViewModel
@@ -41,7 +40,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
             val filteredGames = gameViewModel.filterGames(games)
 
             if (filteredGames.isEmpty()) {
-                Toast.makeText(this@GameRecycleViewActivity, "Nic nie znaleziono :(", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@GameRecycleViewActivity, R.string.no_results_found, Toast.LENGTH_SHORT).show()
             }
             adapter.setGames(filteredGames)
             title = "Znaleziono " + filteredGames.size + " wyników"
@@ -65,7 +64,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         val filterInfo: GameFilterInfo = intent.getParcelableExtra(SearchEngineFragment.EXTRA_GAME_FILTER_INFO)
-                ?: throw NullPointerException("filterInfo is null")
+                ?: GameFilterInfo("","","","","","")
 
         val dataSource = GameDatabase.getInstance(this).gameDao
         val viewModelFactory = GameViewModelFactory(dataSource, filterInfo)

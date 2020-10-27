@@ -233,7 +233,7 @@ public class AddToChosenActivity extends AppCompatActivity
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Musisz wybrać przynajmniej jedną osobe!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.choose_one_at_least, Toast.LENGTH_SHORT).show();
         }
     }
 

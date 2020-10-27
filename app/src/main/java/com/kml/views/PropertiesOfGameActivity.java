@@ -57,8 +57,6 @@ public class PropertiesOfGameActivity extends AppCompatActivity
         textViewTypeOfGames.setText(typeOfGames.replaceAll(";", ","));
         textViewCategory.setText(category);
 
-
-
     }
 
     private int setColorForBackground(String category)
@@ -72,7 +70,7 @@ public class PropertiesOfGameActivity extends AppCompatActivity
             case "Lina": color = getResources().getColor(R.color.colorLina); break;
             case "Chusta": color = getResources().getColor(R.color.colorChusta); break;
             case "Tańce": color = getResources().getColor(R.color.colorTance); break;
-            default: color = 0; Log.d("ColorBackground","Color is 0!!!!!");
+            default: color = 0;
         }
 
         return color;
