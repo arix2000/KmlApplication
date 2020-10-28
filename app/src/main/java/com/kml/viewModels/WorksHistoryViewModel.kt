@@ -3,13 +3,11 @@ package com.kml.viewModels
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.kml.data.app.FileFactory
 import com.kml.data.models.Work
 import com.kml.repositories.WorksHistoryRepository
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
-import java.util.*
 
 class WorksHistoryViewModel(fileFactory: FileFactory): ViewModel() {
 
@@ -20,26 +18,11 @@ class WorksHistoryViewModel(fileFactory: FileFactory): ViewModel() {
 
     fun isFromFile():Boolean = repository.isFromFile
 
-    private fun createListFromJson(jsonString: String?): List<Work> {
-        var works: List<Work> = ArrayList()
-        try {
-            val jsonArray = JSONArray(jsonString)
-            works = fillArrayFrom(jsonArray)
-        } catch (e: JSONException) {
-            Log.d("RESULT_FROM_JSON", "onException: " + e.message)
-        }
-        return works
-    }
-
-    @Throws(JSONException::class)
-    private fun fillArrayFrom(jsonArray: JSONArray): List<Work> {
-        var jsonObject: JSONObject
-        val works: MutableList<Work> = ArrayList()
-        for (i in 0 until jsonArray.length()) {
-            jsonObject = jsonArray.getJSONObject(i)
-            works.add(Work(jsonObject.getString("nazwaZadania"), jsonObject.getString("opisZadania"),
-                    jsonObject.getString("data"), jsonObject.getString("czasWykonania")))
-        }
+    private fun createListFromJson(jsonWorks: String): List<Work> {
+        val gson = Gson()
+        val type = object : TypeToken<List<Work>>() {}.type
+        val works: List<Work> = gson.fromJson(jsonWorks, type)
+        Log.d("TAG_TESTING", "createListFromJson: "+works.last().workName)
         return works
     }
 

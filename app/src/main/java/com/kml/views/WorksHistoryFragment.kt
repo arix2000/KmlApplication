@@ -30,6 +30,7 @@ class WorksHistoryFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     private lateinit var fileFactory: FileFactory
     lateinit var viewModel: WorksHistoryViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         root = inflater.inflate(R.layout.fragment_works_history, container, false)
