@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Brak wyników :O"
+        android:text="@string/no_results"
         android:padding="10dp"
         android:visibility="gone"
         android:textSize="18dp"/>
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Dodaj swoje piewsze zadanie!"
+        android:text="@string/add_your_first_work"
         android:textSize="15dp"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"

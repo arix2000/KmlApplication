@@ -4,8 +4,9 @@
         oraz udostępnić ich aktualne postępy,dodatkowo zawiera wyszukiwarke zabaw dla animatorów</string>
     <string name="timer_description"> Stoper odlicza czas pracy, następnie po jej zakończeniu wysyła wynik do bazy danych. Może działać w tle ale może zostać
     wyłączony przez system, w takim wypadku zapisuje postęp. Istnieje też opcja (w prawym górnym rogu) dodania sobie czasu pracy bez konieczności odliczania czasu!</string>
-    <string name="animacje_description">Wyszukuje animacje według wybranych kryteriów. Baza zawiera 144 animacje. Kolory oznaczają kategorie :D
+    <string name="games_search_engine_description">Wyszukuje animacje według wybranych kryteriów. Baza zawiera 144 animacje. Kolory oznaczają kategorie :D
         \n Pomysłodawca wyszukiwarki:\n Gabi Łanocha</string>
+    <string name="works_history_description">Pokazuje twoje ostatnio wykonane zadania oraz spotkania na których byłeś.</string>
 
     <string name="profile_description">Pokazuje wolontariuszowi jego dane oraz pozwala ustawić sobie zdjęcie profilowe. Kluczyk służy do zmiany hasła</string>
     <string name="no_results_found">Nic nie znaleziono :(</string>
@@ -73,6 +74,71 @@
 
     <string name="open_drawer">Open Navigation Drawer</string>
     <string name="close_drawer">Close Navigation Drawer</string>
-    <string name="kmlEmail">kmlmielec@gmail.com</string>
+    <string name="kml_email">kmlmielec@gmail.com</string>
+    <string name="select_all">zaznacz wszystkich</string>
+    <string name="deselect_all">odznacz wszystkich</string>
+    <string name="search_by_name">Szukaj po imieniu</string>
+    <string name="log_in">Zaloguj się</string>
+    <string name="login">Login</string>
+    <string name="password">Hasło</string>
+    <string name="remember_me">Zapamietaj mnie</string>
+    <string name="next">Dalej</string>
+    <string name="name">Nazwa</string>
+    <string name="description">Opis</string>
+    <string name="requirements">Czego potrzebujesz?</string>
+    <string name="category">Kategoria</string>
+    <string name="type_of_game">Rodzaj</string>
+    <string name="place">Miejsce</string>
+    <string name="number_of_kids">Liczba Dzieci</string>
+    <string name="kids_age">Wiek Dzieci</string>
+    <string name="chosen_volunteers">Wybrani wolontariusze:</string>
+    <string name="operation_name">Nazwa działania:</string>
+    <string name="write_time">Wpisz czas:</string>
+    <string name="hours">godzin</string>
+    <string name="minutes">minut</string>
+    <string name="send">wyślij</string>
+    <string name="add">Dodaj</string>
+    <string name="legend_of_colour">Legenda colorów</string>
+    <string name="games">Zabawy</string>
+    <string name="team">Drużynowe</string>
+    <string name="rope">Lina</string>
+    <string name="scarf">Chusta</string>
+    <string name="dances">Tańce</string>
+    <string name="about_app_title">O aplikacji</string>
+    <string name="profile">Profil</string>
+    <string name="work_timer">Licznik Pracy</string>
+    <string name="games_search_engine">Wyszukiwarka Animacji</string>
+    <string name="work_history">Historia Zadań</string>
+    <string name="creator_with_label">Wykonawca: Arek Mądry</string>
+    <string name="change_password">Zmień hasło</string>
+    <string name="type_old_password">Podaj stare hasło:</string>
+    <string name="type_new_password">Podaj nowe hasło:</string>
+    <string name="add_work">Dodaj zadanie</string>
+    <string name="new_work_name">Nazwa nowego zadania:</string>
+    <string name="what_were_you_doing">Co robiłeś/aś</string>
+    <string name="new_work_description">Opis:</string>
+    <string name="work_purpose">Cel zadania / Tytuł</string>
+    <string name="work_description_examples">Co robiłeś? / Data wykonania / Na jakie wydarzenie? / Z kim? itp.</string>
+    <string name="end_your_work">Zakończ zadanie</string>
+    <string name="new_work_time">Czas wykonywania:</string>
+    <string name="progress_founded">Znaleziono postęp!</string>
+    <string name="restore_progress_question">Przywrócić zapisany postęp?</string>
+    <string name="restore">Przywróć</string>
+    <string name="do_not_restore">nie\nprzywracaj</string>
+    <string name="work_name">Nazwa Zadania:</string>
+    <string name="work_description">Opis:</string>
+    <string name="date">Data:</string>
+    <string name="work_time">Czas wykonania:</string>
+    <string name="add_to_chosen">dodaj godziny</string>
+    <string name="game_name">Nazwa Zabawy</string>
+    <string name="optional">(Opcjonalna)</string>
+    <string name="search">szukaj</string>
+    <string name="join_year">Rok dołączenia:</string>
+    <string name="work_time_title">Czas pracy:</string>
+    <string name="in_this_season">W tym sezonie:</string>
+    <string name="in_this_month">W tym miesiącu:</string>
+    <string name="sections">Sekcje:</string>
+    <string name="add_your_first_work">Dodaj swoje piewsze zadanie!</string>
+    <string name="no_results">Brak wyników :O</string>
 
 </resources>

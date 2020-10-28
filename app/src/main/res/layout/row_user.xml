@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/row_user_checkbox"
-            android:text="Nazwa"
+            android:text="Volunteer name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <!-- image view for future photo of user a right of name-->

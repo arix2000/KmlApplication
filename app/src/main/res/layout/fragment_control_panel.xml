@@ -5,12 +5,11 @@
 
     <Button
         android:id="@+id/add_work_to_chosen_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/buttons"
         android:layout_centerInParent="true"
-        android:text="dodaj godziny wybranym.."
-        android:paddingHorizontal="10dp"/>
+        android:text="@string/add_to_chosen"/>
 
     <ProgressBar
         android:id="@+id/control_panel_progress_bar"

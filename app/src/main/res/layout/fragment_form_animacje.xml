@@ -7,25 +7,25 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="17dp"
         tools:context=".views.GameSearchEngineFragment">
 
         <TextView
             style="@style/form_text_views"
-            android:text="Nazwa Zabawy:" />
+            android:text="@string/game_name" />
 
         <EditText
             android:id="@+id/form_edit_text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="(Opcjonalna)"
+            android:hint="@string/optional"
             android:inputType="textPersonName" />
 
         <TextView
             style="@style/form_text_views"
-            android:text="Liczba dzieci:" />
+            android:text="@string/number_of_kids" />
 
         <Spinner
             android:id="@+id/form_spinner_number_of_kids"
@@ -40,7 +40,7 @@
 
         <TextView
             style="@style/form_text_views"
-            android:text="Wiek dzieci:" />
+            android:text="@string/kids_age" />
 
         <Spinner
             android:id="@+id/form_spinner_kids_age"
@@ -55,7 +55,7 @@
 
         <TextView
             style="@style/form_text_views"
-            android:text="Rodzaj Zabaw:" />
+            android:text="@string/type_of_game" />
 
         <Spinner
             android:id="@+id/form_spinner_type_of_games"
@@ -70,7 +70,7 @@
 
         <TextView
             style="@style/form_text_views"
-            android:text="Miejsce:" />
+            android:text="@string/place" />
 
         <Spinner
             android:id="@+id/form_spinner_place"
@@ -85,7 +85,7 @@
 
         <TextView
             style="@style/form_text_views"
-            android:text="Kategoria:" />
+            android:text="@string/category" />
 
         <Spinner
             android:id="@+id/form_spinner_category"
@@ -106,7 +106,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="20dp"
-            android:text="szukaj" />
+            android:text="@string/search" />
 
     </LinearLayout>
 </ScrollView>

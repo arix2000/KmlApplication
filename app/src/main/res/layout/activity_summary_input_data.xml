@@ -16,7 +16,7 @@
             style="@style/form_text_views"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wybrani wolontariusze:" />
+            android:text="@string/chosen_volunteers" />
 
         <TextView
             android:id="@+id/summary_activity_chosen_volunteers"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/summary_activity_chosen_volunteers"
-            android:text="Nazwa działania:" />
+            android:text="@string/operation_name" />
 
         <EditText
             android:id="@+id/summary_activity_work_name"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/summary_activity_work_name"
-            android:text="Wpisz czas:" />
+            android:text="@string/write_time" />
 
 
         <EditText
@@ -68,7 +68,7 @@
             android:layout_marginTop="20dp"
             android:layout_alignBottom="@+id/summary_activity_hours"
             android:layout_toRightOf="@+id/summary_activity_hours"
-            android:text="godzin"
+            android:text="@string/hours"
             android:textColor="@color/BlackContent"
             android:textSize="17dp" />
 
@@ -88,7 +88,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
-            android:text="minut"
+            android:text="@string/minutes"
             android:textColor="@color/BlackContent"
             android:textSize="17dp" />
 
@@ -101,7 +101,7 @@
             android:layout_below="@+id/summary_activity_hours"
             android:layout_marginTop="25dp"
             android:paddingHorizontal="10dp"
-            android:text="wyślij"
+            android:text="@string/add"
             android:textColor="@android:color/holo_green_light" />
 
     </RelativeLayout>

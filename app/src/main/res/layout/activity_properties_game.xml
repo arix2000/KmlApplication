@@ -2,7 +2,9 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="game"
             type="com.kml.data.models.Game" />
@@ -24,7 +26,7 @@
             <TextView
                 style="@style/properties_text_views_small"
                 android:layout_marginTop="0dp"
-                android:text="Nazwa:" />
+                android:text="@string/name" />
 
             <TextView
                 android:id="@+id/prop_name"
@@ -36,7 +38,7 @@
 
             <TextView
                 style="@style/properties_text_views_small"
-                android:text="Opis:" />
+                android:text="@string/description" />
 
             <TextView
                 android:id="@+id/prop_description"
@@ -48,7 +50,7 @@
 
             <TextView
                 style="@style/properties_text_views_small"
-                android:text="Czego potrzebujesz?" />
+                android:text="@string/requirements" />
 
             <TextView
                 android:id="@+id/prop_requirements"
@@ -60,7 +62,7 @@
 
             <TextView
                 style="@style/properties_text_views_small"
-                android:text="Rodzaj: " />
+                android:text="@string/type_of_game" />
 
             <TextView
                 android:id="@+id/prop_type_of_games"
@@ -72,7 +74,7 @@
 
             <TextView
                 style="@style/properties_text_views_small"
-                android:text="Kategoria: " />
+                android:text="@string/category" />
 
             <TextView
                 android:id="@+id/prop_category"
@@ -84,7 +86,7 @@
 
             <TextView
                 style="@style/properties_text_views_small"
-                android:text="Miejsce: " />
+                android:text="@string/place" />
 
             <TextView
                 android:id="@+id/prop_place"
@@ -102,13 +104,13 @@
                     android:id="@+id/x_x_liczbaDzieci"
                     style="@style/properties_text_views_small"
                     android:layout_alignBottom="@+id/x_x_wiekDzieci"
-                    android:text="Liczba Dzieci: " />
+                    android:text="@string/number_of_kids" />
 
                 <TextView
                     android:id="@+id/x_x_wiekDzieci"
                     style="@style/properties_text_views_small"
                     android:layout_alignParentRight="true"
-                    android:text="Wiek Dzieci: " />
+                    android:text="@string/kids_age" />
 
                 <TextView
                     android:id="@+id/prop_number_of_kids"

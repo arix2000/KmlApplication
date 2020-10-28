@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
         android:orientation="vertical"
         android:padding="16dp">
@@ -21,7 +21,7 @@
             style="@style/dialog_about_app_titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="O aplikacji:" />
+            android:text="@string/about_app_title" />
 
         <TextView
             style="@style/dialog_about_app_descriptions"
@@ -33,7 +33,7 @@
             style="@style/dialog_about_app_titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profil:" />
+            android:text="@string/profile" />
 
         <TextView
             style="@style/dialog_about_app_descriptions"
@@ -45,7 +45,7 @@
             style="@style/dialog_about_app_titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Licznik Pracy:" />
+            android:text="@string/work_timer" />
 
         <TextView
             style="@style/dialog_about_app_descriptions"
@@ -57,13 +57,25 @@
             style="@style/dialog_about_app_titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wyszukiwarka Animacji:" />
+            android:text="@string/games_search_engine" />
 
         <TextView
             style="@style/dialog_about_app_descriptions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/animacje_description" />
+            android:text="@string/games_search_engine_description" />
+
+        <TextView
+            style="@style/dialog_about_app_titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/work_history" />
+
+        <TextView
+            style="@style/dialog_about_app_descriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/works_history_description" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -75,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Wykonawca: Arek Mądry "
+                android:text="@string/creator_with_label"
                 android:textColor="@color/colorPrimary" />
 
             <TextView

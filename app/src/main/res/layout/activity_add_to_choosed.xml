@@ -18,9 +18,10 @@
         android:id="@+id/control_panel_floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
-        app:srcCompat="@drawable/ic_arrow_forward" />
+        app:srcCompat="@drawable/ic_arrow_forward"
+        android:contentDescription="@string/next" />
 
     <TextView
         android:id="@+id/control_panel_select_all"
@@ -32,7 +33,7 @@
         android:layout_marginBottom="75dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="zaznacz wszystkich"
+        android:text="@string/select_all"
         android:textColor="@color/colorPrimary" />
 
     <TextView
@@ -44,7 +45,7 @@
         android:layout_marginBottom="75dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="odznacz wszystkich"
+        android:text="@string/deselect_all"
         android:textColor="@android:color/holo_red_dark" />
 
     <EditText
@@ -52,7 +53,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Szukaj po imieniu"
+        android:hint="@string/search_by_name"
         android:layout_gravity="bottom"
         android:maxLines="1"
         android:textColor="@color/BlackContent"
