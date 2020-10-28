@@ -15,7 +15,7 @@
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Dodaj zadanie:" />
+        android:text="@string/add_work" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,10 +24,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nazwa nowego zadania:"/>
+            android:text="@string/new_work_name"
+            android:textColor="@color/BlackContent"/>
 
         <EditText
-            android:hint="Co robiłeś/aś"
+            android:hint="@string/work_purpose"
             android:id="@+id/timer_work_name_instant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,10 +38,11 @@
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Opis:"/>
+            android:text="@string/new_work_description"
+            android:textColor="@color/BlackContent"/>
 
         <EditText
-            android:hint="Na jakie wydarzenie? / Kiedy? / Z kim? itp."
+            android:hint="@string/work_description_examples"
             android:id="@+id/timer_work_description_instant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +58,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             style="@style/buttons"
-            android:text="Anuluj"/>
+            android:text="@string/cancel"/>
 
         <Button
             android:id="@+id/dialog_timer_confirm"
@@ -64,7 +66,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             style="@style/buttons"
-            android:text="Zakończ zadanie"
+            android:text="@string/end_your_work"
             android:layout_alignParentRight="true"
             android:paddingHorizontal="10dp"
             android:textColor="@android:color/holo_green_light"/>

@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Rok dołączenia: " />
+                    android:text="@string/join_year" />
 
                 <TextView
                     android:id="@+id/profile_join_year"
@@ -108,7 +108,7 @@
                     style="@style/row_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Czas pracy: " />
+                    android:text="@string/work_time_title" />
 
             </LinearLayout>
 
@@ -116,7 +116,7 @@
 
                 <TableRow
                     style="@style/row_style"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <ImageView
@@ -129,7 +129,7 @@
                         style="@style/row_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="W tym sezonie: "
+                        android:text="@string/in_this_season"
                         android:textStyle="" />
 
                     <TextView
@@ -147,7 +147,7 @@
 
                 <TableRow
                     style="@style/row_style"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <ImageView
@@ -160,7 +160,7 @@
                         style="@style/row_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="W tym miesiącu:" />
+                        android:text="@string/in_this_month" />
 
                     <TextView
                         android:id="@+id/profile_time_of_work_month"
@@ -188,7 +188,7 @@
                     style="@style/row_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sekcje:" />
+                    android:text="@string/sections" />
 
             </LinearLayout>
 
@@ -221,6 +221,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
         android:padding="10dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:focusable="true" />
 
 </RelativeLayout>

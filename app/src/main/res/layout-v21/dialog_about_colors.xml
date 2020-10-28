@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="Legenda colorów"
+        android:text="@string/legend_of_colour"
         android:textColor="@color/BlackContent"
         android:textSize="30sp" />
 
@@ -26,7 +26,7 @@
         style="@style/dialog_about_colors_text_views"
         android:layout_alignBottom="@+id/zabawy"
         android:layout_toRightOf="@+id/zabawy"
-        android:text=" - Zabawy"/>
+        android:text="@string/games"/>
 
     <View
         android:id="@+id/zabawy1"
@@ -38,7 +38,7 @@
         style="@style/dialog_about_colors_text_views"
         android:layout_alignBottom="@+id/zabawy1"
         android:layout_toRightOf="@+id/zabawy1"
-        android:text=" - Drużynowe"/>
+        android:text="@string/team"/>
 
     <View
         android:id="@+id/zabawy2"
@@ -50,7 +50,7 @@
         style="@style/dialog_about_colors_text_views"
         android:layout_alignBottom="@+id/zabawy2"
         android:layout_toRightOf="@+id/zabawy2"
-        android:text=" - Lina"/>
+        android:text="@string/rope"/>
 
     <View
         android:id="@+id/zabawy3"
@@ -62,7 +62,7 @@
         style="@style/dialog_about_colors_text_views"
         android:layout_alignBottom="@+id/zabawy3"
         android:layout_toRightOf="@+id/zabawy3"
-        android:text=" - Chusta"/>
+        android:text="@string/scarf"/>
 
     <View
         android:id="@+id/zabawy4"
@@ -74,5 +74,5 @@
         style="@style/dialog_about_colors_text_views"
         android:layout_alignBottom="@+id/zabawy4"
         android:layout_toRightOf="@+id/zabawy4"
-        android:text=" - Tańce"/>
+        android:text="@string/dances"/>
 </RelativeLayout>

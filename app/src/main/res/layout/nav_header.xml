@@ -15,7 +15,8 @@
         android:clickable="true"
         android:src="@mipmap/icon"
         android:foreground="@drawable/rounded_corners"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary"
+        android:focusable="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/kmlEmail"/>
+        android:text="@string/kml_email"/>
 
 
 </LinearLayout>

@@ -17,7 +17,7 @@
         android:gravity="center"
         style="@style/form_text_views"
         android:textColor="@android:color/secondary_text_light"
-        android:text="Nazwa Zadania:"/>
+        android:text="@string/work_name"/>
 
     <TextView
         android:id="@+id/dialog_history_work_name"
@@ -27,21 +27,21 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
-        android:text="WorkName"/>
+        android:text="Nazwa"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/form_text_views"
         android:textColor="@android:color/secondary_text_light"
-        android:text="Opis:"/>
+        android:text="@string/work_description"/>
 
     <TextView
         android:id="@+id/dialog_history_work_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/BlackContent"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:gravity="center"
         android:text="WorkDescription"/>
 
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         style="@style/form_text_views"
         android:textColor="@android:color/secondary_text_light"
-        android:text="Data:"/>
+        android:text="@string/date"/>
 
     <TextView
         android:id="@+id/dialog_history_work_date"
@@ -59,7 +59,7 @@
         android:textColor="@color/BlackContent"
         android:textStyle="bold"
         android:gravity="center"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:text="Date"/>
 
     <TextView
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         style="@style/form_text_views"
         android:textColor="@android:color/secondary_text_light"
-        android:text="Czas wykonania:"/>
+        android:text="@string/work_time"/>
 
     <TextView
         android:id="@+id/dialog_history_execution_time"
@@ -76,7 +76,7 @@
         android:textColor="@color/BlackContent"
         android:textStyle="bold"
         android:gravity="center"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:text="ExecutionTime"/>
 </LinearLayout>
 </ScrollView>

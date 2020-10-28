@@ -13,20 +13,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/y_y_znaleziono_postep"
+            android:id="@+id/progress_founded"
             style="@style/TextAppearance.AppCompat.SearchResult.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Znaleziono postęp!"
+            android:text="@string/progress_founded"
             android:gravity="center"
             android:textSize="30sp"/>
 
         <TextView
-            android:id="@+id/y_y_czy_przywracac"
+            android:id="@+id/should_restore"
             android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="Przywrócić zapisany postęp?" />
+            android:text="@string/restore_progress_question" />
     </LinearLayout>
 
     <RelativeLayout
@@ -41,7 +41,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Przywróć"
+            android:text="@string/restore"
             android:textColor="@android:color/holo_green_light" />
 
         <Button
@@ -49,7 +49,7 @@
             style="@style/buttons"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="nie    przywracaj" />
+            android:text="@string/do_not_restore" />
     </RelativeLayout>
 
 </LinearLayout>

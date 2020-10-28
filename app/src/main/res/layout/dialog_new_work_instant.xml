@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -16,7 +16,7 @@
             android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Dodaj zadanie:" />
+            android:text="@string/add_work" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nazwa nowego zadania:"
+                android:text="@string/new_work_name"
                 android:textColor="@color/BlackContent" />
 
             <EditText
@@ -34,13 +34,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Co robiłeś/aś?" />
+                android:hint="@string/work_purpose" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Opis:"
+                android:text="@string/new_work_description"
                 android:textColor="@color/BlackContent" />
 
             <EditText
@@ -48,13 +48,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Na jakie wydarzenie? / Kiedy? / Z kim? itp." />
+                android:hint="@string/work_description_examples" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Czas wykonywania:"
+                android:text="@string/new_work_time"
                 android:textColor="@color/BlackContent" />
         </LinearLayout>
 
@@ -76,7 +76,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/summary_activity_hours"
-                android:text="godzin"
+                android:text="@string/hours"
                 android:textColor="@color/BlackContent"
                 android:textSize="17sp" />
 
@@ -94,7 +94,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
-                android:text="minut"
+                android:text="@string/minutes"
                 android:textColor="@color/BlackContent"
                 android:textSize="17sp" />
 
@@ -110,7 +110,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:text="Anuluj" />
+                android:text="@string/cancel" />
 
             <Button
                 android:id="@+id/summary_activity_send_work"
@@ -120,7 +120,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="25dp"
                 android:paddingHorizontal="10dp"
-                android:text="dodaj"
+                android:text="@string/add"
                 android:textColor="@android:color/holo_green_light" />
         </RelativeLayout>
 

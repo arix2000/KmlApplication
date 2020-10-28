@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -322,9 +321,9 @@ public class WorkTimerFragment extends Fragment
         dialog.setContentView(R.layout.dialog_restore_from_file);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-        TextView textViewTitle = dialog.findViewById(R.id.y_y_znaleziono_postep);
+        TextView textViewTitle = dialog.findViewById(R.id.progress_founded);
         textViewTitle.setText(R.string.warning);
-        TextView textViewQuestion = dialog.findViewById(R.id.y_y_czy_przywracac);
+        TextView textViewQuestion = dialog.findViewById(R.id.should_restore);
         textViewQuestion.setText(R.string.reset_confirmation);
 
         Button btnTak = dialog.findViewById(R.id.btn_dialog_restore_yes);
