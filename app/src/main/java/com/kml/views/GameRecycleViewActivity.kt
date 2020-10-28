@@ -47,7 +47,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
         })
 
         adapter.setOnItemClickListener { game ->
-            val intent = Intent(this@GameRecycleViewActivity, PropertiesOfGameActivity::class.java)
+            val intent = Intent(this@GameRecycleViewActivity, GamePropertiesActivity::class.java)
             intent.putExtra(EXTRA_GAME, game)
             startActivity(intent)
         }
@@ -63,7 +63,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        val filterInfo: GameFilterInfo = intent.getParcelableExtra(SearchEngineFragment.EXTRA_GAME_FILTER_INFO)
+        val filterInfo: GameFilterInfo = intent.getParcelableExtra(GameSearchEngineFragment.EXTRA_GAME_FILTER_INFO)
                 ?: GameFilterInfo("","","","","","")
 
         val dataSource = GameDatabase.getInstance(this).gameDao

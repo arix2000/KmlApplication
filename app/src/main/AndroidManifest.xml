@@ -37,7 +37,7 @@
             android:stopWithTask="false" />
 
         <activity
-            android:name=".views.PropertiesOfGameActivity"
+            android:name=".views.GamePropertiesActivity"
             android:parentActivityName=".views.GameRecycleViewActivity" />
         <activity
             android:name=".views.GameRecycleViewActivity"

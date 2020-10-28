@@ -1,132 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/properties_container">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="game"
+            type="com.kml.data.models.Game" />
+    </data>
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
+        android:id="@+id/properties_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp"
-        tools:context=".views.PropertiesOfGameActivity">
+        android:layout_height="match_parent">
 
-
-        <TextView
-            style="@style/properties_text_views_small"
-            android:layout_marginTop="0dp"
-            android:text="Nazwa:" />
-
-        <TextView
-            android:id="@+id/prop_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="nazwa"
-            android:textColor="@color/BlackContent"
-            android:textSize="27sp" />
-
-        <TextView
-            style="@style/properties_text_views_small"
-            android:text="Opis:" />
-
-        <TextView
-            android:id="@+id/prop_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="opis"
-            android:textColor="#404040"
-            android:textSize="18sp" />
-
-        <TextView
-            style="@style/properties_text_views_small"
-            android:text="Czego potrzebujesz?" />
-
-        <TextView
-            android:id="@+id/prop_requirements"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="wymagania"
-            android:textColor="#404040"
-            android:textSize="18sp" />
-
-        <TextView
-            style="@style/properties_text_views_small"
-            android:text="Rodzaj: " />
-
-        <TextView
-            android:id="@+id/prop_type_of_games"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="rodzaj zabawy"
-            android:textColor="#404040"
-            android:textSize="18sp" />
-
-        <TextView
-            style="@style/properties_text_views_small"
-            android:text="Kategoria: " />
-
-        <TextView
-            android:id="@+id/prop_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="kategoria"
-            android:textColor="#404040"
-            android:textSize="18sp" />
-
-        <TextView
-            style="@style/properties_text_views_small"
-            android:text="Miejsce: " />
-
-        <TextView
-            android:id="@+id/prop_place"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="prop_miejsce"
-            android:textColor="#404040"
-            android:textSize="18sp" />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            tools:context=".views.GamePropertiesActivity">
+
 
             <TextView
-                android:id="@+id/x_x_liczbaDzieci"
                 style="@style/properties_text_views_small"
-                android:layout_alignBottom="@+id/x_x_wiekDzieci"
-                android:text="Liczba Dzieci: " />
+                android:layout_marginTop="0dp"
+                android:text="Nazwa:" />
 
             <TextView
-                android:id="@+id/x_x_wiekDzieci"
-                style="@style/properties_text_views_small"
-                android:layout_alignParentRight="true"
-                android:text="Wiek Dzieci: " />
-
-            <TextView
-                android:gravity="center"
-                android:id="@+id/prop_number_of_kids"
-                android:layout_width="50dp"
+                android:id="@+id/prop_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/x_x_liczbaDzieci"
-                android:layout_marginLeft="20dp"
-                android:text="prop_liczba_dzieci"
+                android:text="@={game.name}"
+                android:textColor="@color/BlackContent"
+                android:textSize="27sp" />
+
+            <TextView
+                style="@style/properties_text_views_small"
+                android:text="Opis:" />
+
+            <TextView
+                android:id="@+id/prop_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={game.description}"
                 android:textColor="#404040"
                 android:textSize="18sp" />
 
             <TextView
-                android:gravity="center"
-                android:id="@+id/prop_kids_age"
-                android:layout_width="50dp"
+                style="@style/properties_text_views_small"
+                android:text="Czego potrzebujesz?" />
+
+            <TextView
+                android:id="@+id/prop_requirements"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/x_x_wiekDzieci"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:text="wiek_dzieci"
+                android:text="@={game.requirements}"
                 android:textColor="#404040"
                 android:textSize="18sp" />
 
+            <TextView
+                style="@style/properties_text_views_small"
+                android:text="Rodzaj: " />
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/prop_type_of_games"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={game.typeOfGame}"
+                android:textColor="#404040"
+                android:textSize="18sp" />
 
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                style="@style/properties_text_views_small"
+                android:text="Kategoria: " />
+
+            <TextView
+                android:id="@+id/prop_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={game.category}"
+                android:textColor="#404040"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/properties_text_views_small"
+                android:text="Miejsce: " />
+
+            <TextView
+                android:id="@+id/prop_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={game.place}"
+                android:textColor="#404040"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/x_x_liczbaDzieci"
+                    style="@style/properties_text_views_small"
+                    android:layout_alignBottom="@+id/x_x_wiekDzieci"
+                    android:text="Liczba Dzieci: " />
+
+                <TextView
+                    android:id="@+id/x_x_wiekDzieci"
+                    style="@style/properties_text_views_small"
+                    android:layout_alignParentRight="true"
+                    android:text="Wiek Dzieci: " />
+
+                <TextView
+                    android:id="@+id/prop_number_of_kids"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/x_x_liczbaDzieci"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="@={game.numberOfKids}"
+                    android:textColor="#404040"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/prop_kids_age"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/x_x_wiekDzieci"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="@={game.kidsAge}"
+                    android:textColor="#404040"
+                    android:textSize="18sp" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

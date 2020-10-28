@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(KmlApp.isFromRecycleViewActivity)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchEngineFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new GameSearchEngineFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_search_engine);
             KmlApp.isFromRecycleViewActivity=false;
         }
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_search_engine:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchEngineFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new GameSearchEngineFragment()).commit();
                 break;
 
             case R.id.nav_control_panel:
