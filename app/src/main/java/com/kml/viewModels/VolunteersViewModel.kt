@@ -3,11 +3,10 @@ package com.kml.viewModels
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.kml.data.models.Volunteer
 import com.kml.repositories.VolunteerRepository
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -57,25 +56,11 @@ class VolunteersViewModel : ViewModel() {
         return filteredVolunteers
     }
 
-    private fun createListFromJson(result: String): List<Volunteer> {
-        var volunteers: List<Volunteer> = ArrayList()
-        try {
-            val jsonArray = JSONArray(result)
-            volunteers = fillArrayFromJson(jsonArray)
-        } catch (e: JSONException) {
-            Log.d("RESULT_FROM_JSON", "onException: " + e.message)
-        }
-        return volunteers
-    }
-
-    @Throws(JSONException::class)
-    private fun fillArrayFromJson(jsonArray: JSONArray): List<Volunteer> {
-        var jsonObject: JSONObject
-        val volunteers: MutableList<Volunteer> = ArrayList()
-        for (i in 0 until jsonArray.length()) {
-            jsonObject = jsonArray.getJSONObject(i)
-            volunteers.add(Volunteer(jsonObject.getInt("id"), jsonObject.getString("imie"), jsonObject.getString("nazwisko"), false))
-        }
+    private fun createListFromJson(jsonResult: String): List<Volunteer> {
+        val gson = Gson()
+        val type = object : TypeToken<List<Volunteer>>() {}.type
+        val volunteers: List<Volunteer> = gson.fromJson(jsonResult, type)
+        Log.d("TESTING_TAG", "createListFromJson: "+jsonResult)
         return volunteers
     }
 }
