@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kml.R;
 import com.kml.data.models.Game;
+import com.kml.holders.GameHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameHolder>
+public class GameAdapter extends RecyclerView.Adapter<GameHolder>
 {
     private List<Game> games = new ArrayList<>();
     private OnItemClickListener listener;
@@ -37,6 +38,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameHolder>
         holder.textViewDescription.setText(currentGame.getDescription());
         holder.textViewNumberOfKids.setText(currentGame.getNumberOfKids().replaceAll(";",","));
         setColorsByCategories(holder, currentGame);
+        holder.itemView.setOnClickListener(view -> {
+            if(listener != null && position != RecyclerView.NO_POSITION)
+            {
+                listener.OnItemClick(games.get(position));
+            }
+        });
 
     }
 
@@ -67,33 +74,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameHolder>
     {
         this.games = games;
         notifyDataSetChanged();
-    }
-    class GameHolder extends RecyclerView.ViewHolder
-    {
-        private CardView itemBackground;
-        private TextView textViewName;
-        private TextView textViewDescription;
-        private TextView textViewNumberOfKids;
-        public GameHolder(View itemView) {
-            super(itemView);
-            textViewName = itemView.findViewById(R.id.row_user_name);
-            textViewDescription = itemView.findViewById(R.id.row_description);
-            textViewNumberOfKids = itemView.findViewById(R.id.row_number_of_kids);
-            itemBackground = itemView.findViewById(R.id.item_background);
-
-            itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    int position = getAdapterPosition();
-                    if(listener != null && position != RecyclerView.NO_POSITION)
-                    {
-                        listener.OnItemClick(games.get(position));
-                    }
-                }
-            });
-        }
     }
 
     public interface OnItemClickListener

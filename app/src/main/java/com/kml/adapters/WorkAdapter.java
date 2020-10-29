@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kml.R;
 import com.kml.data.models.Work;
+import com.kml.holders.WorkHolder;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
+public class WorkAdapter extends RecyclerView.Adapter<WorkHolder>
 {
     List<Work> works = new ArrayList<>();
     private WorkAdapter.OnItemClickListener listener;
@@ -38,6 +39,12 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
         holder.workHistoryName.setText(work.getWorkName());
         holder.workHistoryDescription.setText(work.getWorkDescription());
         holder.workHistoryDate.setText(work.getWorkDate());
+        holder.itemView.setOnClickListener(v -> {
+            if(listener!=null && position != RecyclerView.NO_POSITION)
+            {
+                listener.OnItemClick(works.get(position));
+            }
+        });
     }
 
     @Override
@@ -45,35 +52,6 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.WorkHolder>
     {
         return works.size();
     }
-
-    public class WorkHolder extends RecyclerView.ViewHolder
-    {
-        private TextView workHistoryName;
-        private TextView workHistoryDescription;
-        private TextView workHistoryDate;
-
-        public WorkHolder(@NonNull View itemView)
-        {
-            super(itemView);
-            workHistoryName = itemView.findViewById(R.id.history_work_name);
-            workHistoryDescription = itemView.findViewById(R.id.history_work_description);
-            workHistoryDate = itemView.findViewById(R.id.history_work_date);
-
-            itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    int position = getAdapterPosition();
-                    if(listener!=null && position != RecyclerView.NO_POSITION)
-                    {
-                        listener.OnItemClick(works.get(position));
-                    }
-                }
-            });
-        }
-    }
-
 
     public void setWorks(List<Work> works)
     {
