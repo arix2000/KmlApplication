@@ -19,9 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".views.SummaryInputDataActivity"
-            android:parentActivityName=".views.AddToChosenActivity"/>
+            android:parentActivityName=".views.SelectVolunteersActivity"/>
         <activity
-            android:name=".views.AddToChosenActivity"
+            android:name=".views.SelectVolunteersActivity"
             android:parentActivityName=".views.MainActivity" />
 
         <meta-data

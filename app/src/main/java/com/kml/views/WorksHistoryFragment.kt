@@ -63,7 +63,6 @@ class WorksHistoryFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    //fragment
     private fun setWorksToAdapter(works: List<Work>?, isFromFile: Boolean) {
         Handler(Looper.getMainLooper()).postDelayed({
             adapter.setWorks(works)
@@ -75,7 +74,6 @@ class WorksHistoryFragment : Fragment() {
         }, 200)
     }
 
-    //fragment
     private fun extendInDialog(work: Work) {
         val dialog = Dialog(root.context)
         dialog.setContentView(R.layout.dialog_work_history_extended)
@@ -91,7 +89,6 @@ class WorksHistoryFragment : Fragment() {
         executionTime.text = work.executionTime
     }
 
-    //fragment
     private fun reactOnNoItems() {
         val noResultsHistory = root.findViewById<TextView>(R.id.no_results_on_history)
         val noResultsHistoryClickable = root.findViewById<TextView>(R.id.no_results_on_history_clickable)
@@ -102,7 +99,6 @@ class WorksHistoryFragment : Fragment() {
         }
     }
 
-    //fragment
     private fun setOnItemClickListener(noResultsHistoryClickable: TextView) {
         noResultsHistoryClickable.setOnClickListener {
             progressBar.visibility = View.GONE
@@ -112,7 +108,6 @@ class WorksHistoryFragment : Fragment() {
         }
     }
 
-    //fragment
     override fun onPause() {
         super.onPause()
         requireActivity().setTitle(R.string.app_name)
