@@ -2,8 +2,12 @@ package com.kml.data.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
-class Volunteer(val id: Int, val firstName: String, val lastName: String, var isChecked: Boolean): Parcelable {
+class Volunteer(val id: Int,
+                @SerializedName("imie") val firstName: String,
+                @SerializedName("nazwisko") val lastName: String,
+                var isChecked: Boolean) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),

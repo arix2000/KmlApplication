@@ -1,6 +1,5 @@
 package com.kml.viewModels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
@@ -21,9 +20,7 @@ class WorksHistoryViewModel(fileFactory: FileFactory): ViewModel() {
     private fun createListFromJson(jsonWorks: String): List<Work> {
         val gson = Gson()
         val type = object : TypeToken<List<Work>>() {}.type
-        val works: List<Work> = gson.fromJson(jsonWorks, type)
-        Log.d("TAG_TESTING", "createListFromJson: "+works.last().workName)
-        return works
+        return gson.fromJson(jsonWorks, type)
     }
 
 }
