@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kml.R;
 import com.kml.data.models.Volunteer;
+import com.kml.holders.VolunteerHolder;
 
 import java.util.List;
 
-public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.VolunteerHolder>
+public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerHolder>
 {
     List<Volunteer> volunteers;
     private OnItemClickListener listener;
@@ -35,6 +36,25 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
         String fullName = volunteer.getFirstName() + " " + volunteer.getLastName();
         holder.name.setText(fullName);
         holder.checkBox.setChecked(volunteer.isChecked());
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.OnItemClick(volunteers.get(position));
+                    setCheckboxState(holder.checkBox);
+                }
+            }
+
+            private void setCheckboxState(CheckBox checkBox)
+            {
+                if (checkBox.isChecked())
+                    checkBox.setChecked(false);
+                else if (!checkBox.isChecked())
+                    checkBox.setChecked(true);
+            }
+        });
     }
 
     @Override
@@ -52,40 +72,6 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
     public List<Volunteer> getVolunteers()
     {
         return volunteers;
-    }
-
-    public class VolunteerHolder extends RecyclerView.ViewHolder
-    {
-        private CheckBox checkBox;
-        private TextView name;
-
-        public VolunteerHolder(@NonNull View itemView)
-        {
-            super(itemView);
-            checkBox = itemView.findViewById(R.id.row_user_checkbox);
-            name = itemView.findViewById(R.id.row_user_name);
-
-            itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.OnItemClick(volunteers.get(position));
-                        setCheckboxState(checkBox);
-                    }
-                }
-
-                private void setCheckboxState(CheckBox checkBox)
-                {
-                    if (checkBox.isChecked())
-                        checkBox.setChecked(false);
-                    else if (!checkBox.isChecked())
-                        checkBox.setChecked(true);
-                }
-            });
-        }
     }
 
 
