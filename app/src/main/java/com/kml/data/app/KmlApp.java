@@ -14,21 +14,16 @@ package com.kml.data.app;
 * Creator and owner: Arek Mądry
 * Copyright © 2020
 */
-import android.app.Application;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
 import androidx.multidex.MultiDexApplication;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO Stworzenie panelu sterowania z którego będzie można przeglądać oraz edytować baze danych
-        //TODO Na Poczatek stworzenie panelu wyświetlającego tylko liste ostatnio wykonanych zadań
-                //TODO zmiana wygladu formularza #FUTURE
-                        //TODO System ostatnich wiadomości (z zewnetrznych powiadomien wysyłanych z firebase)
 public class KmlApp extends MultiDexApplication
 {
     public static final String CHANNEL_1_ID = "serviceChannel";

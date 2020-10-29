@@ -29,7 +29,7 @@ public class SummaryInputDataActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_summary_input_data);
+        setContentView(R.layout.activity_summary_selected);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Dokończ wpisywanie:");
 
@@ -78,7 +78,7 @@ public class SummaryInputDataActivity extends AppCompatActivity
     private void writeChosenVolunteers()
     {
         Intent intent = getIntent();
-        chosenVolunteers = intent.getParcelableArrayListExtra(AddToChosenActivity.EXTRA_CHECKED_VOLUNTEERS);
+        chosenVolunteers = intent.getParcelableArrayListExtra(SelectVolunteersActivity.EXTRA_CHECKED_VOLUNTEERS);
         String chosenVolunteersMerged = createStringFromList(chosenVolunteers);
         chosenVolunteersMerged = chosenVolunteersMerged.substring(0,chosenVolunteersMerged.length()-2)+".";
         chosenTextView.setText(chosenVolunteersMerged);
