@@ -65,13 +65,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
     private fun createOnItemClickListener() {
         adapter.setOnItemClickListener { volunteer ->
-            if (volunteer.isChecked) {
-                volunteer.isChecked = false
-                viewModel.removeFromCheckedVolunteers(volunteer)
-            } else {
-                volunteer.isChecked = true
-                viewModel.addToCheckedVolunteers(volunteer)
-            }
+            volunteer.isChecked = !volunteer.isChecked
         }
     }
 
@@ -101,9 +95,10 @@ class SelectVolunteersActivity : AppCompatActivity() {
     }
 
     private fun sendIntentWithCheckedList() {
-        if (viewModel.checkedVolunteers.size > 0) {
+        val checkedVolunteers = viewModel.volunteers.value?.filter { it.isChecked } as ArrayList
+        if (checkedVolunteers.isNotEmpty()) {
             val intent = Intent(this, SummaryInputDataActivity::class.java)
-            intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, viewModel.checkedVolunteers)
+            intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
             startActivity(intent)
         } else {
             Toast.makeText(this, R.string.choose_one_at_least, Toast.LENGTH_SHORT).show()
