@@ -2,15 +2,27 @@ package com.kml.holders
 
 import android.view.View
 import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.kml.R
+import com.kml.data.models.Volunteer
+import kotlinx.android.synthetic.main.list_item_volunteer.view.*
 
 class VolunteerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    @JvmField
-    var checkBox: CheckBox = itemView.findViewById(R.id.row_user_checkbox)
 
-    @JvmField
-    var name: TextView = itemView.findViewById(R.id.row_user_name)
+    fun bind(volunteer: Volunteer, onClickListener: (Volunteer) -> Unit) {
+
+        val fullName = volunteer.firstName + " " + volunteer.lastName
+        itemView.apply {
+            volunteer_item_name.text = fullName
+            volunteer_item_checkbox.isChecked = volunteer.isChecked
+            setOnClickListener {
+                setCheckboxState(volunteer_item_checkbox)
+                onClickListener(volunteer)
+            }
+        }
+    }
+
+    private fun setCheckboxState(checkBox: CheckBox) {
+        checkBox.isChecked = !checkBox.isChecked
+    }
 
 }
