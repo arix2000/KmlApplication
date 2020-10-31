@@ -10,7 +10,7 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/history_work_date"
+            android:id="@+id/history_work_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -18,21 +18,21 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
-            android:id="@+id/history_work_name"
+            android:id="@+id/history_work_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/history_work_date"
+            android:layout_toLeftOf="@id/history_work_item_date"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="HistoryWorkName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
-            android:id="@+id/history_work_description"
+            android:id="@+id/history_work_item_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/history_work_name"
+            android:layout_below="@id/history_work_item_name"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="HistoryWorkDescription" />

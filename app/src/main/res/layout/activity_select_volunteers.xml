@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="100dp"
         android:scrollbars="vertical"
-        tools:listitem="@layout/row_user" />
+        tools:listitem="@layout/list_item_volunteer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/control_panel_floating_button"
