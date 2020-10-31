@@ -16,6 +16,7 @@ import com.kml.R
 import com.kml.adapters.GameAdapter
 import com.kml.data.app.KmlApp
 import com.kml.data.internalRoomDatabase.GameDatabase
+import com.kml.data.models.Game
 import com.kml.data.models.GameFilterInfo
 import com.kml.viewModels.GameViewModel
 import com.kml.viewModels.GameViewModelFactory
@@ -29,10 +30,10 @@ class GameRecycleViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_show_recycle_view)
+        setContentView(R.layout.activity_game_recycle_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val adapter = GameAdapter()
+        val adapter = GameAdapter { handleItemClick(it) }
         initRecycleView(adapter)
         initViewModel()
 
@@ -46,13 +47,13 @@ class GameRecycleViewActivity : AppCompatActivity() {
             title = "Znaleziono " + filteredGames.size + " wyników"
         })
 
-        adapter.setOnItemClickListener { game ->
-            val intent = Intent(this@GameRecycleViewActivity, GamePropertiesActivity::class.java)
-            intent.putExtra(EXTRA_GAME, game)
-            startActivity(intent)
-        }
-
         KmlApp.isFromRecycleViewActivity = true
+    }
+
+    private fun handleItemClick(game: Game) {
+        val intent = Intent(this, GamePropertiesActivity::class.java)
+        intent.putExtra(EXTRA_GAME, game)
+        startActivity(intent)
     }
 
     private fun initRecycleView(adapter: GameAdapter) {
@@ -64,7 +65,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         val filterInfo: GameFilterInfo = intent.getParcelableExtra(GameSearchEngineFragment.EXTRA_GAME_FILTER_INFO)
-                ?: GameFilterInfo("","","","","","")
+                ?: GameFilterInfo("", "", "", "", "", "")
 
         val dataSource = GameDatabase.getInstance(this).gameDao
         val viewModelFactory = GameViewModelFactory(dataSource, filterInfo)
