@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
+import com.kml.data.models.Volunteer
 import com.kml.viewModels.VolunteersViewModel
 
 class SelectVolunteersActivity : AppCompatActivity() {
@@ -38,7 +39,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(VolunteersViewModel::class.java)
 
-        initRecycleView()
+        createRecycleView()
 
         viewModel.volunteers.observe(this) {
             adapter.volunteers = it
@@ -51,35 +52,28 @@ class SelectVolunteersActivity : AppCompatActivity() {
         actionButton.setOnClickListener { sendIntentWithCheckedList() }
     }
 
-    private fun initRecycleView() {
-        createRecycleView()
-        createOnItemClickListener()
-    }
-
     private fun createRecycleView() {
         recyclerView = findViewById(R.id.control_panel_recycle_view)
-        adapter = VolunteerAdapter()
+        adapter = VolunteerAdapter { handleOnClick(it) }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
 
-    private fun createOnItemClickListener() {
-        adapter.setOnItemClickListener { volunteer ->
-            volunteer.isChecked = !volunteer.isChecked
-        }
+    private fun handleOnClick(volunteer: Volunteer) {
+        volunteer.isChecked = !volunteer.isChecked
     }
 
     private fun initClickableTextViews() {
         val selectAllTextView = findViewById<TextView>(R.id.control_panel_select_all)
         selectAllTextView.setOnClickListener {
             viewModel.selectAllVolunteers()
-            adapter.volunteers = viewModel.volunteers.value
+            adapter.volunteers = viewModel.volunteers.value!!
         }
 
         val deselectAllTextView = findViewById<TextView>(R.id.control_panel_deselect)
         deselectAllTextView.setOnClickListener {
             viewModel.deselectAllVolunteers()
-            adapter.volunteers = viewModel.volunteers.value
+            adapter.volunteers = viewModel.volunteers.value!!
         }
     }
 

@@ -38,14 +38,11 @@ class WorksHistoryFragment : Fragment() {
         progressBar = root.findViewById(R.id.works_history_progress_bar)
         initRecycleView()
 
-
         val viewModelFactory = WorksHistoryViewModelFactory(fileFactory)
         viewModel = ViewModelProvider(this, viewModelFactory).get(WorksHistoryViewModel::class.java)
 
         viewModel.works.observe(viewLifecycleOwner) { setWorksToAdapter(it, viewModel.isFromFile())}
 
-
-        adapter.setOnItemClickListener { work: Work -> extendInDialog(work) }
         return root
     }
 
@@ -55,17 +52,17 @@ class WorksHistoryFragment : Fragment() {
     }
 
     private fun initRecycleView() {
-        adapter = WorkAdapter()
-        adapter.setProgressBar(progressBar)
+        adapter = WorkAdapter {extendInDialog(it)}
+        adapter.progressBar = progressBar
         val recyclerView: RecyclerView = root.findViewById(R.id.works_history_recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(root.context)
         recyclerView.adapter = adapter
     }
 
-    private fun setWorksToAdapter(works: List<Work>?, isFromFile: Boolean) {
+    private fun setWorksToAdapter(works: List<Work>, isFromFile: Boolean) {
         Handler(Looper.getMainLooper()).postDelayed({
-            adapter.setWorks(works)
+            adapter.works = works
             if (isFromFile) {
                 Toast.makeText(root.context, R.string.load_previous_data, Toast.LENGTH_SHORT).show()
             }
