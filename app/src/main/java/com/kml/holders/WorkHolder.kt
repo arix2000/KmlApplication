@@ -1,18 +1,18 @@
 package com.kml.holders
 
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.kml.R
+import com.kml.data.models.Work
+import kotlinx.android.synthetic.main.list_item_work_history.view.*
 
 class WorkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    @JvmField
-    var workHistoryName: TextView = itemView.findViewById(R.id.history_work_name)
 
-    @JvmField
-    var workHistoryDescription: TextView = itemView.findViewById(R.id.history_work_description)
-
-    @JvmField
-    var workHistoryDate: TextView = itemView.findViewById(R.id.history_work_date)
+    fun bind(work: Work, onClickListener: (Work) -> Unit)
+    {
+        itemView.history_work_item_name.text = work.workName
+        itemView.history_work_item_description.text = work.workDescription
+        itemView.history_work_item_date.text = work.workDate
+        itemView.setOnClickListener { onClickListener(work) }
+    }
 
 }
