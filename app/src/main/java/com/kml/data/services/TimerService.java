@@ -104,7 +104,6 @@ public class TimerService extends Service
             hours += 1;
             minutes = 0;
         }
-        Log.d("HOW_I_COUNT", "count: Sec: " + seconds + "  Min: " + minutes + "  H: " + hours + " running: " + isServiceRunning + " exit: " + exitServiceThread);
     }
 
 }

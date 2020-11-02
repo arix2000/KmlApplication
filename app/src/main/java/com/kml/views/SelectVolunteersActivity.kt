@@ -91,7 +91,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
     private fun sendIntentWithCheckedList() {
         val checkedVolunteers = viewModel.volunteers.value?.filter { it.isChecked } as ArrayList
         if (checkedVolunteers.isNotEmpty()) {
-            val intent = Intent(this, SummaryInputDataActivity::class.java)
+            val intent = Intent(this, SummaryVolunteerActivity::class.java)
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
             startActivity(intent)
         } else {
