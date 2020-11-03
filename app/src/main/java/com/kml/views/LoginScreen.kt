@@ -9,16 +9,18 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.kml.R
 import com.kml.data.app.FileFactory
-import com.kml.data.app.KmlApp
-import com.kml.data.externalDbOperations.DbLogin
 import com.kml.databinding.ActivityLoginScreenBinding
+import com.kml.viewModels.LoginViewModel
+import com.kml.viewModels.LoginViewModelFactory
 import java.lang.Boolean
 
 class LoginScreen : AppCompatActivity() {
     private lateinit var cache: FileFactory
     lateinit var binding: ActivityLoginScreenBinding
+    lateinit var viewModel: LoginViewModel
 
     companion object {
         @JvmField
@@ -27,11 +29,15 @@ class LoginScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_login_screen)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login_screen)
 
         cache = FileFactory(this)
         binding.login.setSelectAllOnFocus(true)
         binding.password.setSelectAllOnFocus(true)
+
+        val viewModelFactory = LoginViewModelFactory(cache)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
+
         binding.logInButton.setOnClickListener {
             binding.loginScreenProgresBar.visibility = ProgressBar.VISIBLE
             Thread { logIn() }.start()
@@ -42,25 +48,22 @@ class LoginScreen : AppCompatActivity() {
         val timeOnStart = SystemClock.elapsedRealtime()
         val intent = Intent(this, MainActivity::class.java)
         var toast = 0
-        val result: String
+
         val login = binding.login.text.toString()
         val password = binding.password.text.toString()
 
-        val dbLogin = DbLogin(login, password)
-        dbLogin.start()
-        result = dbLogin.result
+        val result = viewModel.checkLogin(login, password)
 
         val timeOnEnd = SystemClock.elapsedRealtime()
         val elapsedTime = timeOnEnd - timeOnStart
 
-        if (result.contains("true")) {
-            decideAboutSavingLogData(login, password)
-            getLoginId(result)
-            startActivity(intent)
-        } else if (elapsedTime > 6000) {
-            toast = R.string.external_database_unavailable
-        } else {
-            toast = R.string.wrong_form_info
+        when {
+            result -> {
+                viewModel.decideAboutSavingLogData(login, password, binding.loginRememberMe.isChecked)
+                startActivity(intent)
+            }
+            elapsedTime > 6000 -> toast = R.string.external_database_unavailable
+            else -> toast = R.string.wrong_form_info
         }
 
         val handler = Handler(Looper.getMainLooper())
@@ -72,22 +75,6 @@ class LoginScreen : AppCompatActivity() {
         }
     }
 
-    private fun decideAboutSavingLogData(login: String, password: String) {
-        if (binding.loginRememberMe.isChecked) {
-            cache.saveStateToFile("$login;$password", FileFactory.DATA_TXT)
-        } else {
-            cache.saveStateToFile("", FileFactory.DATA_TXT) //clear File
-        }
-        cache.saveStateToFile(binding.loginRememberMe.isChecked.toString(), FileFactory.LOGIN_KEEP_SWITCH_CHOICE_TXT)
-    }
-
-    private fun getLoginId(result: String) {
-        var result = result
-        result = result.substring(result.length - 3)
-        result = result.trim()
-        KmlApp.loginId = result.toInt()
-    }
-
     override fun onResume() {
         tryToAutoLogIn()
         isLog = true
@@ -96,13 +83,10 @@ class LoginScreen : AppCompatActivity() {
     }
 
     private fun tryToAutoLogIn() {
-        if (cache.readFromFile(FileFactory.DATA_TXT) != null) {
-            if (cache.readFromFile(FileFactory.DATA_TXT).contains(";")) {
-                val content = cache.readFromFile(FileFactory.DATA_TXT).split(";".toRegex()).toTypedArray()
-                binding.login.setText(content[0])
-                binding.password.setText(content[1])
-            }
-        }
+
+        val content = viewModel.getLogData()
+        binding.login.setText(content.first)
+        binding.password.setText(content.second)
     }
 
     private fun restoreSwitchState() {
