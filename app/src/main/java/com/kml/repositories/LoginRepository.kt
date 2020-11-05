@@ -32,5 +32,9 @@ class LoginRepository(val fileFactory: FileFactory) : ViewModel() {
         return ""
     }
 
+    fun getSwitchState(): String {
+        return fileFactory.readFromFile(FileFactory.LOGIN_KEEP_SWITCH_CHOICE_TXT)
+    }
+
 
 }

@@ -2,8 +2,6 @@ package com.kml.views
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.os.SystemClock
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -15,7 +13,9 @@ import com.kml.data.app.FileFactory
 import com.kml.databinding.ActivityLoginScreenBinding
 import com.kml.viewModels.LoginViewModel
 import com.kml.viewModels.LoginViewModelFactory
-import java.lang.Boolean
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginScreen : AppCompatActivity() {
     private lateinit var cache: FileFactory
@@ -24,7 +24,7 @@ class LoginScreen : AppCompatActivity() {
 
     companion object {
         @JvmField
-        var isLog = false
+        var isLogNow = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,15 +39,17 @@ class LoginScreen : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
 
         binding.logInButton.setOnClickListener {
-            binding.loginScreenProgresBar.visibility = ProgressBar.VISIBLE
-            Thread { logIn() }.start()
+            binding.loginScreenProgressBar.visibility = ProgressBar.VISIBLE
+
+            CoroutineScope(Dispatchers.Main).launch { logIn() }
+
         }
     }
 
     private fun logIn() {
         val timeOnStart = SystemClock.elapsedRealtime()
         val intent = Intent(this, MainActivity::class.java)
-        var toast = 0
+
 
         val login = binding.login.text.toString()
         val password = binding.password.text.toString()
@@ -57,6 +59,7 @@ class LoginScreen : AppCompatActivity() {
         val timeOnEnd = SystemClock.elapsedRealtime()
         val elapsedTime = timeOnEnd - timeOnStart
 
+        var toast = 0
         when {
             result -> {
                 viewModel.decideAboutSavingLogData(login, password, binding.loginRememberMe.isChecked)
@@ -66,18 +69,15 @@ class LoginScreen : AppCompatActivity() {
             else -> toast = R.string.wrong_form_info
         }
 
-        val handler = Handler(Looper.getMainLooper())
         val finalToast = toast
-        handler.post {
-            if (finalToast != 0) Toast.makeText(this@LoginScreen, finalToast, Toast.LENGTH_SHORT).show()
-            binding.password.setText("")
-            binding.loginScreenProgresBar.visibility = ProgressBar.GONE
-        }
+        if (finalToast != 0) Toast.makeText(this@LoginScreen, finalToast, Toast.LENGTH_SHORT).show()
+        binding.password.setText("")
+        binding.loginScreenProgressBar.visibility = ProgressBar.GONE
     }
 
     override fun onResume() {
         tryToAutoLogIn()
-        isLog = true
+        isLogNow = true
         restoreSwitchState()
         super.onResume()
     }
@@ -90,10 +90,6 @@ class LoginScreen : AppCompatActivity() {
     }
 
     private fun restoreSwitchState() {
-        val fromFile = cache.readFromFile(FileFactory.LOGIN_KEEP_SWITCH_CHOICE_TXT)
-        if (fromFile != null) {
-            val previousSwitchState = Boolean.parseBoolean(fromFile)
-            binding.loginRememberMe.isChecked = previousSwitchState
-        }
+        binding.loginRememberMe.isChecked = viewModel.getPreviousSwitchState()
     }
 }
