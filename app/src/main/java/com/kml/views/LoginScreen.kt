@@ -12,7 +12,7 @@ import com.kml.R
 import com.kml.data.app.FileFactory
 import com.kml.databinding.ActivityLoginScreenBinding
 import com.kml.viewModels.LoginViewModel
-import com.kml.viewModels.LoginViewModelFactory
+import com.kml.viewModelFactories.LoginViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

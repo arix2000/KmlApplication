@@ -19,7 +19,7 @@ import com.kml.data.internalRoomDatabase.GameDatabase
 import com.kml.data.models.Game
 import com.kml.data.models.GameFilterInfo
 import com.kml.viewModels.GameViewModel
-import com.kml.viewModels.GameViewModelFactory
+import com.kml.viewModelFactories.GameViewModelFactory
 
 class GameRecycleViewActivity : AppCompatActivity() {
     private lateinit var gameViewModel: GameViewModel
