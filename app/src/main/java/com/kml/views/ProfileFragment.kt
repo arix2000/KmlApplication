@@ -29,7 +29,7 @@ import com.kml.data.externalDbOperations.DbChangePass
 import com.kml.data.models.Profile
 import com.kml.databinding.FragmentProfileBinding
 import com.kml.viewModels.ProfileViewModel
-import com.kml.viewModels.ProfileViewModelFactory
+import com.kml.viewModelFactories.ProfileViewModelFactory
 
 class ProfileFragment : Fragment() {
 

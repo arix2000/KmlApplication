@@ -22,7 +22,7 @@ import com.kml.adapters.WorkAdapter
 import com.kml.data.app.FileFactory
 import com.kml.data.models.Work
 import com.kml.viewModels.WorksHistoryViewModel
-import com.kml.viewModels.WorksHistoryViewModelFactory
+import com.kml.viewModelFactories.WorksHistoryViewModelFactory
 
 class WorksHistoryFragment : Fragment() {
     private lateinit var root: View

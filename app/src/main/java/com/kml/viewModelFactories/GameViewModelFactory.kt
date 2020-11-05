@@ -1,9 +1,10 @@
-package com.kml.viewModels
+package com.kml.viewModelFactories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kml.data.internalRoomDatabase.GameDao
 import com.kml.data.models.GameFilterInfo
+import com.kml.viewModels.GameViewModel
 
 
 class GameViewModelFactory(private val gameDao: GameDao, val gameFilterInfo: GameFilterInfo): ViewModelProvider.Factory {
