@@ -17,15 +17,16 @@ public class DbChangePass extends ExternalDbHelper
 {
     private final String fileName = "changePass.php";
 
-    private Context context;
+    public static final String CHANGE_SUCCESSFUL = "Pomyślnie zmieniono hasło!";
+    public static final String CHANGE_FAILED = "Coś poszło nie tak!";
+
     private String newPassword, oldPassword;
     private int loginId;
     private String toastText;
     private String result;
 
-    public DbChangePass(Context context, String newPassword, String oldPassword, int loginId)
+    public DbChangePass( String newPassword, String oldPassword, int loginId)
     {
-        this.context = context;
         this.newPassword = newPassword;
         this.oldPassword = oldPassword;
         this.loginId = loginId;
@@ -45,25 +46,16 @@ public class DbChangePass extends ExternalDbHelper
 
             if(result.equals("1"))
             {
-                toastText = "Pomyślnie zmieniono hasło!";
+                toastText = CHANGE_SUCCESSFUL;
             }
             else if(result.equals("0"))
             {
-                toastText = "Coś poszło nie tak!";
+                toastText = CHANGE_FAILED;
             }
             else toastText = result;
 
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
-                }
-            });
+            result = toastText;
 
-            Log.d("RESULT_CHANGE", "run: "+result);
         } catch (IOException e) {
             Log.d("IOEXCEPTION_CHANGEPASS", "run: "+e.getMessage());
         }
@@ -88,6 +80,6 @@ public class DbChangePass extends ExternalDbHelper
         } catch (InterruptedException e) {
             Log.d("INTERRUPTED_EXCEPTION", "getResult: "+e.getMessage());
         }
-        return result.toString();
+        return result;
     }
 }

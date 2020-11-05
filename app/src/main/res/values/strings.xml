@@ -2,13 +2,12 @@
     <string name="app_name">Klub Młodych Liderów</string>
     <string name="app_description">Aplikacja stworzona dla wolontariuszy z Fundacji Klubu Młodych Liderów by ułatwić im wpisywanie godzin pracy
         oraz udostępnić ich aktualne postępy,dodatkowo zawiera wyszukiwarke zabaw dla animatorów</string>
+    <string name="profile_description">Pokazuje ci twoje dane oraz pozwala ustawić sobie zdjęcie profilowe. Kluczyk służy do zmiany hasła</string>
     <string name="timer_description"> Stoper odlicza czas pracy, następnie po jej zakończeniu wysyła wynik do bazy danych. Może działać w tle ale może zostać
     wyłączony przez system, w takim wypadku zapisuje postęp. Istnieje też opcja (w prawym górnym rogu) dodania sobie czasu pracy bez konieczności odliczania czasu!</string>
     <string name="games_search_engine_description">Wyszukuje animacje według wybranych kryteriów. Baza zawiera 144 animacje. Kolory oznaczają kategorie :D
         \n Pomysłodawca wyszukiwarki:\n Gabi Łanocha</string>
     <string name="works_history_description">Pokazuje twoje ostatnio wykonane zadania oraz spotkania na których byłeś.</string>
-
-    <string name="profile_description">Pokazuje wolontariuszowi jego dane oraz pozwala ustawić sobie zdjęcie profilowe. Kluczyk służy do zmiany hasła</string>
     <string name="no_results_found">Nic nie znaleziono :(</string>
     <string name="choose_one_at_least">Musisz wybrać przynajmniej jedną osobe!</string>
     <string name="external_database_unavailable">Brak połączenia z bazą danych! Spróbuj ponownie później</string>
@@ -26,10 +25,6 @@
     <string name="reset">resetuj</string>
     <string name="reset_confirmation">Napewno chcesz zresetować czas?\nTo bezpowrotnie usunie aktualny czas</string>
     <string name="warning">Uwaga!</string>
-
-
-
-
 
     <string-array name="number_of_kids_options">
         <item>Wszystkie przedziały</item>

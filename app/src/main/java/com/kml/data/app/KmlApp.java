@@ -26,6 +26,9 @@ import java.util.List;
 
 public class KmlApp extends MultiDexApplication
 {
+    public static final int MARTA_ID = 11;
+    public static final int SEBASTIAN_ID = 13;
+
     public static final String CHANNEL_1_ID = "serviceChannel";
     public static int loginId;
     public static String firstName;
