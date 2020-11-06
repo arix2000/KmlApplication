@@ -2,20 +2,14 @@ package com.kml.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.kml.data.app.Filter
 import com.kml.data.internalRoomDatabase.GameDao
 import com.kml.data.models.Game
 import com.kml.data.models.GameFilterInfo
 import com.kml.repositories.GameRepository
-import java.util.*
 
-class GameViewModel(gameDao: GameDao, filterInfo: GameFilterInfo) : ViewModel() {
-
-    private lateinit var name: String
-    private lateinit var numberOfKids: String
-    private lateinit var kidsAge: String
-    private lateinit var place: String
-    private lateinit var typeOfGame: String
-    private lateinit var category: String
+class GameViewModel(gameDao: GameDao,
+                    private val filterInfo: GameFilterInfo) : ViewModel() {
 
     companion object {
         const val DEFAULT_ALL_RANGES = "Wszystkie przedziały"
@@ -26,60 +20,20 @@ class GameViewModel(gameDao: GameDao, filterInfo: GameFilterInfo) : ViewModel() 
     private val repository = GameRepository(gameDao)
     val games: LiveData<List<Game>> = repository.games
 
-    init {
-        getDataFrom(filterInfo)
-    }
-
-    private fun getDataFrom(filterInfo: GameFilterInfo) {
-        //zagwozdka -> lepiej wpisywać dane z obiektu do zmiennych tutaj czy usunąć te zmienne i korzystać z danych prosto z obiektu?
-        name = filterInfo.name
-        numberOfKids = filterInfo.numberOfKids
-        kidsAge = filterInfo.kidsAge
-        place = filterInfo.place
-        typeOfGame = filterInfo.typeOfGame
-        category = filterInfo.category
-    }
-
     fun filterGames(gamesVal: List<Game>): List<Game> {
         var games = gamesVal
+        val filter = Filter(filterInfo)
 
-        if (name.trim().isNotEmpty()) games = filterByName(games)
-        if (numberOfKids != DEFAULT_ALL_RANGES) games = filterByNumberOfKids(games)
-        if (kidsAge != DEFAULT_ALL_RANGES) games = filterByKidsAge(games)
-        if (typeOfGame != DEFAULT_ALL_OPTIONS) games = filterByTypeOfGame(games)
-        if (place != DEFAULT_ANYTHING) games = filterByPlace(games)
-        if (category != DEFAULT_ALL_OPTIONS) games = filterByCategory(games)
+        filterInfo.apply {
+            if (name.trim().isNotEmpty()) games = filter.byName(games)
+            if (numberOfKids != DEFAULT_ALL_RANGES) games = filter.byNumberOfKids(games)
+            if (kidsAge != DEFAULT_ALL_RANGES) games = filter.byKidsAge(games)
+            if (typeOfGame != DEFAULT_ALL_OPTIONS) games = filter.byTypeOfGame(games)
+            if (place != DEFAULT_ANYTHING) games = filter.byPlace(games)
+            if (category != DEFAULT_ALL_OPTIONS) games = filter.byCategory(games)
+        }
 
         return games
     }
 
-    private fun filterByName(games: List<Game>): List<Game> {
-
-        return games.filter { it.name.contains(name.toUpperCase(Locale.getDefault())) }
-    }
-
-    private fun filterByNumberOfKids(games: List<Game>): List<Game> {
-
-        return games.filter { it.numberOfKids.contains(numberOfKids.replace("+", "<")) }
-    }
-
-    private fun filterByKidsAge(games: List<Game>): List<Game> {
-
-        return games.filter { it.kidsAge.contains(kidsAge.replace("+", "<")) }
-    }
-
-    private fun filterByTypeOfGame(games: List<Game>): List<Game> {
-
-        return games.filter { it.typeOfGame.contains(typeOfGame) }
-    }
-
-    private fun filterByPlace(games: List<Game>): List<Game> {
-
-        return games.filter { it.place.contains(place) }
-    }
-
-    private fun filterByCategory(games: List<Game>): List<Game> {
-
-        return games.filter { it.category.contains(category) }
-    }
 }
