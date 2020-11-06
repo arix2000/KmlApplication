@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.R
 import com.kml.data.app.FileFactory
+import com.kml.data.externalDbOperations.DbChangePass
 import com.kml.data.models.Profile
 import com.kml.repositories.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
@@ -117,7 +118,7 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
         repository.saveProfilePhoto(path)
     }
 
-    fun resolvePasswordChanging(newPassword: String, oldPassword: String): String {
+    fun resolvePasswordChanging(newPassword: String, oldPassword: String): DbChangePass {
         return repository.resolvePasswordChanging(newPassword, oldPassword)
     }
 }

@@ -1,5 +1,7 @@
 package com.kml.data.externalDbOperations;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,10 +15,12 @@ import java.net.URL;
 
 public abstract class ExternalDbHelper extends Thread
 {
+    private OnResultListener listener;
+
     public static final String IO_EXCEPTION_TAG = "IO_EXCEPTION_TAG";
     public static final String BASE_URL = "http://sobos.ssd-linuxpl.com/";
 
-    public HttpURLConnection setConnection(String address)
+    protected HttpURLConnection setConnection(String address)
     {
         HttpURLConnection conn = null;
         try {
@@ -34,7 +38,7 @@ public abstract class ExternalDbHelper extends Thread
         return conn;
     }
 
-    public String readResult(@NonNull HttpURLConnection conn)
+    protected String readResult(@NonNull HttpURLConnection conn)
     {
         InputStream inputStream;
         StringBuilder readResult = new StringBuilder();
@@ -56,4 +60,13 @@ public abstract class ExternalDbHelper extends Thread
         return readResult.toString();
     }
 
+    protected void invokeOnReceive(String result)
+    {
+        if(listener != null)
+        new Handler(Looper.getMainLooper()).post(()-> listener.onReceive(result));
+    }
+
+    public void setOnResultListener(OnResultListener listener) {
+        this.listener = listener;
+    }
 }

@@ -15,10 +15,10 @@ class ProfileRepository(val fileFactory: FileFactory) {
         return dbGetUserData.result
     }
 
-    fun resolvePasswordChanging(newPassword:String, oldPassword:String): String {
+    fun resolvePasswordChanging(newPassword:String, oldPassword:String): DbChangePass {
         val dbChangePass = DbChangePass(newPassword, oldPassword, KmlApp.loginId)
         dbChangePass.start()
-        return dbChangePass.result
+        return dbChangePass
     }
 
     fun getUserInfoFromFile(): String
