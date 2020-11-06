@@ -24,10 +24,8 @@ class LoginRepository(val fileFactory: FileFactory) : ViewModel() {
 
     fun getLogDataIfExist():String
     {
-        if (fileFactory.readFromFile(FileFactory.DATA_TXT) != null) {
-            if (fileFactory.readFromFile(FileFactory.DATA_TXT).contains(";")) {
-                return fileFactory.readFromFile(FileFactory.DATA_TXT)
-            }
+        if (fileFactory.readFromFile(FileFactory.DATA_TXT).contains(";")) {
+            return fileFactory.readFromFile(FileFactory.DATA_TXT)
         }
         return ""
     }
