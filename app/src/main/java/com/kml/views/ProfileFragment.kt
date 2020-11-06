@@ -26,10 +26,12 @@ import com.kml.R
 import com.kml.data.app.FileFactory
 import com.kml.data.app.KmlApp
 import com.kml.data.externalDbOperations.DbChangePass
+import com.kml.data.externalDbOperations.OnResultListener
 import com.kml.data.models.Profile
 import com.kml.databinding.FragmentProfileBinding
-import com.kml.viewModels.ProfileViewModel
 import com.kml.viewModelFactories.ProfileViewModelFactory
+import com.kml.viewModels.ProfileViewModel
+import kotlinx.android.synthetic.main.dialog_change_pass.*
 
 class ProfileFragment : Fragment() {
 
@@ -114,35 +116,50 @@ class ProfileFragment : Fragment() {
 
     private fun showDialogToChangePass() {
         dialogChangePass = Dialog(requireContext())
-        dialogChangePass.setContentView(R.layout.dialog_change_pass)
-        dialogChangePass.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialogChangePass.show()
-        editTextOldPassword = dialogChangePass.findViewById(R.id.dialog_old_password)
-        editTextNewPassword = dialogChangePass.findViewById(R.id.dialog_new_password)
+        dialogChangePass.apply {
+            setContentView(R.layout.dialog_change_pass)
+            setCancelable(false)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            show()
+
+            editTextOldPassword = findViewById(R.id.dialog_old_password)
+            editTextNewPassword = findViewById(R.id.dialog_new_password)
+        }
+
+
         val btnAccept = dialogChangePass.findViewById<Button>(R.id.btn_dialog_change_pass_accept)
         val btnCancel = dialogChangePass.findViewById<Button>(R.id.btn_dialog_change_pass_cancel)
         btnAccept.setOnClickListener {
+
             changePass(editTextOldPassword.text.toString(), editTextNewPassword.text.toString())
-            editTextOldPassword.setText("")
-            editTextNewPassword.setText("")
         }
         btnCancel.setOnClickListener { dialogChangePass.dismiss() }
     }
 
     private fun changePass(oldPassword: String, newPassword: String) {
+        dialogChangePass.dialog_change_password_progress_bar.visibility = View.VISIBLE
         val validationResult = viewModel.validatePassword(oldPassword, newPassword)
         if (validationResult != ProfileViewModel.VALIDATION_SUCCESSFUL) {
             Toast.makeText(requireContext(), validationResult, Toast.LENGTH_SHORT).show()
             return
         }
 
-        val result = viewModel.resolvePasswordChanging(newPassword, oldPassword)
+        val changeOperation = viewModel.resolvePasswordChanging(newPassword, oldPassword)
+        changeOperation.setOnResultListener(object : OnResultListener{
+            override fun onReceive(result: String) {
+                resolveResult(result)
+            }
+        })
+    }
 
+    private fun resolveResult(result: String) {
         if (result == DbChangePass.CHANGE_SUCCESSFUL) {
             dialogChangePass.dismiss()
         }
-
+        editTextOldPassword.setText("")
+        editTextNewPassword.setText("")
         Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
+        dialogChangePass.dialog_change_password_progress_bar.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

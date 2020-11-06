@@ -214,6 +214,7 @@ public class WorkTimerFragment extends Fragment
     {
         final Dialog dialog = new Dialog(root.getContext());
         dialog.setContentView(R.layout.dialog_new_work);
+        dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
@@ -250,6 +251,7 @@ public class WorkTimerFragment extends Fragment
     {
         final Dialog dialog = new Dialog(root.getContext());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_new_work_instant);
         dialog.show();
 
