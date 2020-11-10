@@ -79,11 +79,11 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/summary_activity_hours"
-                android:layout_toLeftOf="@+id/text_view_minut_dialog"
+                android:layout_toLeftOf="@+id/text_view_minutes_dialog"
                 android:inputType="number" />
 
             <TextView
-                android:id="@+id/text_view_minut_dialog"
+                android:id="@+id/text_view_minutes_dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/summary_activity_minutes"

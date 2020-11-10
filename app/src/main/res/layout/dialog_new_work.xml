@@ -29,7 +29,7 @@
 
         <EditText
             android:hint="@string/work_purpose"
-            android:id="@+id/timer_work_name_instant"
+            android:id="@+id/dialog_timer_work_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
@@ -43,7 +43,7 @@
 
         <EditText
             android:hint="@string/work_description_examples"
-            android:id="@+id/timer_work_description_instant"
+            android:id="@+id/dialog_timer_work_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
