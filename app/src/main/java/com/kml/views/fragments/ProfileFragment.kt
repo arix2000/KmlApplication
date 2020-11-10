@@ -1,4 +1,4 @@
-package com.kml.views
+package com.kml.views.fragments
 
 import android.app.Activity
 import android.app.Dialog
@@ -31,6 +31,7 @@ import com.kml.data.models.Profile
 import com.kml.databinding.FragmentProfileBinding
 import com.kml.viewModelFactories.ProfileViewModelFactory
 import com.kml.viewModels.ProfileViewModel
+import com.kml.views.activities.LoginScreen
 import kotlinx.android.synthetic.main.dialog_change_pass.*
 
 class ProfileFragment : Fragment() {

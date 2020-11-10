@@ -1,4 +1,4 @@
-package com.kml.views
+package com.kml.views.fragments
 
 import android.app.Dialog
 import android.graphics.Color

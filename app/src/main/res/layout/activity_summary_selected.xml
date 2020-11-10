@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            tools:context=".views.SummaryVolunteerActivity">
+            tools:context=".views.activities.SummaryVolunteerActivity">
 
             <TextView
                 android:id="@+id/summary_activity_text_view_chosen"

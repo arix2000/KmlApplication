@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp"
-            tools:context=".views.GamePropertiesActivity">
+            tools:context=".views.activities.GamePropertiesActivity">
 
 
             <TextView

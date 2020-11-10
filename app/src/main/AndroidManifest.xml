@@ -18,11 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.SummaryVolunteerActivity"
-            android:parentActivityName=".views.SelectVolunteersActivity"/>
+        <activity android:name=".views.activities.SummaryVolunteerActivity"
+            android:parentActivityName=".views.activities.SelectVolunteersActivity"/>
         <activity
-            android:name=".views.SelectVolunteersActivity"
-            android:parentActivityName=".views.MainActivity" />
+            android:name=".views.activities.SelectVolunteersActivity"
+            android:parentActivityName=".views.activities.MainActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -37,18 +37,18 @@
             android:stopWithTask="false" />
 
         <activity
-            android:name=".views.GamePropertiesActivity"
-            android:parentActivityName=".views.GameRecycleViewActivity" />
+            android:name=".views.activities.GamePropertiesActivity"
+            android:parentActivityName=".views.activities.GameRecycleViewActivity" />
         <activity
-            android:name=".views.GameRecycleViewActivity"
+            android:name=".views.activities.GameRecycleViewActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".views.MainActivity" />
+            android:parentActivityName=".views.activities.MainActivity" />
         <activity
-            android:name=".views.MainActivity"
+            android:name=".views.activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.LoginScreen"
+            android:name=".views.activities.LoginScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

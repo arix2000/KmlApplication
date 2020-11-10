@@ -1,4 +1,4 @@
-package com.kml.views
+package com.kml.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.kml.R
+import com.kml.views.activities.SelectVolunteersActivity
 
 class ControlPanelFragment : Fragment() {
     private lateinit var root: View

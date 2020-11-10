@@ -1,4 +1,4 @@
-package com.kml.views
+package com.kml.views.activities
 
 import android.app.Dialog
 import android.content.Intent
@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.kml.R
 import com.kml.data.app.KmlApp
 import com.kml.data.services.TimerService
+import com.kml.views.fragments.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             KmlApp.isFromControlPanel = false
         }
         if (KmlApp.adminIds.contains(KmlApp.loginId)) {
-            navigationView.getMenu().getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
+            navigationView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
         }
     }
 

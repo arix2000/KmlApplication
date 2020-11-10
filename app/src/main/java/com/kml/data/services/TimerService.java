@@ -6,11 +6,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-import com.kml.views.MainActivity;
+import com.kml.views.activities.MainActivity;
 import com.kml.R;
 import com.kml.data.app.FileFactory;
 
