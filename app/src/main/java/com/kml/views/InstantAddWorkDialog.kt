@@ -76,8 +76,6 @@ class InstantAddWorkDialog : DialogFragment() {
             }
             else -> true
         }
-
-
     }
 
     private fun isPoolsEmpty(work: WorkToAdd): Boolean {
