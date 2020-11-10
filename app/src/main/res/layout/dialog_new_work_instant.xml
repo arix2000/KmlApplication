@@ -30,7 +30,7 @@
                 android:textColor="@color/BlackContent" />
 
             <EditText
-                android:id="@+id/timer_work_name_instant"
+                android:id="@+id/dialog_timer_work_name_instant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -44,7 +44,7 @@
                 android:textColor="@color/BlackContent" />
 
             <EditText
-                android:id="@+id/timer_work_description_instant"
+                android:id="@+id/dialog_timer_work_description_instant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,7 +64,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/summary_activity_hours"
+                android:id="@+id/dialog_timer_hours"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -75,20 +75,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/summary_activity_hours"
+                android:layout_toRightOf="@+id/dialog_timer_hours"
                 android:text="@string/hours"
                 android:textColor="@color/BlackContent"
                 android:textSize="17sp" />
 
             <EditText
-                android:id="@+id/summary_activity_minutes"
+                android:id="@+id/dialog_timer_minutes"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/text_view_minut_dialog"
+                android:layout_toLeftOf="@+id/text_view_minutes_dialog"
                 android:inputType="number" />
 
             <TextView
-                android:id="@+id/text_view_minut_dialog"
+                android:id="@+id/text_view_minutes_dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -113,7 +113,7 @@
                 android:text="@string/cancel" />
 
             <Button
-                android:id="@+id/summary_activity_send_work"
+                android:id="@+id/dialog_timer_add_instant"
                 style="@style/buttons"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
