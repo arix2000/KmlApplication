@@ -3,6 +3,7 @@ package com.kml.data.externalDbOperations;
 import android.util.Log;
 
 import com.kml.data.app.KmlApp;
+import com.kml.data.models.WorkToAdd;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -12,25 +13,19 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
+import static com.kml.data.app.KmlApp.firstName;
+import static com.kml.data.app.KmlApp.lastName;
+
 public class DbSendWork extends ExternalDbHelper
 {
     private final String fileName = "updateCzasPracy.php";
 
-    String workName;
-    String workDescription;
-    String firstName;
-    String lastName;
-    int minutes, hours;
+    WorkToAdd work;
     public boolean mResult;
 
-    public DbSendWork(String workName, String workDescription, String name, String lastName, int minutes, int hours)
+    public DbSendWork(WorkToAdd work)
     {
-        this.workName = workName;
-        this.workDescription = workDescription;
-        this.firstName = name;
-        this.lastName = lastName;
-        this.minutes = minutes;
-        this.hours = hours;
+        this.work = work;
     }
 
     @Override
@@ -38,7 +33,7 @@ public class DbSendWork extends ExternalDbHelper
     {
         mResult = false;
         float timeToSend;
-        timeToSend = hours + (float) minutes / 60;
+        timeToSend = work.getHours() + (float) work.getMinutes() / 60;
         timeToSend = roundToTwoDecimalPoint(timeToSend);
 
         String address = BASE_URL+fileName;;
@@ -76,15 +71,14 @@ public class DbSendWork extends ExternalDbHelper
 
     private String setDataToSend(float timeToSend) throws UnsupportedEncodingException
     {
-        String workTimeExact = hours + "h " + minutes + "min";
-        String dataToSend = URLEncoder.encode("czasPracy", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(timeToSend), "UTF-8")
+        String workTimeExact = work.getHours() + "h " + work.getMinutes() + "min";
+        return URLEncoder.encode("czasPracy", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(timeToSend), "UTF-8")
                 + "&&" + URLEncoder.encode("loginId", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(KmlApp.loginId), "UTF-8")
-                + "&&" + URLEncoder.encode("nazwaZadania", "UTF-8") + "=" + URLEncoder.encode(workName, "UTF-8")
-                + "&&" + URLEncoder.encode("opisZadania", "UTF-8") + "=" + URLEncoder.encode(workDescription, "UTF-8")
+                + "&&" + URLEncoder.encode("nazwaZadania", "UTF-8") + "=" + URLEncoder.encode(work.getName(), "UTF-8")
+                + "&&" + URLEncoder.encode("opisZadania", "UTF-8") + "=" + URLEncoder.encode(work.getDescription(), "UTF-8")
                 + "&&" + URLEncoder.encode("czasPracyDokladny", "UTF-8") + "=" + URLEncoder.encode(workTimeExact, "UTF-8")
                 + "&&" + URLEncoder.encode("imie", "UTF-8") + "=" + URLEncoder.encode(firstName, "UTF-8")
                 + "&&" + URLEncoder.encode("nazwisko", "UTF-8") + "=" + URLEncoder.encode(lastName, "UTF-8");
-        return dataToSend;
     }
 
     public boolean getResult()
