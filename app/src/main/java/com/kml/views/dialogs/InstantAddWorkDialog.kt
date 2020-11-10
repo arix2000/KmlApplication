@@ -1,4 +1,4 @@
-package com.kml.views
+package com.kml.views.dialogs
 
 
 import android.app.Dialog
@@ -10,14 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 import com.kml.R
 import com.kml.data.externalDbOperations.DbSendWork
 import com.kml.data.models.WorkToAdd
 import kotlinx.android.synthetic.main.dialog_new_work_instant.view.*
 
 
-class InstantAddWorkDialog : DialogFragment() {
+class InstantAddWorkDialog : TimerDialogs() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -25,20 +24,21 @@ class InstantAddWorkDialog : DialogFragment() {
         val view = layoutInflater.inflate(R.layout.dialog_new_work_instant, null)
         builder.setView(view)
 
-        val button = view?.dialog_timer_add_instant
-        button?.setOnClickListener {
-            val work = WorkToAdd(view.dialog_timer_work_name_instant.text.toString(),
-                    view.dialog_timer_work_description_instant.text.toString(),
-                    view.dialog_timer_hours.text.toString().toIntOrNull() ?: -1,
-                    view.dialog_timer_minutes.text.toString().toIntOrNull() ?: -1
-            )
-            sendWorkToDatabase(work)
-        }
+        view.apply {
+            val button = dialog_timer_add_instant
+            button.setOnClickListener {
+                val work = WorkToAdd(dialog_timer_work_name_instant.text.toString(),
+                        dialog_timer_work_description_instant.text.toString(),
+                        dialog_timer_hours.text.toString().toIntOrNull() ?: -1,
+                        dialog_timer_minutes.text.toString().toIntOrNull() ?: -1
+                )
+                sendWorkToDatabase(work)
+            }
 
-        view?.dialog_timer_cancel_instant?.setOnClickListener {
-            dismiss()
+            dialog_timer_cancel_instant.setOnClickListener {
+                dismiss()
+            }
         }
-
         return builder.create()
     }
 

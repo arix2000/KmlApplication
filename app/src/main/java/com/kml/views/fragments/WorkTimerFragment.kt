@@ -1,9 +1,6 @@
-package com.kml.views
+package com.kml.views.fragments
 
-import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,14 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.*
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.kml.R
 import com.kml.data.app.FileFactory
-import com.kml.data.externalDbOperations.DbSendWork
-import com.kml.data.models.WorkToAdd
 import com.kml.data.services.TimerService
+import com.kml.views.activities.MainActivity
+import com.kml.views.dialogs.AddWorkDialog
+import com.kml.views.dialogs.InstantAddWorkDialog
+import com.kml.views.dialogs.MakeSureDialog
+import com.kml.views.dialogs.RestoreDialog
 import java.util.*
 
 class WorkTimerFragment : Fragment() {
@@ -52,7 +54,7 @@ class WorkTimerFragment : Fragment() {
         root = inflater.inflate(R.layout.fragment_work_timer, container, false)
         isTimerRunning = false
         timerCircle = root.findViewById(R.id.timer_circle)
-        circleAnim = AnimationUtils.loadAnimation(root.getContext(), R.anim.timer_circle_anim)
+        circleAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.timer_circle_anim)
         textViewSeconds = root.findViewById(R.id.timer_counter_seconds)
         textViewMinutes = root.findViewById(R.id.timer_counter_minutes)
         textViewHours = root.findViewById(R.id.timer_counter_hours)
@@ -80,13 +82,13 @@ class WorkTimerFragment : Fragment() {
             }
         }
         btnEndWork = root.findViewById(R.id.btn_end_work)
-        btnEndWork.setOnClickListener { view: View? ->
+        btnEndWork.setOnClickListener {
             if (hours == 0 && minutes < 1) {
                 Toast.makeText(context, R.string.no_minute_counted, Toast.LENGTH_SHORT).show()
             } else showDialogToSetWork()
         }
         btnResetWork = root.findViewById(R.id.btn_reset_work)
-        btnResetWork.setOnClickListener({ view: View? -> if (seconds != 0 || minutes != 0 || hours != 0) showDialogToMakeSure() })
+        btnResetWork.setOnClickListener { if (seconds != 0 || minutes != 0 || hours != 0) showDialogToMakeSure() }
         return root
     }
 
@@ -178,90 +180,38 @@ class WorkTimerFragment : Fragment() {
     }
 
     private fun showDialogToSetWork() {
-        val dialog = Dialog(root.context)
-        dialog.setContentView(R.layout.dialog_new_work)
-        dialog.setCancelable(false)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.show()
-        val workNameEditText = dialog.findViewById<EditText>(R.id.dialog_timer_work_name_instant)
-        val workDescriptionEditText = dialog.findViewById<EditText>(R.id.dialog_timer_work_description_instant)
-        val cancel = dialog.findViewById<Button>(R.id.dialog_timer_cancel)
-        cancel.setOnClickListener { dialog.dismiss() }
-        val confirm = dialog.findViewById<Button>(R.id.dialog_timer_confirm)
-        confirm.setOnClickListener {
-            workName = workNameEditText.text.toString()
-            workDescription = workDescriptionEditText.text.toString()
-            if (workName.trim { it <= ' ' }.isEmpty() || workDescription.trim { it <= ' ' }.isEmpty()) {
-                Toast.makeText(dialog.context, R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            dialog.dismiss()
-            val work = WorkToAdd(workName, workDescription, hours, minutes)
-            val dbSendWork = DbSendWork(work)
-            dbSendWork.start()
-            val result = dbSendWork.result
-            if (result) {
-                Toast.makeText(root.context, R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
-                resetCounting()
-            } else Toast.makeText(root.context, R.string.adding_work_error, Toast.LENGTH_SHORT).show()
-        }
+        val dialog = AddWorkDialog(hours, minutes)
+        dialog.setOnAcceptListener { resetCounting() }
+        dialog.show(parentFragmentManager, "AddWork")
     }
+
 
     private fun showDialogToInstantAddWork() {
         val dialog = InstantAddWorkDialog()
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-
-
-        dialog.show(transaction,"InstantAddWork")
+        dialog.show(parentFragmentManager, "InstantAddWork")
     }
 
     private fun showDialogToRestore() {
-        val dialog = Dialog(root.context)
-        dialog.setContentView(R.layout.dialog_restore_from_file)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setCancelable(false)
-        dialog.show()
-        val btnTak = dialog.findViewById<Button>(R.id.btn_dialog_restore_yes)
-        btnTak.setOnClickListener {
-            setTimeFromFile()
-            dialog.dismiss()
-            startCounting()
-        }
-        val btnNie = dialog.findViewById<Button>(R.id.btn_dialog_restore_no)
-        btnNie.setOnClickListener {
-            dialog.dismiss()
-            startCounting()
-        }
+        val dialog = RestoreDialog()
+        dialog.setOnAcceptListener { setTimeFromFile(); startCounting() }
+        dialog.setOnCancelListener { startCounting() }
+        dialog.show(parentFragmentManager, "Restore")
+
     }
 
     private fun showDialogToMakeSure() {
-        val dialog = Dialog(root.context)
-        dialog.setContentView(R.layout.dialog_restore_from_file)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.show()
-        val textViewTitle = dialog.findViewById<TextView>(R.id.progress_founded)
-        textViewTitle.setText(R.string.warning)
-        val textViewQuestion = dialog.findViewById<TextView>(R.id.should_restore)
-        textViewQuestion.setText(R.string.reset_confirmation)
-        val btnTak = dialog.findViewById<Button>(R.id.btn_dialog_restore_yes)
-        btnTak.setText(R.string.reset)
-        btnTak.setOnClickListener { view: View? ->
-            dialog.dismiss()
-            resetCounting()
-        }
-        val btnNie = dialog.findViewById<Button>(R.id.btn_dialog_restore_no)
-        btnNie.setText(R.string.cancel)
-        btnNie.setOnClickListener { view: View? -> dialog.dismiss() }
+        val dialog = MakeSureDialog()
+        dialog.setOnAcceptListener { resetCounting() }
+        dialog.show(parentFragmentManager, "MakeSureDialog")
+
     }
 
     private fun setTimeFromFile() {
         val fromFile = fileFactory.readFromFile(FileFactory.CURRENT_TIME_TXT)
-        val HMS = fromFile.split(";".toRegex()).toTypedArray()
-        seconds = HMS[0].toInt()
-        minutes = HMS[1].toInt()
-        hours = HMS[2].toInt()
+        val hms = fromFile.split(";".toRegex()).toTypedArray()
+        seconds = hms[0].toInt()
+        minutes = hms[1].toInt()
+        hours = hms[2].toInt()
         setTimeOnLayout()
     }
 

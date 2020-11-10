@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="17dp"
-        tools:context=".views.GameSearchEngineFragment">
+        tools:context=".views.fragments.GameSearchEngineFragment">
 
         <TextView
             style="@style/form_text_views"

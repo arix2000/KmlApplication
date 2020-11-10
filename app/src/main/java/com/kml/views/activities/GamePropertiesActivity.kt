@@ -1,4 +1,4 @@
-package com.kml.views
+package com.kml.views.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

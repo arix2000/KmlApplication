@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.SelectVolunteersActivity">
+    tools:context=".views.activities.SelectVolunteersActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/control_panel_recycle_view"

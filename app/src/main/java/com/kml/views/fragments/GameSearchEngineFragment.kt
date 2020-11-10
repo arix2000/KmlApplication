@@ -1,4 +1,4 @@
-package com.kml.views
+package com.kml.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.kml.R
 import com.kml.data.models.GameFilterInfo
-import com.kml.views.GameRecycleViewActivity
+import com.kml.views.activities.GameRecycleViewActivity
 
 class GameSearchEngineFragment : Fragment() {
 

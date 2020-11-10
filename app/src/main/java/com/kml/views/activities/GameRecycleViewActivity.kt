@@ -1,4 +1,4 @@
-package com.kml.views
+package com.kml.views.activities
 
 import android.app.Dialog
 import android.content.Intent
@@ -20,6 +20,7 @@ import com.kml.data.models.Game
 import com.kml.data.models.GameFilterInfo
 import com.kml.viewModels.GameViewModel
 import com.kml.viewModelFactories.GameViewModelFactory
+import com.kml.views.fragments.GameSearchEngineFragment
 
 class GameRecycleViewActivity : AppCompatActivity() {
     private lateinit var gameViewModel: GameViewModel
