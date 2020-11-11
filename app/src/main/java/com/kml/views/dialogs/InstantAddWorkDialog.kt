@@ -20,7 +20,7 @@ class InstantAddWorkDialog : TimerDialogs() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = AlertDialog.Builder(requireContext(), R.style.dialogs_style)
         val view = layoutInflater.inflate(R.layout.dialog_new_work_instant, null)
         builder.setView(view)
 
