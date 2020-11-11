@@ -18,7 +18,7 @@
         android:id="@+id/zabawy"
         style="@style/dialog_about_colors_pools"
         android:layout_below="@+id/legenda"
-        android:background="@color/colorZabaw"/>
+        android:background="@color/gamesColor"/>
 
     <TextView
         style="@style/dialog_about_colors_text_views"
@@ -30,7 +30,7 @@
         android:id="@+id/zabawy1"
         style="@style/dialog_about_colors_pools"
         android:layout_below="@+id/zabawy"
-        android:background="@color/colorDruzynowe"/>
+        android:background="@color/teamsColor"/>
 
     <TextView
         style="@style/dialog_about_colors_text_views"
@@ -42,7 +42,7 @@
         android:id="@+id/zabawy2"
         style="@style/dialog_about_colors_pools"
         android:layout_below="@+id/zabawy1"
-        android:background="@color/colorLina"/>
+        android:background="@color/RopeColor"/>
 
     <TextView
         style="@style/dialog_about_colors_text_views"
@@ -54,7 +54,7 @@
         android:id="@+id/zabawy3"
         style="@style/dialog_about_colors_pools"
         android:layout_below="@+id/zabawy2"
-        android:background="@color/colorChusta"/>
+        android:background="@color/scarfColor"/>
 
     <TextView
         style="@style/dialog_about_colors_text_views"
@@ -66,7 +66,7 @@
         android:id="@+id/zabawy4"
         style="@style/dialog_about_colors_pools"
         android:layout_below="@+id/zabawy3"
-        android:background="@color/colorTance"/>
+        android:background="@color/danceColor"/>
 
     <TextView
         style="@style/dialog_about_colors_text_views"
