@@ -35,11 +35,11 @@ class GamePropertiesActivity : AppCompatActivity() {
 
     private fun setColorForBackground(category: String): Int {
         return when (category) {
-            "Zabawy" -> resources.getColor(R.color.colorZabaw)
-            "Drużynowe" -> resources.getColor(R.color.colorDruzynowe)
-            "Lina" -> resources.getColor(R.color.colorLina)
-            "Chusta" -> resources.getColor(R.color.colorChusta)
-            "Tańce" -> resources.getColor(R.color.colorTance)
+            "Zabawy" -> resources.getColor(R.color.gamesColor)
+            "Drużynowe" -> resources.getColor(R.color.teamsColor)
+            "Lina" -> resources.getColor(R.color.RopeColor)
+            "Chusta" -> resources.getColor(R.color.scarfColor)
+            "Tańce" -> resources.getColor(R.color.danceColor)
             else -> 0
         }
     }
