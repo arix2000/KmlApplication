@@ -17,7 +17,7 @@ class LoginRepository(val fileFactory: FileFactory) : ViewModel() {
         if (isChecked) {
             fileFactory.saveStateToFile("$login;$password", FileFactory.DATA_TXT)
         } else {
-            fileFactory.clearFileContent(FileFactory.DATA_TXT) //clear File
+            fileFactory.clearFileState(FileFactory.DATA_TXT) //clear File
         }
         fileFactory.saveStateToFile(isChecked.toString(), FileFactory.LOGIN_KEEP_SWITCH_CHOICE_TXT)
     }

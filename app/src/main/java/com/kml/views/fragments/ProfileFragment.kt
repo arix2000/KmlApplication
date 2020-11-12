@@ -3,8 +3,6 @@ package com.kml.views.fragments
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +12,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -25,14 +22,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.kml.R
 import com.kml.data.app.FileFactory
 import com.kml.data.app.KmlApp
-import com.kml.data.externalDbOperations.DbChangePass
-import com.kml.data.externalDbOperations.OnResultListener
 import com.kml.data.models.Profile
 import com.kml.databinding.FragmentProfileBinding
 import com.kml.viewModelFactories.ProfileViewModelFactory
 import com.kml.viewModels.ProfileViewModel
 import com.kml.views.activities.LoginScreen
-import kotlinx.android.synthetic.main.dialog_change_pass.*
+import com.kml.views.dialogs.ChangePassDialog
 
 class ProfileFragment : Fragment() {
 
@@ -97,7 +92,8 @@ class ProfileFragment : Fragment() {
             KmlApp.SEBASTIAN_ID -> "Dzień dobry Prezesie!"
             else -> "Dzień dobry " + KmlApp.firstName + "!"
         }
-        Snackbar.make(requireActivity().findViewById(android.R.id.content), toastWelcomeText, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(requireActivity().findViewById(android.R.id.content), toastWelcomeText, 1200).show()
+
         LoginScreen.isLogNow = false
     }
 
@@ -108,6 +104,7 @@ class ProfileFragment : Fragment() {
 
     private fun openGalleryForImage() {
         val imageIntent = Intent()
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             imageIntent.action = Intent.ACTION_OPEN_DOCUMENT
         } else imageIntent.action = Intent.ACTION_PICK
@@ -116,51 +113,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showDialogToChangePass() {
-        dialogChangePass = Dialog(requireContext())
-        dialogChangePass.apply {
-            setContentView(R.layout.dialog_change_pass)
-            setCancelable(false)
-            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            show()
-
-            editTextOldPassword = findViewById(R.id.dialog_old_password)
-            editTextNewPassword = findViewById(R.id.dialog_new_password)
-        }
-
-
-        val btnAccept = dialogChangePass.findViewById<Button>(R.id.btn_dialog_change_pass_accept)
-        val btnCancel = dialogChangePass.findViewById<Button>(R.id.btn_dialog_change_pass_cancel)
-        btnAccept.setOnClickListener {
-
-            changePass(editTextOldPassword.text.toString(), editTextNewPassword.text.toString())
-        }
-        btnCancel.setOnClickListener { dialogChangePass.dismiss() }
-    }
-
-    private fun changePass(oldPassword: String, newPassword: String) {
-        dialogChangePass.dialog_change_password_progress_bar.visibility = View.VISIBLE
-        val validationResult = viewModel.validatePassword(oldPassword, newPassword)
-        if (validationResult != ProfileViewModel.VALIDATION_SUCCESSFUL) {
-            Toast.makeText(requireContext(), validationResult, Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val changeOperation = viewModel.resolvePasswordChanging(newPassword, oldPassword)
-        changeOperation.setOnResultListener(object : OnResultListener{
-            override fun onReceive(result: String) {
-                resolveResult(result)
-            }
-        })
-    }
-
-    private fun resolveResult(result: String) {
-        if (result == DbChangePass.CHANGE_SUCCESSFUL) {
-            dialogChangePass.dismiss()
-        }
-        editTextOldPassword.setText("")
-        editTextNewPassword.setText("")
-        Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
-        dialogChangePass.dialog_change_password_progress_bar.visibility = View.GONE
+        val dialog = ChangePassDialog(viewModel)
+        dialog.show(parentFragmentManager, "ChangePassword")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
