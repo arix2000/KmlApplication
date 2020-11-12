@@ -11,12 +11,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
-import com.kml.data.externalDbOperations.DbSendWork
 import com.kml.data.models.WorkToAdd
+import com.kml.viewModels.WorkTimerViewModel
 import kotlinx.android.synthetic.main.dialog_new_work_instant.view.*
 
 
-class InstantAddWorkDialog : TimerDialogs() {
+class InstantAddWorkDialog(val viewModel: WorkTimerViewModel) : TimerDialogs() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -55,9 +55,7 @@ class InstantAddWorkDialog : TimerDialogs() {
             return
         dismiss()
 
-        val dbSendWork = DbSendWork(work)
-        dbSendWork.start()
-        val result = dbSendWork.result
+        val result = viewModel.sendWorkToDatabase(work)
 
         if (result) {
             Toast.makeText(requireContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()

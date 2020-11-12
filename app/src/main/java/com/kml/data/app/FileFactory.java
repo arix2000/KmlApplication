@@ -41,10 +41,6 @@ public class FileFactory {
     }
 
     public void clearFileState(String filename) {
-        saveStateToFile("-1", filename);
-    }
-
-    public void clearFileContent(String filename) {
         saveStateToFile("", filename);
     }
 

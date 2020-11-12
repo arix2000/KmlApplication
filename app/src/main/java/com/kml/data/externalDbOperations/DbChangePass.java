@@ -33,7 +33,6 @@ public class DbChangePass extends ExternalDbHelper {
         String address = BASE_URL + fileName;
 
         try {
-            Thread.sleep(3000);
             HttpURLConnection conn = setConnection(address);
             sendData(conn);
             result = readResult(conn);
@@ -51,8 +50,6 @@ public class DbChangePass extends ExternalDbHelper {
 
         } catch (IOException e) {
             Log.d("IOEXCEPTION_CHANGEPASS", "run: " + e.getMessage());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
