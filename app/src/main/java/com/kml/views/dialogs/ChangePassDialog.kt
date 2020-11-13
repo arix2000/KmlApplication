@@ -1,8 +1,6 @@
 package com.kml.views.dialogs
 
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.kml.R
 import com.kml.data.externalDbOperations.DbChangePass
-import com.kml.data.externalDbOperations.OnResultListener
+import com.kml.data.listeners.OnResultListener
 import com.kml.viewModels.ProfileViewModel
 import kotlinx.android.synthetic.main.dialog_change_pass.view.*
 
@@ -21,10 +19,7 @@ class ChangePassDialog(private val viewModel: ProfileViewModel) : DialogFragment
     lateinit var root: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         isCancelable = false
-        dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

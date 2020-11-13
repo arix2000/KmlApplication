@@ -2,8 +2,6 @@ package com.kml.views.dialogs
 
 
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
+import com.kml.data.app.AppDialogs
 import com.kml.data.models.WorkToAdd
 import com.kml.viewModels.WorkTimerViewModel
 import kotlinx.android.synthetic.main.dialog_new_work_instant.view.*
 
 
-class InstantAddWorkDialog(val viewModel: WorkTimerViewModel) : TimerDialogs() {
+class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -43,7 +42,6 @@ class InstantAddWorkDialog(val viewModel: WorkTimerViewModel) : TimerDialogs() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         isCancelable = false
 
         return super.onCreateView(inflater, container, savedInstanceState)
