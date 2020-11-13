@@ -9,7 +9,6 @@ import com.kml.data.models.WorkToAdd
 import com.kml.repositories.WorkTimerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -32,9 +31,6 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
     var isThreadAlive = false
     var exitThread = false
     var isTimerRunning = false
-
-    val job = Job()
-    val defaultScope = CoroutineScope(Dispatchers.Default)
 
     fun setTime(): Time {
         val secondsFormatted = formatSeconds(seconds)
@@ -90,7 +86,6 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
         return repository.addWorkToDatabase(work)
     }
 
-
     private val timer = { CoroutineScope(Dispatchers.Default).launch { countTime() } }
 
     private fun countTime() {
@@ -112,14 +107,12 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
         }, 0, 1000)
     }
 
-
     private fun formatSeconds(seconds: Int): String =
             when {
                 seconds < 10 -> "0$seconds"
                 seconds == 60 -> "00"
                 else -> seconds.toString()
             }
-
 
     private fun formatMinutes(minutes: Int): String =
             when {
@@ -128,15 +121,12 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
                 else -> "$minutes:"
             }
 
-
     private fun formatHours(hours: Int): String =
             when {
                 hours < 10 -> "0$hours:"
                 hours == 60 -> "00:"
                 else -> "$hours:"
             }
-
-
 }
 
 
