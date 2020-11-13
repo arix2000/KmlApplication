@@ -6,6 +6,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.kml.data.listeners.OnResultListener;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
