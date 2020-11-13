@@ -177,5 +177,4 @@ class WorkTimerFragment : Fragment() {
         TimerService.minutes = viewModel.minutes
         TimerService.hours = viewModel.hours
     }
-
 }
