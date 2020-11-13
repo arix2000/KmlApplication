@@ -7,6 +7,10 @@ import com.kml.data.app.FileFactory
 import com.kml.data.models.Time
 import com.kml.data.models.WorkToAdd
 import com.kml.repositories.WorkTimerRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
 
 class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
@@ -28,6 +32,9 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
     var isThreadAlive = false
     var exitThread = false
     var isTimerRunning = false
+
+    val job = Job()
+    val defaultScope = CoroutineScope(Dispatchers.Default)
 
     fun setTime(): Time {
         val secondsFormatted = formatSeconds(seconds)
@@ -54,16 +61,14 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
         hours = hms[2].toInt()
     }
 
-    fun saveToFile(toSave: String)
-    {
+    fun saveToFile(toSave: String) {
         repository.saveToFile(toSave)
     }
 
     fun startCounting() {
         exitThread = false
         isTimerRunning = true
-        val countingThread = CountingThread()
-        countingThread.start()
+        timer.invoke()
         repository.clearFileState()
     }
 
@@ -77,66 +82,60 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
         repository.clearFileState()
     }
 
-    fun isFileNotEmpty():Boolean
-    {
+    fun isFileNotEmpty(): Boolean {
         return repository.readFile().contains(";")
     }
 
-    fun sendWorkToDatabase(work:WorkToAdd): Boolean {
+    fun sendWorkToDatabase(work: WorkToAdd): Boolean {
         return repository.addWorkToDatabase(work)
     }
 
-//TODO Replace thread with coroutine
-    inner class CountingThread : Thread() {
-        override fun run() {
-            if (isThreadAlive) {
-                return
-            }
-            isThreadAlive = true
-            val timer = Timer()
-            timer.scheduleAtFixedRate(object : TimerTask() {
-                override fun run() {
-                    if (exitThread) {
-                        cancel()
-                        isThreadAlive = false
-                    } else {
-                        _seconds.postValue(seconds + 1)
-                        Log.d("VIEW_MODEL_TAG", "run: $seconds")
-                    }
+
+    private val timer = { CoroutineScope(Dispatchers.Default).launch { countTime() } }
+
+    private fun countTime() {
+        if (isThreadAlive) {
+            return
+        }
+        isThreadAlive = true
+        val timer = Timer()
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                if (exitThread) {
+                    cancel()
+                    isThreadAlive = false
+                } else {
+                    _seconds.postValue(seconds + 1)
+                    Log.d("VIEW_MODEL_TAG", "run: $seconds")
                 }
-            }, 0, 1000)
-        }
+            }
+        }, 0, 1000)
     }
 
-    private fun formatSeconds(seconds: Int): String {
-        return if (seconds < 10) {
-            "0$seconds"
-        } else if (seconds == 60) {
-            "00"
-        } else {
-            seconds.toString()
-        }
-    }
 
-    private fun formatMinutes(minutes: Int): String {
-        return if (minutes < 10) {
-            "0$minutes:"
-        } else if (minutes == 60) {
-            "00:"
-        } else {
-            "$minutes:"
-        }
-    }
+    private fun formatSeconds(seconds: Int): String =
+            when {
+                seconds < 10 -> "0$seconds"
+                seconds == 60 -> "00"
+                else -> seconds.toString()
+            }
 
-    private fun formatHours(hours: Int): String {
-        return if (hours < 10) {
-            "0$hours:"
-        } else if (hours == 60) {
-            "00:"
-        } else {
-            "$hours:"
-        }
-    }
+
+    private fun formatMinutes(minutes: Int): String =
+            when {
+                minutes < 10 -> "0$minutes:"
+                minutes == 60 -> "00:"
+                else -> "$minutes:"
+            }
+
+
+    private fun formatHours(hours: Int): String =
+            when {
+                hours < 10 -> "0$hours:"
+                hours == 60 -> "00:"
+                else -> "$hours:"
+            }
+
 
 }
 
