@@ -138,7 +138,7 @@ class WorkTimerFragment : Fragment() {
     }
 
     override fun onResume() {
-        returnStateFromService()
+        viewModel.returnStateFromService()
         requireContext().stopService(Intent(requireContext(), TimerService::class.java))
         if (TimerService.wasPlayClicked) {
             startCounting()
@@ -152,7 +152,7 @@ class WorkTimerFragment : Fragment() {
         val intent = Intent(requireContext(), TimerService::class.java)
         TimerService.wasPlayClicked = viewModel.isTimerRunning
         viewModel.exitThread = true
-        saveStateToService()
+        viewModel.saveStateToService()
         if (viewModel.isTimerRunning) {
             TimerService.exitServiceThread = false
             requireContext().startService(intent)
@@ -160,21 +160,7 @@ class WorkTimerFragment : Fragment() {
     }
 
     override fun onStop() {
-        if (!viewModel.isTimerRunning && viewModel.hours > 0 || viewModel.minutes > 0 || viewModel.seconds >= 10) {
-            viewModel.saveToFile("${viewModel.seconds};${viewModel.minutes};${viewModel.hours}")
-        }
+        viewModel.keepCurrentTime()
         super.onStop()
-    }
-
-    private fun returnStateFromService() {
-        viewModel.seconds = TimerService.seconds
-        viewModel.minutes = TimerService.minutes
-        viewModel.hours = TimerService.hours
-    }
-
-    private fun saveStateToService() {
-        TimerService.seconds = viewModel.seconds
-        TimerService.minutes = viewModel.minutes
-        TimerService.hours = viewModel.hours
     }
 }
