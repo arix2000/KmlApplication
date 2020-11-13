@@ -1,4 +1,4 @@
-package com.kml.data.externalDbOperations
+package com.kml.data.listeners
 
 interface OnResultListener{
     fun onReceive(result: String)

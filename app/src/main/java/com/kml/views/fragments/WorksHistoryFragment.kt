@@ -1,8 +1,5 @@
 package com.kml.views.fragments
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,8 +18,9 @@ import com.kml.R
 import com.kml.adapters.WorkAdapter
 import com.kml.data.app.FileFactory
 import com.kml.data.models.Work
-import com.kml.viewModels.WorksHistoryViewModel
 import com.kml.viewModelFactories.WorksHistoryViewModelFactory
+import com.kml.viewModels.WorksHistoryViewModel
+import com.kml.views.dialogs.ExtendedWorkDialog
 
 class WorksHistoryFragment : Fragment() {
     private lateinit var root: View
@@ -36,12 +34,19 @@ class WorksHistoryFragment : Fragment() {
         root = inflater.inflate(R.layout.fragment_works_history, container, false)
         fileFactory = FileFactory(root.context)
         progressBar = root.findViewById(R.id.works_history_progress_bar)
-        initRecycleView()
+
+        adapter = WorkAdapter {extendInDialog(it)}
+        adapter.progressBar = progressBar
+        val recyclerView: RecyclerView = root.findViewById(R.id.works_history_recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(root.context)
+        recyclerView.adapter = adapter
+
 
         val viewModelFactory = WorksHistoryViewModelFactory(fileFactory)
         viewModel = ViewModelProvider(this, viewModelFactory).get(WorksHistoryViewModel::class.java)
 
-        viewModel.works.observe(viewLifecycleOwner) { setWorksToAdapter(it, viewModel.isFromFile())}
+        viewModel.works.observe(viewLifecycleOwner) { setWorksToAdapter(it, viewModel.isFromFile()) }
 
         return root
     }
@@ -49,15 +54,6 @@ class WorksHistoryFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         requireActivity().setTitle(R.string.your_last_works)
-    }
-
-    private fun initRecycleView() {
-        adapter = WorkAdapter {extendInDialog(it)}
-        adapter.progressBar = progressBar
-        val recyclerView: RecyclerView = root.findViewById(R.id.works_history_recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(root.context)
-        recyclerView.adapter = adapter
     }
 
     private fun setWorksToAdapter(works: List<Work>, isFromFile: Boolean) {
@@ -72,18 +68,8 @@ class WorksHistoryFragment : Fragment() {
     }
 
     private fun extendInDialog(work: Work) {
-        val dialog = Dialog(root.context)
-        dialog.setContentView(R.layout.dialog_work_history_extended)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val workName = dialog.findViewById<TextView>(R.id.dialog_history_work_name)
-        val workDescription = dialog.findViewById<TextView>(R.id.dialog_history_work_description)
-        val workDate = dialog.findViewById<TextView>(R.id.dialog_history_work_date)
-        val executionTime = dialog.findViewById<TextView>(R.id.dialog_history_execution_time)
-        dialog.show()
-        workName.text = work.workName
-        workDescription.text = work.workDescription
-        workDate.text = work.workDate
-        executionTime.text = work.executionTime
+        val dialog = ExtendedWorkDialog(work)
+        dialog.show(parentFragmentManager, "ExtendedWork")
     }
 
     private fun reactOnNoItems() {
