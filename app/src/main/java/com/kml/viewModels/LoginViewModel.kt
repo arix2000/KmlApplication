@@ -17,8 +17,8 @@ class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
         } else false
     }
 
-    private fun getLoginId(result: String) {
-        var result = result
+    private fun getLoginId(logResult: String) {
+        var result = logResult
         result = result.substring(result.length - 3)
         result = result.trim()
         KmlApp.loginId = result.toInt()

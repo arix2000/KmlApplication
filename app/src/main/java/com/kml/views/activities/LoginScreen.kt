@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.kml.R
 import com.kml.data.app.FileFactory
 import com.kml.databinding.ActivityLoginScreenBinding
-import com.kml.viewModels.LoginViewModel
 import com.kml.viewModelFactories.LoginViewModelFactory
+import com.kml.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,6 +38,7 @@ class LoginScreen : AppCompatActivity() {
         val viewModelFactory = LoginViewModelFactory(cache)
         viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
 
+
         binding.logInButton.setOnClickListener {
             binding.loginScreenProgressBar.visibility = ProgressBar.VISIBLE
 
@@ -49,7 +50,6 @@ class LoginScreen : AppCompatActivity() {
     private fun logIn() {
         val timeOnStart = SystemClock.elapsedRealtime()
         val intent = Intent(this, MainActivity::class.java)
-
 
         val login = binding.login.text.toString()
         val password = binding.password.text.toString()

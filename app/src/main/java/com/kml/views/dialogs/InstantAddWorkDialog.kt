@@ -17,6 +17,11 @@ import kotlinx.android.synthetic.main.dialog_new_work_instant.view.*
 
 class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs() {
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        isCancelable = false
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val builder = AlertDialog.Builder(requireContext(), R.style.dialogs_style)
@@ -39,12 +44,6 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
             }
         }
         return builder.create()
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        isCancelable = false
-
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     private fun sendWorkToDatabase(work: WorkToAdd) {
