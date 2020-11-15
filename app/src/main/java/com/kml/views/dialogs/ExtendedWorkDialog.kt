@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.dialog_work_history_extended.view.*
 class ExtendedWorkDialog(val work: Work) : AppDialogs() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = AlertDialog.Builder(requireContext(), R.style.dialogs_style)
         val view = layoutInflater.inflate(R.layout.dialog_work_history_extended, null)
         builder.setView(view)
 
