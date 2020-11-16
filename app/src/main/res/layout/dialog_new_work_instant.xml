@@ -27,9 +27,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_work_name"
-                android:textColor="@color/BlackContent" />
+                android:textColor="@color/textColorLight" />
 
             <EditText
+                style="@style/app_edit_texts"
                 android:id="@+id/dialog_timer_work_name_instant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,9 +42,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/new_work_description"
-                android:textColor="@color/BlackContent" />
+                android:textColor="@color/textColorLight" />
 
             <EditText
+                style="@style/app_edit_texts"
                 android:id="@+id/dialog_timer_work_description_instant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/new_work_time"
-                android:textColor="@color/BlackContent" />
+                android:textColor="@color/textColorLight" />
         </LinearLayout>
 
         <RelativeLayout
@@ -64,6 +66,7 @@
             android:orientation="horizontal">
 
             <EditText
+                style="@style/app_edit_texts"
                 android:id="@+id/dialog_timer_hours"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
@@ -77,10 +80,11 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/dialog_timer_hours"
                 android:text="@string/hours"
-                android:textColor="@color/BlackContent"
+                android:textColor="@color/textColorLight"
                 android:textSize="17sp" />
 
             <EditText
+                style="@style/app_edit_texts"
                 android:id="@+id/dialog_timer_minutes"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
@@ -95,7 +99,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/minutes"
-                android:textColor="@color/BlackContent"
+                android:textColor="@color/textColorLight"
                 android:textSize="17sp" />
 
         </RelativeLayout>

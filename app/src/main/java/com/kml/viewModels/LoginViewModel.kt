@@ -44,5 +44,15 @@ class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
         else false
     }
 
+    fun saveSwitchDarkMode(state: Boolean)
+    {
+        repository.saveSwitchDarkMode(state.toString())
+    }
+
+    fun getSwitchDarkModeState():Boolean
+    {
+        return fileFactory.readFromFile(FileFactory.LOGIN_KEEP_SWITCH_DARK_MODE_TXT).toBoolean()
+    }
+
 
 }

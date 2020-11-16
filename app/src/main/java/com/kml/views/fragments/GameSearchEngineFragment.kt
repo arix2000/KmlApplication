@@ -5,15 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.kml.R
 import com.kml.data.models.GameFilterInfo
 import com.kml.views.activities.GameRecycleViewActivity
 
+//TODO add DataBinding
 class GameSearchEngineFragment : Fragment() {
 
     companion object {
@@ -79,5 +77,17 @@ class GameSearchEngineFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.setSelection(0)
+        changeSelectedTextColor(spinner)
+
+    }
+
+    private fun changeSelectedTextColor(spinner: Spinner) {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                (spinner.selectedView as TextView).setTextColor(resources.getColor(R.color.textColorLight))
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
     }
 }

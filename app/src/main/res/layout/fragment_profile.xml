@@ -91,13 +91,11 @@
 
                     <TextView
                         android:id="@+id/profile_join_year"
-                        style="@style/row_style"
+                        style="@style/row_style_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="@={profile.joinYear}"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold" />
+                        android:text="@={profile.joinYear}" />
                 </TableRow>
 
                 <View
@@ -142,12 +140,11 @@
 
                         <TextView
                             android:id="@+id/profile_time_of_work_season"
-                            style="@style/row_style"
+                            style="@style/row_style_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@={profile.timeOfWorkSeason}"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textStyle="bold" />
+                             />
                     </TableRow>
                 </HorizontalScrollView>
 
@@ -172,12 +169,11 @@
 
                         <TextView
                             android:id="@+id/profile_time_of_work_month"
-                            style="@style/row_style"
+                            style="@style/row_style_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@={profile.timeOfWorkMonth}"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textStyle="bold" />
+                            />
                     </TableRow>
                 </HorizontalScrollView>
 
@@ -202,11 +198,10 @@
 
                 <TextView
                     android:id="@+id/profile_sections"
-                    style="@style/row_style"
+                    style="@style/sections"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@={profile.sections}"
-                    android:textColor="@color/colorPrimaryDark"
                     android:textIsSelectable="true" />
 
                 <ProgressBar

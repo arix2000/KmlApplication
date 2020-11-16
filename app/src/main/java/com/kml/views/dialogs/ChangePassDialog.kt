@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 import com.kml.R
+import com.kml.data.app.AppDialogs
 import com.kml.data.externalDbOperations.DbChangePass
 import com.kml.data.listeners.OnResultListener
 import com.kml.viewModels.ProfileViewModel
 import kotlinx.android.synthetic.main.dialog_change_pass.view.*
 
-class ChangePassDialog(private val viewModel: ProfileViewModel) : DialogFragment() {
+class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs() {
 
     lateinit var root: View
 

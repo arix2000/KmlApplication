@@ -1,0 +1,95 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="buttons">
+        <item name="android:topLeftRadius">10dp</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:background">@drawable/rounded_button</item>
+    </style>
+
+    <style name="app_edit_texts">
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/textColorLight</item>
+        <item name="android:textColorHint">@color/textColorLight</item>
+        <item name="android:textColor">@color/textColorLight</item>
+    </style>
+
+    <style name="night_menu">
+        <item name="itemTextColor">@color/textColorLight</item>
+        <item name="itemIconTint">@color/textColorLight</item>
+    </style>
+
+    <style name="row_style">
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="sections">
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="form_text_views">
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="dialog_about_colors_pools">
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:background">@drawable/rounded_view</item>
+    </style>
+
+    <style name="dialog_about_colors_text_views">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textSize">15sp</item>
+
+    </style>
+
+    <style name="properties_text_views_small">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="dialog_about_app_titles">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="dialog_about_app_descriptions">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="dialogs_style" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
+    </style>
+
+    <style name="CustomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
+    </style>
+
+    <style name="row_style_bold">
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="checkboxNight"><item name="buttonTint">@color/textColorLight</item></style>
+
+
+</resources>

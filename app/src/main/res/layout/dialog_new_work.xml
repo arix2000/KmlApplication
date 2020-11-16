@@ -25,9 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/new_work_name"
-            android:textColor="@color/BlackContent"/>
+            android:textColor="@color/textColorLight"/>
 
         <EditText
+            style="@style/app_edit_texts"
             android:hint="@string/work_purpose"
             android:id="@+id/dialog_timer_work_name"
             android:layout_width="match_parent"
@@ -39,9 +40,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/new_work_description"
-            android:textColor="@color/BlackContent"/>
+            android:textColor="@color/textColorLight"/>
 
         <EditText
+            style="@style/app_edit_texts"
             android:hint="@string/work_description_examples"
             android:id="@+id/dialog_timer_work_description"
             android:layout_width="match_parent"

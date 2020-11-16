@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1d1d1d</color> <!-- #3f5fbe -->
+    <color name="colorPrimaryDark">#000</color> <!-- #1B3EB3 -->
+    <color name="colorAccent">#3f5fbe</color> <!-- #06299F -->
+    <color name="WhiteContent">#DEFFFFFF</color>
+    <color name="BlackContent">#1d1d1d</color>
+
+    <color name="gamesColor">#DDb0f7a8</color>
+    <color name="teamsColor">#DDaca8f7</color>
+    <color name="RopeColor">#DDf7a8f6</color>
+    <color name="scarfColor">#DDf7f7a8</color>
+    <color name="danceColor">#DDf7a8ac</color>
+
+    <color name="colorBackground">#2b2b2b</color>
+    <color name="colorCardBackground">#000000</color>
+    <color name="textColorLight">#DEFFFFFF</color>
+    <color name="textColorLightHint">#99FFFFFF</color>
+    <color name="cardBackground">#3c3f41</color>
+
+</resources>

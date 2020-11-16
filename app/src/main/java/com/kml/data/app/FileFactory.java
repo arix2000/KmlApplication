@@ -22,6 +22,7 @@ public class FileFactory {
     public static final String PROFILE_KEEP_DATA_TXT = "profileKeepData.txt";
     public static final String HISTORY_KEEP_DATA_TXT = "historyKeepData.txt";
     public static final String LOGIN_KEEP_SWITCH_CHOICE_TXT = "loginKeepSwitchChoice.txt";
+    public static final String LOGIN_KEEP_SWITCH_DARK_MODE_TXT = "loginKeepSwitchDarkMode.txt";
     private final Context context;
 
     public FileFactory(Context context) {

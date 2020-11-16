@@ -20,6 +20,7 @@
         android:text="@string/type_old_password" />
 
     <EditText
+        style="@style/app_edit_texts"
         android:id="@+id/dialog_old_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
         android:text="@string/type_new_password" />
 
     <EditText
+        style="@style/app_edit_texts"
         android:id="@+id/dialog_new_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

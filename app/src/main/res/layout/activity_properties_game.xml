@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="game"
             type="com.kml.data.models.Game" />
@@ -12,6 +11,7 @@
 
     <ScrollView
         android:id="@+id/properties_container"
+        android:background="@color/colorBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

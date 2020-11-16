@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.activities.SelectVolunteersActivity">
@@ -34,7 +35,7 @@
         android:clickable="true"
         android:focusable="true"
         android:text="@string/select_all"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorAccent" />
 
     <TextView
         android:id="@+id/control_panel_deselect"
@@ -49,6 +50,7 @@
         android:textColor="@android:color/holo_red_dark" />
 
     <EditText
+        style="@style/app_edit_texts"
         android:id="@+id/control_panel_search_by_first_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -56,7 +58,6 @@
         android:hint="@string/search_by_name"
         android:layout_gravity="bottom"
         android:maxLines="1"
-        android:textColor="@color/BlackContent"
         android:textSize="20sp" />
 
 
