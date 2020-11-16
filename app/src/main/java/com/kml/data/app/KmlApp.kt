@@ -3,6 +3,7 @@ package com.kml.data.app
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 
 /*
@@ -24,6 +25,7 @@ class KmlApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //default app mode its light
     }
 
     private fun createNotificationChannel() {

@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="AppTheme.DayNight" parent="Theme.AppCompat.DayNight">
@@ -27,6 +28,12 @@
     <style name="row_style">
         <item name="android:padding">5dp</item>
         <item name="android:textColor">@color/BlackContent</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="sections">
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">20sp</item>
     </style>
 
@@ -83,6 +90,12 @@
         <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
     </style>
 
+    <style name="row_style_bold">
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
 </resources>

@@ -16,6 +16,7 @@
             android:id="@+id/progress_founded"
             style="@style/TextAppearance.AppCompat.SearchResult.Title"
             android:layout_width="wrap_content"
+            android:textColor="@color/textColorLight"
             android:layout_height="wrap_content"
             android:text="@string/progress_founded"
             android:gravity="center"
@@ -25,6 +26,7 @@
             android:id="@+id/should_restore"
             android:layout_width="wrap_content"
             android:gravity="center"
+            android:textColor="@color/textColorLight"
             android:layout_height="wrap_content"
             android:text="@string/restore_progress_question" />
     </LinearLayout>

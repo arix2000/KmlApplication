@@ -6,17 +6,17 @@
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:padding="16dp">
+
     <ImageView
         android:id="@+id/nav_header_logo"
-        android:onClick="openKmlWebsite"
+        android:layout_width="83dp"
+        android:layout_height="83dp"
         android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:clickable="true"
-        android:src="@mipmap/icon"
+        android:focusable="true"
         android:foreground="@drawable/rounded_corners"
-        android:background="@color/colorPrimary"
-        android:focusable="true" />
+        android:onClick="openKmlWebsite"
+        android:src="@drawable/icon_little_rounded" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         style="@style/form_text_views"
-        android:textColor="@android:color/secondary_text_light"
         android:text="@string/work_name"/>
 
     <TextView
@@ -26,21 +25,20 @@
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         android:text="Nazwa"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/form_text_views"
-        android:textColor="@android:color/secondary_text_light"
         android:text="@string/work_description"/>
 
     <TextView
         android:id="@+id/dialog_history_work_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/BlackContent"
+        android:textColor="@color/textColorLight"
         android:textSize="18sp"
         android:gravity="center"
         android:text="WorkDescription"/>
@@ -49,14 +47,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/form_text_views"
-        android:textColor="@android:color/secondary_text_light"
         android:text="@string/date"/>
 
     <TextView
         android:id="@+id/dialog_history_work_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/BlackContent"
+        android:textColor="@color/textColorLight"
         android:textStyle="bold"
         android:gravity="center"
         android:textSize="18sp"
@@ -66,14 +63,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/form_text_views"
-        android:textColor="@android:color/secondary_text_light"
         android:text="@string/work_time"/>
 
     <TextView
         android:id="@+id/dialog_history_execution_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/BlackContent"
+        android:textColor="@color/textColorLight"
         android:textStyle="bold"
         android:gravity="center"
         android:textSize="18sp"
