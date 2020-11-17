@@ -25,8 +25,6 @@ public class DbAddingToChosen extends ExternalDbHelper
     private int hours;
     private float workTime;
 
-
-
     public DbAddingToChosen(String ids, String volunteersName, String workName, int minutes, int hours)
     {
         address = BASE_URL+fileName;

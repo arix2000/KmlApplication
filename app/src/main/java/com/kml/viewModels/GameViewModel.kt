@@ -2,10 +2,10 @@ package com.kml.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.kml.data.app.Filter
 import com.kml.data.internalRoomDatabase.GameDao
 import com.kml.data.models.Game
 import com.kml.data.models.GameFilterInfo
+import com.kml.data.utilities.Filter
 import com.kml.repositories.GameRepository
 
 class GameViewModel(gameDao: GameDao,

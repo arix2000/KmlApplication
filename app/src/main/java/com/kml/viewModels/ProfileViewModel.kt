@@ -3,15 +3,14 @@ package com.kml.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.R
-import com.kml.data.app.FileFactory
 import com.kml.data.externalDbOperations.DbChangePass
 import com.kml.data.models.Profile
+import com.kml.data.utilities.FileFactory
+import com.kml.data.utilities.FormatEngine
 import com.kml.repositories.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.abs
-import kotlin.math.roundToInt
 
 class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
 
@@ -64,38 +63,12 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
     }
 
     private fun createProfileFrom(result: String): Profile {
+        val format = FormatEngine()
         val splitData = result.split(";".toRegex()).toTypedArray()
         return Profile(splitData[0], splitData[1], splitData[2],
-                convertToReadable(splitData[3]),
-                formatSections(splitData[4]), splitData[5],
-                convertToReadable(splitData[6]))
-    }
-
-    private fun convertToReadable(timeOfWork: String): String {
-        val convertedTime: String
-        var workTimeFloat = timeOfWork.toFloat()
-        val hours = workTimeFloat.toInt()
-
-        workTimeFloat -= hours
-        workTimeFloat = abs(workTimeFloat)
-
-        val helpingInteger = (workTimeFloat * 100).roundToInt()
-        workTimeFloat = helpingInteger.toFloat() / 100
-
-        val minutes = (workTimeFloat * 60).roundToInt()
-        convertedTime = "$hours godz $minutes min"
-
-        return convertedTime
-    }
-
-    private fun formatSections(sections: String): String {
-        var changedSection = sections.replace("-".toRegex(), ",")
-
-        if (changedSection.contains("Wolontariusz") && changedSection.contains("Lider"))
-            changedSection = "${changedSection.substring(0, changedSection.indexOf("Wolontariusz"))} \n\n" +
-                    changedSection.substring(changedSection.indexOf("Wolontariusz")).trimIndent()
-
-        return changedSection
+                format.convertToReadable(splitData[3]),
+                format.formatSections(splitData[4]), splitData[5],
+                format.convertToReadable(splitData[6]))
     }
 
     fun validatePassword(oldPassword: String, newPassword: String): Int {

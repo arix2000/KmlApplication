@@ -6,6 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Volunteer(val id: Int,
-                @SerializedName("imie") val firstName: String,
-                @SerializedName("nazwisko") val lastName: String,
+                @SerializedName("imie")
+                val firstName: String,
+                @SerializedName("nazwisko")
+                val lastName: String,
                 var isChecked: Boolean) : Parcelable

@@ -7,13 +7,13 @@ import android.graphics.Color
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.kml.R
-import com.kml.data.app.FileFactory
+import com.kml.data.utilities.FileFactory
 import com.kml.data.app.KmlApp
 import com.kml.views.activities.MainActivity
 import java.util.*
 
 class TimerService : Service() {
-    var fileFactory: FileFactory? = null
+    lateinit var fileFactory: FileFactory
 
     override fun onBind(intent: Intent): IBinder? {
         return null
@@ -27,7 +27,7 @@ class TimerService : Service() {
 
         fileFactory = FileFactory(this)
 
-        fileFactory!!.saveStateToFile("$seconds;$minutes;$hours", FileFactory.CURRENT_TIME_TXT)
+        fileFactory.saveStateToFile("$seconds;$minutes;$hours", FileFactory.CURRENT_TIME_TXT)
         val notification = NotificationCompat.Builder(this, KmlApp.CHANNEL_1_ID)
                 .setContentTitle("Stoper jest uruchomiony")
                 .setSmallIcon(R.mipmap.icon_foreground)
@@ -65,7 +65,7 @@ class TimerService : Service() {
     }
 
     fun saveStateToFile() {
-        fileFactory!!.saveStateToFile("$seconds;$minutes;$hours", FileFactory.CURRENT_TIME_TXT)
+        fileFactory.saveStateToFile("$seconds;$minutes;$hours", FileFactory.CURRENT_TIME_TXT)
     }
 
     private fun convertTimeToReadable() {

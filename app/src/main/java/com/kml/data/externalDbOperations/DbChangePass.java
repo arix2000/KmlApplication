@@ -12,7 +12,6 @@ import java.net.URLEncoder;
 public class DbChangePass extends ExternalDbHelper {
     private final String fileName = "changePass.php";
 
-
     public static final String CHANGE_SUCCESSFUL = "Pomyślnie zmieniono hasło!";
     public static final String CHANGE_FAILED = "Coś poszło nie tak!";
 
@@ -29,7 +28,6 @@ public class DbChangePass extends ExternalDbHelper {
 
     @Override
     public void run() {
-        super.run();
         String address = BASE_URL + fileName;
 
         try {
@@ -42,17 +40,14 @@ public class DbChangePass extends ExternalDbHelper {
             } else if (result.equals("0")) {
                 toastText = CHANGE_FAILED;
             } else toastText = result;
-
             result = toastText;
 
             invokeOnReceive(result);
-
 
         } catch (IOException e) {
             Log.d("IOEXCEPTION_CHANGEPASS", "run: " + e.getMessage());
         }
     }
-
 
     private void sendData(HttpURLConnection conn) throws IOException {
         OutputStream outSteam = conn.getOutputStream();
@@ -65,15 +60,4 @@ public class DbChangePass extends ExternalDbHelper {
         writer.close();
         outSteam.close();
     }
-
-    public String getResult() {
-        try {
-            this.join();
-        } catch (InterruptedException e) {
-            Log.d("INTERRUPTED_EXCEPTION", "getResult: " + e.getMessage());
-        }
-        return result;
-    }
-
-
 }

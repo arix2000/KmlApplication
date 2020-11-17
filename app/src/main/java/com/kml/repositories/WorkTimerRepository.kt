@@ -1,6 +1,6 @@
 package com.kml.repositories
 
-import com.kml.data.app.FileFactory
+import com.kml.data.utilities.FileFactory
 import com.kml.data.externalDbOperations.DbSendWork
 import com.kml.data.models.WorkToAdd
 

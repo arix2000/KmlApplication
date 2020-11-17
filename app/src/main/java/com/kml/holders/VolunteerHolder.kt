@@ -24,5 +24,4 @@ class VolunteerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private fun setCheckboxState(checkBox: CheckBox) {
         checkBox.isChecked = !checkBox.isChecked
     }
-
 }

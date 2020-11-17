@@ -1,8 +1,8 @@
 package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.kml.data.app.FileFactory
 import com.kml.data.app.KmlApp
+import com.kml.data.utilities.FileFactory
 import com.kml.repositories.LoginRepository
 
 class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
@@ -51,7 +51,7 @@ class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
 
     fun getSwitchDarkModeState():Boolean
     {
-        return fileFactory.readFromFile(FileFactory.LOGIN_KEEP_SWITCH_DARK_MODE_TXT).toBoolean()
+        return repository.getSwitchDarkModeState()
     }
 
 

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.kml.R
-import com.kml.data.app.FileFactory
+import com.kml.data.utilities.FileFactory
 import com.kml.databinding.ActivityLoginScreenBinding
 import com.kml.viewModelFactories.LoginViewModelFactory
 import com.kml.viewModels.LoginViewModel

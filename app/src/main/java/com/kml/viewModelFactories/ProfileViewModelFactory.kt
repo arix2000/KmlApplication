@@ -2,7 +2,7 @@ package com.kml.viewModelFactories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.kml.data.app.FileFactory
+import com.kml.data.utilities.FileFactory
 import com.kml.viewModels.ProfileViewModel
 
 class ProfileViewModelFactory(val fileFactory: FileFactory): ViewModelProvider.Factory {

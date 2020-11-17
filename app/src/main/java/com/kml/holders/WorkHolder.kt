@@ -21,5 +21,4 @@ class WorkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             lastClick = SystemClock.elapsedRealtime()
         }
     }
-
 }
