@@ -30,7 +30,6 @@ public class DbGetWorksHistory extends ExternalDbHelper
         conn = setConnection(address);
         sendData();
         result = readResult(conn);
-
     }
 
     private void sendData()

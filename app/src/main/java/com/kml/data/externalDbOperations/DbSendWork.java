@@ -66,7 +66,6 @@ public class DbSendWork extends ExternalDbHelper
         writer.flush();
         writer.close();
         outStream.close();
-
     }
 
     private String setDataToSend(float timeToSend) throws UnsupportedEncodingException
@@ -90,5 +89,4 @@ public class DbSendWork extends ExternalDbHelper
         }
         return mResult;
     }
-
 }

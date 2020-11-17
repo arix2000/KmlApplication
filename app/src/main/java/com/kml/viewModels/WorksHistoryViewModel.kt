@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kml.data.app.FileFactory
+import com.kml.data.utilities.FileFactory
 import com.kml.data.models.Work
 import com.kml.repositories.WorksHistoryRepository
 

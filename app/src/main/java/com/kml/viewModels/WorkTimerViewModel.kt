@@ -2,10 +2,11 @@ package com.kml.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kml.data.app.FileFactory
 import com.kml.data.models.Time
 import com.kml.data.models.WorkToAdd
 import com.kml.data.services.TimerService
+import com.kml.data.utilities.FileFactory
+import com.kml.data.utilities.FormatEngine
 import com.kml.repositories.WorkTimerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,7 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
     val _seconds = MutableLiveData<Int>()
     var minutes: Int = 0
     var hours: Int = 0
+    private val engine = FormatEngine()
 
     var seconds: Int
         get() {
@@ -50,42 +52,21 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
     }
 
     fun setTime(): Time {
-        val secondsFormatted = formatSeconds(seconds)
+        val secondsFormatted = engine.formatSeconds(seconds)
         if (seconds >= 60) {
             minutes += 1
             seconds = 0
         }
-        val minutesFormatted = formatMinutes(minutes)
+        val minutesFormatted = engine.formatMinutes(minutes)
 
         if (minutes >= 60) {
             hours += 1
             minutes = 0
         }
-        val hoursFormatted = formatHours(hours)
+        val hoursFormatted = engine.formatHours(hours)
 
         return Time(hoursFormatted, minutesFormatted, secondsFormatted)
     }
-
-    private fun formatSeconds(seconds: Int): String =
-            when {
-                seconds < 10 -> "0$seconds"
-                seconds == 60 -> "00"
-                else -> seconds.toString()
-            }
-
-    private fun formatMinutes(minutes: Int): String =
-            when {
-                minutes < 10 -> "0$minutes:"
-                minutes == 60 -> "00:"
-                else -> "$minutes:"
-            }
-
-    private fun formatHours(hours: Int): String =
-            when {
-                hours < 10 -> "0$hours:"
-                hours == 60 -> "00:"
-                else -> "$hours:"
-            }
 
     fun setTimeFromFile() {
         val fromFile = repository.readFile()

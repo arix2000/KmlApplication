@@ -34,7 +34,6 @@ public class DbLogin extends ExternalDbHelper
         result = readResult(httpConnection);
     }
 
-
     private void sendData()
     {
         try {

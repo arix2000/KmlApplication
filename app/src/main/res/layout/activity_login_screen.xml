@@ -12,10 +12,10 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_change_mode"
-            style="@style/buttons"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="@string/change_mode"
+            android:textColor="@color/textColorLight"
             android:paddingHorizontal="13dp"
             app:layout_constraintBottom_toTopOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"

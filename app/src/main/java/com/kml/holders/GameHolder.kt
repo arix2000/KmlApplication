@@ -32,5 +32,4 @@ class GameHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             "Tańce" -> cardView.setCardBackgroundColor(Color.parseColor(colorRed))
         }
     }
-
 }

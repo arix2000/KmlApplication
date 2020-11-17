@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.kml.R
 import com.kml.adapters.WorkAdapter
-import com.kml.data.app.FileFactory
+import com.kml.data.utilities.FileFactory
 import com.kml.data.models.Work
 import com.kml.viewModelFactories.WorksHistoryViewModelFactory
 import com.kml.viewModels.WorksHistoryViewModel

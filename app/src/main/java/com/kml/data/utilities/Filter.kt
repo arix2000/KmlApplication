@@ -1,4 +1,4 @@
-package com.kml.data.app
+package com.kml.data.utilities
 
 import com.kml.data.models.Game
 import com.kml.data.models.GameFilterInfo

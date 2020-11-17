@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.kml.R
-import com.kml.data.app.FileFactory
+import com.kml.data.utilities.FileFactory
 import com.kml.data.app.KmlApp
 import com.kml.data.models.Profile
 import com.kml.databinding.FragmentProfileBinding
