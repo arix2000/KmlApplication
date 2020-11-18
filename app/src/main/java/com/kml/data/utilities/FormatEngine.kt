@@ -7,17 +7,20 @@ class FormatEngine {
 
     fun convertToReadable(timeOfWork: String): String {
         val convertedTime: String
-        var workTimeFloat = timeOfWork.toFloat()
-        val hours = workTimeFloat.toInt()
+        try {
+            var workTimeFloat = timeOfWork.toFloat()
+            val hours = workTimeFloat.toInt()
+            workTimeFloat -= hours
+            workTimeFloat = abs(workTimeFloat)
 
-        workTimeFloat -= hours
-        workTimeFloat = abs(workTimeFloat)
+            val helpingInteger = (workTimeFloat * 100).roundToInt()
+            workTimeFloat = helpingInteger.toFloat() / 100
 
-        val helpingInteger = (workTimeFloat * 100).roundToInt()
-        workTimeFloat = helpingInteger.toFloat() / 100
-
-        val minutes = (workTimeFloat * 60).roundToInt()
-        convertedTime = "$hours godz $minutes min"
+            val minutes = (workTimeFloat * 60).roundToInt()
+            convertedTime = "$hours godz $minutes min"
+        } catch (e: NumberFormatException) {
+            return timeOfWork
+        }
 
         return convertedTime
     }

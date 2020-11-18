@@ -16,6 +16,6 @@
     <color name="colorCardBackground">#FFFFFF</color>
     <color name="textColorLight">#2b2b2b</color>
     <color name="cardBackground">@android:color/background_light</color>
-    <color name="textColorLightHint">#99FFFFFF</color>
+    <color name="textColorLightHint">#80FFFFFF</color>
 
 </resources>
