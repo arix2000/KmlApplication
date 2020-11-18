@@ -1,4 +1,5 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="Typos">
     <string name="app_name">Klub Młodych Liderów</string>
     <string name="app_description">Aplikacja stworzona dla wolontariuszy z Fundacji Klubu Młodych Liderów by ułatwić im wpisywanie godzin pracy
         oraz udostępnić ich aktualne postępy,dodatkowo zawiera wyszukiwarke zabaw dla animatorów</string>
@@ -15,7 +16,7 @@
     <string name="no_empty_fields">Żadne z pól nie może być puste!</string>
     <string name="too_many_chars">Hasło nie może mieć wiecej niż 64 znaki!</string>
     <string name="something_wrong">Coś poszło nie tak!</string>
-    <string name="load_previous_data">Brak połącznia z internetem! wczytano ostatnie dane</string>
+    <string name="load_previous_data">Brak połączenia z internetem! wczytano ostatnie dane</string>
     <string name="adding_work_confirmation">Dodano pomyślnie!</string>
     <string name="adding_work_error">Nie udało się dodać, sprawdź połączenie z internetem.</string>
     <string name="your_last_works">Twoje ostatnie zadania:</string>
@@ -136,5 +137,7 @@
     <string name="add_your_first_work">Dodaj swoje piewsze zadanie!</string>
     <string name="no_results">Brak wyników :O</string>
     <string name="change_mode">Tryb ciemny</string>
+    <string name="about_colors">O kolorach</string>
+    <string name="control_panel">Panel Sterowania</string>
 
 </resources>

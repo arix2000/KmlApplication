@@ -9,7 +9,7 @@ class DbGetAllUsersData : ExternalDbHelper() {
         get() {
             join(); return field
         }
-    var conn: HttpURLConnection? = null
+    private var conn: HttpURLConnection? = null
 
     override fun run() {
 

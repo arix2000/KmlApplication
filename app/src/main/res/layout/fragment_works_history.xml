@@ -28,7 +28,7 @@
         android:textColor="@color/textColorLight"
         android:padding="10dp"
         android:visibility="gone"
-        android:textSize="18dp"/>
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/no_results_on_history_clickable"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/add_your_first_work"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:clickable="true"

@@ -24,10 +24,10 @@ import com.kml.views.dialogs.ExtendedWorkDialog
 
 class WorksHistoryFragment : Fragment() {
     private lateinit var root: View
-    lateinit var adapter: WorkAdapter
-    lateinit var progressBar: ProgressBar
+    private lateinit var adapter: WorkAdapter
+    private lateinit var progressBar: ProgressBar
     private lateinit var fileFactory: FileFactory
-    lateinit var viewModel: WorksHistoryViewModel
+    private lateinit var viewModel: WorksHistoryViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 

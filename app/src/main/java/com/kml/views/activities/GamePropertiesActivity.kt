@@ -2,6 +2,7 @@ package com.kml.views.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.kml.R
 import com.kml.data.models.Game
@@ -34,13 +35,18 @@ class GamePropertiesActivity : AppCompatActivity() {
     }
 
     private fun setColorForBackground(category: String): Int {
+
         return when (category) {
-            "Zabawy" -> resources.getColor(R.color.gamesColor)
-            "Drużynowe" -> resources.getColor(R.color.teamsColor)
-            "Lina" -> resources.getColor(R.color.RopeColor)
-            "Chusta" -> resources.getColor(R.color.scarfColor)
-            "Tańce" -> resources.getColor(R.color.danceColor)
+            "Zabawy" -> getColorFrom(R.color.gamesColor)
+            "Drużynowe" -> getColorFrom(R.color.teamsColor)
+            "Lina" -> getColorFrom(R.color.RopeColor)
+            "Chusta" -> getColorFrom(R.color.scarfColor)
+            "Tańce" -> getColorFrom(R.color.danceColor)
             else -> 0
         }
+    }
+
+    private fun getColorFrom(resId: Int): Int {
+        return ContextCompat.getColor(this, resId)
     }
 }

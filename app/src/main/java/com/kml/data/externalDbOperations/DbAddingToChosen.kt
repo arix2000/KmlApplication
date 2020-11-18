@@ -9,9 +9,9 @@ import java.net.HttpURLConnection
 import java.net.URLEncoder
 import kotlin.math.roundToInt
 
-class DbAddingToChosen(val ids: String,
-                       var volunteersName: String,
-                       val workName: String,
+class DbAddingToChosen(private val ids: String,
+                       private var volunteersName: String,
+                       private val workName: String,
                        val minutes: Int,
                        val hours: Int) : ExternalDbHelper() {
 

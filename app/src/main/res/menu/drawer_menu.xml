@@ -7,25 +7,25 @@
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
-            android:title="Profil" />
+            android:title="@string/profile" />
         <item
             android:id="@+id/nav_timer"
             android:icon="@drawable/ic_timer"
-            android:title="Licznik Pracy" />
+            android:title="@string/work_timer" />
         <item
             android:id="@+id/nav_search_engine"
             android:icon="@drawable/ic_search_engine"
-            android:title="Wyszukiwarka Animacji" />
+            android:title="@string/games_search_engine" />
         <item
             android:id="@+id/nav_control_panel"
             android:icon="@drawable/ic_keyboard"
             android:visible="false"
-            android:title="Panel Sterowania" />
+            android:title="@string/control_panel" />
 
         <item
             android:id="@+id/nav_works_history"
             android:icon="@drawable/ic_history_of_works"
-            android:title="Historia Zadań" />
+            android:title="@string/work_history" />
     </group>
 
 </menu>
