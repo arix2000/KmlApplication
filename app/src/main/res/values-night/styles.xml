@@ -8,7 +8,7 @@
 
     <style name="app_edit_texts">
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/textColorLight</item>
-        <item name="android:textColorHint">@color/textColorLight</item>
+        <item name="android:textColorHint">@color/textColorLightHint</item>
         <item name="android:textColor">@color/textColorLight</item>
     </style>
 

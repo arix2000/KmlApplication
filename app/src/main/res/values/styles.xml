@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/textColorLight</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
 
     </style>
 
@@ -12,6 +14,9 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorControlNormal">@color/textColorLight</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
     </style>
 
     <style name="buttons">
