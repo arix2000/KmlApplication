@@ -74,7 +74,7 @@
                 android:layout_toRightOf="@+id/summary_activity_hours"
                 android:text="@string/hours"
                 android:textColor="@color/textColorLight"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
 
             <EditText
                 android:id="@+id/summary_activity_minutes"
@@ -95,7 +95,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/minutes"
                 android:textColor="@color/textColorLight"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
 
             <Button
                 android:id="@+id/summary_activity_send_work"

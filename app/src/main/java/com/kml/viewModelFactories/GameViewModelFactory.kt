@@ -7,7 +7,7 @@ import com.kml.data.models.GameFilterInfo
 import com.kml.viewModels.GameViewModel
 
 
-class GameViewModelFactory(private val gameDao: GameDao, val gameFilterInfo: GameFilterInfo): ViewModelProvider.Factory {
+class GameViewModelFactory(private val gameDao: GameDao, private val gameFilterInfo: GameFilterInfo): ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

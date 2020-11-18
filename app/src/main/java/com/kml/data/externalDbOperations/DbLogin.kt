@@ -18,7 +18,7 @@ class DbLogin(private val login: String, private val password: String) : Externa
     override fun run() {
         httpConnection = setConnection(address)
         sendData()
-        result = readResult(httpConnection!!) ?: ""
+        result = readResult(httpConnection!!)
     }
 
     private fun sendData() {

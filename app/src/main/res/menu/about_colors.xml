@@ -5,7 +5,7 @@
     <item
         android:id="@+id/about_colors"
         android:icon="@drawable/ic_about_colors"
-        android:title="O kolorach"
+        android:title="@string/about_colors"
         app:showAsAction="ifRoom" />
 
 </menu>

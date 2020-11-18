@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class LoginScreen : AppCompatActivity() {
     private lateinit var cache: FileFactory
     lateinit var binding: ActivityLoginScreenBinding
-    lateinit var viewModel: LoginViewModel
+    private lateinit var viewModel: LoginViewModel
 
     companion object {
         @JvmField

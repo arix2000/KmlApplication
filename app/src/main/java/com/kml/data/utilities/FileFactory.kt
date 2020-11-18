@@ -7,7 +7,6 @@ import java.io.InputStreamReader
 class FileFactory(private val context: Context) {
 
     companion object {
-        const val ERROR_TAG = "ERROR_TAG"
         const val CURRENT_TIME_TXT = "currentTime.txt"
         const val DATA_TXT = "data.txt"
         const val PROFILE_PHOTO_PATH_TXT = "profilePhotoPath.txt"

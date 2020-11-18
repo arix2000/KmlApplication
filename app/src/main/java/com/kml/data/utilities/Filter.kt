@@ -4,7 +4,7 @@ import com.kml.data.models.Game
 import com.kml.data.models.GameFilterInfo
 import java.util.*
 
-class Filter(val filterInfo: GameFilterInfo) {
+class Filter(private val filterInfo: GameFilterInfo) {
 
     fun byName(games: List<Game>): List<Game> {
         return games.filter { it.name.contains(filterInfo.name.toUpperCase(Locale.getDefault())) }

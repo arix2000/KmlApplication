@@ -35,7 +35,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
     lateinit var binding: FragmentProfileBinding
-    lateinit var dataFile: FileFactory
+    private lateinit var dataFile: FileFactory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 

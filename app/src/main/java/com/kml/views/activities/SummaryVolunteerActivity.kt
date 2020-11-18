@@ -14,7 +14,7 @@ import com.kml.viewModels.SummaryVolunteerViewModel
 
 class SummaryVolunteerActivity : AppCompatActivity() {
 
-    lateinit var viewModel: SummaryVolunteerViewModel
+    private lateinit var viewModel: SummaryVolunteerViewModel
     lateinit var binding:ActivitySummarySelectedBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
