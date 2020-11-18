@@ -14,7 +14,6 @@ abstract class AppDialogs : DialogFragment() {
 
     lateinit var onAcceptListener: OnAcceptDialogListener
     lateinit var onCancelListener: OnCancelDialogListener
-    var lastTimeClicked: Long = 0
 
     fun setOnAcceptListener(operation: () -> Unit) {
         onAcceptListener = object : OnAcceptDialogListener {

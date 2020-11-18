@@ -33,12 +33,12 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
     }
 
     private fun getProfileData(): Profile {
-        val dataFromDb = repository.getUserInfoFromDb()
-        return if (dataFromDb.trim().isEmpty()) {
+        val result = repository.getUserInfoFromDb()
+        return if (result.trim().isEmpty()) {
             isFromFile = true
             getDataFromFile()
         } else {
-            getDataFromDatabase(dataFromDb)
+            getDataFromDatabase(result)
         }
     }
 

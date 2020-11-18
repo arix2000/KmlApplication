@@ -10,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.externalDbOperations.DbChangePass
-import com.kml.data.listeners.OnResultListener
 import com.kml.viewModels.ProfileViewModel
 import kotlinx.android.synthetic.main.dialog_change_pass.view.*
 
@@ -51,11 +50,9 @@ class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs() {
         root.dialog_change_password_progress_bar.visibility = View.VISIBLE
         val changeOperation = viewModel.resolvePasswordChanging(newPassword, oldPassword)
 
-        changeOperation.setOnResultListener(object : OnResultListener {
-            override fun onReceive(result: String) {
-                resolveResult(result)
-            }
-        })
+        changeOperation.setOnResultListener {
+            resolveResult(it)
+        }
     }
 
     private fun resolveResult(result: String) {

@@ -1,5 +1,6 @@
 package com.kml.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -45,6 +46,7 @@ class VolunteersViewModel : ViewModel() {
     private fun createListFromJson(jsonResult: String): List<Volunteer> {
         val gson = Gson()
         val type = object : TypeToken<List<Volunteer>>() {}.type
-        return gson.fromJson(jsonResult, type)
+        Log.d("TAG_JSON_XD", "createListFromJson: $type <------> $jsonResult")
+        return gson.fromJson(jsonResult, type) ?: emptyList()
     }
 }
