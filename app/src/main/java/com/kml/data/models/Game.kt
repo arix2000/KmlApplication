@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(tableName = "gameTable")
-class Game(var name: String,
+data class Game(var name: String,
            var description: String,
            var requirements: String,
            var numberOfKids: String,
