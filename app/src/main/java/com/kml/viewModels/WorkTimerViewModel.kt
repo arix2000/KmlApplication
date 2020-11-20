@@ -8,6 +8,7 @@ import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine
 import com.kml.repositories.WorkTimerRepository
+import com.kml.views.dialogs.InstantAddWorkDialog.Companion.TODAY
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -125,5 +126,20 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
                 }
             }
         }, 0, 1000)
+    }
+
+    fun getTodayDate(): String {
+        val calendar = Calendar.getInstance()
+        calendar.apply {
+            return get(Calendar.DAY_OF_MONTH).toString() + "." +
+                    get(Calendar.MONTH) + "." +
+                    get(Calendar.YEAR)
+        }
+    }
+
+    fun decideAboutDate(date: String): String {
+        return if(date == TODAY)
+            getTodayDate()
+        else date
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
@@ -16,6 +17,10 @@ import kotlinx.android.synthetic.main.dialog_new_work_instant.view.*
 
 
 class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs() {
+
+    companion object {
+        const val TODAY="Dzisiaj"
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isCancelable = false
@@ -29,14 +34,29 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
         builder.setView(view)
 
         view.apply {
+
+            val creationDate = new_work_creation_date as TextView
+            creationDate.text = TODAY
+
             val button = dialog_timer_add_instant
             button.setOnClickListener {
+                val creationDateString = viewModel.decideAboutDate(creationDate.text.toString())
+                val description = " $creationDateString -> "+dialog_timer_work_description_instant.text.toString()
+
                 val work = WorkToAdd(dialog_timer_work_name_instant.text.toString(),
-                        dialog_timer_work_description_instant.text.toString(),
+                        description,
                         dialog_timer_hours.text.toString().toIntOrNull() ?: -1,
                         dialog_timer_minutes.text.toString().toIntOrNull() ?: -1
                 )
                 sendWorkToDatabase(work)
+            }
+
+            creationDate.setOnClickListener {
+                val dialog = MyDatePickerDialog()
+                dialog.setOnResultListener {
+                    creationDate.text = it
+                }
+                dialog.show(parentFragmentManager,"DatePicker")
             }
 
             dialog_timer_cancel_instant.setOnClickListener {
