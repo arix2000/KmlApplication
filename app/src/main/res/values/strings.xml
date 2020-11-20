@@ -114,7 +114,7 @@
     <string name="what_were_you_doing">Co robiłeś/aś</string>
     <string name="new_work_description">Opis:</string>
     <string name="work_purpose">Cel zadania / Tytuł</string>
-    <string name="work_description_examples">Co robiłeś? / Data wykonania / Na jakie wydarzenie? / Z kim? itp.</string>
+    <string name="work_description_examples">Co robiłeś? / Na jakie wydarzenie? / Z kim? itp.</string>
     <string name="end_your_work">Zakończ zadanie</string>
     <string name="new_work_time">Czas wykonywania:</string>
     <string name="progress_founded">Znaleziono postęp!</string>
@@ -139,5 +139,7 @@
     <string name="change_mode">Tryb ciemny</string>
     <string name="about_colors">O kolorach</string>
     <string name="control_panel">Panel Sterowania</string>
+    <string name="creation_date">Data wykonania:</string>
+    <string name="confirm">Potwierdź</string>
 
 </resources>
