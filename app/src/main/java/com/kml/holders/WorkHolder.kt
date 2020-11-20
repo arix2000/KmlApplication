@@ -11,7 +11,7 @@ class WorkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(work: Work, onClickListener: (Work) -> Unit) {
         itemView.history_work_item_name.text = work.workName
-        itemView.history_work_item_description.text = work.workDescription
+        itemView.history_work_item_time.text = work.executionTime
         itemView.history_work_item_date.text = work.workDate
         itemView.setOnClickListener {
             if (SystemClock.elapsedRealtime() - lastClick < 500)
