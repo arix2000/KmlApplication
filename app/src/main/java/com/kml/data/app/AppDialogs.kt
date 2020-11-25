@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.kml.data.listeners.OnAcceptDialogListener
 import com.kml.data.listeners.OnCancelDialogListener
 
-abstract class AppDialogs : DialogFragment() {
+abstract class AppDialogs(val cancelable:Boolean = true) : DialogFragment() {
 
     lateinit var onAcceptListener: OnAcceptDialogListener
     lateinit var onCancelListener: OnCancelDialogListener
@@ -33,6 +33,7 @@ abstract class AppDialogs : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        isCancelable = cancelable
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

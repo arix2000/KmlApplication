@@ -3,63 +3,55 @@ package com.kml.views.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.models.WorkToAdd
+import com.kml.databinding.DialogNewWorkInstantBinding
 import com.kml.viewModels.WorkTimerViewModel
-import kotlinx.android.synthetic.main.dialog_new_work_instant.view.*
 
 
-class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs() {
+class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(false) {
 
     companion object {
         const val TODAY="Dzisiaj"
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        isCancelable = false
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    lateinit var binding: DialogNewWorkInstantBinding;
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val builder = AlertDialog.Builder(requireContext(), R.style.dialogs_style)
-        val view = layoutInflater.inflate(R.layout.dialog_new_work_instant, null)
-        builder.setView(view)
+        layoutInflater.inflate(R.layout.dialog_new_work_instant, null)
+        binding = DialogNewWorkInstantBinding.inflate(layoutInflater)
+        builder.setView(binding.root)
 
-        view.apply {
+        binding.apply {
 
-            val creationDate = new_work_creation_date as TextView
-            creationDate.text = TODAY
+            newWorkCreationDate.text = TODAY
 
-            val button = dialog_timer_add_instant
-            button.setOnClickListener {
-                val creationDateString = viewModel.decideAboutDate(creationDate.text.toString())
-                val description = " $creationDateString -> "+dialog_timer_work_description_instant.text.toString()
+            dialogTimerAddInstant.setOnClickListener {
+                val creationDateString = viewModel.decideAboutDate(newWorkCreationDate.text.toString())
+                val description = " $creationDateString -> "+dialogTimerWorkDescriptionInstant.text.toString()
 
-                val work = WorkToAdd(dialog_timer_work_name_instant.text.toString(),
+                val work = WorkToAdd(dialogTimerWorkNameInstant.text.toString(),
                         description,
-                        dialog_timer_hours.text.toString().toIntOrNull() ?: -1,
-                        dialog_timer_minutes.text.toString().toIntOrNull() ?: -1
+                        dialogTimerHours.text.toString().toIntOrNull() ?: -1,
+                        textViewMinutesDialog.text.toString().toIntOrNull() ?: -1
                 )
                 sendWorkToDatabase(work)
             }
 
-            creationDate.setOnClickListener {
+            newWorkCreationDate.setOnClickListener {
                 val dialog = MyDatePickerDialog()
                 dialog.setOnResultListener {
-                    creationDate.text = it
+                    newWorkCreationDate.text = it
                 }
                 dialog.show(parentFragmentManager,"DatePicker")
             }
 
-            dialog_timer_cancel_instant.setOnClickListener {
+            dialogTimerCancelInstant.setOnClickListener {
                 dismiss()
             }
         }
