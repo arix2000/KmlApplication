@@ -30,7 +30,7 @@ class WorkTimerFragment : Fragment() {
 
     private var lastClickTime: Long = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_work_timer, container, false)
 
         fileFactory = FileFactory(requireContext())
