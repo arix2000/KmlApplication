@@ -23,7 +23,6 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
     var minutes: Int = 0
     var hours: Int = 0
 
-    private var lastClickTime: Long = 0
     private val engine = FormatEngine()
 
     var secondsValue: Int
@@ -80,8 +79,7 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
         hours = hms[2].toInt()
     }
 
-    fun keepCurrentTime()
-    {
+    fun keepCurrentTime() {
         if (!isTimerRunning && hours > 0 || minutes > 0 || secondsValue >= 10) {
             saveToFile("$secondsValue;$minutes;$hours")
         }
@@ -124,15 +122,14 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
                 if (exitThread) {
                     cancel()
                     isThreadAlive = false
-                } else {
+                } else
                     seconds.postValue(secondsValue + 1)
-                }
             }
         }, 0, 1000)
     }
 
     fun decideAboutDate(date: String): String {
-        return if(date == TODAY)
+        return if (date == TODAY)
             getTodayDate()
         else date
     }
@@ -141,8 +138,8 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
         val calendar = Calendar.getInstance()
         calendar.apply {
             return get(Calendar.DAY_OF_MONTH).toString() + "." +
-                    get(Calendar.MONTH) + "." +
-                    get(Calendar.YEAR)
+                    (get(Calendar.MONTH)+1) + "." +
+                    get(Calendar.YEAR) //TODO Export this formatting to FormatEngine. In MyDatePickerDialog we have similar operation
         }
     }
 
@@ -152,8 +149,8 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
 
     fun validateWorkInstant(work: WorkToAdd): Int {
         return when {
-            (isPoolsEmpty(work)) ->  Signal.EMPTY_POOLS
-            (work.minutes > 60) ->  Signal.MANY_MINUTES
+            (isPoolsEmpty(work)) -> Signal.EMPTY_POOLS
+            (work.minutes > 60) -> Signal.TOO_MANY_MINUTES
             else -> Signal.VALIDATION_SUCCESSFUL
         }
     }

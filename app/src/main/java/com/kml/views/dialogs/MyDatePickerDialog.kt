@@ -20,7 +20,7 @@ class MyDatePickerDialog: AppDialogs() {
         binding.apply {
             dialogDatePickerAccept.setOnClickListener {
                 val date = dialogDatePickerPicker
-                val result = ""+date.dayOfMonth+"."+date.month+"."+date.year
+                val result = ""+date.dayOfMonth+"."+(date.month+1)+"."+date.year
                 onResultListener.onReceive(result)
                 dismiss()
             }
