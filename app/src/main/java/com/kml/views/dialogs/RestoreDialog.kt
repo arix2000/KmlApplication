@@ -21,7 +21,7 @@ class RestoreDialog : AppDialogs(false) {
             dismiss()
             onAcceptListener.onAccept()
         }
-        binding.btnDialogRestoreYes.setOnClickListener {
+        binding.btnDialogRestoreNo.setOnClickListener {
             dismiss()
             onCancelListener.onCancel()
         }

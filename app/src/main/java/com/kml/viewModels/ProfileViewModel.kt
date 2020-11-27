@@ -32,7 +32,7 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
         ioScope.launch { profileData.postValue(getProfileData()) }
     }
 
-    private fun getProfileData(): Profile {
+    fun getProfileData(): Profile {
         val result = repository.getUserInfoFromDb()
         return if (result.trim().isEmpty()) {
             isFromFile = true

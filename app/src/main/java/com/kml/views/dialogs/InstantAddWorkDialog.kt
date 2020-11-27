@@ -3,11 +3,13 @@ package com.kml.views.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.models.WorkToAdd
+import com.kml.data.utilities.Signal
 import com.kml.databinding.DialogNewWorkInstantBinding
 import com.kml.viewModels.WorkTimerViewModel
 
@@ -15,10 +17,10 @@ import com.kml.viewModels.WorkTimerViewModel
 class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(false) {
 
     companion object {
-        const val TODAY="Dzisiaj"
+        const val TODAY = "Dzisiaj"
     }
 
-    lateinit var binding: DialogNewWorkInstantBinding;
+    lateinit var binding: DialogNewWorkInstantBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -33,12 +35,12 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
 
             dialogTimerAddInstant.setOnClickListener {
                 val creationDateString = viewModel.decideAboutDate(newWorkCreationDate.text.toString())
-                val description = " $creationDateString -> "+dialogTimerWorkDescriptionInstant.text.toString()
+                val description = " $creationDateString -> " + dialogTimerWorkDescriptionInstant.text.toString()
 
                 val work = WorkToAdd(dialogTimerWorkNameInstant.text.toString(),
                         description,
                         dialogTimerHours.text.toString().toIntOrNull() ?: -1,
-                        textViewMinutesDialog.text.toString().toIntOrNull() ?: -1
+                        dialogTimerMinutes.text.toString().toIntOrNull() ?: -1
                 )
                 sendWorkToDatabase(work)
             }
@@ -48,7 +50,7 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
                 dialog.setOnResultListener {
                     newWorkCreationDate.text = it
                 }
-                dialog.show(parentFragmentManager,"DatePicker")
+                dialog.show(parentFragmentManager, "DatePicker")
             }
 
             dialogTimerCancelInstant.setOnClickListener {
@@ -59,6 +61,8 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
     }
 
     private fun sendWorkToDatabase(work: WorkToAdd) {
+
+        Log.d("TAG_WORK_DIALOG", "sendWorkToDatabase: $work")
 
         if (!validation(work))
             return
@@ -72,22 +76,12 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
     }
 
     private fun validation(work: WorkToAdd): Boolean {
-        return when {
-            (isPoolsEmpty(work)) -> {
-                Toast.makeText(requireContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
-                false
-            }
-            (work.minutes > 60) -> {
-                Toast.makeText(requireContext(), R.string.too_many_minutes, Toast.LENGTH_SHORT).show()
-                false
-            }
-            else -> true
-        }
-    }
+        val result = viewModel.validateWorkInstant(work)
+        return if (result != Signal.VALIDATION_SUCCESSFUL) {
+            Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
+            false
+        } else true
 
-    private fun isPoolsEmpty(work: WorkToAdd): Boolean {
-        return work.name.trim().isEmpty() || work.description.trim().isEmpty()
-                || work.hours == -1 || work.minutes == -1
     }
 
 

@@ -32,21 +32,16 @@ class AddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(fals
 
     private fun validateAndSend(workName: String, workDescription: String) {
 
-        if (!validation(workName, workDescription))
+        if (!viewModel.validateWork(workName, workDescription)) {
+            Toast.makeText(requireContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
             return
+        }
 
         dismiss()
         val work = WorkToAdd(workName, workDescription, viewModel.hours, viewModel.minutes)
         val result = viewModel.sendWorkToDatabase(work)
 
         resolveResult(result)
-    }
-
-    private fun validation(workName: String, workDescription: String): Boolean {
-        return if (workName.trim().isEmpty() || workDescription.trim().isEmpty()) {
-            Toast.makeText(requireContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
-            false
-        } else true
     }
 
     private fun resolveResult(result: Boolean) {
