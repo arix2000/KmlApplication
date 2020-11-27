@@ -12,8 +12,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.kml.R
-import com.kml.data.utilities.FileFactory
 import com.kml.data.services.TimerService
+import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentWorkTimerBinding
 import com.kml.viewModelFactories.WorkTimerViewModelFactory
 import com.kml.viewModels.WorkTimerViewModel
@@ -38,13 +38,13 @@ class WorkTimerFragment : Fragment() {
         val viewModelFactory = WorkTimerViewModelFactory(fileFactory)
         viewModel = ViewModelProvider(this, viewModelFactory).get(WorkTimerViewModel::class.java)
 
-        viewModel._seconds.observe(viewLifecycleOwner) {
+        viewModel.seconds.observe(viewLifecycleOwner) {
             setTimeOnLayout()
         }
 
         binding.btnAddWork.setOnClickListener { showDialogToInstantAddWork() }
         binding.btnStartWork.setOnClickListener {
-            startOrStopCounter()
+            startStopCounter()
         }
 
         binding.btnEndWork.setOnClickListener {
@@ -53,35 +53,36 @@ class WorkTimerFragment : Fragment() {
             } else showDialogToSetWork()
         }
         binding.btnResetWork.setOnClickListener {
-            if (viewModel.seconds != 0 || viewModel.minutes != 0 || viewModel.hours != 0) showDialogToMakeSure()
+            if (viewModel.secondsValue != 0 || viewModel.minutes != 0 || viewModel.hours != 0) showDialogToMakeSure()
         }
 
         return binding.root
     }
 
     private fun setTimeOnLayout() {
-        val time = viewModel.setTime()
+        val time = viewModel.getTime()
         writeTimeOnLayout(time.seconds, time.minutes, time.hours)
     }
 
-    private fun startOrStopCounter() {
+    private fun startStopCounter() {
         //prevent double click
         if (SystemClock.elapsedRealtime() - lastClickTime < 500) {
             return
         }
         lastClickTime = SystemClock.elapsedRealtime()
+
         if (!viewModel.isTimerRunning) {
-            if (MainActivity.isFirstClick) {
-                if (viewModel.isFileNotEmpty()) {
-                    showDialogToRestore()
-                } else startCounting()
-                MainActivity.isFirstClick = false
-            } else {
-                startCounting()
-            }
-        } else {
+            restoreOrStart()
+        } else
             pauseCounting()
-        }
+    }
+
+    private fun restoreOrStart() {
+        if (MainActivity.isFirstClick && viewModel.isFileNotEmpty()) {
+            showDialogToRestore()
+            MainActivity.isFirstClick = false
+        } else
+            startCounting()
     }
 
     private fun startCounting() {
@@ -89,7 +90,6 @@ class WorkTimerFragment : Fragment() {
         val circleAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.timer_circle_anim)
         binding.timerCircle.startAnimation(circleAnim)
         viewModel.startCounting()
-
     }
 
     private fun pauseCounting() {
@@ -127,22 +127,23 @@ class WorkTimerFragment : Fragment() {
         dialog.setOnAcceptListener { viewModel.setTimeFromFile(); startCounting() }
         dialog.setOnCancelListener { startCounting() }
         dialog.show(parentFragmentManager, "Restore")
-
     }
 
     private fun showDialogToMakeSure() {
         val dialog = MakeSureDialog()
         dialog.setOnAcceptListener { resetCounting() }
         dialog.show(parentFragmentManager, "MakeSureDialog")
-
     }
 
     override fun onResume() {
+
         viewModel.returnStateFromService()
+        setTimeOnLayout()
         requireContext().stopService(Intent(requireContext(), TimerService::class.java))
-        if (TimerService.wasPlayClicked) {
+
+        if (TimerService.wasPlayClicked)
             startCounting()
-        }
+
         TimerService.exitServiceThread = true
         super.onResume()
     }
@@ -151,8 +152,10 @@ class WorkTimerFragment : Fragment() {
         super.onPause()
         val intent = Intent(requireContext(), TimerService::class.java)
         TimerService.wasPlayClicked = viewModel.isTimerRunning
+
         viewModel.exitThread = true
         viewModel.saveStateToService()
+
         if (viewModel.isTimerRunning) {
             TimerService.exitServiceThread = false
             requireContext().startService(intent)
