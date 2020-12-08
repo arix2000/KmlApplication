@@ -14,7 +14,8 @@ class FileFactory(private val context: Context) {
         const val DATA_TXT = "data.txt"
         const val PROFILE_PHOTO_PATH_TXT = "profilePhotoPath.txt"
         const val PROFILE_KEEP_DATA_TXT = "profileKeepData.txt"
-        const val HISTORY_KEEP_DATA_TXT = "historyKeepData.txt"
+        const val HISTORY_KEEP_WORKS_TXT = "historyKeepWorks.txt"
+        const val HISTORY_KEEP_MEETINGS_TXT = "historyKeepMeetings.txt"
         const val LOGIN_KEEP_SWITCH_CHOICE_TXT = "loginKeepSwitchChoice.txt"
         const val LOGIN_KEEP_SWITCH_DARK_MODE_TXT = "loginKeepSwitchDarkMode.txt"
     }

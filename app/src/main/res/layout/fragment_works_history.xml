@@ -1,47 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.fragments.WorksHistoryFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/works_history_recycler_view"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/list_item_work_history"/>
+        android:padding="16dp"
+        tools:context=".views.fragments.WorksHistoryFragment">
 
-    <ProgressBar
-        android:id="@+id/works_history_progress_bar"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/no_results_on_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <androidx.cardview.widget.CardView
+            style="@style/all_history_cards"
+            android:layout_above="@id/all_history_progress_bar"
+            android:layout_alignParentTop="true">
 
-        android:layout_gravity="center"
-        android:text="@string/no_results"
-        android:textColor="@color/textColorLight"
-        android:padding="10dp"
-        android:visibility="gone"
-        android:textSize="18sp"/>
+            <ImageView
+                android:id="@+id/my_meetings_image"
+                style="@style/all_history_image_views"
+                android:src="@drawable/my_meetings" />
 
-    <TextView
-        android:id="@+id/no_results_on_history_clickable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/add_your_first_work"
-        android:textSize="15sp"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:clickable="true"
-        android:visibility="gone"
-        app:layout_anchor="@+id/no_results_on_history"
-        app:layout_anchorGravity="bottom|center"/>
+            <TextView
+                style="@style/all_history_text_views"
+                android:id="@+id/my_meetings_text"
+                android:layout_gravity="center"
+                android:text="@string/overall_log"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <ProgressBar
+            android:id="@+id/all_history_progress_bar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+
+        <androidx.cardview.widget.CardView
+            style="@style/all_history_cards"
+            android:layout_below="@id/all_history_progress_bar"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@+id/my_works"
+                style="@style/all_history_image_views"
+                android:src="@drawable/my_works" />
+
+            <TextView
+                style="@style/all_history_text_views"
+                android:id="@+id/my_works_text"
+                android:layout_gravity="center"
+                android:text="@string/individual_log"/>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+</layout>

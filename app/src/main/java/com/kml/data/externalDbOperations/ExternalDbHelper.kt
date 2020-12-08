@@ -12,11 +12,11 @@ import java.net.URL
 
 abstract class ExternalDbHelper : Thread() {
 
-    private lateinit var listener: OnResultListener
+    lateinit var listener: OnResultListener
 
     companion object {
         const val IO_EXCEPTION_TAG = "IO_EXCEPTION_TAG"
-        const val BASE_URL = "http://sobos.ssd-linuxpl.com/"
+        const val BASE_URL = "http://192.168.1.109/KmlApp_WebApi/"
     }
 
     protected fun setConnection(address: String): HttpURLConnection? {
