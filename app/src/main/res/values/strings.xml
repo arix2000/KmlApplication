@@ -1,5 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="Typos">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="Typos">
     <string name="app_name">Klub Młodych Liderów</string>
     <string name="app_description">Aplikacja stworzona dla wolontariuszy z Fundacji Klubu Młodych Liderów by ułatwić im wpisywanie godzin pracy
         oraz udostępnić ich aktualne postępy,dodatkowo zawiera wyszukiwarke zabaw dla animatorów</string>
@@ -141,5 +140,9 @@
     <string name="control_panel">Panel Sterowania</string>
     <string name="creation_date">Data wykonania:</string>
     <string name="confirm">Potwierdź</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="overall_log">Dziennik Ogólny</string>
+    <string name="individual_log">Dziennik Indywidualny</string>
 
 </resources>

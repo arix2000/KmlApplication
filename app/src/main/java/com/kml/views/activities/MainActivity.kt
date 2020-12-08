@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigationView.setCheckedItem(R.id.nav_control_panel)
             KmlApp.isFromControlPanel = false
         }
+        if (KmlApp.isFromWorksHistory) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, WorksHistoryFragment()).commit()
+            navigationView.setCheckedItem(R.id.nav_works_history)
+            KmlApp.isFromWorksHistory = false
+        }
         if (KmlApp.adminIds.contains(KmlApp.loginId)) {
             navigationView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
         }

@@ -117,5 +117,27 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="all_history_cards">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">24dp</item>
+    </style>
+
+    <style name="all_history_image_views">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:foreground">@drawable/all_history_shapes</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="all_history_text_views">
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/WhiteContent</item>
+    </style>
+
 
 </resources>
