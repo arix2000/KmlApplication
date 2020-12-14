@@ -91,9 +91,10 @@ class SelectVolunteersActivity : AppCompatActivity() {
     private fun sendIntentWithCheckedList() {
         val checkedVolunteers = viewModel.volunteers.value?.filter { it.isChecked } as ArrayList
         if (checkedVolunteers.isNotEmpty()) {
-            val intent = Intent(this, SummaryVolunteerActivity::class.java)
+            val intent = Intent()
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
-            startActivity(intent)
+            setResult(RESULT_OK,intent)
+            finish()
         } else {
             Toast.makeText(this, R.string.choose_one_at_least, Toast.LENGTH_SHORT).show()
         }
