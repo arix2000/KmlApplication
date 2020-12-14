@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.kml.R
-import com.kml.views.activities.SelectVolunteersActivity
+import com.kml.views.activities.TimeManagementActivity
 
 class ControlPanelFragment : Fragment() {
     private lateinit var root: View
@@ -23,7 +23,7 @@ class ControlPanelFragment : Fragment() {
 
         btnAddToChosen.setOnClickListener {
             progressBar.visibility = View.VISIBLE
-            val intent = Intent(requireContext(), SelectVolunteersActivity::class.java)
+            val intent = Intent(requireContext(), TimeManagementActivity::class.java)
             startActivity(intent)
         }
         return root

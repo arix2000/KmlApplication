@@ -14,6 +14,7 @@ class VolunteerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.apply {
             volunteer_item_name.text = fullName
             volunteer_item_checkbox.isChecked = volunteer.isChecked
+            //TODO set Enabled on volunteer to false if not belongs to actual time
             setOnClickListener {
                 setCheckboxState(volunteer_item_checkbox)
                 onClickListener(volunteer)
