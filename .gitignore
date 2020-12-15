@@ -13,3 +13,4 @@
 /captures
 .externalNativeBuild
 .cxx
+/src/main/java/com/kml/data/externalDbOperations/ExternalDbHelper.kt
