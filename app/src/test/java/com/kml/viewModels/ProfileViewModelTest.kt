@@ -30,10 +30,4 @@ internal class ProfileViewModelTest {
         assertEquals(R.string.too_many_chars, result)
     }
 
-    @Test
-    fun getDataFromFile() {
-        val result = viewModel.getProfileData()
-        viewModel.saveProfileValues(result)
-    }
-
 }

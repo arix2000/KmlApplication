@@ -7,7 +7,7 @@ import kotlin.random.Random
 
 internal class FormatEngineTest {
 
-    val engine = FormatEngine()
+    private val engine = FormatEngine()
     var result: String =""
 
     @Test
