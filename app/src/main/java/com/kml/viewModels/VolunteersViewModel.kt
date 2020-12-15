@@ -1,11 +1,11 @@
 package com.kml.viewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.kml.data.models.TimeToVolunteers
 import com.kml.data.models.Volunteer
 import com.kml.repositories.VolunteerRepository
 import java.util.*
@@ -46,7 +46,10 @@ class VolunteersViewModel : ViewModel() {
     private fun createListFromJson(jsonResult: String): List<Volunteer> {
         val gson = Gson()
         val type = object : TypeToken<List<Volunteer>>() {}.type
-        Log.d("TAG_JSON_XD", "createListFromJson: $type <------> $jsonResult")
         return gson.fromJson(jsonResult, type) ?: emptyList()
+    }
+
+    fun chooseSelectableWith(time: TimeToVolunteers, allTimes: List<TimeToVolunteers>) {
+        //TODO here you need to set enable and disable on specified volunteers good luck!
     }
 }
