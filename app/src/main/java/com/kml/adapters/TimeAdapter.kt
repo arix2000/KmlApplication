@@ -8,7 +8,7 @@ import com.kml.data.models.TimeToVolunteers
 import com.kml.holders.TimeHolder
 
 class TimeAdapter(private val onClickListener: (TimeToVolunteers) -> Unit,
-                  private val onLongClickListener: (TimeToVolunteers) ->Boolean)
+                  private val onLongClickListener: (TimeToVolunteers) -> Boolean)
     : RecyclerView.Adapter<TimeHolder>() {
 
     val times: MutableList<TimeToVolunteers> = arrayListOf()
@@ -25,9 +25,7 @@ class TimeAdapter(private val onClickListener: (TimeToVolunteers) -> Unit,
         holder.bind(time, onClickListener, onLongClickListener)
     }
 
-    override fun getItemCount(): Int {
-        return times.size
-    }
+    override fun getItemCount(): Int = times.size
 
     fun addTime(timeToVolunteers: TimeToVolunteers) {
         times.add(timeToVolunteers)
