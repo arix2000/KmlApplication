@@ -16,7 +16,7 @@ abstract class ExternalDbHelper : Thread() {
 
     companion object {
         const val IO_EXCEPTION_TAG = "IO_EXCEPTION_TAG"
-        const val BASE_URL = "http://sobos.ssd-linuxpl.com/"
+        const val BASE_URL = ""
     }
 
     protected fun setConnection(address: String): HttpURLConnection? {
