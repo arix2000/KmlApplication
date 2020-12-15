@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
+import com.kml.data.models.TimeToVolunteers
 import com.kml.data.models.Volunteer
 import com.kml.viewModels.VolunteersViewModel
 
@@ -45,6 +46,8 @@ class SelectVolunteersActivity : AppCompatActivity() {
             adapter.volunteers = it
         }
 
+        mergeWithParentList()
+
         initClickableTextViews()
         initSearchEditText()
 
@@ -61,6 +64,15 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
     private fun handleOnClick(volunteer: Volunteer) {
         volunteer.isChecked = !volunteer.isChecked
+    }
+
+    private fun mergeWithParentList() {
+        val time = intent.getParcelableExtra<TimeToVolunteers>(TimeManagementActivity.EXTRA_CLICKED_TIME)
+                ?: TimeToVolunteers(-1,"","", listOf())
+        val allTimes = intent.getParcelableArrayListExtra<TimeToVolunteers>(TimeManagementActivity.EXTRA_ALL_TIMES)
+                ?: listOf()
+
+        viewModel.chooseSelectableWith(time, allTimes)
     }
 
     private fun initClickableTextViews() {
@@ -93,7 +105,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
         if (checkedVolunteers.isNotEmpty()) {
             val intent = Intent()
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
-            setResult(RESULT_OK,intent)
+            setResult(RESULT_OK, intent)
             finish()
         } else {
             Toast.makeText(this, R.string.choose_one_at_least, Toast.LENGTH_SHORT).show()
