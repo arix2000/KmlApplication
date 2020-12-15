@@ -4,4 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class TimeToVolunteers(val id: Int, val hours:String, val minutes:String, var volunteers: List<Volunteer>): Parcelable
+class TimeToVolunteers(var id: Int,
+                       var hours: String,
+                       var minutes: String,
+                       var volunteers: List<Volunteer>) : Parcelable
