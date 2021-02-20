@@ -2,12 +2,12 @@ package com.kml.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kml.Constants
 import com.kml.data.models.Time
 import com.kml.data.models.WorkToAdd
 import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine
-import com.kml.data.utilities.Signal
 import com.kml.repositories.WorkTimerRepository
 import com.kml.views.dialogs.InstantAddWorkDialog.Companion.TODAY
 import kotlinx.coroutines.CoroutineScope
@@ -149,9 +149,9 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
 
     fun validateWorkInstant(work: WorkToAdd): Int {
         return when {
-            (isPoolsEmpty(work)) -> Signal.EMPTY_POOLS
-            (work.minutes > 60) -> Signal.TOO_MANY_MINUTES
-            else -> Signal.VALIDATION_SUCCESSFUL
+            (isPoolsEmpty(work)) -> Constants.Signal.EMPTY_POOLS
+            (work.minutes > 60) -> Constants.Signal.TOO_MANY_MINUTES
+            else -> Constants.Signal.VALIDATION_SUCCESSFUL
         }
     }
 

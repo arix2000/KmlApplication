@@ -1,15 +1,13 @@
 package com.kml.views.dialogs
 
-
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.kml.Constants.Signal
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.models.WorkToAdd
-import com.kml.data.utilities.Signal
 import com.kml.databinding.DialogNewWorkInstantBinding
 import com.kml.viewModels.WorkTimerViewModel
 
@@ -61,8 +59,6 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
     }
 
     private fun sendWorkToDatabase(work: WorkToAdd) {
-
-        Log.d("TAG_WORK_DIALOG", "sendWorkToDatabase: $work")
 
         if (!validation(work))
             return
