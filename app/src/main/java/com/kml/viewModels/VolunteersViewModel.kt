@@ -1,7 +1,5 @@
 package com.kml.viewModels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -14,28 +12,26 @@ class VolunteersViewModel : ViewModel() {
 
     private val repository = VolunteerRepository()
 
-    private val _volunteers: MutableLiveData<List<Volunteer>> by lazy {
-        MutableLiveData<List<Volunteer>>(createListFromJson(repository.readArrayFromDatabase()))
-    }
-
-    val volunteers:LiveData<List<Volunteer>>
-    get() {return _volunteers}
+    val volunteers: List<Volunteer> = createListFromJson(repository.readArrayFromDatabase())
+    var previousCheckedVolunteers = listOf<Volunteer>()
 
     fun selectAllVolunteers() {
-        for (volunteer in _volunteers.value!!) {
-            volunteer.isChecked = true
+        for (volunteer in volunteers) {
+            if (!volunteer.isDisable)
+                volunteer.isChecked = true
         }
     }
 
     fun deselectAllVolunteers() {
-        for (volunteer in _volunteers.value!!) {
-            volunteer.isChecked = false
+        for (volunteer in volunteers) {
+            if (!volunteer.isDisable)
+                volunteer.isChecked = false
         }
     }
 
     fun filterArrayByName(typedText: String): List<Volunteer> {
         val filteredVolunteers: MutableList<Volunteer> = ArrayList()
-        for (volunteer in _volunteers.value!!) {
+        for (volunteer in volunteers) {
             if (volunteer.firstName.toLowerCase(Locale.ROOT).contains(typedText.toLowerCase(Locale.ROOT))) {
                 filteredVolunteers.add(volunteer)
             }
@@ -49,7 +45,27 @@ class VolunteersViewModel : ViewModel() {
         return gson.fromJson(jsonResult, type) ?: emptyList()
     }
 
-    fun chooseSelectableWith(time: TimeToVolunteers, allTimes: List<TimeToVolunteers>) {
-        //TODO here you need to set enable and disable on specified volunteers good luck!
+    fun chooseCheckedWith(time: TimeToVolunteers) { // TODO to test!!!
+        chooseWith(time) { it.isChecked = true; it.isDisable = false }
+    }
+
+    fun chooseEnabledWith(allTimes: List<TimeToVolunteers>) { //TODO to test!!!
+        for (time in allTimes)
+            chooseWith(time) { it.isDisable = true }
+
+    }
+
+    private fun chooseWith(time: TimeToVolunteers, operation: (Volunteer) -> Unit) {
+        for (volunteer in volunteers)
+            for (timeVolunteer in time.volunteers)
+                if (timeVolunteer.id == volunteer.id) {
+                    operation(volunteer)
+                }
     }
 }
+
+
+
+
+
+

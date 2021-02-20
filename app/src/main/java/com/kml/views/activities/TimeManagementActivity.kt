@@ -8,18 +8,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kml.Constants.Signal
 import com.kml.R
 import com.kml.adapters.TimeAdapter
 import com.kml.data.models.TimeToVolunteers
 import com.kml.data.models.Volunteer
-import com.kml.data.utilities.Signal
+import com.kml.extensions.log
 import com.kml.viewModels.TimeManagementViewModel
 import java.util.*
 
 class TimeManagementActivity : AppCompatActivity() {
 
     lateinit var recycleView: RecyclerView
-    lateinit var forwardButton: FloatingActionButton
+    lateinit var addButton: FloatingActionButton
     lateinit var adapter: TimeAdapter
     lateinit var viewModel: TimeManagementViewModel
 
@@ -28,10 +29,11 @@ class TimeManagementActivity : AppCompatActivity() {
         const val EXTRA_ALL_TIMES = "com.kml.views.activities.EXTRA_ALL_TIMES"
     }
 
-
+//TODO next time you need to create summary for this and send to database
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_management)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         viewModel = ViewModelProvider(this).get(TimeManagementViewModel::class.java)
 
@@ -40,8 +42,8 @@ class TimeManagementActivity : AppCompatActivity() {
         recycleView.adapter = adapter
         recycleView.layoutManager = LinearLayoutManager(this)
 
-        forwardButton = findViewById(R.id.time_management_floating_button)
-        forwardButton.setOnClickListener {
+        addButton = findViewById(R.id.time_management_floating_button)
+        addButton.setOnClickListener {
             adapter.addTime(TimeToVolunteers(adapter.times.size, "", "", listOf()))
         }
     }
@@ -90,6 +92,8 @@ class TimeManagementActivity : AppCompatActivity() {
 
             viewModel.lastTime.volunteers = volunteers
             adapter.updateTime(viewModel.lastTime)
+
+            log("last volunteers size: "+viewModel.lastTime.volunteers.size)
         }
     }
 }

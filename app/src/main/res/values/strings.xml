@@ -125,7 +125,7 @@
     <string name="work_description">Opis:</string>
     <string name="date">Data:</string>
     <string name="work_time">Czas wykonania:</string>
-    <string name="add_to_chosen">dodaj godziny</string>
+    <string name="add_to_chosen">dodaj godziny do wielu wolontariuszy</string>
     <string name="game_name">Nazwa Zabawy</string>
     <string name="optional">(Opcjonalna)</string>
     <string name="search">szukaj</string>

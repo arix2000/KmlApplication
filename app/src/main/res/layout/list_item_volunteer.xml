@@ -4,33 +4,34 @@
     android:id="@+id/item_user_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    app:cardBackgroundColor="@color/cardBackground"
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
-    app:cardCornerRadius="@dimen/item_corner_radius">
+    android:padding="8dp"
+    app:cardBackgroundColor="@color/cardBackground"
+    app:cardCornerRadius="@dimen/item_corner_radius"
+    android:foreground="@color/disablingMask">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
 
-        <CheckBox
-            style="@style/checkboxNight"
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/volunteer_item_checkbox"
-            android:clickable="false"
+            style="@style/checkboxNight"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clickable="false" />
 
         <TextView
             android:id="@+id/volunteer_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorLight"
             android:layout_toRightOf="@id/volunteer_item_checkbox"
             android:text="Volunteer name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/textColorLight" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
