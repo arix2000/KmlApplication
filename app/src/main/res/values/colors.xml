@@ -19,4 +19,6 @@
     <color name="textColorLightHint">#80000000</color>
     <color name="colorDatePicker">#9C577EFF</color>
 
+    <color name="disablingMask">#CD6C6C6C</color>
+
 </resources>
