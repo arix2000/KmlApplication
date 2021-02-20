@@ -11,7 +11,7 @@ class TimeAdapter(private val onClickListener: (TimeToVolunteers) -> Unit,
                   private val onLongClickListener: (TimeToVolunteers) -> Boolean)
     : RecyclerView.Adapter<TimeHolder>() {
 
-    val times: MutableList<TimeToVolunteers> = arrayListOf()
+    val times: MutableList<TimeToVolunteers> = arrayListOf(TimeToVolunteers(0, "", "", listOf()))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeHolder {
         val itemView = LayoutInflater.from(parent.context)
