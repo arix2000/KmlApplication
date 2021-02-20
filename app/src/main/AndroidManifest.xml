@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activities.TimeManagementActivity"></activity>
+        <activity android:name=".views.activities.TimeManagementActivity"
+            android:parentActivityName=".views.activities.MainActivity"/>
         <activity
             android:name=".views.activities.AllHistoryActivity"
             android:parentActivityName=".views.activities.MainActivity" />
@@ -27,7 +28,7 @@
             android:parentActivityName=".views.activities.SelectVolunteersActivity" />
         <activity
             android:name=".views.activities.SelectVolunteersActivity"
-            android:parentActivityName=".views.activities.MainActivity" />
+            android:parentActivityName=".views.activities.TimeManagementActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
