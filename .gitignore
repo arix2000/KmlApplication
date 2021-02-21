@@ -13,3 +13,6 @@
 /captures
 .externalNativeBuild
 .cxx
+/.idea/dictionaries/arek.xml
+/app/src/main/java/com/kml/data/externalDbOperations/ExternalDbHelper.kt
+/app/release/KmlApp.apk
