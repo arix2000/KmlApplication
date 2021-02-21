@@ -2,7 +2,6 @@ package com.kml.data.externalDbOperations
 
 import android.util.Log
 import java.io.BufferedWriter
-import java.io.IOException
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URLEncoder
@@ -18,7 +17,7 @@ class DbLogin(private val login: String, private val password: String) : Externa
     override fun run() {
         httpConnection = setConnection(address)
         sendData()
-        result = readResult(httpConnection!!)
+        result = readResult(httpConnection)
     }
 
     private fun sendData() {
@@ -30,8 +29,8 @@ class DbLogin(private val login: String, private val password: String) : Externa
             writer.write(dataToSend)
             writer.flush()
             writer.close()
-        } catch (e: IOException) {
-            Log.d(IO_EXCEPTION_TAG, "sendData: " + e.message)
+        } catch (e: Exception) {
+            Log.e(IO_EXCEPTION_TAG, "sendData: " + e.message)
         }
     }
 }
