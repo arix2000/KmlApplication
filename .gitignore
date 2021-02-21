@@ -15,3 +15,4 @@
 .cxx
 /app/release/KmlApp.apk
 /.idea/dictionaries/arek.xml
+/app/src/main/java/com/kml/data/externalDbOperations/ExternalDbHelper.kt
