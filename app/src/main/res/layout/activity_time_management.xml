@@ -15,7 +15,15 @@
         tools:listitem="@layout/list_item_work_time" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/time_management_floating_button"
+        android:id="@+id/time_management_next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_arrow_forward"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/time_management_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"

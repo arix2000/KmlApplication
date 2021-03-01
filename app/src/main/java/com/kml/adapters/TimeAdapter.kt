@@ -5,13 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
 import com.kml.data.models.TimeToVolunteers
+import com.kml.extensions.log
 import com.kml.holders.TimeHolder
 
 class TimeAdapter(private val onClickListener: (TimeToVolunteers) -> Unit,
                   private val onLongClickListener: (TimeToVolunteers) -> Boolean)
     : RecyclerView.Adapter<TimeHolder>() {
 
-    val times: MutableList<TimeToVolunteers> = arrayListOf(TimeToVolunteers(0, "", "", listOf()))
+    init {
+        setHasStableIds(true)
+    }
+
+    val times: MutableList<TimeToVolunteers> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -33,6 +38,7 @@ class TimeAdapter(private val onClickListener: (TimeToVolunteers) -> Unit,
     }
 
     fun updateTime(time: TimeToVolunteers) {
+        log(times[time.id].hours+"h "+times[time.id].hours+"min <----> "+time.hours+"h "+time.minutes+"min")
         times[time.id] = time
         notifyItemChanged(time.id)
     }
