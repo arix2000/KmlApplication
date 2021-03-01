@@ -8,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.kml.R
-import com.kml.data.models.Volunteer
+import com.kml.data.models.TimeToVolunteers
 import com.kml.databinding.ActivitySummarySelectedBinding
 import com.kml.viewModels.SummaryVolunteerViewModel
+import com.kml.views.dialogs.MyDatePickerDialog
 
 class SummaryVolunteerActivity : AppCompatActivity() {
 
@@ -26,11 +27,9 @@ class SummaryVolunteerActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(SummaryVolunteerViewModel::class.java)
 
-
         writeChosenVolunteers()
 
         val sendWorkButton = findViewById<Button>(R.id.summary_activity_send_work)
-
         sendWorkButton.setOnClickListener {
             val hours = binding.summaryActivityHours.text.toString()
             val minutes = binding.summaryActivityMinutes.text.toString()
@@ -43,6 +42,14 @@ class SummaryVolunteerActivity : AppCompatActivity() {
                 resetPools()
                 backToChose()
             }
+        }
+
+        binding.newWorkCreationDate.setOnClickListener {
+            val dialog = MyDatePickerDialog()
+            dialog.setOnResultListener {
+                binding.newWorkCreationDate.text = it
+            }
+            dialog.show(supportFragmentManager, "DatePicker")
         }
     }
 
@@ -71,9 +78,13 @@ class SummaryVolunteerActivity : AppCompatActivity() {
 
     private fun writeChosenVolunteers() {
         val intent = intent
-        val chosenVolunteers: List<Volunteer> = intent.getParcelableArrayListExtra(SelectVolunteersActivity.EXTRA_CHECKED_VOLUNTEERS)
+        val chosenVolunteers: List<TimeToVolunteers> = intent.getParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS)
                 ?: arrayListOf()
-        viewModel.chosenVolunteers = chosenVolunteers
+        viewModel.times = chosenVolunteers
         binding.summaryActivityChosenVolunteers.text = viewModel.createReadableFromVolunteers()
+    }
+
+    companion object {
+        const val EXTRA_CHECKED_VOLUNTEERS = "com.kml.controlPanel.EXTRA_CHECKED_VOLUNTEERS"
     }
 }

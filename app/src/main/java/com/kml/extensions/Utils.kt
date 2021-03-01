@@ -5,11 +5,13 @@ import android.util.Log
 const val DEBUG_TAG = "DEBUG_TAG"
 
 fun Any.log(message: String = "", list: List<Any> = listOf()) {
-    var logMessage = this.javaClass.simpleName + " ---> \n" + message
+    var logMessage = this.javaClass.simpleName + " ---> " + message
 
-    if(list.isNotEmpty())
+    if(list.isNotEmpty()) {
+        logMessage = "\n"
         for (item in list)
             logMessage = logMessage.plus("$item \n")
+    }
 
     Log.d(DEBUG_TAG, logMessage)
 }

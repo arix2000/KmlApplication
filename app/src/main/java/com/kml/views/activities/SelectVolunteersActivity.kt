@@ -14,12 +14,9 @@ import com.kml.data.models.TimeToVolunteers
 import com.kml.data.models.Volunteer
 import com.kml.databinding.ActivitySelectVolunteersBinding
 import com.kml.viewModels.VolunteersViewModel
+import com.kml.views.activities.SummaryVolunteerActivity.Companion.EXTRA_CHECKED_VOLUNTEERS
 
 class SelectVolunteersActivity : AppCompatActivity() {
-
-    companion object {
-        const val EXTRA_CHECKED_VOLUNTEERS = "com.kml.controlPanel.EXTRA_CHECKED_VOLUNTEERS"
-    }
 
     private lateinit var volunteerAdapter: VolunteerAdapter
     private lateinit var viewModel: VolunteersViewModel
