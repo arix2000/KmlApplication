@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
-import com.kml.data.models.TimeToVolunteers
 import com.kml.data.models.Volunteer
 import com.kml.databinding.ActivitySelectVolunteersBinding
 import com.kml.viewModels.VolunteersViewModel
@@ -32,8 +31,6 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(VolunteersViewModel::class.java)
 
-        mergeWithParentList()
-
         createRecycleView()
 
         volunteerAdapter.updateVolunteers(viewModel.volunteers)
@@ -42,10 +39,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
         initSearchEditText()
 
         binding.controlPanelFloatingButton.setOnClickListener {
-            if (binding.controlPanelSearchByFirstName.text.isEmpty())
-                sendIntentWithCheckedList()
-            else
-                binding.controlPanelSearchByFirstName.setText(EMPTY_STRING)
+            sendIntentWithCheckedList()
         }
     }
 
@@ -60,17 +54,6 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
     private fun handleOnClick(volunteer: Volunteer) {
         volunteer.isChecked = !volunteer.isChecked
-    }
-
-    private fun mergeWithParentList() {
-        val time = intent.getParcelableExtra(TimeManagementActivity.EXTRA_CLICKED_TIME)
-                ?: TimeToVolunteers(-1, "", "", listOf())
-        val allTimes = intent.getParcelableArrayListExtra<TimeToVolunteers>(TimeManagementActivity.EXTRA_ALL_TIMES)
-                ?: listOf()
-
-        viewModel.chooseEnabledWith(allTimes)
-        viewModel.chooseCheckedWith(time)
-        viewModel.previousCheckedVolunteers = viewModel.volunteers.filter { it.isChecked }
     }
 
     private fun initClickableTextViews() {
@@ -98,7 +81,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
     private fun sendIntentWithCheckedList() {
         val checkedVolunteers = viewModel.volunteers.filter { it.isChecked } as ArrayList
         setResult(RESULT_OK, Intent().putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers))
-        finish()
+        startActivity(Intent(this, SummaryVolunteerActivity::class.java))
     }
 
     override fun onBackPressed() {

@@ -9,8 +9,7 @@
     android:layout_marginEnd="8dp"
     android:padding="8dp"
     app:cardBackgroundColor="@color/cardBackground"
-    app:cardCornerRadius="@dimen/item_corner_radius"
-    android:foreground="@color/disablingMask">
+    app:cardCornerRadius="@dimen/item_corner_radius">
 
     <RelativeLayout
         android:layout_width="match_parent"

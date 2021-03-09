@@ -3,7 +3,6 @@ package com.kml.viewModels
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kml.data.models.TimeToVolunteers
 import com.kml.data.models.Volunteer
 import com.kml.repositories.VolunteerRepository
 import java.util.*
@@ -13,19 +12,16 @@ class VolunteersViewModel : ViewModel() {
     private val repository = VolunteerRepository()
 
     val volunteers: List<Volunteer> = createListFromJson(repository.readArrayFromDatabase())
-    var previousCheckedVolunteers = listOf<Volunteer>()
 
     fun selectAllVolunteers() {
         for (volunteer in volunteers) {
-            if (!volunteer.isDisable)
-                volunteer.isChecked = true
+            volunteer.isChecked = true
         }
     }
 
     fun deselectAllVolunteers() {
         for (volunteer in volunteers) {
-            if (!volunteer.isDisable)
-                volunteer.isChecked = false
+            volunteer.isChecked = false
         }
     }
 
@@ -45,23 +41,6 @@ class VolunteersViewModel : ViewModel() {
         return gson.fromJson(jsonResult, type) ?: emptyList()
     }
 
-    fun chooseCheckedWith(time: TimeToVolunteers) { // TODO to test!!!
-        chooseWith(time) { it.isChecked = true; it.isDisable = false }
-    }
-
-    fun chooseEnabledWith(allTimes: List<TimeToVolunteers>) { //TODO to test!!!
-        for (time in allTimes)
-            chooseWith(time) { it.isDisable = true }
-
-    }
-
-    private fun chooseWith(time: TimeToVolunteers, operation: (Volunteer) -> Unit) {
-        for (volunteer in volunteers)
-            for (timeVolunteer in time.volunteers)
-                if (timeVolunteer.id == volunteer.id) {
-                    operation(volunteer)
-                }
-    }
 }
 
 
