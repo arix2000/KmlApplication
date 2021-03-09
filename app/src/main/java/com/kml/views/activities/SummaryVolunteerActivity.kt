@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.kml.R
-import com.kml.data.models.TimeToVolunteers
+import com.kml.data.models.Volunteer
 import com.kml.databinding.ActivitySummarySelectedBinding
 import com.kml.viewModels.SummaryVolunteerViewModel
 import com.kml.views.dialogs.MyDatePickerDialog
@@ -78,9 +78,9 @@ class SummaryVolunteerActivity : AppCompatActivity() {
 
     private fun writeChosenVolunteers() {
         val intent = intent
-        val chosenVolunteers: List<TimeToVolunteers> = intent.getParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS)
+        val chosenVolunteers: List<Volunteer> = intent.getParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS)
                 ?: arrayListOf()
-        viewModel.times = chosenVolunteers
+        viewModel.chosenVolunteers = chosenVolunteers
         binding.summaryActivityChosenVolunteers.text = viewModel.createReadableFromVolunteers()
     }
 
