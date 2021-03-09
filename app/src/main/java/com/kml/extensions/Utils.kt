@@ -17,7 +17,7 @@ fun Any.log(message: String = "", list: List<Any> = listOf()) {
 }
 
 fun Any.logError(message: Throwable) {
-    val logMessage = this.javaClass.simpleName + " ---> \n" + message
+    val logMessage = this.javaClass.simpleName + " ---> " + message.message
 
     Log.e(DEBUG_TAG, logMessage)
 }
