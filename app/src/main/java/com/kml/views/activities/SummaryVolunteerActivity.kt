@@ -29,7 +29,7 @@ class SummaryVolunteerActivity : AppCompatActivity() {
         writeChosenVolunteers()
 
         val sendWorkButton = findViewById<Button>(R.id.summary_activity_send_work)
-
+// TODO zobacz dodawanie tej daty :P
         sendWorkButton.setOnClickListener {
             val hours = binding.summaryActivityHours.text.toString()
             val minutes = binding.summaryActivityMinutes.text.toString()
