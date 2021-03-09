@@ -13,7 +13,6 @@ import com.kml.data.app.KmlApp
 import com.kml.data.models.Volunteer
 import com.kml.databinding.ActivitySelectVolunteersBinding
 import com.kml.viewModels.VolunteersViewModel
-import com.kml.views.activities.SummaryVolunteerActivity.Companion.EXTRA_CHECKED_VOLUNTEERS
 
 class SelectVolunteersActivity : AppCompatActivity() {
 
@@ -79,9 +78,10 @@ class SelectVolunteersActivity : AppCompatActivity() {
     }
 
     private fun sendIntentWithCheckedList() {
+        val intent = Intent(this, SummaryVolunteerActivity::class.java)
         val checkedVolunteers = viewModel.volunteers.filter { it.isChecked } as ArrayList
-        setResult(RESULT_OK, Intent().putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers))
-        startActivity(Intent(this, SummaryVolunteerActivity::class.java))
+        intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
@@ -89,5 +89,9 @@ class SelectVolunteersActivity : AppCompatActivity() {
             super.onBackPressed()
         else
             binding.controlPanelSearchByFirstName.setText(EMPTY_STRING)
+    }
+
+    companion object {
+        const val EXTRA_CHECKED_VOLUNTEERS = "com.kml.views.activities.EXTRA_CHECKED_VOLUNTEERS"
     }
 }
