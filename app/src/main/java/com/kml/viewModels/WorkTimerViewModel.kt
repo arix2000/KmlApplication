@@ -3,13 +3,14 @@ package com.kml.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.Constants
+import com.kml.Constants.Strings.TODAY
 import com.kml.data.models.Time
 import com.kml.data.models.WorkToAdd
 import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine
+import com.kml.extensions.getTodayDate
 import com.kml.repositories.WorkTimerRepository
-import com.kml.views.dialogs.InstantAddWorkDialog.Companion.TODAY
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -130,17 +131,8 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
 
     fun decideAboutDate(date: String): String {
         return if (date == TODAY)
-            getTodayDate()
+            Calendar.getInstance().getTodayDate()
         else date
-    }
-
-    private fun getTodayDate(): String {
-        val calendar = Calendar.getInstance()
-        calendar.apply {
-            return get(Calendar.DAY_OF_MONTH).toString() + "." +
-                    (get(Calendar.MONTH)+1) + "." +
-                    get(Calendar.YEAR) //TODO Export this formatting to FormatEngine. In MyDatePickerDialog we have similar operation
-        }
     }
 
     fun validateWork(workName: String, workDescription: String): Boolean {

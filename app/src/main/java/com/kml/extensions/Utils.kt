@@ -1,6 +1,7 @@
 package com.kml.extensions
 
 import android.util.Log
+import java.util.*
 
 const val DEBUG_TAG = "DEBUG_TAG"
 
@@ -20,4 +21,12 @@ fun Any.logError(message: Throwable) {
     val logMessage = this.javaClass.simpleName + " ---> " + message.message
 
     Log.e(DEBUG_TAG, logMessage)
+}
+
+fun Calendar.getTodayDate(): String {
+    apply {
+        return get(Calendar.DAY_OF_MONTH).toString() + "." +
+                (get(Calendar.MONTH)+1) + "." +
+                get(Calendar.YEAR) //TODO Export this formatting to FormatEngine. In MyDatePickerDialog we have similar operation
+    }
 }
