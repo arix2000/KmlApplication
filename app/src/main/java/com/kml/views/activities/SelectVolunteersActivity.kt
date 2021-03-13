@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kml.Constants.Strings.EMPTY_STRING
+import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
 import com.kml.data.models.Volunteer
@@ -80,8 +82,10 @@ class SelectVolunteersActivity : AppCompatActivity() {
     private fun sendIntentWithCheckedList() {
         val intent = Intent(this, SummaryVolunteerActivity::class.java)
         val checkedVolunteers = viewModel.volunteers.filter { it.isChecked } as ArrayList
-        intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
-        startActivity(intent)
+        if (checkedVolunteers.isNotEmpty()) {
+            intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
+            startActivity(intent)
+        } else Toast.makeText(this, R.string.volunteers_are_not_chosen, Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {

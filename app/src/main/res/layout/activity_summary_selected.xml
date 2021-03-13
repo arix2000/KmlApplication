@@ -45,25 +45,42 @@
                 style="@style/app_edit_texts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/summary_activity_text_view__work_name" />
+                android:layout_below="@+id/summary_activity_text_view__work_name"
+                android:hint="@string/name_title_type"/>
+
+            <TextView
+                android:id="@+id/summary_activity_text_view__work_desc"
+                style="@style/form_text_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/summary_activity_work_name"
+                android:text="@string/operation_desc" />
+
+            <EditText
+                android:id="@+id/summary_activity_work_desc"
+                style="@style/app_edit_texts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/summary_activity_text_view__work_desc"
+                android:hint="@string/expand_what_was_happen"/>
 
             <TextView
                 android:id="@+id/execution_date_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/summary_activity_work_name"
+                android:layout_below="@+id/summary_activity_work_desc"
                 android:layout_marginTop="20dp"
                 android:text="@string/creation_date"
                 android:textColor="@color/textColorLight" />
 
             <TextView
-                android:id="@+id/meeting_creation_date"
+                android:id="@+id/operation_creation_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_below="@+id/execution_date_label"
                 android:focusable="true"
-                android:text="20-12-2022"
+                tools:text="20-12-2022"
                 android:textColor="@color/textColorLight"
                 android:textSize="20sp" />
 
@@ -72,7 +89,7 @@
                 style="@style/form_text_views"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/meeting_creation_date"
+                android:layout_below="@id/operation_creation_date"
                 android:text="@string/write_time" />
 
 

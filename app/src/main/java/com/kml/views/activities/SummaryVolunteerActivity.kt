@@ -32,16 +32,17 @@ class SummaryVolunteerActivity : AppCompatActivity() {
 
         writeChosenVolunteers()
         binding.apply {
-            meetingCreationDate.text = Constants.Strings.TODAY
-            meetingCreationDate.setOnClickListener {
+            operationCreationDate.text = Constants.Strings.TODAY
+            operationCreationDate.setOnClickListener {
                 MyDatePickerDialog().run {
-                    setOnResultListener { meetingCreationDate.text = it }
+                    setOnResultListener { operationCreationDate.text = it }
                     show(supportFragmentManager, "DatePicker")
                 }
             }
 
             summaryActivitySendWork.setOnClickListener {
-                val creationDateString = viewModel.decideAboutDate(meetingCreationDate.text.toString())
+                val creationDateString = viewModel.decideAboutDate(operationCreationDate.text.toString())
+                val meetingDesc = "$creationDateString -> ${summaryActivityWorkDesc.text}"
                 val hours = summaryActivityHours.text.toString()
                 val minutes = summaryActivityMinutes.text.toString()
                 val workName = summaryActivityWorkName.text.toString()
@@ -49,7 +50,7 @@ class SummaryVolunteerActivity : AppCompatActivity() {
                 if (hours.trim().isEmpty() || minutes.trim().isEmpty() || workName.trim().isEmpty()) {
                     Toast.makeText(this@SummaryVolunteerActivity, R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
                 } else {
-                    addWorkToDatabase(hours.toInt(), minutes.toInt(), workName, creationDateString)
+                    addWorkToDatabase(hours.toInt(), minutes.toInt(), workName, meetingDesc)
                     resetPools()
                     backToChoose()
                 }
@@ -57,8 +58,8 @@ class SummaryVolunteerActivity : AppCompatActivity() {
         }
     }
 
-    private fun addWorkToDatabase(hours: Int, minutes: Int, workName: String, date: String) {
-        resolveResult(viewModel.addWorkToDatabase(hours, minutes, workName, date))
+    private fun addWorkToDatabase(hours: Int, minutes: Int, workName: String, meetingDesc: String) {
+        resolveResult(viewModel.addWorkToDatabase(hours, minutes, workName, meetingDesc))
     }
 
     private fun resolveResult(result: Boolean) {
