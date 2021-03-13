@@ -123,7 +123,7 @@
     <string name="do_not_restore">nie\nprzywracaj</string>
     <string name="work_name">Nazwa Zadania:</string>
     <string name="work_description">Opis:</string>
-    <string name="date">Data:</string>
+    <string name="date">Data wpisania:</string>
     <string name="work_time">Czas wykonania:</string>
     <string name="add_to_chosen">dodaj godziny wolontariuszom</string>
     <string name="game_name">Nazwa Zabawy</string>
@@ -145,5 +145,9 @@
     <string name="overall_log">Dziennik Ogólny</string>
     <string name="individual_log">Dziennik Indywidualny</string>
     <string name="finish_writing">Dokończ wpisywanie:</string>
+    <string name="operation_desc">Opis działania:</string>
+    <string name="name_title_type">Nazwa, tytuł, typ</string>
+    <string name="expand_what_was_happen">Rozwiń co się działo :D</string>
+    <string name="volunteers_are_not_chosen">Żadni wolontariusze nie zostali wybrani</string>
 
 </resources>

@@ -14,7 +14,7 @@ class DbAddingToChosen(private val ids: String,
                        private val workName: String,
                        val minutes: Int,
                        val hours: Int,
-                       date: String) : ExternalDbHelper() {
+                       private val meetingDesc: String) : ExternalDbHelper() {
 
     private val fileName = "addTimeOfWorkToChosen.php"
     private val address = BASE_URL + fileName
@@ -25,7 +25,7 @@ class DbAddingToChosen(private val ids: String,
     private var conn: HttpURLConnection? = null
 
     init {
-        volunteersName = "$date -> Dodano godziny wybranym: $volunteersName"
+        volunteersName = "Dodano godziny wybranym: $volunteersName"
     }
 
     override fun run() {
@@ -57,7 +57,8 @@ class DbAddingToChosen(private val ids: String,
                 + "&&" + URLEncoder.encode("volunteersName", "UTF-8") + "=" + URLEncoder.encode(volunteersName, "UTF-8")
                 + "&&" + URLEncoder.encode("readAbleWorkTime", "UTF-8") + "=" + URLEncoder.encode(readAbleWorkTime, "UTF-8")
                 + "&&" + URLEncoder.encode("firstName", "UTF-8") + "=" + URLEncoder.encode(KmlApp.firstName, "UTF-8")
-                + "&&" + URLEncoder.encode("lastName", "UTF-8") + "=" + URLEncoder.encode(KmlApp.lastName, "UTF-8"))
+                + "&&" + URLEncoder.encode("lastName", "UTF-8") + "=" + URLEncoder.encode(KmlApp.lastName, "UTF-8")
+                + "&&" + URLEncoder.encode("meetingDesc", "UTF-8") + "=" + URLEncoder.encode(meetingDesc, "UTF-8"))
         writer.write(dataToSend)
         writer.flush()
         writer.close()

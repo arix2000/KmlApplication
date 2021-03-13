@@ -26,10 +26,10 @@ class SummaryVolunteerViewModel : ViewModel() {
         return stringBuilder.toString()
     }
 
-    fun addWorkToDatabase(hours: Int, minutes: Int, workName: String, date: String): Boolean {
+    fun addWorkToDatabase(hours: Int, minutes: Int, workName: String, meetingDesc: String): Boolean {
         val ids = getIdsStringFromVolunteers()
         val volunteersNames = createStringFromVolunteers()
-        return repository.sendWorkToDb(ids, volunteersNames, hours, minutes, workName, date)
+        return repository.sendWorkToDb(ids, volunteersNames, hours, minutes, workName, meetingDesc)
 
     }
 
