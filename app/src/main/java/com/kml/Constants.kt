@@ -10,5 +10,6 @@ object Constants {
 
     object Strings {
         const val EMPTY_STRING = ""
+        const val TODAY = "Dzisiaj"
     }
 }

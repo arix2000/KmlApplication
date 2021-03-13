@@ -13,16 +13,19 @@ class DbAddingToChosen(private val ids: String,
                        private var volunteersName: String,
                        private val workName: String,
                        val minutes: Int,
-                       val hours: Int) : ExternalDbHelper() {
+                       val hours: Int,
+                       date: String) : ExternalDbHelper() {
 
     private val fileName = "addTimeOfWorkToChosen.php"
     private val address = BASE_URL + fileName
     var result: String = ""
-    get() {join(); return field}
+        get() {
+            join(); return field
+        }
     private var conn: HttpURLConnection? = null
 
     init {
-        volunteersName = "Dodano godziny wybranym: $volunteersName"
+        volunteersName = "$date -> Dodano godziny wybranym: $volunteersName"
     }
 
     override fun run() {
@@ -35,7 +38,7 @@ class DbAddingToChosen(private val ids: String,
         }
     }
 
-    private fun convertTimeToSend():Float {
+    private fun convertTimeToSend(): Float {
         var workTime = hours + minutes.toFloat() / 60
         workTime *= 100
         workTime = workTime.roundToInt().toFloat()

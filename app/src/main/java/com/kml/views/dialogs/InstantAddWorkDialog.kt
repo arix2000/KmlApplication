@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Signal
+import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.models.WorkToAdd
@@ -15,7 +16,7 @@ import com.kml.viewModels.WorkTimerViewModel
 class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(false) {
 
     companion object {
-        const val TODAY = "Dzisiaj"
+
     }
 
     lateinit var binding: DialogNewWorkInstantBinding

@@ -144,5 +144,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="overall_log">Dziennik Ogólny</string>
     <string name="individual_log">Dziennik Indywidualny</string>
+    <string name="finish_writing">Dokończ wpisywanie:</string>
 
 </resources>
