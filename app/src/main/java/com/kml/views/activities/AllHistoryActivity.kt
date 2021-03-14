@@ -10,13 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import com.kml.Constants.Extras.IS_FROM_FILE_EXTRA
+import com.kml.Constants.Extras.WORKS_EXTRA
 import com.kml.R
 import com.kml.adapters.WorkAdapter
 import com.kml.data.app.KmlApp
 import com.kml.data.models.Work
 import com.kml.views.dialogs.ExtendedWorkDialog
-import com.kml.views.fragments.WorkTimerFragment
-import com.kml.views.fragments.WorksHistoryFragment
+import com.kml.views.fragments.mainFeatures.WorkTimerFragment
 
 class AllHistoryActivity : AppCompatActivity() {
     private lateinit var adapter: WorkAdapter
@@ -33,8 +34,8 @@ class AllHistoryActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        val works = intent.getParcelableArrayListExtra<Work>(WorksHistoryFragment.WORKS_EXTRA) ?: listOf()
-        val isFromFile = intent.getBooleanExtra(WorksHistoryFragment.IS_FROM_FILE_EXTRA, true)
+        val works = intent.getParcelableArrayListExtra<Work>(WORKS_EXTRA) ?: listOf()
+        val isFromFile = intent.getBooleanExtra(IS_FROM_FILE_EXTRA, true)
         setWorksToAdapter(works ,isFromFile)
     }
 

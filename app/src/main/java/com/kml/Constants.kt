@@ -12,4 +12,14 @@ object Constants {
         const val EMPTY_STRING = ""
         const val TODAY = "Dzisiaj"
     }
+
+    object Flags {
+        const val WORKS = "WORKS"
+        const val MEETINGS = "MEETINGS"
+    }
+
+    object Extras {
+        const val WORKS_EXTRA = "WORKS_EXTRA"
+        const val IS_FROM_FILE_EXTRA = "IS_FROM_FILE_EXTRA"
+    }
 }
