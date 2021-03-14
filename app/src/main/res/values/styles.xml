@@ -1,12 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"> <!--Theme.AppCompat.Light.DarkActionBar -->
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
         <item name="colorControlNormal">@color/textColorLight</item>
         <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorCardBackground</item>
 
     </style>
 
@@ -25,9 +28,21 @@
         <item name="android:background">@drawable/rounded_button</item>
     </style>
 
+    <style name="MyDatePicker">
+        <item name="android:textColorPrimary">@color/textColorLight</item>
+        <item name="android:textColorSecondary">@color/textColorLightHint</item>
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="app_edit_texts">
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/textColorLight</item>
+        <item name="android:textColorHint">@color/textColorLightHint</item>
+        <item name="android:textColor">@color/textColorLight</item>
     </style>
 
     <style name="row_style">
@@ -100,6 +115,28 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="all_history_cards">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">24dp</item>
+    </style>
+
+    <style name="all_history_image_views">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:foreground">@drawable/all_history_shapes</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="all_history_text_views">
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/WhiteContent</item>
     </style>
 
 

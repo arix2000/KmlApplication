@@ -1,45 +1,58 @@
 package com.kml.views.dialogs
 
-
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.kml.Constants.Signal
+import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.models.WorkToAdd
+import com.kml.databinding.DialogNewWorkInstantBinding
 import com.kml.viewModels.WorkTimerViewModel
-import kotlinx.android.synthetic.main.dialog_new_work_instant.view.*
 
 
-class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs() {
+class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(false) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        isCancelable = false
-        return super.onCreateView(inflater, container, savedInstanceState)
+    companion object {
+
     }
+
+    lateinit var binding: DialogNewWorkInstantBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val builder = AlertDialog.Builder(requireContext(), R.style.dialogs_style)
-        val view = layoutInflater.inflate(R.layout.dialog_new_work_instant, null)
-        builder.setView(view)
+        layoutInflater.inflate(R.layout.dialog_new_work_instant, null)
+        binding = DialogNewWorkInstantBinding.inflate(layoutInflater)
+        builder.setView(binding.root)
 
-        view.apply {
-            val button = dialog_timer_add_instant
-            button.setOnClickListener {
-                val work = WorkToAdd(dialog_timer_work_name_instant.text.toString(),
-                        dialog_timer_work_description_instant.text.toString(),
-                        dialog_timer_hours.text.toString().toIntOrNull() ?: -1,
-                        dialog_timer_minutes.text.toString().toIntOrNull() ?: -1
+        binding.apply {
+
+            newWorkCreationDate.text = TODAY
+
+            dialogTimerAddInstant.setOnClickListener {
+                val creationDateString = viewModel.decideAboutDate(newWorkCreationDate.text.toString())
+                val description = " $creationDateString -> " + dialogTimerWorkDescriptionInstant.text.toString()
+
+                val work = WorkToAdd(dialogTimerWorkNameInstant.text.toString(),
+                        description,
+                        dialogTimerHours.text.toString().toIntOrNull() ?: -1,
+                        dialogTimerMinutes.text.toString().toIntOrNull() ?: -1
                 )
                 sendWorkToDatabase(work)
             }
 
-            dialog_timer_cancel_instant.setOnClickListener {
+            newWorkCreationDate.setOnClickListener {
+                val dialog = MyDatePickerDialog()
+                dialog.setOnResultListener {
+                    newWorkCreationDate.text = it
+                }
+                dialog.show(parentFragmentManager, "DatePicker")
+            }
+
+            dialogTimerCancelInstant.setOnClickListener {
                 dismiss()
             }
         }
@@ -60,22 +73,12 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
     }
 
     private fun validation(work: WorkToAdd): Boolean {
-        return when {
-            (isPoolsEmpty(work)) -> {
-                Toast.makeText(requireContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
-                false
-            }
-            (work.minutes > 60) -> {
-                Toast.makeText(requireContext(), R.string.too_many_minutes, Toast.LENGTH_SHORT).show()
-                false
-            }
-            else -> true
-        }
-    }
+        val result = viewModel.validateWorkInstant(work)
+        return if (result != Signal.VALIDATION_SUCCESSFUL) {
+            Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
+            false
+        } else true
 
-    private fun isPoolsEmpty(work: WorkToAdd): Boolean {
-        return work.name.trim().isEmpty() || work.description.trim().isEmpty()
-                || work.hours == -1 || work.minutes == -1
     }
 
 

@@ -1,134 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/dialog_bg">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            style="@style/dialog_about_app_titles"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/add_work" />
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_bg">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                style="@style/dialog_about_app_titles"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content"
-                android:text="@string/new_work_name"
-                android:textColor="@color/textColorLight" />
+                android:gravity="center"
+                android:text="@string/add_work" />
 
-            <EditText
-                style="@style/app_edit_texts"
-                android:id="@+id/dialog_timer_work_name_instant"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="@string/work_purpose" />
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/new_work_description"
-                android:textColor="@color/textColorLight" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_work_name"
+                    android:textColor="@color/textColorLight" />
 
-            <EditText
-                style="@style/app_edit_texts"
-                android:id="@+id/dialog_timer_work_description_instant"
+                <EditText
+                    android:id="@+id/dialog_timer_work_name_instant"
+                    style="@style/app_edit_texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/work_purpose" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/new_work_description"
+                    android:textColor="@color/textColorLight" />
+
+                <EditText
+                    android:id="@+id/dialog_timer_work_description_instant"
+                    style="@style/app_edit_texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/work_description_examples" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/creation_date"
+                    android:textColor="@color/textColorLight" />
+
+                <TextView
+                    android:id="@+id/new_work_creation_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:focusable="true"
+                    android:text="20-12-2022"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/new_work_time"
+                    android:textColor="@color/textColorLight" />
+            </LinearLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="@string/work_description_examples" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/new_work_time"
-                android:textColor="@color/textColorLight" />
+                <EditText
+                    android:id="@+id/dialog_timer_hours"
+                    style="@style/app_edit_texts"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/dialog_timer_hours"
+                    android:text="@string/hours"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="17sp" />
+
+                <EditText
+                    android:id="@+id/dialog_timer_minutes"
+                    style="@style/app_edit_texts"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/text_view_minutes_dialog"
+                    android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/text_view_minutes_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/minutes"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/dialog_timer_cancel_instant"
+                    style="@style/buttons"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/cancel" />
+
+                <Button
+                    android:id="@+id/dialog_timer_add_instant"
+                    style="@style/buttons"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="25dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/add"
+                    android:textColor="@android:color/holo_green_light" />
+            </RelativeLayout>
+
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <EditText
-                style="@style/app_edit_texts"
-                android:id="@+id/dialog_timer_hours"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:inputType="number" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/dialog_timer_hours"
-                android:text="@string/hours"
-                android:textColor="@color/textColorLight"
-                android:textSize="17sp" />
-
-            <EditText
-                style="@style/app_edit_texts"
-                android:id="@+id/dialog_timer_minutes"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/text_view_minutes_dialog"
-                android:inputType="number" />
-
-            <TextView
-                android:id="@+id/text_view_minutes_dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/minutes"
-                android:textColor="@color/textColorLight"
-                android:textSize="17sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/dialog_timer_cancel_instant"
-                style="@style/buttons"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="@string/cancel" />
-
-            <Button
-                android:id="@+id/dialog_timer_add_instant"
-                style="@style/buttons"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="25dp"
-                android:paddingHorizontal="10dp"
-                android:text="@string/add"
-                android:textColor="@android:color/holo_green_light" />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-
-</ScrollView>
+    </ScrollView>
+</layout>

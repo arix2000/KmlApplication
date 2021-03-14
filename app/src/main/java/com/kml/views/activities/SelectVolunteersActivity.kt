@@ -4,36 +4,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
 import com.kml.data.models.Volunteer
+import com.kml.databinding.ActivitySelectVolunteersBinding
 import com.kml.viewModels.VolunteersViewModel
 
 class SelectVolunteersActivity : AppCompatActivity() {
 
-    companion object {
-        const val EXTRA_CHECKED_VOLUNTEERS = "com.kml.controlPanel.EXTRA_CHECKED_VOLUNTEERS"
-    }
-
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: VolunteerAdapter
+    private lateinit var volunteerAdapter: VolunteerAdapter
     private lateinit var viewModel: VolunteersViewModel
+    private lateinit var binding: ActivitySelectVolunteersBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_volunteers)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        binding = ActivitySelectVolunteersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         title = "Zaznacz wolontariuszy:"
         KmlApp.isFromControlPanel = true
 
@@ -41,22 +34,23 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
         createRecycleView()
 
-        viewModel.volunteers.observe(this) {
-            adapter.volunteers = it
-        }
+        volunteerAdapter.updateVolunteers(viewModel.volunteers)
 
         initClickableTextViews()
         initSearchEditText()
 
-        val actionButton = findViewById<FloatingActionButton>(R.id.control_panel_floating_button)
-        actionButton.setOnClickListener { sendIntentWithCheckedList() }
+        binding.controlPanelFloatingButton.setOnClickListener {
+            sendIntentWithCheckedList()
+        }
     }
 
+
     private fun createRecycleView() {
-        recyclerView = findViewById(R.id.control_panel_recycle_view)
-        adapter = VolunteerAdapter { handleOnClick(it) }
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        binding.controlPanelRecycleView.run {
+            volunteerAdapter = VolunteerAdapter { handleOnClick(it) }
+            this.layoutManager = LinearLayoutManager(this@SelectVolunteersActivity)
+            this.adapter = volunteerAdapter
+        }
     }
 
     private fun handleOnClick(volunteer: Volunteer) {
@@ -64,38 +58,44 @@ class SelectVolunteersActivity : AppCompatActivity() {
     }
 
     private fun initClickableTextViews() {
-        val selectAllTextView = findViewById<TextView>(R.id.control_panel_select_all)
-        selectAllTextView.setOnClickListener {
+        binding.controlPanelSelectAll.setOnClickListener {
             viewModel.selectAllVolunteers()
-            adapter.volunteers = viewModel.volunteers.value!!
+            volunteerAdapter.updateVolunteers(viewModel.volunteers)
         }
 
-        val deselectAllTextView = findViewById<TextView>(R.id.control_panel_deselect)
-        deselectAllTextView.setOnClickListener {
+        binding.controlPanelDeselect.setOnClickListener {
             viewModel.deselectAllVolunteers()
-            adapter.volunteers = viewModel.volunteers.value!!
+            volunteerAdapter.updateVolunteers(viewModel.volunteers)
         }
     }
 
     private fun initSearchEditText() {
-        val searchEditText = findViewById<EditText>(R.id.control_panel_search_by_first_name)
-        searchEditText.addTextChangedListener(object : TextWatcher {
+        binding.controlPanelSearchByFirstName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {
-                adapter.volunteers = viewModel.filterArrayByName(editable.toString())
+                volunteerAdapter.updateVolunteers(viewModel.filterArrayByName(editable.toString()))
             }
         })
     }
 
     private fun sendIntentWithCheckedList() {
-        val checkedVolunteers = viewModel.volunteers.value?.filter { it.isChecked } as ArrayList
+        val intent = Intent(this, SummaryVolunteerActivity::class.java)
+        val checkedVolunteers = viewModel.volunteers.filter { it.isChecked } as ArrayList
         if (checkedVolunteers.isNotEmpty()) {
-            val intent = Intent(this, SummaryVolunteerActivity::class.java)
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
             startActivity(intent)
-        } else {
-            Toast.makeText(this, R.string.choose_one_at_least, Toast.LENGTH_SHORT).show()
-        }
+        } else Toast.makeText(this, R.string.volunteers_are_not_chosen, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBackPressed() {
+        if (binding.controlPanelSearchByFirstName.text.isEmpty())
+            super.onBackPressed()
+        else
+            binding.controlPanelSearchByFirstName.setText(EMPTY_STRING)
+    }
+
+    companion object {
+        const val EXTRA_CHECKED_VOLUNTEERS = "com.kml.views.activities.EXTRA_CHECKED_VOLUNTEERS"
     }
 }

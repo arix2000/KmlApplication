@@ -28,10 +28,11 @@ class FormatEngine {
     fun formatSections(sections: String): String {
         var changedSection = sections.replace("-".toRegex(), ",")
 
-        if (changedSection.contains("Wolontariusz") && changedSection.contains("Lider"))
-            changedSection = "${changedSection.substring(0, changedSection.indexOf("Wolontariusz"))} \n\n" +
-                    changedSection.substring(changedSection.indexOf("Wolontariusz")).trimIndent()
-
+        changedSection.apply {
+            if (contains("Wolontariusz") && contains("Lider"))
+                changedSection = "${substring(0, indexOf("Wolontariusz"))} \n\n" +
+                        substring(indexOf("Wolontariusz")).trimIndent()
+        }
         return changedSection
     }
 

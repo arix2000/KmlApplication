@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/cardBackground"
-    android:layout_margin="3dp">
+    android:layout_margin="3dp"
+    app:cardCornerRadius="@dimen/item_corner_radius">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -33,14 +34,14 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
-            android:id="@+id/history_work_item_description"
+            android:id="@+id/history_work_item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/history_work_item_name"
             android:textColor="@color/textColorLight"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="HistoryWorkDescription" />
+            android:text="HistoryWorkTime" />
     </RelativeLayout>
 
 
