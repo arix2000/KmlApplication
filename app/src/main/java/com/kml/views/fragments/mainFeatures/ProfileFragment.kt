@@ -1,4 +1,4 @@
-package com.kml.views.fragments
+package com.kml.views.fragments.mainFeatures
 
 import android.app.Activity
 import android.content.Intent

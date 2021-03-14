@@ -1,4 +1,4 @@
-package com.kml.views.fragments
+package com.kml.views.fragments.mainFeatures
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.kml.Constants.Extras.IS_FROM_FILE_EXTRA
+import com.kml.Constants.Extras.WORKS_EXTRA
+import com.kml.Constants.Flags.MEETINGS
+import com.kml.Constants.Flags.WORKS
 import com.kml.R
 import com.kml.data.models.Work
 import com.kml.data.utilities.FileFactory
@@ -17,18 +21,13 @@ import com.kml.viewModelFactories.WorksHistoryViewModelFactory
 import com.kml.viewModels.WorksHistoryViewModel
 import com.kml.views.activities.AllHistoryActivity
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class WorksHistoryFragment : Fragment() {
-
-    companion object {
-        const val WORKS_EXTRA = "WORKS_EXTRA"
-        const val IS_FROM_FILE_EXTRA = "IS_FROM_FILE_EXTRA"
-        const val WORKS = "WORKS"
-        const val MEETINGS = "MEETINGS"
-    }
 
     lateinit var viewModel: WorksHistoryViewModel
     lateinit var fileFactory: FileFactory
@@ -62,9 +61,9 @@ class WorksHistoryFragment : Fragment() {
     }
 
     private fun launchHistory(type: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(IO).launch {
             val works = viewModel.getData(type)
-            CoroutineScope(Dispatchers.Main).launch {
+            withContext(Main) {
                 openActivityWith(works)
                 binding.allHistoryProgressBar.visibility = View.INVISIBLE
             }
