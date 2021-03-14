@@ -1,5 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="Typos">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="Typos">
     <string name="app_name">Klub Młodych Liderów</string>
     <string name="app_description">Aplikacja stworzona dla wolontariuszy z Fundacji Klubu Młodych Liderów by ułatwić im wpisywanie godzin pracy
         oraz udostępnić ich aktualne postępy,dodatkowo zawiera wyszukiwarke zabaw dla animatorów</string>
@@ -13,8 +12,9 @@
     <string name="choose_one_at_least">Musisz wybrać przynajmniej jedną osobe!</string>
     <string name="external_database_unavailable">Brak połączenia z bazą danych! Spróbuj ponownie później</string>
     <string name="wrong_form_info">Nieprawidłowy login, hasło lub brak połaczenia z intenetem!</string>
-    <string name="no_empty_fields">Żadne z pól nie może być puste!</string>
-    <string name="too_many_chars">Hasło nie może mieć wiecej niż 64 znaki!</string>
+    <string name="no_empty_fields">Żadne z pól nie może być puste.</string>
+    <string name="too_many_chars">Hasło nie może mieć wiecej niż 64 znaki.</string>
+    <string name="empty_fields_and_too_many_minutes">Zostały puste pola lub minut jest zbyt wiele</string>
     <string name="something_wrong">Coś poszło nie tak!</string>
     <string name="load_previous_data">Brak połączenia z internetem! wczytano ostatnie dane</string>
     <string name="adding_work_confirmation">Dodano pomyślnie!</string>
@@ -114,7 +114,7 @@
     <string name="what_were_you_doing">Co robiłeś/aś</string>
     <string name="new_work_description">Opis:</string>
     <string name="work_purpose">Cel zadania / Tytuł</string>
-    <string name="work_description_examples">Co robiłeś? / Data wykonania / Na jakie wydarzenie? / Z kim? itp.</string>
+    <string name="work_description_examples">Co robiłeś? / Na jakie wydarzenie? / Z kim? itp.</string>
     <string name="end_your_work">Zakończ zadanie</string>
     <string name="new_work_time">Czas wykonywania:</string>
     <string name="progress_founded">Znaleziono postęp!</string>
@@ -123,9 +123,9 @@
     <string name="do_not_restore">nie\nprzywracaj</string>
     <string name="work_name">Nazwa Zadania:</string>
     <string name="work_description">Opis:</string>
-    <string name="date">Data:</string>
+    <string name="date">Data wpisania:</string>
     <string name="work_time">Czas wykonania:</string>
-    <string name="add_to_chosen">dodaj godziny</string>
+    <string name="add_to_chosen">dodaj godziny wolontariuszom</string>
     <string name="game_name">Nazwa Zabawy</string>
     <string name="optional">(Opcjonalna)</string>
     <string name="search">szukaj</string>
@@ -139,5 +139,15 @@
     <string name="change_mode">Tryb ciemny</string>
     <string name="about_colors">O kolorach</string>
     <string name="control_panel">Panel Sterowania</string>
+    <string name="creation_date">Data wykonania:</string>
+    <string name="confirm">Potwierdź</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="overall_log">Dziennik Ogólny</string>
+    <string name="individual_log">Dziennik Indywidualny</string>
+    <string name="finish_writing">Dokończ wpisywanie:</string>
+    <string name="operation_desc">Opis działania:</string>
+    <string name="name_title_type">Nazwa, tytuł, typ</string>
+    <string name="expand_what_was_happen">Rozwiń co się działo :D</string>
+    <string name="volunteers_are_not_chosen">Żadni wolontariusze nie zostali wybrani</string>
 
 </resources>

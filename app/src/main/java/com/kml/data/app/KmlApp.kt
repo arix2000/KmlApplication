@@ -36,6 +36,8 @@ class KmlApp : MultiDexApplication() {
         }
     }
 
+
+
     companion object {
         const val MARTA_ID = 11
         const val SEBASTIAN_ID = 13
@@ -53,6 +55,7 @@ class KmlApp : MultiDexApplication() {
 
         var isFromRecycleViewActivity = false
         var isFromControlPanel = false
+        var isFromWorksHistory = false
         var adminIds = listOf(9, 14, 18, 13)
     }
 }

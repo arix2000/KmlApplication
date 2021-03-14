@@ -2,11 +2,14 @@ package com.kml.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kml.Constants
+import com.kml.Constants.Strings.TODAY
 import com.kml.data.models.Time
 import com.kml.data.models.WorkToAdd
 import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine
+import com.kml.extensions.getTodayDate
 import com.kml.repositories.WorkTimerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,17 +20,18 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
 
     private val repository = WorkTimerRepository(fileFactory)
 
-    val _seconds = MutableLiveData<Int>()
+    val seconds = MutableLiveData<Int>()
     var minutes: Int = 0
     var hours: Int = 0
+
     private val engine = FormatEngine()
 
-    var seconds: Int
+    var secondsValue: Int
         get() {
-            return _seconds.value ?: -1
+            return seconds.value ?: -1
         }
         set(value) {
-            _seconds.value = value
+            seconds.value = value
         }
 
     var isThreadAlive = false
@@ -47,15 +51,15 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
     }
 
     fun resetCounting() {
-        hours = 0; minutes = 0; seconds = 0
+        hours = 0; minutes = 0; secondsValue = 0
         repository.clearFileState()
     }
 
-    fun setTime(): Time {
-        val secondsFormatted = engine.formatSeconds(seconds)
-        if (seconds >= 60) {
+    fun getTime(): Time {
+        val secondsFormatted = engine.formatSeconds(secondsValue)
+        if (secondsValue >= 60) {
             minutes += 1
-            seconds = 0
+            secondsValue = 0
         }
         val minutesFormatted = engine.formatMinutes(minutes)
 
@@ -71,15 +75,14 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
     fun setTimeFromFile() {
         val fromFile = repository.readFile()
         val hms = fromFile.split(";".toRegex()).toTypedArray()
-        seconds = hms[0].toInt()
+        secondsValue = hms[0].toInt()
         minutes = hms[1].toInt()
         hours = hms[2].toInt()
     }
 
-    fun keepCurrentTime()
-    {
-        if (!isTimerRunning && hours > 0 || minutes > 0 || seconds >= 10) {
-            saveToFile("$seconds;$minutes;$hours")
+    fun keepCurrentTime() {
+        if (!isTimerRunning && hours > 0 || minutes > 0 || secondsValue >= 10) {
+            saveToFile("$secondsValue;$minutes;$hours")
         }
     }
 
@@ -96,13 +99,13 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
     }
 
     fun returnStateFromService() {
-        seconds = TimerService.seconds
+        secondsValue = TimerService.seconds
         minutes = TimerService.minutes
         hours = TimerService.hours
     }
 
     fun saveStateToService() {
-        TimerService.seconds = seconds
+        TimerService.seconds = secondsValue
         TimerService.minutes = minutes
         TimerService.hours = hours
     }
@@ -120,10 +123,32 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
                 if (exitThread) {
                     cancel()
                     isThreadAlive = false
-                } else {
-                    _seconds.postValue(seconds + 1)
-                }
+                } else
+                    seconds.postValue(secondsValue + 1)
             }
         }, 0, 1000)
+    }
+
+    fun decideAboutDate(date: String): String {
+        return if (date == TODAY)
+            Calendar.getInstance().getTodayDate()
+        else date
+    }
+
+    fun validateWork(workName: String, workDescription: String): Boolean {
+        return !(workName.trim().isEmpty() || workDescription.trim().isEmpty())
+    }
+
+    fun validateWorkInstant(work: WorkToAdd): Int {
+        return when {
+            (isPoolsEmpty(work)) -> Constants.Signal.EMPTY_POOLS
+            (work.minutes > 60) -> Constants.Signal.TOO_MANY_MINUTES
+            else -> Constants.Signal.VALIDATION_SUCCESSFUL
+        }
+    }
+
+    private fun isPoolsEmpty(work: WorkToAdd): Boolean {
+        return work.name.trim().isEmpty() || work.description.trim().isEmpty()
+                || work.hours == -1 || work.minutes == -1
     }
 }

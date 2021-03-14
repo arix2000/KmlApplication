@@ -8,9 +8,16 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URLEncoder
 
-class DbGetWorksHistory : ExternalDbHelper() {
-    private val fileName = "getWorkHistory.php"
-    private val address = BASE_URL + fileName
+class DbGetWorksHistory(type:String) : ExternalDbHelper() {
+
+    companion object {
+        const val GET_WORKS = "GET_WORKS"
+        const val GET_MEETINGS = "GET_MEETINGS"
+    }
+
+    private val worksFileName = "getWorkHistory.php"
+    private val meetingsFileName = "getMeetingsHistory.php"
+    private val address = BASE_URL + if(type == GET_WORKS) worksFileName else meetingsFileName
     private var conn: HttpURLConnection? = null
 
     var result: String = ""

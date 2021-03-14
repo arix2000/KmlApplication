@@ -18,7 +18,8 @@ import com.google.android.material.navigation.NavigationView
 import com.kml.R
 import com.kml.data.app.KmlApp
 import com.kml.data.services.TimerService
-import com.kml.views.fragments.*
+import com.kml.extensions.setFragment
+import com.kml.views.fragments.mainFeatures.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
@@ -63,6 +64,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigationView.setCheckedItem(R.id.nav_control_panel)
             KmlApp.isFromControlPanel = false
         }
+        if (KmlApp.isFromWorksHistory) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, WorksHistoryFragment()).commit()
+            navigationView.setCheckedItem(R.id.nav_works_history)
+            KmlApp.isFromWorksHistory = false
+        }
         if (KmlApp.adminIds.contains(KmlApp.loginId)) {
             navigationView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
         }
@@ -87,7 +93,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun showDialogAboutApp() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_about_app)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
     }
 
@@ -99,11 +105,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment()).commit()
-            R.id.nav_timer -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, WorkTimerFragment()).commit()
-            R.id.nav_search_engine -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, GameSearchEngineFragment()).commit()
-            R.id.nav_control_panel -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ControlPanelFragment()).commit()
-            R.id.nav_works_history -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, WorksHistoryFragment()).commit()
+            R.id.nav_profile -> setFragment(ProfileFragment())
+            R.id.nav_timer -> setFragment(WorkTimerFragment())
+            R.id.nav_search_engine -> setFragment(GameSearchEngineFragment())
+            R.id.nav_control_panel -> setFragment(ControlPanelFragment())
+            R.id.nav_works_history -> setFragment(WorksHistoryFragment())
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
