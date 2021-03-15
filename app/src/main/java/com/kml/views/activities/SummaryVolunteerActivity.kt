@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.kml.Constants
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.R
-import com.kml.data.models.Volunteer
+import com.kml.models.Volunteer
 import com.kml.databinding.ActivitySummarySelectedBinding
 import com.kml.viewModels.SummaryVolunteerViewModel
 import com.kml.views.dialogs.MyDatePickerDialog

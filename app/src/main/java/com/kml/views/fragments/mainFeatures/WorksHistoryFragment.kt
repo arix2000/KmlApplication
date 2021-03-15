@@ -1,25 +1,24 @@
 package com.kml.views.fragments.mainFeatures
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.kml.Constants.Extras.IS_FROM_FILE_EXTRA
 import com.kml.Constants.Extras.WORKS_EXTRA
 import com.kml.Constants.Flags.MEETINGS
 import com.kml.Constants.Flags.WORKS
 import com.kml.R
-import com.kml.data.models.Work
 import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentWorksHistoryBinding
+import com.kml.extensions.setFragmentWithData
+import com.kml.models.Work
 import com.kml.viewModelFactories.WorksHistoryViewModelFactory
 import com.kml.viewModels.WorksHistoryViewModel
-import com.kml.views.activities.AllHistoryActivity
+import com.kml.views.BaseFragment
+import com.kml.views.fragments.AllHistoryFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -27,7 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class WorksHistoryFragment : Fragment() {
+class WorksHistoryFragment : BaseFragment() {
 
     lateinit var viewModel: WorksHistoryViewModel
     lateinit var fileFactory: FileFactory
@@ -64,17 +63,17 @@ class WorksHistoryFragment : Fragment() {
         CoroutineScope(IO).launch {
             val works = viewModel.getData(type)
             withContext(Main) {
-                openActivityWith(works)
+                openFragmentWith(works)
                 binding.allHistoryProgressBar.visibility = View.INVISIBLE
             }
         }
     }
 
-    private fun openActivityWith(works: List<Work>) {
-        val intent = Intent(requireContext(), AllHistoryActivity::class.java)
-        intent.putParcelableArrayListExtra(WORKS_EXTRA, works as ArrayList)
-        intent.putExtra(IS_FROM_FILE_EXTRA, viewModel.isFromFile())
+    private fun openFragmentWith(works: List<Work>) {
+        val bundle = Bundle()
+        bundle.putParcelableArrayList(WORKS_EXTRA, works as ArrayList)
+        bundle.putBoolean(IS_FROM_FILE_EXTRA, viewModel.isFromFile())
 
-        requireActivity().startActivityFromFragment(this, intent, Activity.RESULT_OK)
+        setFragmentWithData(AllHistoryFragment(), bundle)
     }
 }

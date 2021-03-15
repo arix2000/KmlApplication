@@ -6,7 +6,7 @@
 
         <variable
             name="profile"
-            type="com.kml.data.models.Profile" />
+            type="com.kml.models.Profile" />
     </data>
 
     <RelativeLayout

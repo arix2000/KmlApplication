@@ -3,7 +3,7 @@ package com.kml.holders
 import android.os.SystemClock
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.kml.data.models.Work
+import com.kml.models.Work
 import kotlinx.android.synthetic.main.list_item_work_history.view.*
 
 class WorkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

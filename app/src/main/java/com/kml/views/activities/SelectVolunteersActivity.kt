@@ -12,7 +12,7 @@ import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
-import com.kml.data.models.Volunteer
+import com.kml.models.Volunteer
 import com.kml.databinding.ActivitySelectVolunteersBinding
 import com.kml.viewModels.VolunteersViewModel
 

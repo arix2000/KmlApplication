@@ -1,7 +1,7 @@
 package com.kml.repositories
 
 import com.kml.data.externalDbOperations.DbSendWork
-import com.kml.data.models.WorkToAdd
+import com.kml.models.WorkToAdd
 import com.kml.data.utilities.FileFactory
 
 class WorkTimerRepository(val fileFactory: FileFactory) {

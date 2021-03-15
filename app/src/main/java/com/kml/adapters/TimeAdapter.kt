@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
-import com.kml.data.models.TimeToVolunteers
+import com.kml.models.TimeToVolunteers
 import com.kml.extensions.log
 import com.kml.holders.TimeHolder
 

@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
 import com.kml.data.app.AppDialogs
-import com.kml.data.models.WorkToAdd
+import com.kml.models.WorkToAdd
 import com.kml.databinding.DialogNewWorkBinding
 import com.kml.viewModels.WorkTimerViewModel
 

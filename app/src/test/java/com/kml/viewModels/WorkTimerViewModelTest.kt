@@ -3,8 +3,8 @@ package com.kml.viewModels
 import android.os.Build
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kml.data.models.Time
-import com.kml.data.models.WorkToAdd
+import com.kml.models.Time
+import com.kml.models.WorkToAdd
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.Signal
 import com.kml.views.dialogs.InstantAddWorkDialog.Companion.TODAY

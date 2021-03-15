@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var drawer: DrawerLayout
     private lateinit var navigationView: NavigationView
+    private lateinit var drawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -42,10 +43,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
-        val toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer)
-        drawer.addDrawerListener(toggle)
+        drawerToggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer)
+        drawer.addDrawerListener(drawerToggle)
 
-        toggle.syncState()
+        drawerToggle.syncState()
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment()).commit()
             navigationView.setCheckedItem(R.id.nav_profile)
@@ -115,7 +116,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    // this method will be invoked when we click on image view in header of navigation drawer
+    fun showBackButton() {
+        drawerToggle.isDrawerIndicatorEnabled = false
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        drawerToggle.setToolbarNavigationClickListener {
+            onBackPressed()
+        }
+    }
+
+    fun hideBackButton() {
+        drawerToggle.isDrawerIndicatorEnabled = true
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        drawerToggle.syncState()
+    }
+
+    /** this method will be invoked when we click on image view in header of navigation drawer */
     fun openKmlWebsite(view: View) {
         val uri = Uri.parse("https://www.klubmlodychliderow.pl/")
         val intent = Intent(Intent.ACTION_VIEW, uri)

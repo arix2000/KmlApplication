@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.kml.data.models.Game
+import com.kml.models.Game
 
 @Database(entities = [Game::class], version = 1)
 abstract class GameDatabase : RoomDatabase() {

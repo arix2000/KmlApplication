@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
 import com.kml.data.app.AppDialogs
-import com.kml.data.models.Work
+import com.kml.models.Work
 import com.kml.databinding.DialogWorkHistoryExtendedBinding
 
 class ExtendedWorkDialog(val work: Work) : AppDialogs() {

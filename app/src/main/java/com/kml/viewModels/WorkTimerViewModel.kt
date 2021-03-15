@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.Constants
 import com.kml.Constants.Strings.TODAY
-import com.kml.data.models.Time
-import com.kml.data.models.WorkToAdd
+import com.kml.models.Time
+import com.kml.models.WorkToAdd
 import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine

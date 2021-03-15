@@ -2,7 +2,7 @@ package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.kml.Constants
-import com.kml.data.models.TimeToVolunteers
+import com.kml.models.TimeToVolunteers
 
 class TimeManagementViewModel: ViewModel() {
 

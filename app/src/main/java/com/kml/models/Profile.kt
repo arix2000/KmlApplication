@@ -1,4 +1,4 @@
-package com.kml.data.models
+package com.kml.models
 
 data class Profile(var firstName: String,
                    var lastName: String,
