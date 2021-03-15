@@ -16,8 +16,8 @@ import com.kml.R
 import com.kml.adapters.GameAdapter
 import com.kml.data.app.KmlApp
 import com.kml.data.internalRoomDatabase.GameDatabase
-import com.kml.data.models.Game
-import com.kml.data.models.GameFilterInfo
+import com.kml.models.Game
+import com.kml.models.GameFilterInfo
 import com.kml.viewModels.GameViewModel
 import com.kml.viewModelFactories.GameViewModelFactory
 import com.kml.views.fragments.mainFeatures.GameSearchEngineFragment

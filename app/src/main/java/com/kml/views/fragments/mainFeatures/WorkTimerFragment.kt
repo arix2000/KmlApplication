@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.kml.R
 import com.kml.data.services.TimerService
@@ -17,13 +16,14 @@ import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentWorkTimerBinding
 import com.kml.viewModelFactories.WorkTimerViewModelFactory
 import com.kml.viewModels.WorkTimerViewModel
+import com.kml.views.BaseFragment
 import com.kml.views.activities.MainActivity
 import com.kml.views.dialogs.AddWorkDialog
 import com.kml.views.dialogs.InstantAddWorkDialog
 import com.kml.views.dialogs.MakeSureDialog
 import com.kml.views.dialogs.RestoreDialog
 
-class WorkTimerFragment : Fragment() {
+class WorkTimerFragment : BaseFragment() {
     private lateinit var binding: FragmentWorkTimerBinding
     private lateinit var viewModel: WorkTimerViewModel
     private lateinit var fileFactory: FileFactory

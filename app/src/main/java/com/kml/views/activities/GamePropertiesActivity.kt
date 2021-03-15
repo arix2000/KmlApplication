@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.kml.R
-import com.kml.data.models.Game
+import com.kml.models.Game
 import com.kml.databinding.ActivityPropertiesGameBinding
 
 class GamePropertiesActivity : AppCompatActivity() {

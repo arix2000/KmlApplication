@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.kml.Constants.Flags.WORKS
-import com.kml.data.models.Work
+import com.kml.models.Work
 import com.kml.data.utilities.FileFactory
 import com.kml.repositories.WorksHistoryRepository
 

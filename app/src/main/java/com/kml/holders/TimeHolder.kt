@@ -3,8 +3,8 @@ package com.kml.holders
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import com.kml.data.models.TimeToVolunteers
 import com.kml.databinding.ListItemWorkTimeBinding
+import com.kml.models.TimeToVolunteers
 
 class TimeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

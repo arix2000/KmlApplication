@@ -1,4 +1,4 @@
-package com.kml.data.models
+package com.kml.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

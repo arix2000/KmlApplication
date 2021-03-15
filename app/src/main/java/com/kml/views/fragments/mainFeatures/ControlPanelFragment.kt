@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
-import androidx.fragment.app.Fragment
 import com.kml.R
+import com.kml.views.BaseFragment
 import com.kml.views.activities.SelectVolunteersActivity
 
-class ControlPanelFragment : Fragment() {
+class ControlPanelFragment : BaseFragment() {
     private lateinit var root: View
     private lateinit var progressBar: ProgressBar
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

@@ -2,7 +2,7 @@ package com.kml.data.externalDbOperations
 
 import android.util.Log
 import com.kml.data.app.KmlApp
-import com.kml.data.models.WorkToAdd
+import com.kml.models.WorkToAdd
 import java.io.BufferedWriter
 import java.io.IOException
 import java.io.OutputStreamWriter

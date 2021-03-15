@@ -2,7 +2,7 @@ package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.kml.Constants
-import com.kml.data.models.Volunteer
+import com.kml.models.Volunteer
 import com.kml.extensions.getTodayDate
 import com.kml.repositories.SummaryVolunteerRepository
 import java.util.*

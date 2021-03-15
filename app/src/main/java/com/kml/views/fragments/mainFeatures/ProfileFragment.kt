@@ -14,20 +14,20 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.kml.R
-import com.kml.data.utilities.FileFactory
 import com.kml.data.app.KmlApp
-import com.kml.data.models.Profile
+import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentProfileBinding
+import com.kml.models.Profile
 import com.kml.viewModelFactories.ProfileViewModelFactory
 import com.kml.viewModels.ProfileViewModel
+import com.kml.views.BaseFragment
 import com.kml.views.activities.LoginScreen
 import com.kml.views.dialogs.ChangePassDialog
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     companion object {
         const val PICK_IMAGE_RESULT = 1

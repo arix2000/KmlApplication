@@ -8,7 +8,7 @@ import com.kml.Constants.Signal
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.data.app.AppDialogs
-import com.kml.data.models.WorkToAdd
+import com.kml.models.WorkToAdd
 import com.kml.databinding.DialogNewWorkInstantBinding
 import com.kml.viewModels.WorkTimerViewModel
 

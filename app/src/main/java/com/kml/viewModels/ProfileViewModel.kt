@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.R
 import com.kml.data.externalDbOperations.DbChangePass
-import com.kml.data.models.Profile
+import com.kml.models.Profile
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine
 import com.kml.repositories.ProfileRepository
