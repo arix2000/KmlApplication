@@ -30,3 +30,14 @@ fun Calendar.getTodayDate(): String {
                 get(Calendar.YEAR) //TODO Export this formatting to FormatEngine. In MyDatePickerDialog we have similar operation
     }
 }
+
+/**
+ * Format string to safe for api requests by basically changing "\" char with "\\"
+ *
+ * @return safe string ready to send to database by for example php api
+ */
+
+fun String.asSafeString(): String {
+    return this.replace("\\","\\\\")
+
+}

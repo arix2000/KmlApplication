@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.kml.Constants
+import com.kml.Constants.Signal.MAXIMUM_PERMITTED_HOURS
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.R
-import com.kml.models.Volunteer
 import com.kml.databinding.ActivitySummarySelectedBinding
+import com.kml.models.Volunteer
 import com.kml.viewModels.SummaryVolunteerViewModel
 import com.kml.views.dialogs.MyDatePickerDialog
 
@@ -42,14 +43,19 @@ class SummaryVolunteerActivity : AppCompatActivity() {
 
             summaryActivitySendWork.setOnClickListener {
                 val creationDateString = viewModel.decideAboutDate(operationCreationDate.text.toString())
-                val meetingDesc = "$creationDateString -> ${summaryActivityWorkDesc.text}"
+                val meetingDesc = "$creationDateString -> ${summaryActivityWorkDesc.text}" //TODO something wrong with adding to chosen
                 val hours = summaryActivityHours.text.toString()
                 val minutes = summaryActivityMinutes.text.toString()
                 val workName = summaryActivityWorkName.text.toString()
-
+//TODO refactor and create validation class!!!
                 if (hours.trim().isEmpty() || minutes.trim().isEmpty() || workName.trim().isEmpty()) {
                     Toast.makeText(this@SummaryVolunteerActivity, R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
-                } else {
+                } else if(hours.toInt()>MAXIMUM_PERMITTED_HOURS) {
+                    Toast.makeText(this@SummaryVolunteerActivity, R.string.too_many_hours, Toast.LENGTH_SHORT).show()
+                } else if(minutes.toInt()>60) {
+                    Toast.makeText(this@SummaryVolunteerActivity, R.string.too_many_minutes, Toast.LENGTH_SHORT).show()
+                }
+                else {
                     addWorkToDatabase(hours.toInt(), minutes.toInt(), workName, meetingDesc)
                     resetPools()
                     backToChoose()

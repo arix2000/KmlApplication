@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.externalDbOperations.DbChangePass
@@ -35,7 +36,7 @@ class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs(fal
     private fun changePass(oldPassword: String, newPassword: String) {
 
         val validationResult = viewModel.validatePassword(oldPassword, newPassword)
-        if (validationResult != ProfileViewModel.VALIDATION_SUCCESSFUL) {
+        if (validationResult != VALIDATION_SUCCESSFUL) {
             Toast.makeText(requireContext(), validationResult, Toast.LENGTH_SHORT).show()
             return
         }

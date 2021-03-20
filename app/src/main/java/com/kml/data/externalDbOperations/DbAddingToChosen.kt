@@ -7,7 +7,6 @@ import java.io.IOException
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URLEncoder
-import kotlin.math.roundToInt
 
 class DbAddingToChosen(private val ids: String,
                        private var volunteersName: String,
@@ -38,13 +37,7 @@ class DbAddingToChosen(private val ids: String,
         }
     }
 
-    private fun convertTimeToSend(): Float {
-        var workTime = hours + minutes.toFloat() / 60
-        workTime *= 100
-        workTime = workTime.roundToInt().toFloat()
-        workTime /= 100
-        return workTime
-    }
+    private fun convertTimeToSend() = hours + minutes.toFloat() / 60
 
     @Throws(IOException::class)
     private fun sendData() {

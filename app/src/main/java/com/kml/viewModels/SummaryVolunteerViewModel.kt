@@ -2,8 +2,8 @@ package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.kml.Constants
-import com.kml.models.Volunteer
 import com.kml.extensions.getTodayDate
+import com.kml.models.Volunteer
 import com.kml.repositories.SummaryVolunteerRepository
 import java.util.*
 
@@ -37,10 +37,8 @@ class SummaryVolunteerViewModel : ViewModel() {
         val ids = StringBuilder()
         var cache: String
         for (volunteer in chosenVolunteers) {
-            if (!ids.toString().contains(volunteer.id.toString())) {
-                cache = volunteer.id.toString() + ","
-                ids.append(cache)
-            }
+            cache = volunteer.id.toString() + ","
+            ids.append(cache)
         }
         ids.replace(ids.length - 1, ids.length, "")
         return ids.toString()
