@@ -2,21 +2,18 @@ package com.kml.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
 import com.kml.data.externalDbOperations.DbChangePass
-import com.kml.models.Profile
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine
+import com.kml.models.Profile
 import com.kml.repositories.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
-
-    companion object {
-        const val VALIDATION_SUCCESSFUL = -1
-    }
 
     private val repository = ProfileRepository(fileFactory)
 

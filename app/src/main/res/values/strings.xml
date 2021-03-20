@@ -149,5 +149,6 @@
     <string name="name_title_type">Nazwa, tytuł, typ</string>
     <string name="expand_what_was_happen">Rozwiń co się działo :D</string>
     <string name="volunteers_are_not_chosen">Żadni wolontariusze nie zostali wybrani</string>
+    <string name="too_many_hours">Liczba godzin nie może być większa od 14</string>
 
 </resources>

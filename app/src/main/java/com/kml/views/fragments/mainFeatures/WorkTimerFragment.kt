@@ -136,7 +136,6 @@ class WorkTimerFragment : BaseFragment() {
     }
 
     override fun onResume() {
-
         viewModel.returnStateFromService()
         setTimeOnLayout()
         requireContext().stopService(Intent(requireContext(), TimerService::class.java))

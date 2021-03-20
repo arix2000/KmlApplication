@@ -9,15 +9,13 @@ import java.io.OutputStreamWriter
 import java.io.UnsupportedEncodingException
 import java.net.HttpURLConnection
 import java.net.URLEncoder
-import kotlin.math.roundToInt
 
 class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
     private val fileName = "updateCzasPracy.php"
 
     override fun run() {
 
-        var timeToSend: Float = work.hours + work.minutes.toFloat() / 60
-        timeToSend = roundToTwoDecimalPoint(timeToSend)
+        val timeToSend: Float = work.hours + work.minutes.toFloat() / 60
         val address = BASE_URL + fileName
         val httpConnection = setConnection(address)
         try {
@@ -26,14 +24,6 @@ class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
         } catch (e: IOException) {
             Log.d("IO_EXCEPTION", "run: " + e.message)
         }
-    }
-
-    private fun roundToTwoDecimalPoint(timeToSend: Float): Float {
-        var timeToSend = timeToSend
-        timeToSend *= 100
-        timeToSend = timeToSend.roundToInt().toFloat()
-        timeToSend /= 100
-        return timeToSend
     }
 
     @Throws(IOException::class)

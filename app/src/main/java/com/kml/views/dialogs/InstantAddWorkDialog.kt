@@ -4,12 +4,14 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Signal
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.data.app.AppDialogs
-import com.kml.models.WorkToAdd
+import com.kml.data.utilities.Validator
 import com.kml.databinding.DialogNewWorkInstantBinding
+import com.kml.models.WorkToAdd
 import com.kml.viewModels.WorkTimerViewModel
 
 
@@ -38,8 +40,8 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
 
                 val work = WorkToAdd(dialogTimerWorkNameInstant.text.toString(),
                         description,
-                        dialogTimerHours.text.toString().toIntOrNull() ?: -1,
-                        dialogTimerMinutes.text.toString().toIntOrNull() ?: -1
+                        dialogTimerHours.text.toString().toIntOrNull() ?: TIME_HAS_NO_VALUE,
+                        dialogTimerMinutes.text.toString().toIntOrNull() ?: TIME_HAS_NO_VALUE
                 )
                 sendWorkToDatabase(work)
             }
@@ -73,7 +75,7 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
     }
 
     private fun validation(work: WorkToAdd): Boolean {
-        val result = viewModel.validateWorkInstant(work)
+        val result = Validator(requireContext()).validateWorkInstant(work)
         return if (result != Signal.VALIDATION_SUCCESSFUL) {
             Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
             false
