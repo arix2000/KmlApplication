@@ -15,14 +15,10 @@ object Constants {
         const val TODAY = "Dzisiaj"
     }
 
-    object Flags {
-        const val WORKS = "WORKS"
-        const val MEETINGS = "MEETINGS"
-    }
-
-    object Extras {
-        const val WORKS_EXTRA = "WORKS_EXTRA"
-        const val IS_FROM_FILE_EXTRA = "IS_FROM_FILE_EXTRA"
+    object Tag {
+        const val WORKS_TAG = "WORKS"
+        const val MEETINGS_TAG = "MEETINGS"
+        const val WORKS_HISTORY_TAG = "WORKS_HISTORY_TAG"
     }
 
     object Numbers {

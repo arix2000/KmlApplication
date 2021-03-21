@@ -1,6 +1,7 @@
 package com.kml.extensions
 
 import android.util.Log
+import io.reactivex.rxjava3.core.Single
 import java.util.*
 
 const val DEBUG_TAG = "DEBUG_TAG"
@@ -27,7 +28,7 @@ fun Calendar.getTodayDate(): String {
     apply {
         return get(Calendar.DAY_OF_MONTH).toString() + "." +
                 (get(Calendar.MONTH)+1) + "." +
-                get(Calendar.YEAR) //TODO Export this formatting to FormatEngine. In MyDatePickerDialog we have similar operation
+                get(Calendar.YEAR)
     }
 }
 
@@ -36,8 +37,18 @@ fun Calendar.getTodayDate(): String {
  *
  * @return safe string ready to send to database by for example php api
  */
-
 fun String.asSafeString(): String {
     return this.replace("\\","\\\\")
+}
 
+fun String.toIntOr(default: Int): Int {
+    return try {
+        this.toInt()
+    } catch (e: NumberFormatException) {
+        default
+    }
+}
+
+fun <T> getDeferSingleFrom(async: ()-> T): Single<T> {
+    return Single.defer { Single.just(async()) }
 }

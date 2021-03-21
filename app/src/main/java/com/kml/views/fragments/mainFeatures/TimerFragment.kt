@@ -23,7 +23,7 @@ import com.kml.views.dialogs.InstantAddWorkDialog
 import com.kml.views.dialogs.MakeSureDialog
 import com.kml.views.dialogs.RestoreDialog
 
-class WorkTimerFragment : BaseFragment() {
+class TimerFragment : BaseFragment() {
     private lateinit var binding: FragmentWorkTimerBinding
     private lateinit var viewModel: WorkTimerViewModel
     private lateinit var fileFactory: FileFactory
