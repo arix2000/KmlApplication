@@ -135,6 +135,14 @@
                     android:layout_marginTop="25dp"
                     android:text="@string/cancel" />
 
+                <ProgressBar
+                    android:id="@+id/works_progress_bar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="gone" />
+
                 <Button
                     android:id="@+id/dialog_timer_add_instant"
                     style="@style/buttons"

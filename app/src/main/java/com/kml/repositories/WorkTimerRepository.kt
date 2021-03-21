@@ -22,9 +22,10 @@ class WorkTimerRepository(val fileFactory: FileFactory) {
         fileFactory.clearFileState(file)
     }
 
-    fun addWorkToDatabase(work: WorkToAdd): Boolean {
+    fun addWorkToDatabase(work: WorkToAdd, onReceived: (Boolean)->Unit) {
         val dbSendWork = DbSendWork(work)
         dbSendWork.start()
-        return dbSendWork.result
+        dbSendWork.setOnResultListener { onReceived(it.toBoolean()) }
+
     }
 }

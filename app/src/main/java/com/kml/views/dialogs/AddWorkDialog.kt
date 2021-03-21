@@ -2,6 +2,7 @@ package com.kml.views.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
@@ -38,18 +39,20 @@ class AddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(fals
             Toast.makeText(requireContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
             return
         }
-
-        dismiss()
+        binding.worksProgressBar.visibility = View.VISIBLE
         val work = WorkToAdd(workName, workDescription, viewModel.hours, viewModel.minutes)
-        val result = viewModel.sendWorkToDatabase(work)
+        viewModel.sendWorkToDatabase(work) {
+            resolveResult(it)
+        }
 
-        resolveResult(result)
     }
 
     private fun resolveResult(result: Boolean) {
+        binding.worksProgressBar.visibility = View.GONE
         if (result) {
             Toast.makeText(requireContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
             onAcceptListener.onAccept()
+            dismiss()
         } else Toast.makeText(requireContext(), R.string.adding_work_error, Toast.LENGTH_SHORT).show()
     }
 }

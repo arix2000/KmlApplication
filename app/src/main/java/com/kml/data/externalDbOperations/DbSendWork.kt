@@ -21,6 +21,7 @@ class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
         try {
             sendData(httpConnection, timeToSend)
             result = readResult(httpConnection!!) == "true"
+            invokeOnReceive(result.toString())
         } catch (e: IOException) {
             Log.d("IO_EXCEPTION", "run: " + e.message)
         }
@@ -50,8 +51,4 @@ class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
     }
 
     var result: Boolean = false
-        get() {
-            this.join()
-            return field
-        }
 }
