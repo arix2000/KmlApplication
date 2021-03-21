@@ -104,7 +104,8 @@
     <string name="profile">Profil</string>
     <string name="work_timer">Licznik Pracy</string>
     <string name="games_search_engine">Wyszukiwarka Animacji</string>
-    <string name="work_history">Historia Zadań</string>
+    <string name="general_journal">Dziennik Ogólny</string>
+    <string name="personal_journal">Dzienik Indywidualny</string>
     <string name="creator_with_label">Wykonawca: Arek Mądry</string>
     <string name="change_password">Zmień hasło</string>
     <string name="type_old_password">Podaj stare hasło:</string>
@@ -150,5 +151,6 @@
     <string name="expand_what_was_happen">Rozwiń co się działo :D</string>
     <string name="volunteers_are_not_chosen">Żadni wolontariusze nie zostali wybrani</string>
     <string name="too_many_hours">Liczba godzin nie może być większa od 14</string>
+    <string name="works_history">Historia Zadań</string>
 
 </resources>

@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.TextAppearanceSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,11 +17,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.kml.Constants.Tag.MEETINGS_TAG
+import com.kml.Constants.Tag.WORKS_HISTORY_TAG
+import com.kml.Constants.Tag.WORKS_TAG
 import com.kml.R
 import com.kml.data.app.KmlApp
 import com.kml.data.services.TimerService
 import com.kml.extensions.setFragment
+import com.kml.extensions.setFragmentWithData
 import com.kml.views.fragments.mainFeatures.*
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
@@ -41,7 +48,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
+        setWorksHistoryStyle()
         navigationView.setNavigationItemSelectedListener(this)
+
+
 
         drawerToggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer)
         drawer.addDrawerListener(drawerToggle)
@@ -52,7 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigationView.setCheckedItem(R.id.nav_profile)
         }
         if (TimerService.isServiceRunning) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, WorkTimerFragment()).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TimerFragment()).commit()
             navigationView.setCheckedItem(R.id.nav_timer)
         }
         if (KmlApp.isFromRecycleViewActivity) {
@@ -65,14 +75,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigationView.setCheckedItem(R.id.nav_control_panel)
             KmlApp.isFromControlPanel = false
         }
-        if (KmlApp.isFromWorksHistory) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, WorksHistoryFragment()).commit()
-            navigationView.setCheckedItem(R.id.nav_works_history)
-            KmlApp.isFromWorksHistory = false
-        }
         if (KmlApp.adminIds.contains(KmlApp.loginId)) {
             navigationView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
         }
+    }
+
+    private fun setWorksHistoryStyle() {
+        val itemTitle = navigationView.menu.findItem(R.id.works_history_title)
+        val spannable = SpannableString(itemTitle.title)
+        spannable.setSpan(TextAppearanceSpan(this, R.style.nav_drawer_works_history_title), 0, spannable.length, 0)
+        itemTitle.title = spannable
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -82,6 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         return when (item.itemId) {
             R.id.about_app -> {
                 showDialogAboutApp()
@@ -107,13 +120,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_profile -> setFragment(ProfileFragment())
-            R.id.nav_timer -> setFragment(WorkTimerFragment())
+            R.id.nav_timer -> setFragment(TimerFragment())
             R.id.nav_search_engine -> setFragment(GameSearchEngineFragment())
             R.id.nav_control_panel -> setFragment(ControlPanelFragment())
-            R.id.nav_works_history -> setFragment(WorksHistoryFragment())
+            R.id.nav_works_history -> setFragmentWithData(WorksHistoryFragment(), getWorksBundleByTag(WORKS_TAG))
+            R.id.nav_meetings_history -> setFragmentWithData(WorksHistoryFragment(), getWorksBundleByTag(MEETINGS_TAG))
+
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun getWorksBundleByTag(tag: String): Bundle {
+        return Bundle().run {
+            putString(WORKS_HISTORY_TAG, tag)
+            return@run this
+        }
     }
 
     fun showBackButton() {

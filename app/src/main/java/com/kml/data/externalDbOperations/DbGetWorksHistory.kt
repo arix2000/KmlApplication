@@ -20,15 +20,10 @@ class DbGetWorksHistory(type:String) : ExternalDbHelper() {
     private val address = BASE_URL + if(type == GET_WORKS) worksFileName else meetingsFileName
     private var conn: HttpURLConnection? = null
 
-    var result: String = ""
-        get() {
-            join(); return field
-        }
-
-    override fun run() {
+    fun fetchResult(): String {
         conn = setConnection(address)
         sendData()
-        result = readResult(conn!!)
+        return readResult(conn!!)
     }
 
     private fun sendData() {

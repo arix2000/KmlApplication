@@ -19,13 +19,27 @@
         <item
             android:id="@+id/nav_control_panel"
             android:icon="@drawable/ic_keyboard"
-            android:visible="false"
-            android:title="@string/control_panel" />
-
+            android:title="@string/control_panel"
+            android:visible="false" />
         <item
-            android:id="@+id/nav_works_history"
-            android:icon="@drawable/ic_history_of_works"
-            android:title="@string/work_history" />
+            android:id="@+id/works_history_title"
+            android:title="@string/works_history">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_works_history"
+                        android:icon="@drawable/ic_personal_work"
+                        android:title="@string/personal_journal" />
+
+                    <item
+                        android:id="@+id/nav_meetings_history"
+                        android:icon="@drawable/ic_groups"
+                        android:title="@string/general_journal" />
+                </group>
+            </menu>
+        </item>
+
     </group>
+
 
 </menu>

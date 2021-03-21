@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
-import com.kml.Constants.Signal
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.data.app.AppDialogs
@@ -63,25 +62,14 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
 
     private fun sendWorkToDatabase(work: WorkToAdd) {
 
-        if (!validation(work))
+        if (!Validator(requireContext()).validateWork(work))
             return
         dismiss()
 
         val result = viewModel.sendWorkToDatabase(work)
-
         if (result) {
             Toast.makeText(requireContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
         } else Toast.makeText(requireContext(), R.string.adding_work_error, Toast.LENGTH_SHORT).show()
     }
-
-    private fun validation(work: WorkToAdd): Boolean {
-        val result = Validator(requireContext()).validateWorkInstant(work)
-        return if (result != Signal.VALIDATION_SUCCESSFUL) {
-            Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
-            false
-        } else true
-
-    }
-
 
 }

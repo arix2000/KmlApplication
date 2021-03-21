@@ -139,5 +139,9 @@
         <item name="android:textColor">@color/WhiteContent</item>
     </style>
 
+    <style name="nav_drawer_works_history_title">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
 
 </resources>

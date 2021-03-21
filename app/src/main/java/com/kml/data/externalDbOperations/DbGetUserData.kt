@@ -1,7 +1,7 @@
 package com.kml.data.externalDbOperations
 
-import android.util.Log
 import com.kml.data.app.KmlApp
+import com.kml.extensions.logError
 import java.io.BufferedWriter
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -23,7 +23,7 @@ class DbGetUserData : ExternalDbHelper() {
             sendData(connection)
             result = readResult(connection!!)
         } catch (e: Exception) {
-            Log.e("DB_GET_USERDATA_ERROR", "run: " + e.message, e)
+            logError(e)
         }
     }
 

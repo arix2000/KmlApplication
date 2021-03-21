@@ -7,11 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.kml.Constants
-import com.kml.Constants.Signal.MAXIMUM_PERMITTED_HOURS
+import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.R
+import com.kml.data.utilities.Validator
 import com.kml.databinding.ActivitySummarySelectedBinding
+import com.kml.extensions.asSafeString
+import com.kml.extensions.toIntOr
 import com.kml.models.Volunteer
+import com.kml.models.WorkToAdd
 import com.kml.viewModels.SummaryVolunteerViewModel
 import com.kml.views.dialogs.MyDatePickerDialog
 
@@ -42,21 +46,21 @@ class SummaryVolunteerActivity : AppCompatActivity() {
             }
 
             summaryActivitySendWork.setOnClickListener {
+                val validator = Validator(this@SummaryVolunteerActivity)
                 val creationDateString = viewModel.decideAboutDate(operationCreationDate.text.toString())
-                val meetingDesc = "$creationDateString -> ${summaryActivityWorkDesc.text}" //TODO something wrong with adding to chosen
+                val meetingDesc = "$creationDateString -> ${summaryActivityWorkDesc.text}"
                 val hours = summaryActivityHours.text.toString()
                 val minutes = summaryActivityMinutes.text.toString()
                 val workName = summaryActivityWorkName.text.toString()
-//TODO refactor and create validation class!!!
-                if (hours.trim().isEmpty() || minutes.trim().isEmpty() || workName.trim().isEmpty()) {
-                    Toast.makeText(this@SummaryVolunteerActivity, R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
-                } else if(hours.toInt()>MAXIMUM_PERMITTED_HOURS) {
-                    Toast.makeText(this@SummaryVolunteerActivity, R.string.too_many_hours, Toast.LENGTH_SHORT).show()
-                } else if(minutes.toInt()>60) {
-                    Toast.makeText(this@SummaryVolunteerActivity, R.string.too_many_minutes, Toast.LENGTH_SHORT).show()
+
+                val workToAdd = WorkToAdd(workName,meetingDesc,hours.toIntOr(TIME_HAS_NO_VALUE), minutes.toIntOr(TIME_HAS_NO_VALUE))
+
+                if (!validator.validateWork(workToAdd)) {
+                 return@setOnClickListener
                 }
                 else {
-                    addWorkToDatabase(hours.toInt(), minutes.toInt(), workName, meetingDesc)
+
+                    addWorkToDatabase(WorkToAdd(workName.asSafeString(), meetingDesc.asSafeString(), hours.toInt(), minutes.toInt()))
                     resetPools()
                     backToChoose()
                 }
@@ -64,8 +68,8 @@ class SummaryVolunteerActivity : AppCompatActivity() {
         }
     }
 
-    private fun addWorkToDatabase(hours: Int, minutes: Int, workName: String, meetingDesc: String) {
-        resolveResult(viewModel.addWorkToDatabase(hours, minutes, workName, meetingDesc))
+    private fun addWorkToDatabase(work: WorkToAdd) {
+        resolveResult(viewModel.addWorkToDatabase(work))
     }
 
     private fun resolveResult(result: Boolean) {

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.kml.Constants
 import com.kml.extensions.getTodayDate
 import com.kml.models.Volunteer
+import com.kml.models.WorkToAdd
 import com.kml.repositories.SummaryVolunteerRepository
 import java.util.*
 
@@ -26,10 +27,10 @@ class SummaryVolunteerViewModel : ViewModel() {
         return stringBuilder.toString()
     }
 
-    fun addWorkToDatabase(hours: Int, minutes: Int, workName: String, meetingDesc: String): Boolean {
+    fun addWorkToDatabase(work: WorkToAdd): Boolean {
         val ids = getIdsStringFromVolunteers()
         val volunteersNames = createStringFromVolunteers()
-        return repository.sendWorkToDb(ids, volunteersNames, hours, minutes, workName, meetingDesc)
+        return repository.sendWorkToDb(ids, volunteersNames, work)
 
     }
 
