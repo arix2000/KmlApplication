@@ -37,7 +37,6 @@ class WorksHistoryFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        shouldShowBackButton = true
         attachProgressBar(binding.allHistoryProgressBar)
 
         val viewModelFactory = WorksHistoryViewModelFactory(FileFactory(requireContext()))

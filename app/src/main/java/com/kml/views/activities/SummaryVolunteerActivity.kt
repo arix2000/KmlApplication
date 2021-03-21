@@ -13,6 +13,7 @@ import com.kml.R
 import com.kml.data.utilities.Validator
 import com.kml.databinding.ActivitySummarySelectedBinding
 import com.kml.extensions.asSafeString
+import com.kml.extensions.hideSoftKeyboard
 import com.kml.extensions.toIntOr
 import com.kml.models.Volunteer
 import com.kml.models.WorkToAdd
@@ -46,6 +47,7 @@ class SummaryVolunteerActivity : AppCompatActivity() {
             }
 
             summaryActivitySendWork.setOnClickListener {
+                this@SummaryVolunteerActivity.hideSoftKeyboard(it)
                 val validator = Validator(this@SummaryVolunteerActivity)
                 val creationDateString = viewModel.decideAboutDate(operationCreationDate.text.toString())
                 val meetingDesc = "$creationDateString -> ${summaryActivityWorkDesc.text}"
@@ -53,12 +55,11 @@ class SummaryVolunteerActivity : AppCompatActivity() {
                 val minutes = summaryActivityMinutes.text.toString()
                 val workName = summaryActivityWorkName.text.toString()
 
-                val workToAdd = WorkToAdd(workName,meetingDesc,hours.toIntOr(TIME_HAS_NO_VALUE), minutes.toIntOr(TIME_HAS_NO_VALUE))
+                val workToAdd = WorkToAdd(workName, meetingDesc, hours.toIntOr(TIME_HAS_NO_VALUE), minutes.toIntOr(TIME_HAS_NO_VALUE))
 
                 if (!validator.validateWork(workToAdd)) {
-                 return@setOnClickListener
-                }
-                else {
+                    return@setOnClickListener
+                } else {
 
                     addWorkToDatabase(WorkToAdd(workName.asSafeString(), meetingDesc.asSafeString(), hours.toInt(), minutes.toInt()))
                     resetPools()

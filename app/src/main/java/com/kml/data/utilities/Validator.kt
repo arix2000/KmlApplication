@@ -32,6 +32,7 @@ class Validator(private val context: Context) {
         return if (result == VALIDATION_SUCCESSFUL) true else { makeToastBy(result); false }
     }
 
+
     private fun isPoolsEmpty(work: WorkToAdd): Boolean {
         return work.name.trim().isEmpty() || work.description.trim().isEmpty()
                 || work.hours == TIME_HAS_NO_VALUE || work.minutes == TIME_HAS_NO_VALUE

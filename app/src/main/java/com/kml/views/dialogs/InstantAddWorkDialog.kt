@@ -10,6 +10,7 @@ import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.utilities.Validator
 import com.kml.databinding.DialogNewWorkInstantBinding
+import com.kml.extensions.hideSoftKeyboard
 import com.kml.models.WorkToAdd
 import com.kml.viewModels.WorkTimerViewModel
 
@@ -34,6 +35,7 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
             newWorkCreationDate.text = TODAY
 
             dialogTimerAddInstant.setOnClickListener {
+                requireContext().hideSoftKeyboard(it)
                 val creationDateString = viewModel.decideAboutDate(newWorkCreationDate.text.toString())
                 val description = " $creationDateString -> " + dialogTimerWorkDescriptionInstant.text.toString()
 

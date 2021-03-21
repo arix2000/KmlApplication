@@ -6,8 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
 import com.kml.data.app.AppDialogs
-import com.kml.models.WorkToAdd
 import com.kml.databinding.DialogNewWorkBinding
+import com.kml.extensions.hideSoftKeyboard
+import com.kml.models.WorkToAdd
 import com.kml.viewModels.WorkTimerViewModel
 
 class AddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(false) {
@@ -20,6 +21,7 @@ class AddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(fals
         builder.setView(this.binding.root)
 
         binding.dialogTimerConfirm.setOnClickListener {
+            requireContext().hideSoftKeyboard(it)
             val workName = binding.dialogTimerWorkName.text.toString()
             val workDescription = binding.dialogTimerWorkDescription.text.toString()
             validateAndSend(workName, workDescription)
