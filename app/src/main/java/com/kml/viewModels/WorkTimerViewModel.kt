@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.TODAY
+import com.kml.data.externalDbOperations.DbSendWork
 import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine
@@ -94,8 +95,8 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
         return repository.readFile().contains(";")
     }
 
-    fun sendWorkToDatabase(work: WorkToAdd): Boolean {
-        return repository.addWorkToDatabase(work)
+    fun sendWorkToDatabase(work: WorkToAdd, onReceived: (Boolean)->Unit) {
+        return repository.addWorkToDatabase(work, onReceived)
     }
 
     fun returnStateFromService() {

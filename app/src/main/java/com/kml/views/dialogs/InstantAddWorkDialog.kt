@@ -2,6 +2,7 @@ package com.kml.views.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
@@ -16,10 +17,6 @@ import com.kml.viewModels.WorkTimerViewModel
 
 
 class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(false) {
-
-    companion object {
-
-    }
 
     lateinit var binding: DialogNewWorkInstantBinding
 
@@ -66,12 +63,16 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
 
         if (!Validator(requireContext()).validateWork(work))
             return
-        dismiss()
 
-        val result = viewModel.sendWorkToDatabase(work)
-        if (result) {
-            Toast.makeText(requireContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
-        } else Toast.makeText(requireContext(), R.string.adding_work_error, Toast.LENGTH_SHORT).show()
+        binding.worksProgressBar.visibility = View.VISIBLE
+        viewModel.sendWorkToDatabase(work) {
+            binding.worksProgressBar.visibility = View.GONE
+            if (it) {
+                Toast.makeText(requireContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
+                dismiss()
+            } else Toast.makeText(requireContext(), R.string.adding_work_error, Toast.LENGTH_SHORT).show()
+
+        }
     }
 
 }
