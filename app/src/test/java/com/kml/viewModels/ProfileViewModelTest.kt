@@ -3,6 +3,7 @@ package com.kml.viewModels
 import android.os.Build
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
 import com.kml.data.utilities.FileFactory
 import org.junit.Test
@@ -24,7 +25,7 @@ internal class ProfileViewModelTest {
         assertEquals(R.string.no_empty_fields, result)
 
         result = viewModel.validatePassword("good", "good")
-        assertEquals(ProfileViewModel.VALIDATION_SUCCESSFUL, result)
+        assertEquals(VALIDATION_SUCCESSFUL, result)
 
         result = viewModel.validatePassword("old", "this is a text for create more than sixty-four characters. nice  ")
         assertEquals(R.string.too_many_chars, result)

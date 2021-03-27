@@ -50,7 +50,7 @@ class SummaryVolunteerActivity : AppCompatActivity() {
                 this@SummaryVolunteerActivity.hideSoftKeyboard(it)
                 val validator = Validator(this@SummaryVolunteerActivity)
                 val creationDateString = viewModel.decideAboutDate(operationCreationDate.text.toString())
-                val meetingDesc = "$creationDateString -> ${summaryActivityWorkDesc.text}"
+                val meetingDesc = "$creationDateString  ${summaryActivityWorkDesc.text}"
                 val hours = summaryActivityHours.text.toString()
                 val minutes = summaryActivityMinutes.text.toString()
                 val workName = summaryActivityWorkName.text.toString()

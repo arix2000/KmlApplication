@@ -21,10 +21,6 @@ class DbAddingToChosen(private val ids: String,
         }
     private var conn: HttpURLConnection? = null
 
-    init {
-        volunteersName = "Dodano godziny wybranym: $volunteersName"
-    }
-
     override fun run() {
         try {
             conn = setConnection(address)

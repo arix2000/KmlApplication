@@ -12,38 +12,36 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class WorksHistoryRepository(private val fileFactory: FileFactory) {
     var isFromFile = false
 
-    fun getStringJsonWorks():Single<String> {
+    fun getStringJsonWorks(shouldShowAll: Boolean): Single<String> {
         isFromFile = false
-        return resultWorks
+        return getWorks(shouldShowAll)
     }
 
-    private val resultWorks: Single<String>
-        get() {
-            val dbGetWorksHistory = DbGetWorksHistory(GET_WORKS)
-            return getDeferSingleFrom { dbGetWorksHistory.fetchResult() }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-        }
-
-    fun getStringJsonMeetings():Single<String> {
-        isFromFile = false
-        return resultMeetings
+    private fun getWorks(shouldShowAll: Boolean): Single<String> {
+        val dbGetWorksHistory = DbGetWorksHistory(GET_WORKS, shouldShowAll)
+        return getDeferSingleFrom { dbGetWorksHistory.fetchResult() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
-    private val resultMeetings: Single<String>
-        get() {
-            val dbGetWorksHistory = DbGetWorksHistory(GET_MEETINGS)
-            return getDeferSingleFrom { dbGetWorksHistory.fetchResult() }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-        }
+    fun getStringJsonMeetings(shouldShowAll: Boolean): Single<String> {
+        isFromFile = false
+        return getMeetings(shouldShowAll)
+    }
 
-    fun readStringFrom(file: String):String {
+    private fun getMeetings(shouldShowAll: Boolean): Single<String> {
+        val dbGetWorksHistory = DbGetWorksHistory(GET_MEETINGS, shouldShowAll)
+        return getDeferSingleFrom { dbGetWorksHistory.fetchResult() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun readStringFrom(file: String): String {
         isFromFile = true
         return fileFactory.readFromFile(file)
     }
 
-    fun saveStringTo(file: String):String {
+    fun saveStringTo(file: String): String {
         return fileFactory.readFromFile(file)
     }
 }

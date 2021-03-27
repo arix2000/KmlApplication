@@ -15,10 +15,12 @@ object Constants {
         const val TODAY = "Dzisiaj"
     }
 
-    object Tag {
-        const val WORKS_TAG = "WORKS"
-        const val MEETINGS_TAG = "MEETINGS"
-        const val WORKS_HISTORY_TAG = "WORKS_HISTORY_TAG"
+    object Tags {
+        const val WORKS_TAG = "worksTag"
+        const val MEETINGS_TAG = "meetingsTag"
+        const val WORKS_HISTORY_TYPE = "WORKS_HISTORY_TAG"
+        const val SHOULD_SHOW_BACK_BUTTON = "SHOULD_SHOW_BACK_BUTTON"
+        const val GET_ALL_TAG = "getAllTag"
     }
 
     object Numbers {

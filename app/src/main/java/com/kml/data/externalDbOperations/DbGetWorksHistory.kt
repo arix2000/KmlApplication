@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URLEncoder
 
-class DbGetWorksHistory(type:String) : ExternalDbHelper() {
+class DbGetWorksHistory(val type: String, private val shouldShowAll: Boolean) : ExternalDbHelper() {
 
     companion object {
         const val GET_WORKS = "GET_WORKS"
@@ -30,14 +30,23 @@ class DbGetWorksHistory(type:String) : ExternalDbHelper() {
         try {
             val outStream = conn?.outputStream
             val writer = BufferedWriter(OutputStreamWriter(outStream, "UTF-8"))
-            val dataToSend = (URLEncoder.encode("firstName", "UTF-8") + "=" + URLEncoder.encode(KmlApp.firstName, "UTF-8")
-                    + "&&" + URLEncoder.encode("lastName", "UTF-8") + "=" + URLEncoder.encode(KmlApp.lastName, "UTF-8"))
+            val dataToSend = (URLEncoder.encode("firstName", "UTF-8") + "=" + URLEncoder.encode(createNameValue(KmlApp.firstName), "UTF-8")
+                    + "&&" + URLEncoder.encode("lastName", "UTF-8") + "=" + URLEncoder.encode(createNameValue(KmlApp.lastName), "UTF-8"))
             writer.write(dataToSend)
             writer.flush()
             writer.close()
             outStream?.close()
         } catch (e: IOException) {
             Log.d(IO_EXCEPTION_TAG, "sendData: " + e.message)
+        }
+    }
+
+    private fun createNameValue(baseName: String): String {
+        return when(shouldShowAll) {
+            true -> {
+                if (type == GET_WORKS) "%%" else ""
+            }
+            false -> baseName
         }
     }
 }

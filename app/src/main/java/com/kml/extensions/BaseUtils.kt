@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Single
 import java.util.*
 
 const val DEBUG_TAG = "DEBUG_TAG"
+const val NETWORK_RESPONSE_TAG = "NETWORK_RESPONSE_TAG"
 
 fun Any.log(message: String = "", list: List<Any> = listOf()) {
     var logMessage = this.javaClass.simpleName + " ---> " + message
@@ -22,6 +23,12 @@ fun Any.logError(message: Throwable) {
     val logMessage = this.javaClass.simpleName + " ---> " + message.message
 
     Log.e(DEBUG_TAG, logMessage)
+}
+
+fun Any.logNetworkResponse(message: String) {
+    val logMessage = this.javaClass.simpleName + " ---> " + message
+
+    Log.i(NETWORK_RESPONSE_TAG, logMessage)
 }
 
 fun Calendar.getTodayDate(): String {

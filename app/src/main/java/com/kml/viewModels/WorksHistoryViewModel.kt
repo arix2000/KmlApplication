@@ -3,7 +3,7 @@ package com.kml.viewModels
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kml.Constants.Tag.WORKS_TAG
+import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.data.utilities.FileFactory
 import com.kml.models.Work
 import com.kml.repositories.WorksHistoryRepository
@@ -24,13 +24,13 @@ class WorksHistoryViewModel(fileFactory: FileFactory) : ViewModel() {
         return gson.fromJson(json, type)
     }
 
-    fun fetchDataBy(type: String): Single<List<Work>> {
+    fun fetchDataBy(type: String, shouldShowAll: Boolean): Single<List<Work>> {
         return if (type == WORKS_TAG)
-            repository.getStringJsonWorks()
+            repository.getStringJsonWorks(shouldShowAll)
                     .map { createListFromJson(getFromFileIfResultIsEmpty(it,type)) }
                     .doOnSuccess { repository.saveStringTo(getFilenameBy(type)) }
         else
-            repository.getStringJsonMeetings()
+            repository.getStringJsonMeetings(shouldShowAll)
                     .map { createListFromJson(getFromFileIfResultIsEmpty(it,type)) }
 
     }

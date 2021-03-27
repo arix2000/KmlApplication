@@ -17,9 +17,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.kml.Constants.Tag.MEETINGS_TAG
-import com.kml.Constants.Tag.WORKS_HISTORY_TAG
-import com.kml.Constants.Tag.WORKS_TAG
+import com.kml.Constants.Tags.MEETINGS_TAG
+import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
+import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.R
 import com.kml.data.app.KmlApp
 import com.kml.data.services.TimerService
@@ -132,9 +132,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun getWorksBundleByTag(tag: String): Bundle {
-        return Bundle().run {
-            putString(WORKS_HISTORY_TAG, tag)
-            return@run this
+        return Bundle().also {
+            it.putString(WORKS_HISTORY_TYPE, tag)
         }
     }
 
