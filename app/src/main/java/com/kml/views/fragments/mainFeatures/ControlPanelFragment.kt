@@ -5,32 +5,54 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
-import com.kml.R
+import com.kml.Constants.Tags.GET_ALL_TAG
+import com.kml.Constants.Tags.MEETINGS_TAG
+import com.kml.Constants.Tags.SHOULD_SHOW_BACK_BUTTON
+import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
+import com.kml.Constants.Tags.WORKS_TAG
+import com.kml.databinding.FragmentControlPanelBinding
+import com.kml.extensions.gone
+import com.kml.extensions.setFragmentWithData
+import com.kml.extensions.visible
 import com.kml.views.BaseFragment
 import com.kml.views.activities.SelectVolunteersActivity
 
 class ControlPanelFragment : BaseFragment() {
-    private lateinit var root: View
-    private lateinit var progressBar: ProgressBar
+
+    private var _binding: FragmentControlPanelBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentControlPanelBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
-        root = inflater.inflate(R.layout.fragment_control_panel, container, false)
-
-        progressBar = root.findViewById(R.id.control_panel_progress_bar)
-        val btnAddToChosen = root.findViewById<Button>(R.id.add_work_to_chosen_btn)
-
-        btnAddToChosen.setOnClickListener {
-            progressBar.visibility = View.VISIBLE
-            val intent = Intent(requireContext(), SelectVolunteersActivity::class.java)
-            startActivity(intent)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
+            addWorkToChosenBtn.setOnClickListener {
+                controlPanelProgressBar.visible()
+                val intent = Intent(requireContext(), SelectVolunteersActivity::class.java)
+                startActivity(intent)
+            }
+            showAllWorks.setOnClickListener {
+                setFragmentWithData(WorksHistoryFragment(), createBundleFrom(WORKS_TAG), true)
+            }
+            showAllMeetings.setOnClickListener {
+                setFragmentWithData(WorksHistoryFragment(), createBundleFrom(MEETINGS_TAG), true)
+            }
         }
-        return root
+    }
+
+    private fun createBundleFrom(type: String): Bundle {
+        return Bundle().apply {
+            putString(WORKS_HISTORY_TYPE, type)
+            putBoolean(SHOULD_SHOW_BACK_BUTTON, true)
+            putBoolean(GET_ALL_TAG, true)
+        }
     }
 
     override fun onStop() {
         super.onStop()
-        progressBar.visibility = View.GONE
+        binding.controlPanelProgressBar.gone()
     }
 }

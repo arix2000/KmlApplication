@@ -32,4 +32,3 @@ fun Fragment.showBackButton() {
 fun Fragment.hideBackButton() {
     (activity as? MainActivity)?.hideBackButton()
 }
-

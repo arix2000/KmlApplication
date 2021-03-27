@@ -28,9 +28,7 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
         builder.setView(binding.root)
 
         binding.apply {
-
             newWorkCreationDate.text = TODAY
-
             dialogTimerAddInstant.setOnClickListener {
                 requireContext().hideSoftKeyboard(it)
                 val creationDateString = viewModel.decideAboutDate(newWorkCreationDate.text.toString())

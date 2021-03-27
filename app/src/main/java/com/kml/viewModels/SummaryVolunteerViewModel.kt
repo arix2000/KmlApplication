@@ -31,15 +31,12 @@ class SummaryVolunteerViewModel : ViewModel() {
         val ids = getIdsStringFromVolunteers()
         val volunteersNames = createStringFromVolunteers()
         return repository.sendWorkToDb(ids, volunteersNames, work)
-
     }
 
     private fun getIdsStringFromVolunteers(): String {
         val ids = StringBuilder()
-        var cache: String
         for (volunteer in chosenVolunteers) {
-            cache = volunteer.id.toString() + ","
-            ids.append(cache)
+            ids.append(volunteer.id.toString() + ",")
         }
         ids.replace(ids.length - 1, ids.length, "")
         return ids.toString()

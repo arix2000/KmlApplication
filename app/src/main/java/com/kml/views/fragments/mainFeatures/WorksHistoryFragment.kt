@@ -11,7 +11,11 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
-import com.kml.Constants.Tag.WORKS_HISTORY_TAG
+import com.kml.Constants.Tags.GET_ALL_TAG
+import com.kml.Constants.Tags.MEETINGS_TAG
+import com.kml.Constants.Tags.SHOULD_SHOW_BACK_BUTTON
+import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
+import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.R
 import com.kml.adapters.WorkAdapter
 import com.kml.data.utilities.FileFactory
@@ -30,6 +34,8 @@ class WorksHistoryFragment : BaseFragment() {
     private var _binding: FragmentAllHistoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: WorksHistoryViewModel
+    private lateinit var historyType: String //WORK_TAG or MEETINGS_TAG
+    private var shouldShowAll = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAllHistoryBinding.inflate(inflater, container, false)
@@ -38,6 +44,8 @@ class WorksHistoryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         attachProgressBar(binding.allHistoryProgressBar)
+        shouldShowBackButton = arguments?.getBoolean(SHOULD_SHOW_BACK_BUTTON) ?: false
+        shouldShowAll = arguments?.getBoolean(GET_ALL_TAG) ?: false
 
         val viewModelFactory = WorksHistoryViewModelFactory(FileFactory(requireContext()))
         viewModel = ViewModelProvider(this, viewModelFactory).get(WorksHistoryViewModel::class.java)
@@ -50,21 +58,34 @@ class WorksHistoryFragment : BaseFragment() {
         }
         showProgressBar()
 
-        arguments?.getString(WORKS_HISTORY_TAG)?.let { tag ->
-            fetchWorks(tag)
+        arguments?.getString(WORKS_HISTORY_TYPE)?.let { type ->
+            historyType = type
+            fetchWorks()
         }
     }
 
-    private fun fetchWorks(tag: String) {
-        viewModel.fetchDataBy(tag).subscribeBy(
-                onSuccess = { setWorksToAdapter(it, viewModel.isFromFile())},
+    private fun fetchWorks() {
+        viewModel.fetchDataBy(historyType, shouldShowAll).subscribeBy(
+                onSuccess = { setWorksToAdapter(it, viewModel.isFromFile()) },
                 onError = { logError(it); hideProgressBar() }
         )
     }
 
     override fun onResume() {
         super.onResume()
-        requireActivity().setTitle(R.string.your_last_works)
+        var titleResId = -1
+
+        when(historyType) {
+            WORKS_TAG -> {
+                titleResId = if (shouldShowAll) R.string.all_last_works
+                else R.string.your_last_works
+            }
+            MEETINGS_TAG -> {
+                titleResId = if (shouldShowAll) R.string.all_last_meetings
+                else R.string.your_last_meetings
+            }
+        }
+        requireActivity().setTitle(titleResId)
     }
 
     private fun setWorksToAdapter(works: List<Work>, isFromFile: Boolean) {
@@ -79,7 +100,7 @@ class WorksHistoryFragment : BaseFragment() {
     }
 
     private fun extendInDialog(work: Work) {
-        val dialog = ExtendedWorkDialog(work)
+        val dialog = ExtendedWorkDialog(work,historyType,true)
         dialog.show(parentFragmentManager, "ExtendedWork")
     }
 
