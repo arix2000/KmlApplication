@@ -140,14 +140,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun showBackButton() {
         drawerToggle.isDrawerIndicatorEnabled = false
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         drawerToggle.setToolbarNavigationClickListener {
             onBackPressed()
         }
+        drawer.isEnabled = false
     }
 
     fun hideBackButton() {
         drawerToggle.isDrawerIndicatorEnabled = true
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         drawerToggle.syncState()
     }
 

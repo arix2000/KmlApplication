@@ -22,7 +22,6 @@ class ExtendedWorkDialog(val work: Work, val type: String, private val shouldSho
         binding = DialogWorkHistoryExtendedBinding.inflate(layoutInflater)
         builder.setView(binding.root)
 
-
         binding.apply {
             dialogHistoryWorkName.text = work.workName
             dialogHistoryWorkDescription.text = work.workDescription
@@ -38,15 +37,16 @@ class ExtendedWorkDialog(val work: Work, val type: String, private val shouldSho
 
     private fun setOrHideFullName() {
         with(work) {
-            val fullName = "$firstName $lastName"
-            if (firstName.isNullOrBlank() || lastName.isNullOrBlank()) {
-                binding.fullNameTitle.gone()
-                binding.dialogHistoryFullName.gone()
-            } else {
-                binding.fullNameTitle.visible()
-                binding.dialogHistoryFullName.visible()
-                binding.dialogHistoryFullName.text = fullName //TODO To refactor!!!!!!!!
-
+            binding.apply {
+                val fullName = "$firstName $lastName"
+                if (firstName.isNullOrBlank() || lastName.isNullOrBlank()) {
+                    fullNameTitle.gone()
+                    dialogHistoryFullName.gone()
+                } else {
+                    fullNameTitle.visible()
+                    dialogHistoryFullName.visible()
+                    dialogHistoryFullName.text = fullName
+                }
             }
         }
     }
