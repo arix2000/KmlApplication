@@ -12,10 +12,12 @@ import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
 import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.databinding.FragmentControlPanelBinding
 import com.kml.extensions.gone
+import com.kml.extensions.setFragment
 import com.kml.extensions.setFragmentWithData
 import com.kml.extensions.visible
 import com.kml.views.BaseFragment
 import com.kml.views.activities.SelectVolunteersActivity
+import com.kml.views.fragments.VolunteersBrowserFragment
 
 class ControlPanelFragment : BaseFragment() {
 
@@ -35,10 +37,13 @@ class ControlPanelFragment : BaseFragment() {
                 startActivity(intent)
             }
             showAllWorks.setOnClickListener {
-                setFragmentWithData(WorksHistoryFragment(), createBundleFrom(WORKS_TAG), true)
+                setFragmentWithData(WorksHistoryFragment(), createBundleFrom(WORKS_TAG))
             }
             showAllMeetings.setOnClickListener {
-                setFragmentWithData(WorksHistoryFragment(), createBundleFrom(MEETINGS_TAG), true)
+                setFragmentWithData(WorksHistoryFragment(), createBundleFrom(MEETINGS_TAG))
+            }
+            volunteersBrowser.setOnClickListener {
+                setFragment(VolunteersBrowserFragment())
             }
         }
     }

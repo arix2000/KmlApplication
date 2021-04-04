@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
-
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:gravity="center">
     <Button
         android:id="@+id/add_work_to_chosen_btn"
         style="@style/buttons"
@@ -13,54 +12,43 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:drawableTop="@drawable/ic_add"
-        android:padding="25dp"
-        android:text="@string/add_to_chosen"
-        app:layout_constraintBottom_toTopOf="@+id/show_all_works"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:padding="@dimen/control_panel_padding"
+        android:layout_marginBottom="@dimen/margin_xxxxxxlarge"
+        android:text="@string/add_to_chosen" />
     <Button
         android:id="@+id/show_all_works"
         style="@style/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:drawableTop="@drawable/ic_personal_work"
-        android:padding="20dp"
-        android:text="Pokaż całą historię zadań"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="@dimen/control_panel_padding"
+        android:layout_marginBottom="@dimen/margin_xxxxxxlarge"
+        android:text="@string/show_all_works_history" />
 
     <Button
         android:id="@+id/show_all_meetings"
         style="@style/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:drawableTop="@drawable/ic_groups"
-        android:padding="20dp"
-        android:text="Pokaż całą historię spotkań"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_all_works" />
+        android:padding="@dimen/control_panel_padding"
+        android:layout_marginBottom="@dimen/margin_xxxxxxlarge"
+        android:text="@string/show_all_meetings_history" />
+
+    <Button
+        android:id="@+id/volunteers_browser"
+        style="@style/buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_person_search"
+        android:padding="@dimen/control_panel_padding"
+        android:layout_marginBottom="@dimen/margin_xxxxxxlarge"
+        android:text="@string/volunteers_browser" />
 
     <ProgressBar
         android:id="@+id/control_panel_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_work_to_chosen_btn"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/add_work_to_chosen_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="gone" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

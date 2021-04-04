@@ -1,9 +1,9 @@
 package com.kml.repositories
 
-import com.kml.data.utilities.FileFactory
 import com.kml.data.app.KmlApp
 import com.kml.data.externalDbOperations.DbChangePass
 import com.kml.data.externalDbOperations.DbGetUserData
+import com.kml.data.utilities.FileFactory
 import com.kml.models.Profile
 
 class ProfileRepository(val fileFactory: FileFactory) {
@@ -21,24 +21,20 @@ class ProfileRepository(val fileFactory: FileFactory) {
         return dbChangePass
     }
 
-    fun getUserInfoFromFile(): String
-    {
+    fun getUserInfoFromFile(): String {
         return fileFactory.readFromFile(FileFactory.PROFILE_KEEP_DATA_TXT)
     }
 
-    fun saveProfileValues(profile: Profile)
-    {
+    fun saveProfileValues(profile: Profile) {
         fileFactory.saveStateToFile(profile.firstName + ";" + profile.lastName + ";" + profile.joinYear + ";" + profile.timeOfWorkSeason
                 + ";" + profile.sections + ";" + profile.type + ";" + profile.timeOfWorkMonth, FileFactory.PROFILE_KEEP_DATA_TXT)
     }
 
-    fun getProfilePhotoPath():String
-    {
+    fun getProfilePhotoPath():String {
         return fileFactory.readFromFile(FileFactory.PROFILE_PHOTO_PATH_TXT)
     }
 
-    fun saveProfilePhoto(path:String)
-    {
+    fun saveProfilePhoto(path:String) {
        fileFactory.saveStateToFile(path, FileFactory.PROFILE_PHOTO_PATH_TXT)
     }
 }

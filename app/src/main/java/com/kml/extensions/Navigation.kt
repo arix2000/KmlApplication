@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.kml.R
 import com.kml.views.activities.MainActivity
 
-fun AppCompatActivity.setFragment(fragment: Fragment, defaultAnim: Boolean = false) {
+fun AppCompatActivity.setFragment(fragment: Fragment) {
     supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit()
 }
 
@@ -15,12 +15,12 @@ fun AppCompatActivity.setFragmentWithData(fragment: Fragment, data: Bundle, defa
     supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragment::class.java, data).commit()
 }
 
-fun Fragment.setFragment(fragment: Fragment, defaultAnim: Boolean = false) {
+fun Fragment.setFragment(fragment: Fragment) {
     parentFragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .replace(R.id.fragment_container,fragment).addToBackStack(fragment.tag).commit()
 }
 
-fun Fragment.setFragmentWithData(fragment: Fragment, data: Bundle, defaultAnim: Boolean = false) {
+fun Fragment.setFragmentWithData(fragment: Fragment, data: Bundle) {
     parentFragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .replace(R.id.fragment_container,fragment::class.java, data).addToBackStack(fragment.tag).commit()
 }

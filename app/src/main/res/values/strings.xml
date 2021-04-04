@@ -157,5 +157,11 @@
     <string name="all_last_works">Wszystkie ostatnie zadania</string>
     <string name="all_last_meetings">Wszystkie ostatnie spotkania</string>
     <string name="executor_of_work">Wykonujący zadanie:</string>
+    <string name="show_all_meetings_history">Pokaż całą historię spotkań</string>
+    <string name="show_all_works_history">Pokaż całą historię zadań</string>
+    <string name="volunteers_browser">Przeglądarka wolontariuszy</string>
+    <string name="volunteer_full_name">%s %s</string>
+    <string name="type_title">Typ:</string>
+    <string name="fullname_title">Imię i nazwisko:</string>
 
 </resources>
