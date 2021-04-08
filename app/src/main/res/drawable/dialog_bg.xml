@@ -3,5 +3,5 @@
     <solid
         android:color="@color/colorCardBackground"/>
     <corners
-        android:radius="30dp" />
+        android:radius="@dimen/dialog_corner_radius" />
 </shape>

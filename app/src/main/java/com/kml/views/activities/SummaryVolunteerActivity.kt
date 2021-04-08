@@ -2,71 +2,90 @@ package com.kml.views.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.kml.Constants
+import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
+import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.R
-import com.kml.data.models.Volunteer
+import com.kml.data.utilities.Validator
 import com.kml.databinding.ActivitySummarySelectedBinding
+import com.kml.extensions.asSafeString
+import com.kml.extensions.hideSoftKeyboard
+import com.kml.extensions.showToast
+import com.kml.extensions.toIntOr
+import com.kml.models.Volunteer
+import com.kml.models.WorkToAdd
 import com.kml.viewModels.SummaryVolunteerViewModel
+import com.kml.views.dialogs.MyDatePickerDialog
 
 class SummaryVolunteerActivity : AppCompatActivity() {
 
     private lateinit var viewModel: SummaryVolunteerViewModel
-    lateinit var binding:ActivitySummarySelectedBinding
+    lateinit var binding: ActivitySummarySelectedBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        title = "Dokończ wpisywanie:"
+        setTitle(R.string.finish_writing)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_summary_selected)
 
         viewModel = ViewModelProvider(this).get(SummaryVolunteerViewModel::class.java)
 
-
         writeChosenVolunteers()
+        binding.apply {
+            operationCreationDate.text = Constants.Strings.TODAY
+            operationCreationDate.setOnClickListener {
+                MyDatePickerDialog().run {
+                    setOnResultListener { operationCreationDate.text = it }
+                    show(supportFragmentManager, "DatePicker")
+                }
+            }
 
-        val sendWorkButton = findViewById<Button>(R.id.summary_activity_send_work)
+            summaryActivitySendWork.setOnClickListener {
+                this@SummaryVolunteerActivity.hideSoftKeyboard(it)
+                val validator = Validator(this@SummaryVolunteerActivity)
+                val creationDateString = viewModel.decideAboutDate(operationCreationDate.text.toString())
+                val meetingDesc = "$creationDateString  ${summaryActivityWorkDesc.text}"
+                val hours = summaryActivityHours.text.toString()
+                val minutes = summaryActivityMinutes.text.toString()
+                val workName = summaryActivityWorkName.text.toString()
 
-        sendWorkButton.setOnClickListener {
-            val hours = binding.summaryActivityHours.text.toString()
-            val minutes = binding.summaryActivityMinutes.text.toString()
-            val workName = binding.summaryActivityWorkName.text.toString()
+                val workToAdd = WorkToAdd(workName, meetingDesc, hours.toIntOr(TIME_HAS_NO_VALUE), minutes.toIntOr(TIME_HAS_NO_VALUE))
 
-            if (hours.trim().isEmpty() || minutes.trim().isEmpty() || workName.trim().isEmpty()) {
-                Toast.makeText(this@SummaryVolunteerActivity, R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
-            } else {
-                addWorkToDatabase(hours.toInt(), minutes.toInt(), workName)
-                resetPools()
-                backToChose()
+                if (!validator.validateWork(workToAdd)) {
+                    return@setOnClickListener
+                } else {
+                    addWorkToDatabase(WorkToAdd(workName.asSafeString(), meetingDesc.asSafeString(), hours.toInt(), minutes.toInt()))
+                    resetPools()
+                    backToChoose()
+                }
             }
         }
     }
 
-    private fun addWorkToDatabase(hours: Int, minutes: Int, workName: String) {
-        resolveResult(viewModel.addWorkToDatabase(hours, minutes, workName))
+    private fun addWorkToDatabase(work: WorkToAdd) {
+        resolveResult(viewModel.addWorkToDatabase(work))
     }
 
     private fun resolveResult(result: Boolean) {
         if (result) {
-            Toast.makeText(this, R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
+            showToast(R.string.adding_work_confirmation)
         } else {
-            Toast.makeText(this, R.string.adding_work_error, Toast.LENGTH_SHORT).show()
+            showToast(R.string.adding_work_error)
         }
     }
 
-
-    private fun backToChose() {
+    private fun backToChoose() {
         startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun resetPools() {
-        binding.summaryActivityHours.setText("")
-        binding.summaryActivityMinutes.setText("")
-        binding.summaryActivityWorkName.setText("")
+        binding.summaryActivityHours.setText(EMPTY_STRING)
+        binding.summaryActivityMinutes.setText(EMPTY_STRING)
+        binding.summaryActivityWorkName.setText(EMPTY_STRING)
     }
 
     private fun writeChosenVolunteers() {

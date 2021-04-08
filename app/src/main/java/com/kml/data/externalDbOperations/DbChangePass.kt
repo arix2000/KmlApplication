@@ -1,6 +1,6 @@
 package com.kml.data.externalDbOperations
 
-import android.util.Log
+import com.kml.extensions.logError
 import java.io.BufferedWriter
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -32,7 +32,7 @@ class DbChangePass(private val newPassword: String, private val oldPassword: Str
 
             invokeOnReceive(result)
         } catch (e: IOException) {
-            Log.d("IOEXCEPTION_CHANGEPASS", "run: " + e.message)
+            logError(e)
         }
     }
 
