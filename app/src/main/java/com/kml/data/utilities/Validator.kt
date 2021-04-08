@@ -1,7 +1,6 @@
 package com.kml.data.utilities
 
 import android.content.Context
-import android.widget.Toast
 import com.kml.Constants.Numbers.MINUTES_IN_ONE_HOUR
 import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Signal.EMPTY_POOLS
@@ -9,6 +8,7 @@ import com.kml.Constants.Signal.MAXIMUM_PERMITTED_HOURS
 import com.kml.Constants.Signal.TOO_MANY_HOURS
 import com.kml.Constants.Signal.TOO_MANY_MINUTES
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
+import com.kml.extensions.showToast
 import com.kml.models.WorkToAdd
 
 class Validator(private val context: Context) {
@@ -39,6 +39,6 @@ class Validator(private val context: Context) {
     }
 
     private fun makeToastBy(resId: Int) {
-        Toast.makeText(context, resId, Toast.LENGTH_SHORT).show()
+        context.showToast(resId)
     }
 }

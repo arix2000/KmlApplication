@@ -3,13 +3,13 @@ package com.kml.views.dialogs
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.externalDbOperations.DbChangePass
 import com.kml.databinding.DialogChangePassBinding
+import com.kml.extensions.showToast
 import com.kml.viewModels.ProfileViewModel
 
 class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs(false) {
@@ -37,7 +37,7 @@ class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs(fal
 
         val validationResult = viewModel.validatePassword(oldPassword, newPassword)
         if (validationResult != VALIDATION_SUCCESSFUL) {
-            Toast.makeText(requireContext(), validationResult, Toast.LENGTH_SHORT).show()
+            showToast(validationResult)
             return
         }
 
@@ -55,7 +55,7 @@ class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs(fal
         }
         binding.dialogOldPassword.setText("")
         binding.dialogNewPassword.setText("")
-        Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
+        showToast(result)
         binding.dialogChangePasswordProgressBar.visibility = View.GONE
     }
 }

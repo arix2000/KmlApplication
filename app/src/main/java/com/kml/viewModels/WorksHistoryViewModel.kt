@@ -28,10 +28,11 @@ class WorksHistoryViewModel(fileFactory: FileFactory) : ViewModel() {
         return if (type == WORKS_TAG)
             repository.getStringJsonWorks(shouldShowAll)
                     .map { createListFromJson(getFromFileIfResultIsEmpty(it,type)) }
-                    .doOnSuccess { repository.saveStringTo(getFilenameBy(type)) }
+                    .doOnSuccess { repository.saveStringTo(it, getFilenameBy(type)) }
         else
             repository.getStringJsonMeetings(shouldShowAll)
                     .map { createListFromJson(getFromFileIfResultIsEmpty(it,type)) }
+                    .doOnSuccess { repository.saveStringTo(it, getFilenameBy(type)) }
 
     }
 

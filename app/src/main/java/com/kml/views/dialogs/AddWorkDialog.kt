@@ -3,12 +3,13 @@ package com.kml.views.dialogs
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
 import com.kml.data.app.AppDialogs
+import com.kml.data.utilities.Vibrator
 import com.kml.databinding.DialogNewWorkBinding
 import com.kml.extensions.hideSoftKeyboard
+import com.kml.extensions.showToast
 import com.kml.models.WorkToAdd
 import com.kml.viewModels.WorkTimerViewModel
 
@@ -36,7 +37,7 @@ class AddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(fals
     private fun validateAndSend(workName: String, workDescription: String) {
 
         if (!viewModel.validateWork(workName, workDescription)) {
-            Toast.makeText(requireContext(), R.string.no_empty_fields, Toast.LENGTH_SHORT).show()
+            showToast(R.string.no_empty_fields)
             return
         }
         binding.worksProgressBar.visibility = View.VISIBLE
@@ -50,9 +51,10 @@ class AddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(fals
     private fun resolveResult(result: Boolean) {
         binding.worksProgressBar.visibility = View.GONE
         if (result) {
-            Toast.makeText(requireContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
+            showToast(R.string.adding_work_confirmation)
             onAcceptListener.onAccept()
             dismiss()
-        } else Toast.makeText(requireContext(), R.string.adding_work_error, Toast.LENGTH_SHORT).show()
+            Vibrator(requireContext()).longVibrate()
+        } else showToast(R.string.adding_work_error)
     }
 }

@@ -32,7 +32,6 @@ class VolunteersBrowserDetailsFragment : BaseFragment() {
         viewModel = ViewModelProvider(this).get(VolunteersBrowserDetailsViewModel::class.java)
         shouldShowBackButton = true
         attachProgressBar(binding.detailsProgressBar)
-
         showProgressBar()
         val id = arguments?.getInt(VOLUNTEER_ID_KEY) ?: INVALID_ID
         viewModel.fetchVolunteerData(id)

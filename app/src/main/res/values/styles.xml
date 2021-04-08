@@ -11,6 +11,7 @@
         <item name="colorSecondary">@color/colorAccent</item>
         <item name="android:navigationBarColor">@color/colorCardBackground</item>
 
+        <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
     </style>
 
     <style name="AppTheme.DayNight" parent="Theme.AppCompat.DayNight">
@@ -20,6 +21,8 @@
 
         <item name="colorControlNormal">@color/textColorLight</item>
         <item name="colorControlActivated">@color/colorAccent</item>
+
+        <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
     </style>
 
     <style name="buttons">
@@ -32,7 +35,6 @@
         <item name="android:textColorPrimary">@color/textColorLight</item>
         <item name="android:textColorSecondary">@color/textColorLightHint</item>
     </style>
-
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -143,5 +145,10 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <style name="MaterialSnackbarTheme" parent="@style/Widget.Design.Snackbar">
+        <item name="android:background">@drawable/snack_bar_background</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="actionTextColorAlpha">1.0</item>
+    </style>
 
 </resources>
