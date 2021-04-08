@@ -14,7 +14,6 @@ class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
     private val fileName = "updateCzasPracy.php"
 
     override fun run() {
-
         val timeToSend: Float = work.hours + work.minutes.toFloat() / 60
         val address = BASE_URL + fileName
         val httpConnection = setConnection(address)
