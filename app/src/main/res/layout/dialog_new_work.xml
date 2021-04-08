@@ -1,83 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/dialog_bg">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="20dp">
-
-    <TextView
-        style="@style/dialog_about_app_titles"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/add_work" />
-
-    <LinearLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_work_name"
-            android:textColor="@color/textColorLight"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_bg">
 
-        <EditText
-            style="@style/app_edit_texts"
-            android:hint="@string/work_purpose"
-            android:id="@+id/dialog_timer_work_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_work_description"
-            android:textColor="@color/textColorLight"/>
+            <TextView
+                style="@style/dialog_about_app_titles"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/add_work" />
 
-        <EditText
-            style="@style/app_edit_texts"
-            android:hint="@string/work_description_examples"
-            android:id="@+id/dialog_timer_work_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/dialog_timer_cancel"
-            android:layout_marginTop="25dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            style="@style/buttons"
-            android:text="@string/cancel"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_work_name"
+                    android:textColor="@color/textColorLight" />
 
-        <Button
-            android:id="@+id/dialog_timer_confirm"
-            android:layout_marginTop="25dp"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            style="@style/buttons"
-            android:text="@string/end_your_work"
-            android:layout_alignParentRight="true"
-            android:paddingHorizontal="10dp"
-            android:textColor="@android:color/holo_green_light"/>
-    </RelativeLayout>
+                <EditText
+                    android:id="@+id/dialog_timer_work_name"
+                    style="@style/app_edit_texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/work_purpose" />
 
-</LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/new_work_description"
+                    android:textColor="@color/textColorLight" />
 
+                <EditText
+                    android:id="@+id/dialog_timer_work_description"
+                    style="@style/app_edit_texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/work_description_examples" />
+            </LinearLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <Button
+                    android:id="@+id/dialog_timer_cancel"
+                    style="@style/buttons"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/cancel" />
 
+                <ProgressBar
+                    android:id="@+id/works_progress_bar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="gone" />
 
-</ScrollView>
+                <Button
+                    android:id="@+id/dialog_timer_confirm"
+                    style="@style/buttons"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="25dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/end_your_work"
+                    android:textColor="@android:color/holo_green_light" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

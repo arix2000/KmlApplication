@@ -1,17 +1,15 @@
 package com.kml.repositories
 
 import com.kml.data.externalDbOperations.DbAddingToChosen
+import com.kml.models.WorkToAdd
 
-class SummaryVolunteerRepository
-{
+class SummaryVolunteerRepository {
     private lateinit var addingToChosen: DbAddingToChosen
 
-     fun sendWorkToDb(ids: String,volunteersNames: String,hours: Int, minutes: Int, workName: String):Boolean {
-        addingToChosen = DbAddingToChosen(ids, volunteersNames, workName, minutes, hours)
+    fun sendWorkToDb(ids: String, volunteersNames: String, work: WorkToAdd): Boolean {
+        addingToChosen = DbAddingToChosen(ids, volunteersNames, work)
         addingToChosen.start()
-         return addingToChosen.result == "true"
+
+        return addingToChosen.result == "true"
     }
-
-
-
 }

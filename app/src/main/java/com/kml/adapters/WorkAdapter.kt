@@ -2,11 +2,10 @@ package com.kml.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
-import com.kml.data.models.Work
 import com.kml.holders.WorkHolder
+import com.kml.models.Work
 import java.util.*
 
 class WorkAdapter(private val onClickListener: (Work) -> Unit)
@@ -17,7 +16,6 @@ class WorkAdapter(private val onClickListener: (Work) -> Unit)
             notifyDataSetChanged()
             field = value
         }
-    lateinit var progressBar: ProgressBar
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkHolder {
         val itemView = LayoutInflater.from(parent.context)

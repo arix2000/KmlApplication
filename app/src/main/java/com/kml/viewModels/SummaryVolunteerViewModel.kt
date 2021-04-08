@@ -1,8 +1,12 @@
 package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.kml.data.models.Volunteer
+import com.kml.Constants
+import com.kml.extensions.getTodayDate
+import com.kml.models.Volunteer
+import com.kml.models.WorkToAdd
 import com.kml.repositories.SummaryVolunteerRepository
+import java.util.*
 
 class SummaryVolunteerViewModel : ViewModel() {
 
@@ -23,23 +27,24 @@ class SummaryVolunteerViewModel : ViewModel() {
         return stringBuilder.toString()
     }
 
-    fun addWorkToDatabase(hours: Int, minutes: Int, workName: String): Boolean {
+    fun addWorkToDatabase(work: WorkToAdd): Boolean {
         val ids = getIdsStringFromVolunteers()
         val volunteersNames = createStringFromVolunteers()
-        return repository.sendWorkToDb(ids, volunteersNames, hours, minutes, workName)
-
+        return repository.sendWorkToDb(ids, volunteersNames, work)
     }
 
     private fun getIdsStringFromVolunteers(): String {
         val ids = StringBuilder()
-        var cache: String
         for (volunteer in chosenVolunteers) {
-            if (!ids.toString().contains(volunteer.id.toString())) {
-                cache = volunteer.id.toString() + ","
-                ids.append(cache)
-            }
+            ids.append(volunteer.id.toString() + ",")
         }
         ids.replace(ids.length - 1, ids.length, "")
         return ids.toString()
+    }
+
+    fun decideAboutDate(date: String): String {
+        return if (date == Constants.Strings.TODAY)
+            Calendar.getInstance().getTodayDate()
+        else date
     }
 }

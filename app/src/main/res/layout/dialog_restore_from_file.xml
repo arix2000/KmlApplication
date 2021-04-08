@@ -1,57 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="@drawable/dialog_bg">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/progress_founded"
-            style="@style/TextAppearance.AppCompat.SearchResult.Title"
-            android:layout_width="wrap_content"
-            android:textColor="@color/textColorLight"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/progress_founded"
             android:gravity="center"
-            android:textSize="30sp"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/should_restore"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/textColorLight"
+            <TextView
+                android:id="@+id/progress_founded"
+                style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/progress_founded"
+                android:textColor="@color/textColorLight"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/should_restore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/restore_progress_question"
+                android:textColor="@color/textColorLight" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/restore_progress_question" />
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp">
+
+            <Button
+                android:id="@+id/btn_dialog_restore_yes"
+                style="@style/buttons"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/restore"
+                android:textColor="@android:color/holo_green_light" />
+
+            <Button
+                android:id="@+id/btn_dialog_restore_no"
+                style="@style/buttons"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/do_not_restore" />
+        </RelativeLayout>
+
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="18dp">
-
-        <Button
-            android:id="@+id/btn_dialog_restore_yes"
-            style="@style/buttons"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/restore"
-            android:textColor="@android:color/holo_green_light" />
-
-        <Button
-            android:id="@+id/btn_dialog_restore_no"
-            style="@style/buttons"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="@string/do_not_restore" />
-    </RelativeLayout>
-
-</LinearLayout>
+</layout>
