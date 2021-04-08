@@ -3,7 +3,7 @@ package com.kml.viewModelFactories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kml.data.internalRoomDatabase.GameDao
-import com.kml.data.models.GameFilterInfo
+import com.kml.models.GameFilterInfo
 import com.kml.viewModels.GameViewModel
 
 

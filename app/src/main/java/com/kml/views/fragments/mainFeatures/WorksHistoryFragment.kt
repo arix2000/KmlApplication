@@ -1,80 +1,133 @@
 package com.kml.views.fragments.mainFeatures
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import com.kml.Constants.Extras.IS_FROM_FILE_EXTRA
-import com.kml.Constants.Extras.WORKS_EXTRA
-import com.kml.Constants.Flags.MEETINGS
-import com.kml.Constants.Flags.WORKS
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.navigation.NavigationView
+import com.kml.Constants.Tags.GET_ALL_TAG
+import com.kml.Constants.Tags.MEETINGS_TAG
+import com.kml.Constants.Tags.SHOULD_SHOW_BACK_BUTTON
+import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
+import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.R
-import com.kml.data.models.Work
+import com.kml.adapters.WorkAdapter
 import com.kml.data.utilities.FileFactory
-import com.kml.databinding.FragmentWorksHistoryBinding
+import com.kml.databinding.FragmentAllHistoryBinding
+import com.kml.extensions.logError
+import com.kml.extensions.setFragment
+import com.kml.extensions.showSnackBar
+import com.kml.models.Work
 import com.kml.viewModelFactories.WorksHistoryViewModelFactory
 import com.kml.viewModels.WorksHistoryViewModel
-import com.kml.views.activities.AllHistoryActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.*
+import com.kml.views.BaseFragment
+import com.kml.views.dialogs.ExtendedWorkDialog
+import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class WorksHistoryFragment : Fragment() {
+class WorksHistoryFragment : BaseFragment() {
+    private lateinit var adapter: WorkAdapter
+    private var _binding: FragmentAllHistoryBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var viewModel: WorksHistoryViewModel
+    private lateinit var historyType: String //WORK_TAG or MEETINGS_TAG
+    private var shouldShowAll = false
 
-    lateinit var viewModel: WorksHistoryViewModel
-    lateinit var fileFactory: FileFactory
-
-    lateinit var binding: FragmentWorksHistoryBinding
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_works_history, container, false)
-
-        fileFactory = FileFactory(requireContext())
-
-        val viewModelFactory = WorksHistoryViewModelFactory(fileFactory)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(WorksHistoryViewModel::class.java)
-
-        binding.myMeetingsImage.setOnClickListener {
-            showProgressBar()
-            launchHistory(MEETINGS)
-        }
-
-        binding.myWorks.setOnClickListener {
-            showProgressBar()
-            launchHistory(WORKS)
-        }
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentAllHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    private fun showProgressBar() {
-        binding.allHistoryProgressBar.visibility = View.VISIBLE
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        attachProgressBar(binding.allHistoryProgressBar)
+        shouldShowBackButton = arguments?.getBoolean(SHOULD_SHOW_BACK_BUTTON) ?: false
+        shouldShowAll = arguments?.getBoolean(GET_ALL_TAG) ?: false
 
-    private fun launchHistory(type: String) {
-        CoroutineScope(IO).launch {
-            val works = viewModel.getData(type)
-            withContext(Main) {
-                openActivityWith(works)
-                binding.allHistoryProgressBar.visibility = View.INVISIBLE
-            }
+        val viewModelFactory = WorksHistoryViewModelFactory(FileFactory(requireContext()))
+        viewModel = ViewModelProvider(this, viewModelFactory).get(WorksHistoryViewModel::class.java)
+
+        adapter = WorkAdapter { extendInDialog(it) }
+        binding.worksHistoryRecyclerView.run {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@WorksHistoryFragment.adapter
+        }
+        showProgressBar()
+
+        arguments?.getString(WORKS_HISTORY_TYPE)?.let { type ->
+            historyType = type
+            fetchWorks()
         }
     }
 
-    private fun openActivityWith(works: List<Work>) {
-        val intent = Intent(requireContext(), AllHistoryActivity::class.java)
-        intent.putParcelableArrayListExtra(WORKS_EXTRA, works as ArrayList)
-        intent.putExtra(IS_FROM_FILE_EXTRA, viewModel.isFromFile())
+    private fun fetchWorks() {
+        viewModel.fetchDataBy(historyType, shouldShowAll)
+                .subscribeBy(
+                        onSuccess = { setWorksToAdapter(it, viewModel.isFromFile()) },
+                        onError = { logError(it); hideProgressBar() }
+                )
+    }
 
-        requireActivity().startActivityFromFragment(this, intent, Activity.RESULT_OK)
+    override fun onResume() {
+        super.onResume()
+        var titleResId = -1
+
+        when (historyType) {
+            WORKS_TAG -> {
+                titleResId = if (shouldShowAll) R.string.all_last_works
+                else R.string.your_last_works
+            }
+            MEETINGS_TAG -> {
+                titleResId = if (shouldShowAll) R.string.all_last_meetings
+                else R.string.your_last_meetings
+            }
+        }
+        requireActivity().setTitle(titleResId)
+    }
+
+    private fun setWorksToAdapter(works: List<Work>, isFromFile: Boolean) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            adapter.works = works
+            if (isFromFile) {
+                showSnackBar(R.string.load_previous_data)
+            }
+            reactOnNoItems()
+            hideProgressBar()
+        }, 200)
+    }
+
+    private fun extendInDialog(work: Work) {
+        val dialog = ExtendedWorkDialog(work, historyType, true)
+        dialog.show(parentFragmentManager, "ExtendedWork")
+    }
+
+    private fun reactOnNoItems() {
+        if (adapter.itemCount == 0) {
+            binding.noResultsOnHistory.visibility = View.VISIBLE
+            binding.noResultsOnHistoryClickable.visibility = View.VISIBLE
+            setOnItemClickListener(binding.noResultsOnHistoryClickable)
+        }
+    }
+
+    private fun setOnItemClickListener(noResultsHistoryClickable: TextView) {
+        noResultsHistoryClickable.setOnClickListener {
+            val navigationView: NavigationView = requireActivity().findViewById(R.id.nav_view)
+            navigationView.setCheckedItem(R.id.nav_timer)
+            setFragment(TimerFragment())
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().setTitle(R.string.app_name)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

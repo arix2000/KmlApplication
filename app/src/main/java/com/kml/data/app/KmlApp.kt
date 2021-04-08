@@ -11,13 +11,13 @@ import androidx.multidex.MultiDexApplication
 * dodatowo zawiera wyszukiwarke animacji. Stworzona dla wolontariuszy, konta zakładane są z góry dlatego nie ma formularza
 * rejestracji.
 *
-* Wykonawca i właściciel: Arek Mądry
+* Wykonawca i właściciel: Arkadiusz Mądry
 *
 * Application created for organization: "Fundacja Klub Młodych Liderów" for count work time and see current progress
 * additional includes search engine animation for kids. Created for volunteers,
 * accounts are set up in advance, therefore there is no registration form.
 *
-* Creator and owner: Arek Mądry
+* Creator and owner: Arkadiusz Mądry
 * Copyright © 2020
 */
 class KmlApp : MultiDexApplication() {
@@ -35,8 +35,6 @@ class KmlApp : MultiDexApplication() {
             manager.createNotificationChannel(channel1)
         }
     }
-
-
 
     companion object {
         const val MARTA_ID = 11
@@ -56,6 +54,6 @@ class KmlApp : MultiDexApplication() {
         var isFromRecycleViewActivity = false
         var isFromControlPanel = false
         var isFromWorksHistory = false
-        var adminIds = listOf(9, 14, 18, 13)
+        var adminIds = listOf(9, 18, 13, 4)
     }
 }

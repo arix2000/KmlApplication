@@ -15,6 +15,26 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/full_name_title"
+                style="@style/form_text_views"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="@string/executor_of_work" />
+
+            <TextView
+                android:id="@+id/dialog_history_full_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                tools:text="Damian Kowalski" />
+
+            <TextView
                 style="@style/form_text_views"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -26,10 +46,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                tools:text="Nazwa"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorAccent"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Nazwa" />
 
             <TextView
                 style="@style/form_text_views"
@@ -42,9 +62,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                tools:text="WorkDescription"
                 android:textColor="@color/textColorLight"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="WorkDescription" />
 
             <TextView
                 style="@style/form_text_views"
@@ -57,10 +77,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                tools:text="Date"
                 android:textColor="@color/textColorLight"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Date" />
 
             <TextView
                 style="@style/form_text_views"
@@ -73,10 +93,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                tools:text="ExecutionTime"
                 android:textColor="@color/textColorLight"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="ExecutionTime" />
+
+            <TextView
+                android:id="@+id/volunteers_title"
+                style="@style/form_text_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/dialog_history_volunteers" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dialog_history_volunteers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/textColorLight"
+                android:textSize="18sp"
+                android:ellipsize="end"
+                android:visibility="gone"
+                android:maxLines="2"
+                tools:text="osoby" />
         </LinearLayout>
     </ScrollView>
 </layout>

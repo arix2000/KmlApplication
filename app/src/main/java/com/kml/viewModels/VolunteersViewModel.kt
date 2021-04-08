@@ -3,7 +3,7 @@ package com.kml.viewModels
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kml.data.models.Volunteer
+import com.kml.models.Volunteer
 import com.kml.repositories.VolunteerRepository
 import java.util.*
 

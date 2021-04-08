@@ -3,7 +3,7 @@ package com.kml.holders
 import android.view.View
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
-import com.kml.data.models.Volunteer
+import com.kml.models.Volunteer
 import com.kml.databinding.ListItemVolunteerBinding
 
 class VolunteerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

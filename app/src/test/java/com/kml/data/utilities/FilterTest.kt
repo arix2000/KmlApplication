@@ -1,7 +1,7 @@
 package com.kml.data.utilities
 
-import com.kml.data.models.Game
-import com.kml.data.models.GameFilterInfo
+import com.kml.models.Game
+import com.kml.models.GameFilterInfo
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

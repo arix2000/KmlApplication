@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,10 +15,11 @@ import com.kml.R
 import com.kml.adapters.GameAdapter
 import com.kml.data.app.KmlApp
 import com.kml.data.internalRoomDatabase.GameDatabase
-import com.kml.data.models.Game
-import com.kml.data.models.GameFilterInfo
-import com.kml.viewModels.GameViewModel
+import com.kml.extensions.showSnackBar
+import com.kml.models.Game
+import com.kml.models.GameFilterInfo
 import com.kml.viewModelFactories.GameViewModelFactory
+import com.kml.viewModels.GameViewModel
 import com.kml.views.fragments.mainFeatures.GameSearchEngineFragment
 
 class GameRecycleViewActivity : AppCompatActivity() {
@@ -42,7 +42,7 @@ class GameRecycleViewActivity : AppCompatActivity() {
             val filteredGames = gameViewModel.filterGames(games)
 
             if (filteredGames.isEmpty()) {
-                Toast.makeText(this@GameRecycleViewActivity, R.string.no_results_found, Toast.LENGTH_SHORT).show()
+                showSnackBar(R.string.no_results_found)
             }
             adapter.setGames(filteredGames)
             title = "Znaleziono " + filteredGames.size + " wyników"

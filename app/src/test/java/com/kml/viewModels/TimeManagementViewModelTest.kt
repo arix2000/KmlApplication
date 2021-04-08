@@ -1,7 +1,7 @@
 package com.kml.viewModels
 
+import com.kml.Constants
 import com.kml.R
-import com.kml.data.utilities.Signal
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -23,9 +23,9 @@ internal class TimeManagementViewModelTest
         assertEquals(R.string.too_many_minutes,actual)
 
         actual = viewModel.itemValidation("0","60")
-        assertEquals(Signal.VALIDATION_SUCCESSFUL,actual)
+        assertEquals(Constants.Signal.VALIDATION_SUCCESSFUL,actual)
         actual = viewModel.itemValidation("0","0")
-        assertEquals(Signal.VALIDATION_SUCCESSFUL,actual)
+        assertEquals(Constants.Signal.VALIDATION_SUCCESSFUL,actual)
 
     }
 }

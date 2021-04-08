@@ -2,21 +2,17 @@ package com.kml.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
 import com.kml.data.externalDbOperations.DbChangePass
-import com.kml.data.models.Profile
 import com.kml.data.utilities.FileFactory
-import com.kml.data.utilities.FormatEngine
+import com.kml.models.Profile
 import com.kml.repositories.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
-
-    companion object {
-        const val VALIDATION_SUCCESSFUL = -1
-    }
 
     private val repository = ProfileRepository(fileFactory)
 
@@ -46,7 +42,7 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
         val dataFromFile = repository.getUserInfoFromFile()
 
         return if (dataFromFile.isNotEmpty() || dataFromFile != "") {
-            createProfileFrom(dataFromFile)
+            Profile.createFrom(dataFromFile)
         } else {
             isNoDataFound = true
             Profile.EMPTY_PROFILE
@@ -55,20 +51,11 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
 
     private fun getDataFromDatabase(result: String): Profile {
         return if (result.trim().isNotEmpty()) {
-            createProfileFrom(result)
+            Profile.createFrom(result)
         } else {
             isDatabaseUnavailable = true
             Profile.EMPTY_PROFILE
         }
-    }
-
-    private fun createProfileFrom(result: String): Profile {
-        val format = FormatEngine()
-        val splitData = result.split(";".toRegex()).toTypedArray()
-        return Profile(splitData[0], splitData[1], splitData[2],
-                format.convertToReadable(splitData[3]),
-                format.formatSections(splitData[4]), splitData[5],
-                format.convertToReadable(splitData[6]))
     }
 
     fun validatePassword(oldPassword: String, newPassword: String): Int {

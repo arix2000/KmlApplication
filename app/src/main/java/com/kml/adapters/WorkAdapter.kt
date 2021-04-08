@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
-import com.kml.data.models.Work
 import com.kml.holders.WorkHolder
+import com.kml.models.Work
 import java.util.*
 
 class WorkAdapter(private val onClickListener: (Work) -> Unit)

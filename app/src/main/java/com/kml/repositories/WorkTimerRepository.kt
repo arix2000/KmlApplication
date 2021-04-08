@@ -1,8 +1,8 @@
 package com.kml.repositories
 
 import com.kml.data.externalDbOperations.DbSendWork
-import com.kml.data.models.WorkToAdd
 import com.kml.data.utilities.FileFactory
+import com.kml.models.WorkToAdd
 
 class WorkTimerRepository(val fileFactory: FileFactory) {
 
@@ -22,9 +22,10 @@ class WorkTimerRepository(val fileFactory: FileFactory) {
         fileFactory.clearFileState(file)
     }
 
-    fun addWorkToDatabase(work: WorkToAdd): Boolean {
+    fun addWorkToDatabase(work: WorkToAdd, onReceived: (Boolean)->Unit) {
         val dbSendWork = DbSendWork(work)
         dbSendWork.start()
-        return dbSendWork.result
+        dbSendWork.setOnResultListener { onReceived(it.toBoolean()) }
+
     }
 }

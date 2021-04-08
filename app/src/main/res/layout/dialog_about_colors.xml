@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:text="@string/legend_of_colour"
-        android:textColor="@color/BlackContent"
+        android:textColor="@color/textColorLight"
         android:textSize="30sp" />
 
     <View
