@@ -12,14 +12,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
 import com.kml.R
 import com.kml.data.app.KmlApp
 import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentProfileBinding
+import com.kml.extensions.showSnackBar
+import com.kml.extensions.showToast
 import com.kml.models.Profile
 import com.kml.viewModelFactories.ProfileViewModelFactory
 import com.kml.viewModels.ProfileViewModel
@@ -68,11 +68,11 @@ class ProfileFragment : BaseFragment() {
     private fun setProfileData(profile: Profile) {
         when {
             viewModel.isFromFile ->
-                Toast.makeText(requireContext(), R.string.load_previous_data, Toast.LENGTH_SHORT).show()
+                showToast(R.string.load_previous_data)
             viewModel.isDatabaseUnavailable ->
-                Toast.makeText(requireContext(), R.string.external_database_unavailable, Toast.LENGTH_SHORT).show()
+                showToast(R.string.external_database_unavailable)
             viewModel.isNoDataFound ->
-                Toast.makeText(requireContext(), R.string.something_wrong, Toast.LENGTH_SHORT).show()
+                showToast(R.string.something_wrong)
         }
 
         binding.profileProgressBar.visibility = ProgressBar.GONE
@@ -86,7 +86,7 @@ class ProfileFragment : BaseFragment() {
             KmlApp.SEBASTIAN_ID -> "Dzień dobry Prezesie!"
             else -> "Dzień dobry " + KmlApp.firstName + "!"
         }
-        Snackbar.make(requireActivity().findViewById(android.R.id.content), toastWelcomeText, 1200).show()
+        showSnackBar(toastWelcomeText, 1200)
 
         LoginScreen.isLogNow = false
     }

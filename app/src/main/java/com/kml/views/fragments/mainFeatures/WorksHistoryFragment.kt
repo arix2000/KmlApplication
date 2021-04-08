@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -22,6 +21,7 @@ import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentAllHistoryBinding
 import com.kml.extensions.logError
 import com.kml.extensions.setFragment
+import com.kml.extensions.showSnackBar
 import com.kml.models.Work
 import com.kml.viewModelFactories.WorksHistoryViewModelFactory
 import com.kml.viewModels.WorksHistoryViewModel
@@ -65,17 +65,18 @@ class WorksHistoryFragment : BaseFragment() {
     }
 
     private fun fetchWorks() {
-        viewModel.fetchDataBy(historyType, shouldShowAll).subscribeBy(
-                onSuccess = { setWorksToAdapter(it, viewModel.isFromFile()) },
-                onError = { logError(it); hideProgressBar() }
-        )
+        viewModel.fetchDataBy(historyType, shouldShowAll)
+                .subscribeBy(
+                        onSuccess = { setWorksToAdapter(it, viewModel.isFromFile()) },
+                        onError = { logError(it); hideProgressBar() }
+                )
     }
 
     override fun onResume() {
         super.onResume()
         var titleResId = -1
 
-        when(historyType) {
+        when (historyType) {
             WORKS_TAG -> {
                 titleResId = if (shouldShowAll) R.string.all_last_works
                 else R.string.your_last_works
@@ -92,7 +93,7 @@ class WorksHistoryFragment : BaseFragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             adapter.works = works
             if (isFromFile) {
-                Toast.makeText(requireContext(), R.string.load_previous_data, Toast.LENGTH_SHORT).show()
+                showSnackBar(R.string.load_previous_data)
             }
             reactOnNoItems()
             hideProgressBar()
@@ -100,7 +101,7 @@ class WorksHistoryFragment : BaseFragment() {
     }
 
     private fun extendInDialog(work: Work) {
-        val dialog = ExtendedWorkDialog(work,historyType,true)
+        val dialog = ExtendedWorkDialog(work, historyType, true)
         dialog.show(parentFragmentManager, "ExtendedWork")
     }
 

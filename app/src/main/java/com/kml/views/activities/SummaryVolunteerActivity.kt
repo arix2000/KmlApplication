@@ -2,7 +2,6 @@ package com.kml.views.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +13,7 @@ import com.kml.data.utilities.Validator
 import com.kml.databinding.ActivitySummarySelectedBinding
 import com.kml.extensions.asSafeString
 import com.kml.extensions.hideSoftKeyboard
+import com.kml.extensions.showToast
 import com.kml.extensions.toIntOr
 import com.kml.models.Volunteer
 import com.kml.models.WorkToAdd
@@ -33,8 +33,6 @@ class SummaryVolunteerActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_summary_selected)
 
         viewModel = ViewModelProvider(this).get(SummaryVolunteerViewModel::class.java)
-
-
 
         writeChosenVolunteers()
         binding.apply {
@@ -60,7 +58,6 @@ class SummaryVolunteerActivity : AppCompatActivity() {
                 if (!validator.validateWork(workToAdd)) {
                     return@setOnClickListener
                 } else {
-
                     addWorkToDatabase(WorkToAdd(workName.asSafeString(), meetingDesc.asSafeString(), hours.toInt(), minutes.toInt()))
                     resetPools()
                     backToChoose()
@@ -75,12 +72,11 @@ class SummaryVolunteerActivity : AppCompatActivity() {
 
     private fun resolveResult(result: Boolean) {
         if (result) {
-            Toast.makeText(this, R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
+            showToast(R.string.adding_work_confirmation)
         } else {
-            Toast.makeText(this, R.string.adding_work_error, Toast.LENGTH_SHORT).show()
+            showToast(R.string.adding_work_error)
         }
     }
-
 
     private fun backToChoose() {
         startActivity(Intent(this, MainActivity::class.java))

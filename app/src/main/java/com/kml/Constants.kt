@@ -8,6 +8,7 @@ object Constants {
         const val TOO_MANY_HOURS = R.string.too_many_hours
         const val VALIDATION_SUCCESSFUL = -1
         const val MAXIMUM_PERMITTED_HOURS = 14
+        const val UNKNOWN_ID = -1
     }
 
     object Strings {

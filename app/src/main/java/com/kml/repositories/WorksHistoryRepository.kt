@@ -1,10 +1,12 @@
 package com.kml.repositories
 
+import com.google.gson.Gson
 import com.kml.data.externalDbOperations.DbGetWorksHistory
 import com.kml.data.externalDbOperations.DbGetWorksHistory.Companion.GET_MEETINGS
 import com.kml.data.externalDbOperations.DbGetWorksHistory.Companion.GET_WORKS
 import com.kml.data.utilities.FileFactory
 import com.kml.extensions.getDeferSingleFrom
+import com.kml.models.Work
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -41,7 +43,7 @@ class WorksHistoryRepository(private val fileFactory: FileFactory) {
         return fileFactory.readFromFile(file)
     }
 
-    fun saveStringTo(file: String): String {
-        return fileFactory.readFromFile(file)
+    fun saveStringTo(list: List<Work>, file: String) {
+        fileFactory.saveStateToFile(Gson().toJson(list),file)
     }
 }

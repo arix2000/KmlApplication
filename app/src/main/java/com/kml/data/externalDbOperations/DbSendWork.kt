@@ -22,8 +22,9 @@ class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
             sendData(httpConnection, timeToSend)
             result = readResult(httpConnection!!) == "true"
             invokeOnReceive(result.toString())
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Log.d("IO_EXCEPTION", "run: " + e.message)
+            invokeOnReceive("false")
         }
     }
 

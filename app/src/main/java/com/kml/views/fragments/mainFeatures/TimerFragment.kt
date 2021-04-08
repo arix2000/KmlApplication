@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.kml.R
 import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentWorkTimerBinding
+import com.kml.extensions.showSnackBar
 import com.kml.viewModelFactories.WorkTimerViewModelFactory
 import com.kml.viewModels.WorkTimerViewModel
 import com.kml.views.BaseFragment
@@ -49,7 +49,7 @@ class TimerFragment : BaseFragment() {
 
         binding.btnEndWork.setOnClickListener {
             if (viewModel.hours == 0 && viewModel.minutes < 1) {
-                Toast.makeText(context, R.string.no_minute_counted, Toast.LENGTH_SHORT).show()
+                showSnackBar(R.string.no_minute_counted)
             } else showDialogToSetWork()
         }
         binding.btnResetWork.setOnClickListener {
