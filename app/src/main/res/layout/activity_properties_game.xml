@@ -6,7 +6,7 @@
     <data>
         <variable
             name="game"
-            type="com.kml.data.models.Game" />
+            type="com.kml.models.Game" />
     </data>
 
     <ScrollView

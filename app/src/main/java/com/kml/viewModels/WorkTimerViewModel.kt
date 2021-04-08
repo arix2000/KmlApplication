@@ -2,14 +2,15 @@ package com.kml.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kml.Constants
+import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.TODAY
-import com.kml.data.models.Time
-import com.kml.data.models.WorkToAdd
+import com.kml.data.externalDbOperations.DbSendWork
 import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.FormatEngine
 import com.kml.extensions.getTodayDate
+import com.kml.models.Time
+import com.kml.models.WorkToAdd
 import com.kml.repositories.WorkTimerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,7 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
 
     var secondsValue: Int
         get() {
-            return seconds.value ?: -1
+            return seconds.value ?: TIME_HAS_NO_VALUE
         }
         set(value) {
             seconds.value = value
@@ -94,8 +95,8 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
         return repository.readFile().contains(";")
     }
 
-    fun sendWorkToDatabase(work: WorkToAdd): Boolean {
-        return repository.addWorkToDatabase(work)
+    fun sendWorkToDatabase(work: WorkToAdd, onReceived: (Boolean)->Unit) {
+        return repository.addWorkToDatabase(work, onReceived)
     }
 
     fun returnStateFromService() {
@@ -137,18 +138,5 @@ class WorkTimerViewModel(fileFactory: FileFactory) : ViewModel() {
 
     fun validateWork(workName: String, workDescription: String): Boolean {
         return !(workName.trim().isEmpty() || workDescription.trim().isEmpty())
-    }
-
-    fun validateWorkInstant(work: WorkToAdd): Int {
-        return when {
-            (isPoolsEmpty(work)) -> Constants.Signal.EMPTY_POOLS
-            (work.minutes > 60) -> Constants.Signal.TOO_MANY_MINUTES
-            else -> Constants.Signal.VALIDATION_SUCCESSFUL
-        }
-    }
-
-    private fun isPoolsEmpty(work: WorkToAdd): Boolean {
-        return work.name.trim().isEmpty() || work.description.trim().isEmpty()
-                || work.hours == -1 || work.minutes == -1
     }
 }

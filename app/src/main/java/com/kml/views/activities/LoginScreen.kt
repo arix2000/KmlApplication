@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.SystemClock
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
@@ -13,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.kml.R
 import com.kml.data.utilities.FileFactory
 import com.kml.databinding.ActivityLoginScreenBinding
+import com.kml.extensions.showSnackBar
 import com.kml.viewModelFactories.LoginViewModelFactory
 import com.kml.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -87,7 +87,7 @@ class LoginScreen : AppCompatActivity() {
         }
 
         val finalToast = toast
-        if (finalToast != 0) Toast.makeText(this@LoginScreen, finalToast, Toast.LENGTH_SHORT).show()
+        if (finalToast != 0) showSnackBar(finalToast)
         binding.password.setText("")
         binding.loginScreenProgressBar.visibility = ProgressBar.GONE
     }
@@ -108,7 +108,6 @@ class LoginScreen : AppCompatActivity() {
     }
 
     private fun tryToAutoLogIn() {
-
         val content = viewModel.getLogData()
         binding.login.setText(content.first)
         binding.password.setText(content.second)

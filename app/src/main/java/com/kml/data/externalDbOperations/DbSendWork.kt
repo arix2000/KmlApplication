@@ -2,38 +2,30 @@ package com.kml.data.externalDbOperations
 
 import android.util.Log
 import com.kml.data.app.KmlApp
-import com.kml.data.models.WorkToAdd
+import com.kml.models.WorkToAdd
 import java.io.BufferedWriter
 import java.io.IOException
 import java.io.OutputStreamWriter
 import java.io.UnsupportedEncodingException
 import java.net.HttpURLConnection
 import java.net.URLEncoder
-import kotlin.math.roundToInt
 
 class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
     private val fileName = "updateCzasPracy.php"
 
     override fun run() {
 
-        var timeToSend: Float = work.hours + work.minutes.toFloat() / 60
-        timeToSend = roundToTwoDecimalPoint(timeToSend)
+        val timeToSend: Float = work.hours + work.minutes.toFloat() / 60
         val address = BASE_URL + fileName
         val httpConnection = setConnection(address)
         try {
             sendData(httpConnection, timeToSend)
             result = readResult(httpConnection!!) == "true"
-        } catch (e: IOException) {
+            invokeOnReceive(result.toString())
+        } catch (e: Exception) {
             Log.d("IO_EXCEPTION", "run: " + e.message)
+            invokeOnReceive("false")
         }
-    }
-
-    private fun roundToTwoDecimalPoint(timeToSend: Float): Float {
-        var timeToSend = timeToSend
-        timeToSend *= 100
-        timeToSend = timeToSend.roundToInt().toFloat()
-        timeToSend /= 100
-        return timeToSend
     }
 
     @Throws(IOException::class)
@@ -60,8 +52,4 @@ class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
     }
 
     var result: Boolean = false
-        get() {
-            this.join()
-            return field
-        }
 }

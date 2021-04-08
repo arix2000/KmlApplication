@@ -70,7 +70,7 @@
             style="@style/dialog_about_app_titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/work_history" />
+            android:text="@string/general_journal" />
 
         <TextView
             style="@style/dialog_about_app_descriptions"

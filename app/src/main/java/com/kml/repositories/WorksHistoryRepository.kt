@@ -1,50 +1,49 @@
 package com.kml.repositories
 
+import com.google.gson.Gson
 import com.kml.data.externalDbOperations.DbGetWorksHistory
 import com.kml.data.externalDbOperations.DbGetWorksHistory.Companion.GET_MEETINGS
 import com.kml.data.externalDbOperations.DbGetWorksHistory.Companion.GET_WORKS
 import com.kml.data.utilities.FileFactory
+import com.kml.extensions.getDeferSingleFrom
+import com.kml.models.Work
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class WorksHistoryRepository(private val fileFactory: FileFactory) {
     var isFromFile = false
 
-    fun getStringJsonWorks():String {
-        var result: String
-        result = resultWorks
-        if (result.trim().isEmpty()) // no internet connection
-        {
-            result = fileFactory.readFromFile(FileFactory.HISTORY_KEEP_WORKS_TXT)
-            isFromFile = true
-        }
-        fileFactory.saveStateToFile(result, FileFactory.HISTORY_KEEP_WORKS_TXT)
-
-        return result
+    fun getStringJsonWorks(shouldShowAll: Boolean): Single<String> {
+        isFromFile = false
+        return getWorks(shouldShowAll)
     }
 
-    private val resultWorks: String
-        get() {
-            val dbGetWorksHistory = DbGetWorksHistory(GET_WORKS)
-            dbGetWorksHistory.start()
-            return dbGetWorksHistory.result
-        }
-
-    fun getStringJsonMeetings():String {
-        var result: String
-        result = resultMeetings
-        if (result.trim().isEmpty()) // no internet connection
-        {
-            result = fileFactory.readFromFile(FileFactory.HISTORY_KEEP_MEETINGS_TXT)
-            isFromFile = true
-        }
-        fileFactory.saveStateToFile(result, FileFactory.HISTORY_KEEP_MEETINGS_TXT)
-
-        return result
+    private fun getWorks(shouldShowAll: Boolean): Single<String> {
+        val dbGetWorksHistory = DbGetWorksHistory(GET_WORKS, shouldShowAll)
+        return getDeferSingleFrom { dbGetWorksHistory.fetchResult() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
-    private val resultMeetings: String
-        get() {
-            val dbGetWorksHistory = DbGetWorksHistory(GET_MEETINGS)
-            dbGetWorksHistory.start()
-            return dbGetWorksHistory.result
-        }
+    fun getStringJsonMeetings(shouldShowAll: Boolean): Single<String> {
+        isFromFile = false
+        return getMeetings(shouldShowAll)
+    }
+
+    private fun getMeetings(shouldShowAll: Boolean): Single<String> {
+        val dbGetWorksHistory = DbGetWorksHistory(GET_MEETINGS, shouldShowAll)
+        return getDeferSingleFrom { dbGetWorksHistory.fetchResult() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun readStringFrom(file: String): String {
+        isFromFile = true
+        return fileFactory.readFromFile(file)
+    }
+
+    fun saveStringTo(list: List<Work>, file: String) {
+        fileFactory.saveStateToFile(Gson().toJson(list),file)
+    }
 }

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +11,9 @@ import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
-import com.kml.data.models.Volunteer
 import com.kml.databinding.ActivitySelectVolunteersBinding
+import com.kml.extensions.showSnackBar
+import com.kml.models.Volunteer
 import com.kml.viewModels.VolunteersViewModel
 
 class SelectVolunteersActivity : AppCompatActivity() {
@@ -85,7 +85,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
         if (checkedVolunteers.isNotEmpty()) {
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
             startActivity(intent)
-        } else Toast.makeText(this, R.string.volunteers_are_not_chosen, Toast.LENGTH_SHORT).show()
+        } else showSnackBar(R.string.volunteers_are_not_chosen)
     }
 
     override fun onBackPressed() {

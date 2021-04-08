@@ -19,7 +19,6 @@
     <string name="load_previous_data">Brak połączenia z internetem! wczytano ostatnie dane</string>
     <string name="adding_work_confirmation">Dodano pomyślnie!</string>
     <string name="adding_work_error">Nie udało się dodać, sprawdź połączenie z internetem.</string>
-    <string name="your_last_works">Twoje ostatnie zadania:</string>
     <string name="no_minute_counted">Nie odliczono ani jednej minuty czasu!</string>
     <string name="too_many_minutes">nie można wpisać więcej niż 60 minut</string>
     <string name="cancel">anuluj</string>
@@ -104,7 +103,8 @@
     <string name="profile">Profil</string>
     <string name="work_timer">Licznik Pracy</string>
     <string name="games_search_engine">Wyszukiwarka Animacji</string>
-    <string name="work_history">Historia Zadań</string>
+    <string name="general_journal">Dziennik Ogólny</string>
+    <string name="personal_journal">Dzienik Indywidualny</string>
     <string name="creator_with_label">Wykonawca: Arek Mądry</string>
     <string name="change_password">Zmień hasło</string>
     <string name="type_old_password">Podaj stare hasło:</string>
@@ -149,5 +149,19 @@
     <string name="name_title_type">Nazwa, tytuł, typ</string>
     <string name="expand_what_was_happen">Rozwiń co się działo :D</string>
     <string name="volunteers_are_not_chosen">Żadni wolontariusze nie zostali wybrani</string>
+    <string name="too_many_hours">Liczba godzin nie może być większa od 14</string>
+    <string name="works_history">Historia Zadań</string>
+    <string name="dialog_history_volunteers">Osoby:</string>
+    <string name="your_last_meetings">Twoje ostatnie spotkania:</string>
+    <string name="your_last_works">Twoje ostatnie zadania:</string>
+    <string name="all_last_works">Wszystkie ostatnie zadania</string>
+    <string name="all_last_meetings">Wszystkie ostatnie spotkania</string>
+    <string name="executor_of_work">Wykonujący zadanie:</string>
+    <string name="show_all_meetings_history">Pokaż całą historię spotkań</string>
+    <string name="show_all_works_history">Pokaż całą historię zadań</string>
+    <string name="volunteers_browser">Przeglądarka wolontariuszy</string>
+    <string name="volunteer_full_name">%s %s</string>
+    <string name="type_title">Typ:</string>
+    <string name="fullname_title">Imię i nazwisko:</string>
 
 </resources>

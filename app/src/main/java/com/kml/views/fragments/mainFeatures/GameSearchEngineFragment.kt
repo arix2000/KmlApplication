@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.Fragment
 import com.kml.R
-import com.kml.data.models.GameFilterInfo
+import com.kml.models.GameFilterInfo
+import com.kml.views.BaseFragment
 import com.kml.views.activities.GameRecycleViewActivity
 
 //TODO add DataBinding
-class GameSearchEngineFragment : Fragment() {
+class GameSearchEngineFragment : BaseFragment() {
 
     companion object {
         const val EXTRA_GAME_FILTER_INFO = "com.kml.fragments.EXTRA_GAME_FILTER_INFO"

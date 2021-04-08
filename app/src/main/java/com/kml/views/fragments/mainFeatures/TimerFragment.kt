@@ -7,23 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.kml.R
 import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentWorkTimerBinding
+import com.kml.extensions.showSnackBar
 import com.kml.viewModelFactories.WorkTimerViewModelFactory
 import com.kml.viewModels.WorkTimerViewModel
+import com.kml.views.BaseFragment
 import com.kml.views.activities.MainActivity
 import com.kml.views.dialogs.AddWorkDialog
 import com.kml.views.dialogs.InstantAddWorkDialog
 import com.kml.views.dialogs.MakeSureDialog
 import com.kml.views.dialogs.RestoreDialog
 
-class WorkTimerFragment : Fragment() {
+class TimerFragment : BaseFragment() {
     private lateinit var binding: FragmentWorkTimerBinding
     private lateinit var viewModel: WorkTimerViewModel
     private lateinit var fileFactory: FileFactory
@@ -49,7 +49,7 @@ class WorkTimerFragment : Fragment() {
 
         binding.btnEndWork.setOnClickListener {
             if (viewModel.hours == 0 && viewModel.minutes < 1) {
-                Toast.makeText(context, R.string.no_minute_counted, Toast.LENGTH_SHORT).show()
+                showSnackBar(R.string.no_minute_counted)
             } else showDialogToSetWork()
         }
         binding.btnResetWork.setOnClickListener {
@@ -136,7 +136,6 @@ class WorkTimerFragment : Fragment() {
     }
 
     override fun onResume() {
-
         viewModel.returnStateFromService()
         setTimeOnLayout()
         requireContext().stopService(Intent(requireContext(), TimerService::class.java))

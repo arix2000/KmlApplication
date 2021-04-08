@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
-import com.kml.data.models.Game
+import com.kml.models.Game
 import com.kml.holders.GameHolder
 import java.util.*
 

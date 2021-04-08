@@ -2,22 +2,22 @@ package com.kml.views.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AlertDialog
-import com.kml.Constants.Signal
+import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.data.app.AppDialogs
-import com.kml.data.models.WorkToAdd
+import com.kml.data.utilities.Validator
+import com.kml.data.utilities.Vibrator
 import com.kml.databinding.DialogNewWorkInstantBinding
+import com.kml.extensions.hideSoftKeyboard
+import com.kml.extensions.showToast
+import com.kml.models.WorkToAdd
 import com.kml.viewModels.WorkTimerViewModel
 
 
 class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(false) {
-
-    companion object {
-
-    }
 
     lateinit var binding: DialogNewWorkInstantBinding
 
@@ -29,17 +29,16 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
         builder.setView(binding.root)
 
         binding.apply {
-
             newWorkCreationDate.text = TODAY
-
             dialogTimerAddInstant.setOnClickListener {
+                requireContext().hideSoftKeyboard(it)
                 val creationDateString = viewModel.decideAboutDate(newWorkCreationDate.text.toString())
                 val description = " $creationDateString -> " + dialogTimerWorkDescriptionInstant.text.toString()
 
                 val work = WorkToAdd(dialogTimerWorkNameInstant.text.toString(),
                         description,
-                        dialogTimerHours.text.toString().toIntOrNull() ?: -1,
-                        dialogTimerMinutes.text.toString().toIntOrNull() ?: -1
+                        dialogTimerHours.text.toString().toIntOrNull() ?: TIME_HAS_NO_VALUE,
+                        dialogTimerMinutes.text.toString().toIntOrNull() ?: TIME_HAS_NO_VALUE
                 )
                 sendWorkToDatabase(work)
             }
@@ -60,26 +59,21 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
     }
 
     private fun sendWorkToDatabase(work: WorkToAdd) {
-
-        if (!validation(work))
+        if (!Validator(requireContext()).validateWork(work))
             return
-        dismiss()
 
-        val result = viewModel.sendWorkToDatabase(work)
+        binding.worksProgressBar.visibility = View.VISIBLE
+        viewModel.sendWorkToDatabase(work) {
+            binding.worksProgressBar.visibility = View.GONE
+            if (it) {
+                requireContext().showToast(getString(R.string.adding_work_confirmation))
+                dismiss()
+                Vibrator(requireContext()).longVibrate()
+            } else showToast(R.string.adding_work_error)
 
-        if (result) {
-            Toast.makeText(requireContext(), R.string.adding_work_confirmation, Toast.LENGTH_SHORT).show()
-        } else Toast.makeText(requireContext(), R.string.adding_work_error, Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun validation(work: WorkToAdd): Boolean {
-        val result = viewModel.validateWorkInstant(work)
-        return if (result != Signal.VALIDATION_SUCCESSFUL) {
-            Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
-            false
-        } else true
-
-    }
 
 
 }
