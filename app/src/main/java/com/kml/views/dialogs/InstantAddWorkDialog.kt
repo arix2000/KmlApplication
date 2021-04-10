@@ -70,7 +70,6 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
                 dismiss()
                 Vibrator(requireContext()).longVibrate()
             } else showToast(R.string.adding_work_error)
-
         }
     }
 

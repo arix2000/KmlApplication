@@ -14,7 +14,6 @@ class Vibrator(context: Context) {
             vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
         else
             vibrator.vibrate(200)
-
     }
 
     fun shortVibrate() {

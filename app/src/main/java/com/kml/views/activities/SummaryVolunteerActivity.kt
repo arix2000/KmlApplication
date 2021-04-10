@@ -10,6 +10,7 @@ import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.R
 import com.kml.data.utilities.Validator
+import com.kml.data.utilities.Vibrator
 import com.kml.databinding.ActivitySummarySelectedBinding
 import com.kml.extensions.asSafeString
 import com.kml.extensions.hideSoftKeyboard
@@ -72,6 +73,7 @@ class SummaryVolunteerActivity : AppCompatActivity() {
 
     private fun resolveResult(result: Boolean) {
         if (result) {
+            Vibrator(this).longVibrate()
             showToast(R.string.adding_work_confirmation)
         } else {
             showToast(R.string.adding_work_error)
