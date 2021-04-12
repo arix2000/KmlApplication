@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"> <!--Theme.AppCompat.Light.DarkActionBar -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -12,6 +12,7 @@
         <item name="android:navigationBarColor">@color/colorCardBackground</item>
 
         <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
     <style name="AppTheme.DayNight" parent="Theme.AppCompat.DayNight">
@@ -25,6 +26,18 @@
         <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.LoginScreen">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+    </style>
+
     <style name="buttons">
         <item name="android:topLeftRadius">10dp</item>
         <item name="android:textColor">@color/WhiteContent</item>
@@ -34,11 +47,6 @@
     <style name="MyDatePicker">
         <item name="android:textColorPrimary">@color/textColorLight</item>
         <item name="android:textColorSecondary">@color/textColorLightHint</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="app_edit_texts">
