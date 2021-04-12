@@ -23,5 +23,6 @@
     <color name="snack_bar_background_color">#3c3f41</color>
 
     <color name="disablingMask">#CD6C6C6C</color>
+    <color name="ripple_mask">#34000000</color>
 
 </resources>

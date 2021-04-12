@@ -48,12 +48,16 @@ class ProfileFragment : BaseFragment() {
         binding.profileProgressBar.visibility = ProgressBar.VISIBLE
         viewModel.profileData.observe(viewLifecycleOwner) {
             launchProfile(it)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         binding.profilePhoto.setOnClickListener {
             openGalleryForImage()
         }
         binding.changePass.setOnClickListener { showDialogToChangePass() }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refreshProfile()
+        }
         return binding.root
     }
 
@@ -62,7 +66,6 @@ class ProfileFragment : BaseFragment() {
         setProfileData(profile)
         setUserIdentity(profile.firstName, profile.lastName)
         if (LoginScreen.isLogNow) welcomeUser()
-
     }
 
     private fun setProfileData(profile: Profile) {

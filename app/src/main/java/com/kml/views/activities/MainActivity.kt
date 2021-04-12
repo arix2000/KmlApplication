@@ -1,9 +1,6 @@
 package com.kml.views.activities
 
-import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
@@ -23,8 +20,10 @@ import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.R
 import com.kml.data.app.KmlApp
 import com.kml.data.services.TimerService
+import com.kml.databinding.ActivityMainBinding
 import com.kml.extensions.setFragment
 import com.kml.extensions.setFragmentWithData
+import com.kml.views.fragments.AboutAppFragment
 import com.kml.views.fragments.mainFeatures.*
 
 
@@ -38,11 +37,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawer: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var drawerToggle: ActionBarDrawerToggle
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(toolbar)
 
@@ -50,9 +50,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.nav_view)
         setWorksHistoryStyle()
         navigationView.setNavigationItemSelectedListener(this)
-
-
-
         drawerToggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer)
         drawer.addDrawerListener(drawerToggle)
 
@@ -94,21 +91,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         return when (item.itemId) {
             R.id.about_app -> {
-                showDialogAboutApp()
+                showFragmentAboutApp()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun showDialogAboutApp() {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_about_app)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.show()
+    private fun showFragmentAboutApp() {
+        setFragment(AboutAppFragment(), true)
     }
 
     override fun onBackPressed() {
@@ -145,6 +138,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             onBackPressed()
         }
         drawer.isEnabled = false
+        binding.mainToolbar.menu.findItem(R.id.about_app).isVisible = false
     }
 
     fun hideBackButton() {
@@ -152,6 +146,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         drawerToggle.syncState()
+        binding.mainToolbar.menu.findItem(R.id.about_app).isVisible = true
     }
 
     /** this method will be invoked when we click on image view in header of navigation drawer */

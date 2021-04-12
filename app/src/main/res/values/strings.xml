@@ -163,5 +163,6 @@
     <string name="volunteer_full_name">%s %s</string>
     <string name="type_title">Typ:</string>
     <string name="fullname_title">Imię i nazwisko:</string>
+    <string name="work_history">Historia Zadań</string>
 
 </resources>

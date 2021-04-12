@@ -7,8 +7,9 @@ import java.util.*
 const val DEBUG_TAG = "DEBUG_TAG"
 const val NETWORK_RESPONSE_TAG = "NETWORK_RESPONSE_TAG"
 
-fun Any.log(message: String = "", list: List<Any> = listOf()) {
-    var logMessage = this.javaClass.simpleName + " ---> " + message
+fun Any.log(message: Any = "", list: List<Any> = listOf()) {
+
+    var logMessage = this.javaClass.simpleName + " ---> " + message.toString()
 
     if(list.isNotEmpty()) {
         logMessage = "\n"

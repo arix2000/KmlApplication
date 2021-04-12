@@ -25,6 +25,10 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
     private val ioScope = CoroutineScope(Dispatchers.IO)
 
     init {
+        fetchProfile()
+    }
+
+    private fun fetchProfile() {
         ioScope.launch { profileData.postValue(getProfileData()) }
     }
 
@@ -56,6 +60,10 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
             isDatabaseUnavailable = true
             Profile.EMPTY_PROFILE
         }
+    }
+
+    fun refreshProfile() {
+        fetchProfile()
     }
 
     fun validatePassword(oldPassword: String, newPassword: String): Int {

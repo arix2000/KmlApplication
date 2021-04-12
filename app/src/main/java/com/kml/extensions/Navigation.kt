@@ -7,8 +7,12 @@ import androidx.fragment.app.FragmentTransaction
 import com.kml.R
 import com.kml.views.activities.MainActivity
 
-fun AppCompatActivity.setFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit()
+fun AppCompatActivity.setFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+    supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).apply {
+        if (addToBackStack) addToBackStack(fragment.tag)
+        commit()
+    }
+
 }
 
 fun AppCompatActivity.setFragmentWithData(fragment: Fragment, data: Bundle, defaultAnim: Boolean = false) {

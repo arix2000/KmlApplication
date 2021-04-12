@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            style="@style/dialog_about_app_titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_app_title" />
+
+        <TextView
+            style="@style/dialog_about_app_descriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_description" />
+
+        <TextView
+            style="@style/dialog_about_app_titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile" />
+
+        <TextView
+            style="@style/dialog_about_app_descriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_description" />
+
+        <TextView
+            style="@style/dialog_about_app_titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/work_timer" />
+
+        <TextView
+            style="@style/dialog_about_app_descriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timer_description" />
+
+        <TextView
+            style="@style/dialog_about_app_titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/games_search_engine" />
+
+        <TextView
+            style="@style/dialog_about_app_descriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/games_search_engine_description" />
+
+        <TextView
+            style="@style/dialog_about_app_titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/work_history" />
+
+        <TextView
+            style="@style/dialog_about_app_descriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/works_history_description" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp">
+
+            <TextView
+                style="@style/dialog_about_app_descriptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/creator_with_label"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                style="@style/dialog_about_app_descriptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copyright"
+                android:layout_alignBottom="@id/icon_copyright"
+                android:layout_toLeftOf="@+id/icon_copyright"
+                android:textColor="@color/colorAccent" />
+            <ImageView
+                android:id="@+id/icon_copyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/rok_dialog_about_app"
+                android:layout_marginHorizontal="7dp"
+                android:layout_toLeftOf="@+id/rok_dialog_about_app"
+                app:srcCompat="@drawable/ic_copyright"/>
+            <TextView
+                style="@style/dialog_about_app_descriptions"
+                android:id="@+id/rok_dialog_about_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n2020"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/colorAccent" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

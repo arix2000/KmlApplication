@@ -35,6 +35,9 @@ abstract class BaseFragment: Fragment() {
         baseProgressBar?.visibility = View.GONE
     }
 
+    /**
+     * Attach your progress bar and then hide/show it by showProgressBar() and hideProgressBar()
+     */
     fun attachProgressBar(progressBar: ProgressBar) {
         baseProgressBar = progressBar
     }

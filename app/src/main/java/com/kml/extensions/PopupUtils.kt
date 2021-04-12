@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.kml.Constants.Signal.UNKNOWN_ID
-import com.kml.databinding.ToastViewBinding
+import com.kml.databinding.ViewToastBinding
 
 /////////////////////////////////////////TOAST////////////////////////////////////////////////////
 
@@ -30,7 +30,7 @@ fun Fragment.showToast(resId: Int, duration: Int = Toast.LENGTH_SHORT, showCusto
 private fun Toast.appDefault(context: Context,
                              resId: Int, showCustomView: Boolean,
                              text: CharSequence? = null): Toast {
-    val binding = ToastViewBinding.inflate(LayoutInflater.from(context))
+    val binding = ViewToastBinding.inflate(LayoutInflater.from(context))
     this.run {
         if (showCustomView) {
             binding.toastText.text = text ?: context.getString(resId)
