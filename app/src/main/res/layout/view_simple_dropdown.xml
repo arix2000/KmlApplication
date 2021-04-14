@@ -5,7 +5,7 @@
     style="?android:attr/spinnerDropDownItemStyle"
     android:singleLine="true"
     android:layout_width="match_parent"
-    android:background="@color/cardBackground"
+    android:background="@drawable/simple_ripple_background"
     android:textColor="@color/textColorLight"
     android:layout_height="48dp"
     android:ellipsize="marquee"/>

@@ -19,5 +19,7 @@
     <color name="cardBackground">#3c3f41</color>
 
     <color name="status_bar_color">#000000</color>
+    <color name="dropdown_checked_background">#272727</color>
+
 
 </resources>
