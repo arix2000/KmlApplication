@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.utilities.Vibrator
@@ -25,7 +26,7 @@ class AddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialogs(fals
         binding.dialogTimerConfirm.setOnClickListener {
             requireContext().hideSoftKeyboard(it)
             val workName = binding.dialogTimerWorkName.text.toString()
-            val workDescription = binding.dialogTimerWorkDescription.text.toString()
+            val workDescription = viewModel.decideAboutDate(TODAY)+" "+ binding.dialogTimerWorkDescription.text.toString()
             validateAndSend(workName, workDescription)
         }
 
