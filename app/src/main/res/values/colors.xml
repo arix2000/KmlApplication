@@ -28,5 +28,6 @@
     <color name="ripple_spinner_mask">#65000000</color>
     <color name="dropdown_checked_background">#4606299F</color>
     <color name="state_pressed_dropdown_background">@color/dropdown_checked_background</color>
+    <color name="ripple_mask_dark">@color/ripple_mask</color>
 
 </resources>

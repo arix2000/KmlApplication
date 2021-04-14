@@ -154,8 +154,8 @@
     <string name="dialog_history_volunteers">Osoby:</string>
     <string name="your_last_meetings">Twoje ostatnie spotkania:</string>
     <string name="your_last_works">Twoje ostatnie zadania:</string>
-    <string name="all_last_works">Wszystkie ostatnie zadania</string>
-    <string name="all_last_meetings">Wszystkie ostatnie spotkania</string>
+    <string name="all_last_works">Wszystkie zadania</string>
+    <string name="all_last_meetings">Wszystkie spotkania</string>
     <string name="executor_of_work">Wykonujący zadanie:</string>
     <string name="show_all_meetings_history">Pokaż całą historię spotkań</string>
     <string name="show_all_works_history">Pokaż całą historię zadań</string>
