@@ -23,7 +23,7 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val builder = AlertDialog.Builder(requireContext(), R.style.dialogs_style)
+        val builder = AlertDialog.Builder(requireContext(), R.style.instant_add_work_style)
         layoutInflater.inflate(R.layout.dialog_new_work_instant, null)
         binding = DialogNewWorkInstantBinding.inflate(layoutInflater)
         builder.setView(binding.root)
