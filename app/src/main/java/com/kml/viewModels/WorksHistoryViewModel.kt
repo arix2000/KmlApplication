@@ -13,7 +13,7 @@ class WorksHistoryViewModel(fileFactory: FileFactory) : ViewModel() {
 
     private val repository = WorksHistoryRepository(fileFactory)
 
-    fun isFromFile(): Boolean = repository.isFromFile
+    var isSearchExpanded = false
 
     private fun createListFromJson(json: String): List<Work> {
         if (json.isBlank())
@@ -46,5 +46,5 @@ class WorksHistoryViewModel(fileFactory: FileFactory) : ViewModel() {
         if (type == WORKS_TAG) FileFactory.HISTORY_KEEP_WORKS_TXT
         else FileFactory.HISTORY_KEEP_MEETINGS_TXT
 
-
+    fun isFromFile(): Boolean = repository.isFromFile
 }

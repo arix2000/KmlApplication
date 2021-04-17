@@ -11,10 +11,8 @@ import com.kml.Constants.Tags.SHOULD_SHOW_BACK_BUTTON
 import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
 import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.databinding.FragmentControlPanelBinding
-import com.kml.extensions.gone
 import com.kml.extensions.setFragment
 import com.kml.extensions.setFragmentWithData
-import com.kml.extensions.visible
 import com.kml.views.BaseFragment
 import com.kml.views.activities.SelectVolunteersActivity
 import com.kml.views.fragments.VolunteersBrowserFragment
@@ -32,7 +30,6 @@ class ControlPanelFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
             addWorkToChosenBtn.setOnClickListener {
-                controlPanelProgressBar.visible()
                 val intent = Intent(requireContext(), SelectVolunteersActivity::class.java)
                 startActivity(intent)
             }
@@ -54,10 +51,5 @@ class ControlPanelFragment : BaseFragment() {
             putBoolean(SHOULD_SHOW_BACK_BUTTON, true)
             putBoolean(GET_ALL_TAG, true)
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        binding.controlPanelProgressBar.gone()
     }
 }

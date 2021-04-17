@@ -27,7 +27,7 @@ class ExtendedWorkDialog(val work: Work, val type: String, private val shouldSho
             dialogHistoryWorkDescription.text = work.workDescription
             dialogHistoryWorkDate.text = work.workDate
             dialogHistoryExecutionTime.text = work.executionTime
-            dialogHistoryVolunteers.text = work.osoby
+            dialogHistoryVolunteers.text = work.people?.trim()?.removeSuffix(",")
             setOrHideFullName()
             showOrHideVolunteersInfo()
             setExpanding()

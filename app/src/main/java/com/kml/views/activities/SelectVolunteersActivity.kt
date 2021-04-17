@@ -2,9 +2,8 @@ package com.kml.views.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kml.Constants.Strings.EMPTY_STRING
@@ -12,16 +11,19 @@ import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
 import com.kml.databinding.ActivitySelectVolunteersBinding
+import com.kml.extensions.gone
+import com.kml.extensions.logError
 import com.kml.extensions.showSnackBar
+import com.kml.extensions.visible
 import com.kml.models.Volunteer
 import com.kml.viewModels.VolunteersViewModel
+import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class SelectVolunteersActivity : AppCompatActivity() {
 
     private lateinit var volunteerAdapter: VolunteerAdapter
     private lateinit var viewModel: VolunteersViewModel
     private lateinit var binding: ActivitySelectVolunteersBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,15 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
         createRecycleView()
 
-        volunteerAdapter.updateVolunteers(viewModel.volunteers)
+        viewModel.fetchVolunteers()
+                .doOnSubscribe { binding.selectVolunteersProgressBar.visible() }
+                .subscribeBy(
+                        onSuccess = {
+                            volunteerAdapter.updateVolunteers(it)
+                            binding.selectVolunteersProgressBar.gone()
+                        },
+                        onError = { logError(it);binding.selectVolunteersProgressBar.gone() }
+                )
 
         initClickableTextViews()
         initSearchEditText()
@@ -43,7 +53,6 @@ class SelectVolunteersActivity : AppCompatActivity() {
             sendIntentWithCheckedList()
         }
     }
-
 
     private fun createRecycleView() {
         binding.controlPanelRecycleView.run {
@@ -70,13 +79,9 @@ class SelectVolunteersActivity : AppCompatActivity() {
     }
 
     private fun initSearchEditText() {
-        binding.controlPanelSearchByFirstName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                volunteerAdapter.updateVolunteers(viewModel.filterArrayByName(editable.toString()))
-            }
-        })
+        binding.controlPanelSearchByFirstName.doAfterTextChanged {
+            volunteerAdapter.updateVolunteers(viewModel.filterArrayByName(it.toString()))
+        }
     }
 
     private fun sendIntentWithCheckedList() {

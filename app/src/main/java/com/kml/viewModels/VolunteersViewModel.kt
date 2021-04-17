@@ -1,17 +1,24 @@
 package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.kml.extensions.async
 import com.kml.models.Volunteer
 import com.kml.repositories.VolunteerRepository
+import io.reactivex.rxjava3.core.Single
 import java.util.*
 
 class VolunteersViewModel : ViewModel() {
 
     private val repository = VolunteerRepository()
 
-    val volunteers: List<Volunteer> = createListFromJson(repository.readArrayFromDatabase())
+    private var _volunteers: List<Volunteer> = listOf()
+    val volunteers: List<Volunteer> get() =  _volunteers
+
+    fun fetchVolunteers(): Single<List<Volunteer>> {
+        return repository.fetchVolunteers()
+                .async()
+                .doOnSuccess { _volunteers = it }
+    }
 
     fun selectAllVolunteers() {
         for (volunteer in volunteers) {
@@ -34,13 +41,6 @@ class VolunteersViewModel : ViewModel() {
         }
         return filteredVolunteers
     }
-
-    private fun createListFromJson(jsonResult: String): List<Volunteer> {
-        val gson = Gson()
-        val type = object : TypeToken<List<Volunteer>>() {}.type
-        return gson.fromJson(jsonResult, type) ?: emptyList()
-    }
-
 }
 
 

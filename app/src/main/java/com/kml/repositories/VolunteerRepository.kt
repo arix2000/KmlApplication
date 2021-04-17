@@ -1,11 +1,12 @@
 package com.kml.repositories
 
 import com.kml.data.externalDbOperations.DbGetAllUsersData
+import com.kml.models.Volunteer
+import io.reactivex.rxjava3.core.Single
 
 class VolunteerRepository {
-    fun readArrayFromDatabase(): String {
+    fun fetchVolunteers(): Single<List<Volunteer>> {
         val dbGetAllUsersData = DbGetAllUsersData()
-        dbGetAllUsersData.start()
-        return dbGetAllUsersData.result
+        return Single.create { it.onSuccess(dbGetAllUsersData.syncRun()) }
     }
 }

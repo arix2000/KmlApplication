@@ -164,5 +164,7 @@
     <string name="type_title">Typ:</string>
     <string name="fullname_title">Imię i nazwisko:</string>
     <string name="work_history">Historia Zadań</string>
+    <string name="search_by_title">Wyszukaj po tytule</string>
+    <string name="nic_nie_znaleziono">Nic nie znaleziono</string>
 
 </resources>
