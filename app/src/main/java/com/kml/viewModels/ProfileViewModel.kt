@@ -1,5 +1,6 @@
 package com.kml.viewModels
 
+import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
@@ -10,7 +11,9 @@ import com.kml.models.Profile
 import com.kml.repositories.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+
 
 class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
 
@@ -78,12 +81,12 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
         ioScope.launch { repository.saveProfileValues(profile) }
     }
 
-    fun getProfilePhotoPath(): String {
-        return repository.getProfilePhotoPath()
+    fun getProfilePhoto(onBitmapReady: (Bitmap?) -> Unit) {
+        repository.getProfilePhoto(onBitmapReady)
     }
 
-    fun saveProfilePhoto(path: String) {
-        repository.saveProfilePhoto(path)
+    fun saveProfilePhoto(path: Bitmap): Job {
+        return repository.saveProfilePhoto(path)
     }
 
     fun resolvePasswordChanging(newPassword: String, oldPassword: String): DbChangePass {
