@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.SystemClock
 import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -15,11 +14,12 @@ import com.kml.databinding.ActivityLoginScreenBinding
 import com.kml.extensions.showSnackBar
 import com.kml.viewModelFactories.LoginViewModelFactory
 import com.kml.viewModels.LoginViewModel
+import com.kml.views.BaseActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginScreen : AppCompatActivity() {
+class LoginScreen : BaseActivity() {
     private lateinit var cache: FileFactory
     lateinit var binding: ActivityLoginScreenBinding
     private lateinit var viewModel: LoginViewModel

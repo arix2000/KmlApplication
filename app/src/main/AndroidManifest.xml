@@ -22,7 +22,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".views.activities.SummaryVolunteerActivity"
-            android:parentActivityName=".views.activities.SelectVolunteersActivity" />
+            android:parentActivityName=".views.activities.SelectVolunteersActivity"
+            android:theme="@style/AppTheme.LoginScreen"/>
         <activity
             android:name=".views.activities.SelectVolunteersActivity"
             android:parentActivityName=".views.activities.MainActivity" />

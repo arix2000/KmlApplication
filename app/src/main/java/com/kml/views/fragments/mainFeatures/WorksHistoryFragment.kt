@@ -100,6 +100,13 @@ class WorksHistoryFragment : BaseFragment() {
                 else binding.noResultsOnSearch.gone()
             }
         }
+
+        setOnBackPressedListener {
+            if (viewModel.isSearchExpanded) {
+                collapseSearch()
+                false
+            } else true
+        }
     }
 
     private fun expandSearch() {

@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -23,11 +22,12 @@ import com.kml.data.services.TimerService
 import com.kml.databinding.ActivityMainBinding
 import com.kml.extensions.setFragment
 import com.kml.extensions.setFragmentWithData
+import com.kml.views.BaseActivity
 import com.kml.views.fragments.AboutAppFragment
 import com.kml.views.fragments.mainFeatures.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
         @JvmField
         var isFirstClick = true

@@ -1,5 +1,7 @@
 package com.kml
 
+import androidx.datastore.preferences.core.stringPreferencesKey
+
 object Constants {
 
     object Signal {
@@ -14,6 +16,7 @@ object Constants {
     object Strings {
         const val EMPTY_STRING = ""
         const val TODAY = "Dzisiaj"
+        const val SPACE = " "
     }
 
     object Tags {
@@ -24,9 +27,18 @@ object Constants {
         const val GET_ALL_TAG = "getAllTag"
     }
 
+    object Types {
+        const val SNACK_BAR_TYPE = -1
+        const val TOAST_TYPE = -2
+    }
+
     object Numbers {
         const val TIME_HAS_NO_VALUE = -1
         const val MINUTES_IN_ONE_HOUR = 60
         const val INVALID_ID = -1
+    }
+
+    object Keys {
+        val WORK_TO_ADD_KEY = stringPreferencesKey("WORK_TO_ADD_KEY")
     }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.TODAY
+import com.kml.Constants.Types.TOAST_TYPE
 import com.kml.R
 import com.kml.data.app.AppDialogs
 import com.kml.data.utilities.Validator
@@ -59,7 +60,7 @@ class InstantAddWorkDialog(private val viewModel: WorkTimerViewModel) : AppDialo
     }
 
     private fun sendWorkToDatabase(work: WorkToAdd) {
-        if (!Validator(requireContext()).validateWork(work))
+        if (!Validator(requireActivity(), TOAST_TYPE).validateWork(work))
             return
 
         binding.worksProgressBar.visibility = View.VISIBLE

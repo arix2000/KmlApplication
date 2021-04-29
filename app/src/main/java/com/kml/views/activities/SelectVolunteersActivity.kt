@@ -2,7 +2,6 @@ package com.kml.views.activities
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,15 +10,13 @@ import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.data.app.KmlApp
 import com.kml.databinding.ActivitySelectVolunteersBinding
-import com.kml.extensions.gone
-import com.kml.extensions.logError
-import com.kml.extensions.showSnackBar
-import com.kml.extensions.visible
+import com.kml.extensions.*
 import com.kml.models.Volunteer
 import com.kml.viewModels.VolunteersViewModel
+import com.kml.views.BaseActivity
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class SelectVolunteersActivity : AppCompatActivity() {
+class SelectVolunteersActivity : BaseActivity() {
 
     private lateinit var volunteerAdapter: VolunteerAdapter
     private lateinit var viewModel: VolunteersViewModel
@@ -86,11 +83,20 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
     private fun sendIntentWithCheckedList() {
         val intent = Intent(this, SummaryVolunteerActivity::class.java)
-        val checkedVolunteers = viewModel.volunteers.filter { it.isChecked } as ArrayList
+        val checkedVolunteers = viewModel.volunteers.filter { it.isChecked && !it.isDisabled } as ArrayList
         if (checkedVolunteers.isNotEmpty()) {
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
-            startActivity(intent)
+            intent.putExtra(EXTRA_IS_ALL_CHOSEN, viewModel.volunteers.none { !it.isChecked })
+            startActivityForResult(intent, SUMMARY_RESULT)
         } else showSnackBar(R.string.volunteers_are_not_chosen)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == SUMMARY_RESULT) {
+            viewModel.setCheckedVolunteersDisabled()
+            volunteerAdapter.notifyDataSetChanged()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onBackPressed() {
@@ -102,5 +108,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_CHECKED_VOLUNTEERS = "com.kml.views.activities.EXTRA_CHECKED_VOLUNTEERS"
+        const val EXTRA_IS_ALL_CHOSEN = "EXTRA_IS_ALL_CHOSEN"
+        const val SUMMARY_RESULT = 1
     }
 }

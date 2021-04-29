@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,9 +19,10 @@ import com.kml.models.Game
 import com.kml.models.GameFilterInfo
 import com.kml.viewModelFactories.GameViewModelFactory
 import com.kml.viewModels.GameViewModel
+import com.kml.views.BaseActivity
 import com.kml.views.fragments.mainFeatures.GameSearchEngineFragment
 
-class GameRecycleViewActivity : AppCompatActivity() {
+class GameRecycleViewActivity : BaseActivity() {
     private lateinit var gameViewModel: GameViewModel
 
     companion object {

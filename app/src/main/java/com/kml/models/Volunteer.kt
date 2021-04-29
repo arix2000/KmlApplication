@@ -10,4 +10,5 @@ data class Volunteer(val id: Int,
                      val firstName: String,
                      @SerializedName("nazwisko")
                      val lastName: String,
-                     var isChecked: Boolean) : Parcelable
+                     var isChecked: Boolean,
+                     var isDisabled: Boolean = false) : Parcelable

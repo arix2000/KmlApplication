@@ -7,4 +7,5 @@
     <dimen name="max_corner_radius">1000dp</dimen>
     <dimen name="control_panel_btn_padding_large">25dp</dimen>
     <dimen name="control_panel_padding">20dp</dimen>
+    <dimen name="rounding_200">200dp</dimen>
 </resources>

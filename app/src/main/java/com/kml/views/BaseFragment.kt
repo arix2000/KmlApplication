@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.kml.extensions.hideBackButton
 import com.kml.extensions.showBackButton
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
 
     var shouldShowBackButton = false
 
@@ -40,5 +40,12 @@ abstract class BaseFragment: Fragment() {
      */
     fun attachProgressBar(progressBar: ProgressBar) {
         baseProgressBar = progressBar
+    }
+
+    /**
+     * @param onBackPressed should return true if you want to do super.onBackPressed and false otherwise
+     */
+    fun setOnBackPressedListener(onBackPressed: () -> Boolean) {
+        (activity as? BaseActivity)?.onBackPressed = onBackPressed
     }
 }

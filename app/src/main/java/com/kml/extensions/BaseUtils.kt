@@ -1,5 +1,6 @@
 package com.kml.extensions
 
+import android.text.Editable
 import android.util.Log
 import io.reactivex.rxjava3.core.Single
 import java.util.*
@@ -41,11 +42,12 @@ fun Calendar.getTodayDate(): String {
 }
 
 /**
- * Format string to safe for api requests by basically changing "\" char with "\\"
+ * Same as Editable.toSafeString
  *
  * @return safe string ready to send to database by for example php api
+ * @see Editable.toSafeString
  */
-fun String.asSafeString(): String {
+fun String.toSafeString(): String {
     return this.replace("\\","\\\\")
 }
 
@@ -55,6 +57,15 @@ fun String.toIntOr(default: Int): Int {
     } catch (e: NumberFormatException) {
         default
     }
+}
+
+/**
+ * Format Editable to safe string for api requests by basically changing "\" char with "\\"
+ *
+ * @return safe string ready to send to database by for example php api
+ */
+fun Editable.toSafeString(): String {
+    return this.toString().replace("\\","\\\\")
 }
 
 fun <T> getDeferSingleFrom(async: ()-> T): Single<T> {

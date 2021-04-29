@@ -31,6 +31,16 @@ class DbAddingToChosen(private val ids: String,
         }
     }
 
+    fun syncRun(): String =
+            try {
+                conn = setConnection(address)
+                sendData()
+                readResult(conn!!)
+            } catch (e: IOException) {
+                logError(e)
+                ""
+            }
+
     private fun convertTimeToSend() = work.hours + work.minutes.toFloat() / 60
 
     @Throws(IOException::class)

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.snackbar.Snackbar
 import com.kml.Constants.Signal.UNKNOWN_ID
 import com.kml.databinding.ViewToastBinding
@@ -59,6 +60,11 @@ fun AppCompatActivity.showSnackBar(text: CharSequence, duration: Int = Snackbar.
 }
 
 fun AppCompatActivity.showSnackBar(resId: Int, duration: Int = Snackbar.LENGTH_SHORT, dismissOnClick: Boolean = true) {
+    Snackbar.make(findViewById(android.R.id.content), resId, duration)
+            .appDefault(dismissOnClick)
+}
+
+fun FragmentActivity.showSnackBar(resId: Int, duration: Int = Snackbar.LENGTH_SHORT, dismissOnClick: Boolean = true) {
     Snackbar.make(findViewById(android.R.id.content), resId, duration)
             .appDefault(dismissOnClick)
 }
