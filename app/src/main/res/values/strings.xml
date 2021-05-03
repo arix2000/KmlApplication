@@ -168,5 +168,7 @@
     <string name="search_by_title">Wyszukaj po tytule</string>
     <string name="nic_nie_znaleziono">Nic nie znaleziono</string>
     <string name="all_volunteers_was_selected">Wszyscy wolontariusze zostali już wybrani!</string>
+    <string name="log_out">Wyloguj</string>
+    <string name="dark_mode">Tryb ciemny</string>
 
 </resources>

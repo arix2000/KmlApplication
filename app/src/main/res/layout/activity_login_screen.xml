@@ -10,20 +10,6 @@
         android:background="@color/colorBackground"
         tools:context=".views.activities.LoginScreen">
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_change_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:paddingHorizontal="13dp"
-            android:text="@string/change_mode"
-            android:textColor="@color/textColorLight"
-            app:layout_constraintBottom_toTopOf="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.106" />
-
         <Button
             android:id="@+id/log_in_button"
             style="@style/buttons"
@@ -59,7 +45,6 @@
                 android:autofillHints="" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordContainer"

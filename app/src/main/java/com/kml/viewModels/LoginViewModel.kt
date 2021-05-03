@@ -3,6 +3,8 @@ package com.kml.viewModels
 import androidx.lifecycle.ViewModel
 import com.kml.data.app.KmlApp
 import com.kml.data.utilities.FileFactory
+import com.kml.extensions.logError
+import com.kml.models.User
 import com.kml.repositories.LoginRepository
 
 class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
@@ -28,13 +30,22 @@ class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
         repository.decideAboutSavingLogData(login, password, isChecked)
     }
 
-    fun getLogData(): Pair<String, String> {
+    fun getLogData(): User {
         val result = repository.getLogDataIfExist()
 
         return if (result.isNotEmpty()) {
             val content = result.split(";".toRegex()).toTypedArray()
-            content[0] to content[1]
-        } else Pair("", "")
+            createUserFrom(content)
+        } else User.EMPTY
+    }
+
+    private fun createUserFrom(content: Array<String>): User {
+        return try {
+            User(content[0].toInt(), content[1], content[2])
+        } catch (e: Exception) {
+            logError(e)
+            User.EMPTY
+        }
     }
 
     fun getPreviousSwitchState(): Boolean {
@@ -43,16 +54,4 @@ class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
             fromFile.toBoolean()
         else false
     }
-
-    fun saveSwitchDarkMode(state: Boolean)
-    {
-        repository.saveSwitchDarkMode(state.toString())
-    }
-
-    fun getSwitchDarkModeState():Boolean
-    {
-        return repository.getSwitchDarkModeState()
-    }
-
-
 }

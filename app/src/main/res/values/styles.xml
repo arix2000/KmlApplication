@@ -38,6 +38,10 @@
         <item name="android:statusBarColor">@color/status_bar_color</item>
     </style>
 
+    <style name="AppTheme.SplashScreen">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+    </style>
+
     <style name="buttons">
         <item name="android:topLeftRadius">10dp</item>
         <item name="android:textColor">@color/WhiteContent</item>

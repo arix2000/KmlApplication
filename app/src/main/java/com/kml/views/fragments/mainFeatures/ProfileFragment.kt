@@ -15,7 +15,6 @@ import com.kml.data.app.KmlApp
 import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentProfileBinding
 import com.kml.extensions.showSnackBar
-import com.kml.extensions.showToast
 import com.kml.extensions.toBitmap
 import com.kml.models.Profile
 import com.kml.viewModelFactories.ProfileViewModelFactory
@@ -74,11 +73,11 @@ class ProfileFragment : BaseFragment() {
     private fun setProfileData(profile: Profile) {
         when {
             viewModel.isFromFile ->
-                showToast(R.string.load_previous_data)
+                showSnackBar(R.string.load_previous_data)
             viewModel.isDatabaseUnavailable ->
-                showToast(R.string.external_database_unavailable)
+                showSnackBar(R.string.external_database_unavailable)
             viewModel.isNoDataFound ->
-                showToast(R.string.something_wrong)
+                showSnackBar(R.string.something_wrong)
         }
 
         binding.profileProgressBar.visibility = ProgressBar.GONE

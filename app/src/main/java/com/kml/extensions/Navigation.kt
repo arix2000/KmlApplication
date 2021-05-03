@@ -12,10 +12,9 @@ fun AppCompatActivity.setFragment(fragment: Fragment, addToBackStack: Boolean = 
         if (addToBackStack) addToBackStack(fragment.tag)
         commit()
     }
-
 }
 
-fun AppCompatActivity.setFragmentWithData(fragment: Fragment, data: Bundle, defaultAnim: Boolean = false) {
+fun AppCompatActivity.setFragmentWithData(fragment: Fragment, data: Bundle) {
     supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragment::class.java, data).commit()
 }
 
