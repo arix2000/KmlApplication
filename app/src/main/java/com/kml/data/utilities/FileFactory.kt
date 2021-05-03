@@ -10,7 +10,6 @@ class FileFactory(private val context: Context) {
 
     companion object {
         const val TAG = "IO_EXCEPTION_TAG"
-        const val CURRENT_TIME_TXT = "currentTime.txt"
         const val DATA_TXT = "data.txt"
         const val PROFILE_PHOTO_PATH_TXT = "profilePhotoPath.txt"
         const val PROFILE_KEEP_DATA_TXT = "profileKeepData.txt"

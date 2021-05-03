@@ -27,6 +27,11 @@ object Constants {
         const val GET_ALL_TAG = "getAllTag"
     }
 
+    object Date {
+        const val DATE_PICKER_INPUT_FORMAT = "d.M.yyyy"
+        const val DATE_PICKER_OUTPUT_FORMAT = "dd.MM.yyyy"
+    }
+
     object Types {
         const val SNACK_BAR_TYPE = -1
         const val TOAST_TYPE = -2

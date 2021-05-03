@@ -13,6 +13,7 @@
 
         <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:listDivider">@color/list_divider_color</item>
     </style>
 
     <style name="AppTheme.DayNight" parent="Theme.AppCompat.DayNight">

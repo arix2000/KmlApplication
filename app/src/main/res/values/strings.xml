@@ -170,5 +170,6 @@
     <string name="all_volunteers_was_selected">Wszyscy wolontariusze zostali już wybrani!</string>
     <string name="log_out">Wyloguj</string>
     <string name="dark_mode">Tryb ciemny</string>
+    <string name="work_adding">Dodawanie Godzin</string>
 
 </resources>

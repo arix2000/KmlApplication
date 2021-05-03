@@ -50,8 +50,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/textColorLight"
-                android:alpha="0.15"/>
+                android:background="@color/list_divider_color"/>
             <include
                 android:id="@+id/dark_mode"
                 layout="@layout/view_switch_nav_item"

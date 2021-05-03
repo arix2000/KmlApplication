@@ -12,6 +12,8 @@
 
         <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:listDivider">@color/list_divider_color</item>
+
     </style>
 
     <style name="buttons">

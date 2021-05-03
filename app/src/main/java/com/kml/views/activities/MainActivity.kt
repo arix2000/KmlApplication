@@ -21,7 +21,6 @@ import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
 import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.R
 import com.kml.data.app.KmlApp
-import com.kml.data.services.TimerService
 import com.kml.data.utilities.FileFactory
 import com.kml.databinding.ActivityMainBinding
 import com.kml.extensions.setFragment
@@ -35,8 +34,6 @@ import com.kml.views.fragments.mainFeatures.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
-        @JvmField
-        var isFirstClick = true
         const val CONTROL_PANEL_ITEM_ID = 3
     }
 
@@ -69,10 +66,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (savedInstanceState == null) {
             setFragment(ProfileFragment())
             navigationView.setCheckedItem(R.id.nav_profile)
-        }
-        if (TimerService.isServiceRunning) {
-            setFragment(TimerFragment())
-            navigationView.setCheckedItem(R.id.nav_timer)
         }
         if (KmlApp.isFromRecycleViewActivity) {
             setFragment(GameSearchEngineFragment())
@@ -125,7 +118,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_profile -> setFragment(ProfileFragment())
-            R.id.nav_timer -> setFragment(TimerFragment())
+            R.id.nav_timer -> setFragment(WorkAddingFragment())
             R.id.nav_search_engine -> setFragment(GameSearchEngineFragment())
             R.id.nav_control_panel -> setFragment(ControlPanelFragment())
             R.id.nav_works_history -> setFragmentWithData(WorksHistoryFragment(), getWorksBundleByTag(WORKS_TAG))

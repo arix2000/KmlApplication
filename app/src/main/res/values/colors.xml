@@ -30,5 +30,6 @@
     <color name="state_pressed_dropdown_background">@color/dropdown_checked_background</color>
     <color name="ripple_mask_dark">@color/ripple_mask</color>
     <color name="drawer_gray">#6e6e6e</color>
+    <color name="list_divider_color">#25686868</color>
 
 </resources>

@@ -170,7 +170,7 @@ class WorksHistoryFragment : BaseFragment() {
         noResultsHistoryClickable.setOnClickListener {
             val navigationView: NavigationView = requireActivity().findViewById(R.id.nav_view)
             navigationView.setCheckedItem(R.id.nav_timer)
-            setFragment(TimerFragment())
+            setFragment(WorkAddingFragment())
         }
     }
 
