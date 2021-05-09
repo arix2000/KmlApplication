@@ -171,5 +171,8 @@
     <string name="log_out">Wyloguj</string>
     <string name="dark_mode">Tryb ciemny</string>
     <string name="work_adding">Dodawanie Godzin</string>
+    <string name="no_results_c">Brak wyników... \nSpróbuj wybrać inny miesiąc :D</string>
+    <string name="meetings">Spotkania</string>
+    <string name="works">Zadania</string>
 
 </resources>

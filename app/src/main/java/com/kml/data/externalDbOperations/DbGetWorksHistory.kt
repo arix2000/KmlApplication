@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URLEncoder
 
-class DbGetWorksHistory(val type: String, private val shouldShowAll: Boolean) : ExternalDbHelper() {
+class DbGetWorksHistory(private val type: String, private val shouldShowAll: Boolean) : ExternalDbHelper() {
 
     companion object {
         const val GET_WORKS = "GET_WORKS"
@@ -20,18 +20,18 @@ class DbGetWorksHistory(val type: String, private val shouldShowAll: Boolean) : 
     private val address = BASE_URL + if(type == GET_WORKS) worksFileName else meetingsFileName
     private var conn: HttpURLConnection? = null
 
-    fun fetchResult(): String {
+    fun fetchResult(firstName: String = KmlApp.firstName, lastName: String = KmlApp.lastName): String {
         conn = setConnection(address)
-        sendData()
+        sendData(firstName,lastName)
         return readResult(conn!!)
     }
 
-    private fun sendData() {
+    private fun sendData(firstName: String, lastName: String) {
         try {
             val outStream = conn?.outputStream
             val writer = BufferedWriter(OutputStreamWriter(outStream, "UTF-8"))
-            val dataToSend = (URLEncoder.encode("firstName", "UTF-8") + "=" + URLEncoder.encode(createNameValue(KmlApp.firstName), "UTF-8")
-                    + "&&" + URLEncoder.encode("lastName", "UTF-8") + "=" + URLEncoder.encode(createNameValue(KmlApp.lastName), "UTF-8"))
+            val dataToSend = (URLEncoder.encode("firstName", "UTF-8") + "=" + URLEncoder.encode(createNameValue(firstName), "UTF-8")
+                    + "&&" + URLEncoder.encode("lastName", "UTF-8") + "=" + URLEncoder.encode(createNameValue(lastName), "UTF-8"))
             writer.write(dataToSend)
             writer.flush()
             writer.close()

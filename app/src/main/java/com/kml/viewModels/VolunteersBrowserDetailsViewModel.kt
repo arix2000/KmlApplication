@@ -7,9 +7,11 @@ import io.reactivex.rxjava3.core.Single
 
 class VolunteersBrowserDetailsViewModel : ViewModel() {
     private val repository = VolunteersBrowserDetailsRepository()
+    var profile = Profile.EMPTY_PROFILE
 
     fun fetchVolunteerData(id: Int): Single<Profile> {
         return repository.fetchVolunteersData(id)
                 .map { Profile.createFrom(it) }
+                .doOnSuccess { profile = it }
     }
 }

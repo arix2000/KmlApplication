@@ -1,4 +1,4 @@
-package com.kml.views.fragments
+package com.kml.views.fragments.volunteerBrowser
 
 import android.os.Bundle
 import android.view.LayoutInflater

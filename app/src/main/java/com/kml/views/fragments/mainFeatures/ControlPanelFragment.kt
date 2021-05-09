@@ -18,7 +18,7 @@ import com.kml.extensions.setFragment
 import com.kml.extensions.setFragmentWithData
 import com.kml.views.BaseFragment
 import com.kml.views.activities.SelectVolunteersActivity
-import com.kml.views.fragments.VolunteersBrowserFragment
+import com.kml.views.fragments.volunteerBrowser.VolunteersBrowserFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
