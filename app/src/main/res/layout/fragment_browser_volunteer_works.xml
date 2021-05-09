@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:text="@string/no_results_c"
         android:textColor="@color/textColorLight"
-        android:visibility="visible"
+        android:visibility="gone"
         android:paddingHorizontal="20dp"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
