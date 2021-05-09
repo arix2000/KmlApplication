@@ -1,8 +1,11 @@
 package com.kml.extensions
 
 import android.text.Editable
+import android.text.format.DateFormat
 import android.util.Log
+import com.kml.Constants.Date.NEW_DATE_OUTPUT_FORMAT
 import io.reactivex.rxjava3.core.Single
+import java.text.SimpleDateFormat
 import java.util.*
 
 const val DEBUG_TAG = "DEBUG_TAG"
@@ -12,7 +15,7 @@ fun Any.log(message: Any = "", list: List<Any> = listOf()) {
 
     var logMessage = this.javaClass.simpleName + " ---> " + message.toString()
 
-    if(list.isNotEmpty()) {
+    if (list.isNotEmpty()) {
         logMessage = "\n"
         for (item in list)
             logMessage = logMessage.plus("$item \n")
@@ -34,12 +37,15 @@ fun Any.logNetworkResponse(message: String) {
 }
 
 fun Calendar.getTodayDate(): String {
-    apply {
-        return get(Calendar.DAY_OF_MONTH).toString() + "." +
-                (get(Calendar.MONTH)+1) + "." +
-                get(Calendar.YEAR)
-    }
+    val date =  get(Calendar.DAY_OF_MONTH).toString() + "." +
+            (get(Calendar.MONTH) + 1) + "." +
+            get(Calendar.YEAR)
+    val validDate = SimpleDateFormat(NEW_DATE_OUTPUT_FORMAT, Locale.getDefault()).parse(date)
+    return DateFormat.format(NEW_DATE_OUTPUT_FORMAT, validDate).toString()
 }
+
+fun Calendar.getCurrentMonth() = get(Calendar.MONTH)
+fun Calendar.getCurrentYear() = get(Calendar.YEAR)
 
 /**
  * Same as Editable.toSafeString
@@ -48,7 +54,7 @@ fun Calendar.getTodayDate(): String {
  * @see Editable.toSafeString
  */
 fun String.toSafeString(): String {
-    return this.replace("\\","\\\\")
+    return this.replace("\\", "\\\\")
 }
 
 fun String.toIntOr(default: Int): Int {
@@ -65,9 +71,9 @@ fun String.toIntOr(default: Int): Int {
  * @return safe string ready to send to database by for example php api
  */
 fun Editable.toSafeString(): String {
-    return this.toString().replace("\\","\\\\")
+    return this.toString().replace("\\", "\\\\")
 }
 
-fun <T> getDeferSingleFrom(async: ()-> T): Single<T> {
+fun <T> getDeferSingleFrom(async: () -> T): Single<T> {
     return Single.defer { Single.just(async()) }
 }

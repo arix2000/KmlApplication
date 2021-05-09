@@ -3,8 +3,8 @@ package com.kml.views.dialogs
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import com.kml.Constants.Date.DATE_PICKER_INPUT_FORMAT
-import com.kml.Constants.Date.DATE_PICKER_OUTPUT_FORMAT
+import com.kml.Constants.Date.OLD_DATE_INPUT_FORMAT
+import com.kml.Constants.Date.NEW_DATE_OUTPUT_FORMAT
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.data.app.AppDialogs
 import com.kml.data.listeners.OnResultListener
@@ -44,7 +44,7 @@ class MyDatePickerDialog: AppDialogs() {
     }
 
     private fun formatDate(date: String): String {
-        return SimpleDateFormat(DATE_PICKER_OUTPUT_FORMAT, Locale.getDefault())
-                .format(SimpleDateFormat(DATE_PICKER_INPUT_FORMAT, Locale.getDefault()).parse(date) ?: EMPTY_STRING)
+        return SimpleDateFormat(NEW_DATE_OUTPUT_FORMAT, Locale.getDefault())
+                .format(SimpleDateFormat(OLD_DATE_INPUT_FORMAT, Locale.getDefault()).parse(date) ?: EMPTY_STRING)
     }
 }
