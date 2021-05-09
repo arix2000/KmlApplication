@@ -47,11 +47,6 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <service
-            android:name=".data.services.TimerService"
-            android:enabled="true"
-            android:stopWithTask="false" />
-
         <activity
             android:name=".views.activities.GamePropertiesActivity"
             android:parentActivityName=".views.activities.GameRecycleViewActivity" />

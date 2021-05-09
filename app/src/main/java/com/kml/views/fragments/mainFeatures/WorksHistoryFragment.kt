@@ -112,7 +112,7 @@ class WorksHistoryFragment : BaseFragment() {
     private fun expandSearch() {
         binding.searchExpandableView.apply {
             val newWidth = binding.root.width - root.marginEnd - root.marginStart
-            animateResizing(this.root, newWidth, View.VISIBLE)
+            animateResizing(this.root, newWidth)
             searchButton.setImageResource(R.drawable.ic_close)
         }
         viewModel.isSearchExpanded = true
@@ -121,7 +121,7 @@ class WorksHistoryFragment : BaseFragment() {
     private fun collapseSearch() {
         binding.searchExpandableView.apply {
             val newWidth = searchButton.width
-            animateResizing(this.root, newWidth, View.GONE)
+            animateResizing(this.root, newWidth)
             searchButton.setImageResource(R.drawable.ic_search)
             searchEditText.setText(EMPTY_STRING)
             requireContext().hideSoftKeyboard(this.root)
@@ -129,7 +129,7 @@ class WorksHistoryFragment : BaseFragment() {
         viewModel.isSearchExpanded = false
     }
 
-    private fun animateResizing(view: View, newWidth: Int, visibility: Int) {
+    private fun animateResizing(view: View, newWidth: Int) {
         ValueAnimator.ofInt(view.width, newWidth).apply {
             duration = 500
             interpolator = DecelerateInterpolator()

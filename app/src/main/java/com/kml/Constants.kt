@@ -11,12 +11,14 @@ object Constants {
         const val VALIDATION_SUCCESSFUL = -1
         const val MAXIMUM_PERMITTED_HOURS = 14
         const val UNKNOWN_ID = -1
+        const val EMPTY_ID = -1
     }
 
     object Strings {
         const val EMPTY_STRING = ""
         const val TODAY = "Dzisiaj"
         const val SPACE = " "
+        const val SPACE_CHAR = ' '
     }
 
     object Tags {
@@ -28,8 +30,9 @@ object Constants {
     }
 
     object Date {
-        const val DATE_PICKER_INPUT_FORMAT = "d.M.yyyy"
-        const val DATE_PICKER_OUTPUT_FORMAT = "dd.MM.yyyy"
+        const val OLD_DATE_INPUT_FORMAT = "d.M.yyyy"
+        const val NEW_DATE_OUTPUT_FORMAT = "dd.MM.yyyy"
+        const val CREATION_DATE_FORMAT = "dd-MM-yyyy"
     }
 
     object Types {

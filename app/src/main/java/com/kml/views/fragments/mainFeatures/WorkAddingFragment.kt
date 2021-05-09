@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kml.Constants
+import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.Validator
 import com.kml.data.utilities.Vibrator
 import com.kml.databinding.FragmentAddingWorkBinding
-import com.kml.extensions.clearPools
-import com.kml.extensions.hideSoftKeyboard
-import com.kml.extensions.showSnackBar
+import com.kml.extensions.*
 import com.kml.models.WorkToAdd
 import com.kml.viewModelFactories.WorkTimerViewModelFactory
 import com.kml.viewModels.WorkAddingViewModel
@@ -34,7 +32,7 @@ class WorkAddingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        attachProgressBar(binding.worksProgressBar)
         val viewModelFactory = WorkTimerViewModelFactory(FileFactory(requireContext()))
         viewModel = ViewModelProvider(this, viewModelFactory).get(WorkAddingViewModel::class.java)
 
@@ -43,7 +41,7 @@ class WorkAddingFragment : BaseFragment() {
 
     private fun setupUi() {
         with(binding) {
-            workCreationDate.text = Constants.Strings.TODAY
+            workCreationDate.text = TODAY
 
             dialogTimerAddInstant.setOnClickListener {
                 getSendWork()
@@ -73,9 +71,9 @@ class WorkAddingFragment : BaseFragment() {
             val work = WorkToAdd(workName.text.toString(),
                     description,
                     hours.text.toString().toIntOrNull()
-                            ?: Constants.Numbers.TIME_HAS_NO_VALUE,
+                            ?: TIME_HAS_NO_VALUE,
                     minutes.text.toString().toIntOrNull()
-                            ?: Constants.Numbers.TIME_HAS_NO_VALUE
+                            ?: TIME_HAS_NO_VALUE
             )
             sendWork(work)
         }
@@ -85,9 +83,9 @@ class WorkAddingFragment : BaseFragment() {
         if (!Validator(requireActivity()).validateWork(work))
             return
 
-        binding.worksProgressBar.visibility = View.VISIBLE
+        binding.worksProgressBar.visible()
         viewModel.sendWorkToDatabase(work) {
-            binding.worksProgressBar.visibility = View.GONE
+            binding.worksProgressBar.invisible()
             if (it) {
                 showSnackBar(getString(R.string.adding_work_confirmation))
                 resetPools()
