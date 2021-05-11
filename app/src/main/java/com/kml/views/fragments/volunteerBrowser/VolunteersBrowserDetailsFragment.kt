@@ -48,6 +48,14 @@ class VolunteersBrowserDetailsFragment : BaseFragment() {
             }
             setFragmentWithData(BrowserVolunteerWorksFragment(), bundle)
         }
+
+        binding.volunteerMeetingsButton.setOnClickListener {
+            val profile = viewModel.profile
+            val bundle = Bundle().apply {
+                putParcelable(USER_KEY, User(EMPTY_ID, profile.firstName, profile.lastName))
+            }
+            setFragmentWithData(BrowserVolunteerMeetingsFragment(), bundle)
+        }
     }
 
     override fun hideProgressBar() {

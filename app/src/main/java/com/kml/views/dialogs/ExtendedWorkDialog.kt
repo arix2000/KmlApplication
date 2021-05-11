@@ -32,7 +32,7 @@ class ExtendedWorkDialog(
             workDate.text = work.workDate
             executionTime.text = work.executionTime
             volunteers.text = work.people?.trim()?.removeSuffix(",")
-            workType.text = if (work.type.isNullOrBlank()) "Brak" else work.type
+            workType.text = if (work.type.isNullOrBlank()) resources.getString(R.string.no_type) else work.type
             setOrHideFullName()
             showOrHideVolunteersInfo()
             showOrHideFullNames()

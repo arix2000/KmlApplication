@@ -19,6 +19,7 @@ object Constants {
         const val TODAY = "Dzisiaj"
         const val SPACE = " "
         const val SPACE_CHAR = ' '
+        const val NO_TYPE = "Brak"
     }
 
     object Tags {

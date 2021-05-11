@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     def room_version = "2.3.0"
     def koin_version = "3.0.1"
     def preferences_data_store_version = "1.0.0-beta01"

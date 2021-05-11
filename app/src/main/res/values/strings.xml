@@ -69,6 +69,7 @@
     </string-array>
 
     <string-array name="work_types">
+        <item>Brak</item>
         <item>Spotkania ogólne</item>
         <item>Spotkania sekcji</item>
         <item>Szkolenia</item>
@@ -180,10 +181,12 @@
     <string name="log_out">Wyloguj</string>
     <string name="dark_mode">Tryb ciemny</string>
     <string name="work_adding">Dodawanie Godzin</string>
-    <string name="no_results_c">Brak wyników... \nSpróbuj wybrać inny miesiąc :D</string>
+    <string name="no_results_c">Brak wyników… \nSpróbuj wybrać inny miesiąc :D</string>
+    <string name="no_results_type">Brak wyników… \nSpróbuj wybrać inny typ :D</string>
     <string name="meetings">Spotkania</string>
     <string name="works">Zadania</string>
     <string name="work_type">Typ Działania</string>
     <string name="work_type_two_dots">Typ działania:</string>
+    <string name="no_type">Brak</string>
 
 </resources>

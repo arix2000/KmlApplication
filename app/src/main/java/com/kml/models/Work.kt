@@ -49,7 +49,7 @@ open class Work(@SerializedName("imie") val firstName: String?,
             try {
                 getDateFormat(dateStr).parse(dateStr.trim()) ?: Date(0)
             } catch (e: Exception) {
-                logError(Throwable("date can't be parsed: \"$dateStr\" \n changing source to creationDate.."))
+                logError(Throwable("date can't be parsed: \"$dateStr\" changing source to creationDate.."))
                 getDateFormat(workDate).parse(workDate.trim()) ?: Date(0)
             }
 

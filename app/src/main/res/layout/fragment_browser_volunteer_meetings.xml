@@ -8,11 +8,11 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/month_spinner"
+        app:layout_constraintBottom_toTopOf="@+id/type_spinner"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/list_item_work_history" />
 
@@ -21,25 +21,16 @@
         android:layout_marginTop="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 
     <Spinner
-        android:id="@+id/month_spinner"
+        android:id="@+id/type_spinner"
         android:layout_width="@dimen/zero"
         android:layout_height="45dp"
         android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/year_spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/view_simple_spinner" />
-
-    <Spinner
-        android:id="@+id/year_spinner"
-        android:layout_width="110dp"
-        android:layout_height="@dimen/zero"
-        app:layout_constraintBottom_toBottomOf="@+id/month_spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/month_spinner"
+        app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/view_simple_spinner" />
 
     <ProgressBar
@@ -55,13 +46,13 @@
         android:id="@+id/no_results_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_results_c"
+        android:text="@string/no_results_type"
         android:textColor="@color/textColorLight"
         android:visibility="gone"
         android:paddingHorizontal="20dp"
         android:gravity="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

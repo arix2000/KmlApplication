@@ -29,4 +29,6 @@ val viewModelModule = module {
     viewModel { WorkAddingViewModel(get()) }
 
     viewModel { WorksHistoryViewModel(get()) }
+
+    viewModel { BrowserVolunteerMeetingsViewModel(get()) }
 }

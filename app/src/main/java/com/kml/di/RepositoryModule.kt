@@ -28,4 +28,6 @@ val repositoryModule = module {
     single { WorkAddingRepository(get()) }
 
     single { WorksHistoryRepository(get()) }
+
+    single { BrowserVolunteerMeetingsRepository() }
 }
