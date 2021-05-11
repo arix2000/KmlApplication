@@ -5,11 +5,9 @@ import com.kml.data.networking.DbGetWorksHistory
 import com.kml.data.networking.DbGetWorksHistory.Companion.GET_MEETINGS
 import com.kml.data.networking.DbGetWorksHistory.Companion.GET_WORKS
 import com.kml.data.utilities.FileFactory
-import com.kml.extensions.getDeferSingleFrom
+import com.kml.extensions.async
 import com.kml.models.Work
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class WorksHistoryRepository(private val fileFactory: FileFactory) {
     var isFromFile = false
@@ -21,9 +19,8 @@ class WorksHistoryRepository(private val fileFactory: FileFactory) {
 
     private fun getWorks(shouldShowAll: Boolean): Single<String> {
         val dbGetWorksHistory = DbGetWorksHistory(GET_WORKS, shouldShowAll)
-        return getDeferSingleFrom { dbGetWorksHistory.fetchResult() }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        return Single.create<String> { it.onSuccess(dbGetWorksHistory.fetchResult()) }
+                .async()
     }
 
     fun getStringJsonMeetings(shouldShowAll: Boolean): Single<String> {
@@ -33,9 +30,8 @@ class WorksHistoryRepository(private val fileFactory: FileFactory) {
 
     private fun getMeetings(shouldShowAll: Boolean): Single<String> {
         val dbGetWorksHistory = DbGetWorksHistory(GET_MEETINGS, shouldShowAll)
-        return getDeferSingleFrom { dbGetWorksHistory.fetchResult() }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        return Single.create<String>  { it.onSuccess(dbGetWorksHistory.fetchResult()) }
+                .async()
     }
 
     fun readStringFrom(file: String): String {

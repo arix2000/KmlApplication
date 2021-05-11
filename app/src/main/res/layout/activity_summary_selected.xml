@@ -100,11 +100,26 @@
                     android:hint="@string/expand_what_was_happen" />
 
                 <TextView
-                    android:id="@+id/execution_date_label"
+                    android:id="@+id/work_type_title"
+                    style="@style/form_text_views"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/work_description"
-                    android:layout_marginTop="20dp"
+                    android:text="@string/work_type" />
+
+                <Spinner
+                    android:id="@+id/work_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_below="@+id/work_type_title"
+                    tools:listitem="@layout/view_simple_spinner" />
+
+                <TextView
+                    android:id="@+id/execution_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/work_type"
+                    android:layout_marginTop="10dp"
                     android:text="@string/creation_date"
                     android:textColor="@color/textColorLight" />
 

@@ -68,6 +68,15 @@
         <item>Tańce</item>
     </string-array>
 
+    <string-array name="work_types">
+        <item>Spotkania ogólne</item>
+        <item>Spotkania sekcji</item>
+        <item>Szkolenia</item>
+        <item>Integracje</item>
+        <item>Spotkania do wydarzeń</item>
+        <item>Wydarzenia</item>
+    </string-array>
+
     <string name="open_drawer">Open Navigation Drawer</string>
     <string name="close_drawer">Close Navigation Drawer</string>
     <string name="kml_email">kmlmielec@gmail.com</string>
@@ -174,5 +183,7 @@
     <string name="no_results_c">Brak wyników... \nSpróbuj wybrać inny miesiąc :D</string>
     <string name="meetings">Spotkania</string>
     <string name="works">Zadania</string>
+    <string name="work_type">Typ Działania</string>
+    <string name="work_type_two_dots">Typ działania:</string>
 
 </resources>

@@ -56,7 +56,7 @@ class BrowserVolunteerWorksFragment : BaseFragment() {
     }
 
     private fun extendInDialog(work: Work) {
-        ExtendedWorkDialog(work, WORKS_TAG, true)
+        ExtendedWorkDialog(work, WORKS_TAG)
                 .show(parentFragmentManager, "ExtendedWork")
     }
 

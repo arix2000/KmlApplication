@@ -53,7 +53,7 @@ class WorkAdapter(private val onClickListener: (Work) -> Unit)
     }
 
     companion object {
-        val EMPTY_WORK = Work("","","","","","","")
+        val EMPTY_WORK = Work("","","","","","","","")
 
         const val EMPTY_WORK_VIEW_TYPE = 1
         const val WORK_VIEW_TYPE = 2

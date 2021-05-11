@@ -18,7 +18,8 @@ open class Work(@SerializedName("imie") val firstName: String?,
                 @SerializedName("opisZadania") val workDescription: String,
                 @SerializedName("data") val workDate: String,
                 @SerializedName("czasWykonania") val executionTime: String,
-                @SerializedName("osoby") val people: String?
+                @SerializedName("osoby") val people: String?,
+                @SerializedName("typSpotkania") val type: String?
 ) : Parcelable {
     fun isEmpty() = firstName.isNullOrBlank() && lastName.isNullOrBlank()
             && workName.isBlank() && workDescription.isBlank() && workDate.isBlank()

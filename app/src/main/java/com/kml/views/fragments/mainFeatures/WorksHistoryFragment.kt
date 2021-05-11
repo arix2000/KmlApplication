@@ -149,7 +149,7 @@ class WorksHistoryFragment : BaseFragment() {
 
     private fun extendInDialog(work: Work) {
         requireContext().hideSoftKeyboard(binding.root)
-        val dialog = ExtendedWorkDialog(work, historyType, true)
+        val dialog = ExtendedWorkDialog(work, historyType, shouldShowAll)
         dialog.show(parentFragmentManager, "ExtendedWork")
     }
 

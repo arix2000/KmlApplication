@@ -1,7 +1,7 @@
 package com.kml.data.networking
 
-import android.util.Log
 import com.kml.KmlApp
+import com.kml.extensions.logError
 import java.io.BufferedWriter
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -37,7 +37,7 @@ class DbGetWorksHistory(private val type: String, private val shouldShowAll: Boo
             writer.close()
             outStream?.close()
         } catch (e: IOException) {
-            Log.d(IO_EXCEPTION_TAG, "sendData: " + e.message)
+            logError(e)
         }
     }
 

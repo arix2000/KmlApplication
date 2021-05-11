@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.kml.Constants
-import com.kml.Constants.Strings.EMPTY_STRING
+import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.SPACE
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
@@ -49,6 +48,9 @@ class SummaryVolunteerActivity : BaseActivity() {
                 viewModel.clearCache(dataStore)
                 validateAndSend { finishAdding() }
             }
+            workType.adapter = workType.createDefaultSpinnerAdapter(R.array.work_types)
+            workType.setSelection(0)
+
             if(viewModel.isAllVolunteersChosen) {
                 setDisabledMaskTo(sendWorkAndContinue)
             }
@@ -105,8 +107,9 @@ class SummaryVolunteerActivity : BaseActivity() {
             val work = WorkToAdd(
                     workName.text.toSafeString(),
                     "$creationDateString  ${workDescription.text}".toSafeString(),
-                    hours.text.toString().toIntOr(Constants.Numbers.TIME_HAS_NO_VALUE),
-                    minutes.text.toString().toIntOr(Constants.Numbers.TIME_HAS_NO_VALUE)
+                    hours.text.toString().toIntOr(TIME_HAS_NO_VALUE),
+                    minutes.text.toString().toIntOr(TIME_HAS_NO_VALUE),
+                    workType.selectedItem.toString()
             )
 
             if (!validator.validateWork(work)) {
@@ -141,15 +144,6 @@ class SummaryVolunteerActivity : BaseActivity() {
 
     private fun finishAdding() {
         startActivity(Intent(this, MainActivity::class.java))
-    }
-
-    private fun resetPools() {
-        with(binding) {
-            hours.setText(EMPTY_STRING)
-            minutes.setText(EMPTY_STRING)
-            workName.setText(EMPTY_STRING)
-            workDescription.setText(EMPTY_STRING)
-        }
     }
 
     private fun getShowChosenVolunteers() {

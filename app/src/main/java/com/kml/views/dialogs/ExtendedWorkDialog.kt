@@ -5,14 +5,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Tags.MEETINGS_TAG
 import com.kml.R
-import com.kml.views.BaseDialog
 import com.kml.databinding.DialogWorkHistoryExtendedBinding
-import com.kml.extensions.gone
-import com.kml.extensions.visible
+import com.kml.extensions.goneAll
+import com.kml.extensions.visibleAll
 import com.kml.models.Work
+import com.kml.views.BaseDialog
 
 
-class ExtendedWorkDialog(val work: Work, val type: String, private val shouldShowVolunteers: Boolean = false) : BaseDialog() {
+class ExtendedWorkDialog(
+    val work: Work,
+    val type: String,
+    val shouldShowFullName: Boolean = false
+) : BaseDialog() {
 
     lateinit var binding: DialogWorkHistoryExtendedBinding
     var isVolunteersExpanded = false
@@ -23,13 +27,15 @@ class ExtendedWorkDialog(val work: Work, val type: String, private val shouldSho
         builder.setView(binding.root)
 
         binding.apply {
-            dialogHistoryWorkName.text = work.workName
-            dialogHistoryWorkDescription.text = work.workDescription
-            dialogHistoryWorkDate.text = work.workDate
-            dialogHistoryExecutionTime.text = work.executionTime
-            dialogHistoryVolunteers.text = work.people?.trim()?.removeSuffix(",")
+            workName.text = work.workName
+            workDescription.text = work.workDescription
+            workDate.text = work.workDate
+            executionTime.text = work.executionTime
+            volunteers.text = work.people?.trim()?.removeSuffix(",")
+            workType.text = if (work.type.isNullOrBlank()) "Brak" else work.type
             setOrHideFullName()
             showOrHideVolunteersInfo()
+            showOrHideFullNames()
             setExpanding()
         }
         return builder.create()
@@ -40,11 +46,9 @@ class ExtendedWorkDialog(val work: Work, val type: String, private val shouldSho
             binding.apply {
                 val fullName = "$firstName $lastName"
                 if (firstName.isNullOrBlank() || lastName.isNullOrBlank()) {
-                    fullNameTitle.gone()
-                    dialogHistoryFullName.gone()
+                    goneAll(fullNameTitle, dialogHistoryFullName)
                 } else {
-                    fullNameTitle.visible()
-                    dialogHistoryFullName.visible()
+                    visibleAll(fullNameTitle, dialogHistoryFullName)
                     dialogHistoryFullName.text = fullName
                 }
             }
@@ -52,7 +56,7 @@ class ExtendedWorkDialog(val work: Work, val type: String, private val shouldSho
     }
 
     private fun setExpanding() {
-        binding.dialogHistoryVolunteers.apply {
+        binding.volunteers.apply {
             setOnClickListener {
                 maxLines = if (isVolunteersExpanded) 2 else Int.MAX_VALUE
                 isVolunteersExpanded = !isVolunteersExpanded
@@ -62,14 +66,21 @@ class ExtendedWorkDialog(val work: Work, val type: String, private val shouldSho
 
     private fun showOrHideVolunteersInfo() {
         binding.apply {
-            if (shouldShowVolunteers && type == MEETINGS_TAG) {
-                dialogHistoryVolunteers.visible()
-                volunteersTitle.visible()
-            } else {
-                dialogHistoryVolunteers.gone()
-                volunteersTitle.gone()
-            }
+            if (type == MEETINGS_TAG)
+                visibleAll(volunteers, volunteersTitle, workType, workTypeTitle)
+             else
+                goneAll(volunteers, volunteersTitle, workType, workTypeTitle)
+
         }
     }
 
+    private fun showOrHideFullNames() {
+        binding.apply {
+            if (type == MEETINGS_TAG && shouldShowFullName)
+                visibleAll(fullNameTitle,dialogHistoryFullName)
+            else
+                goneAll(fullNameTitle,dialogHistoryFullName)
+
+        }
+    }
 }
