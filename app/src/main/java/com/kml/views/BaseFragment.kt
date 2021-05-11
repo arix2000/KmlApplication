@@ -8,6 +8,7 @@ import com.kml.extensions.showBackButton
 
 abstract class BaseFragment : Fragment() {
 
+    private var activityTitle = ""
     var shouldShowBackButton = false
 
     /**
@@ -21,6 +22,12 @@ abstract class BaseFragment : Fragment() {
             showBackButton()
         else
             hideBackButton()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (activityTitle.isNotBlank())
+            activity?.title = activityTitle
     }
 
     open fun showProgressBar() {
@@ -43,5 +50,10 @@ abstract class BaseFragment : Fragment() {
      */
     fun setOnBackPressedListener(onBackPressed: () -> Boolean) {
         (activity as? BaseActivity)?.onBackPressed = onBackPressed
+    }
+
+    fun setTitle(title: String) {
+        activityTitle = activity?.title.toString()
+        activity?.title = title
     }
 }

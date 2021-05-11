@@ -49,6 +49,7 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
     private fun fetchData() {
         showProgressBar()
         val user = arguments?.getParcelable(VolunteersBrowserDetailsFragment.USER_KEY) ?: User.EMPTY
+        setTitle("${user.firstName} ${user.lastName}")
         viewModel.fetchMeetings(user)
             .subscribeBy(
                 onSuccess = {

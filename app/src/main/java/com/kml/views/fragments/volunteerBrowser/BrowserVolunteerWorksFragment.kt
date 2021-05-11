@@ -38,6 +38,7 @@ class BrowserVolunteerWorksFragment : BaseFragment() {
         attachProgressBar(binding.progressBar)
         worksAdapter = BrowserVolunteerWorksAdapter { extendInDialog(it) }
         val user = arguments?.getParcelable(USER_KEY) ?: User.EMPTY
+        setTitle("${user.firstName} ${user.lastName}")
         fetchWorks(user)
         setupUi()
     }
