@@ -86,7 +86,12 @@ class SummaryVolunteerActivity : BaseActivity() {
             creationDate.text = creationTimeText
             hours.setText(work.hours.toString())
             minutes.setText(work.minutes.toString())
+            workType.setSelection(getPositionOf(work.type))
         }
+    }
+
+    private fun getPositionOf(type: String): Int {
+        return resources.getStringArray(R.array.work_types).toList().indexOf(type)
     }
 
     private fun setDisabledMaskTo(button: Button) {
