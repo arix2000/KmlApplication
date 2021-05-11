@@ -19,11 +19,7 @@ abstract class BaseFragment : Fragment() {
         super.onResume()
         if (shouldShowBackButton)
             showBackButton()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        if (shouldShowBackButton)
+        else
             hideBackButton()
     }
 

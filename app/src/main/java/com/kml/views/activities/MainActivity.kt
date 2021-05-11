@@ -40,6 +40,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
 
+    var isBackButtonVisible = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -144,6 +146,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
         binding.drawerLayout.isEnabled = false
         binding.mainToolbar.menu.findItem(R.id.about_app).isVisible = false
+        isBackButtonVisible = true
     }
 
     fun hideBackButton() {
@@ -152,6 +155,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         drawerToggle.syncState()
         binding.mainToolbar.menu.findItem(R.id.about_app).isVisible = true
+        isBackButtonVisible = false
     }
 
     /** this method will be invoked when we click on image view in header of navigation drawer */

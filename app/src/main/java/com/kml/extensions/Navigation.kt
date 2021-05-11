@@ -50,9 +50,15 @@ fun Fragment.setFragmentWithData(fragment: Fragment, data: Bundle) {
 }
 
 fun Fragment.showBackButton() {
-    (activity as? MainActivity)?.showBackButton()
+    (activity as? MainActivity)?.apply {
+         if (!isBackButtonVisible)
+             showBackButton()
+    }
 }
 
 fun Fragment.hideBackButton() {
-    (activity as? MainActivity)?.hideBackButton()
+    (activity as? MainActivity)?.apply {
+        if (isBackButtonVisible)
+            hideBackButton()
+    }
 }
