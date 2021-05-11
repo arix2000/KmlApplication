@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.core.view.marginEnd
 import androidx.core.view.marginStart
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
@@ -23,15 +22,14 @@ import com.kml.Constants.Tags.SHOULD_SHOW_BACK_BUTTON
 import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
 import com.kml.R
 import com.kml.adapters.WorkAdapter
-import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentAllHistoryBinding
 import com.kml.extensions.*
 import com.kml.models.Work
-import com.kml.viewModelFactories.WorksHistoryViewModelFactory
 import com.kml.viewModels.WorksHistoryViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.dialogs.ExtendedWorkDialog
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
@@ -39,7 +37,7 @@ class WorksHistoryFragment : BaseFragment() {
     private lateinit var adapter: WorkAdapter
     private var _binding: FragmentAllHistoryBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: WorksHistoryViewModel
+    private val viewModel: WorksHistoryViewModel by viewModel()
     private lateinit var historyType: String
     private var shouldShowAll = false
 
@@ -52,9 +50,6 @@ class WorksHistoryFragment : BaseFragment() {
         attachProgressBar(binding.allHistoryProgressBar)
         shouldShowBackButton = arguments?.getBoolean(SHOULD_SHOW_BACK_BUTTON) ?: false
         shouldShowAll = arguments?.getBoolean(GET_ALL_TAG) ?: false
-
-        val viewModelFactory = WorksHistoryViewModelFactory(FileFactory(requireContext()))
-        viewModel = ViewModelProvider(this, viewModelFactory).get(WorksHistoryViewModel::class.java)
         setupUi()
     }
 

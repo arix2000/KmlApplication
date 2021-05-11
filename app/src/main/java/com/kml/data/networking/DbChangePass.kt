@@ -1,4 +1,4 @@
-package com.kml.data.externalDbOperations
+package com.kml.data.networking
 
 import com.kml.extensions.logError
 import java.io.BufferedWriter

@@ -2,8 +2,8 @@ package com.kml.repositories
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kml.data.externalDbOperations.DbGetWorksHistory
-import com.kml.data.externalDbOperations.DbGetWorksHistory.Companion.GET_WORKS
+import com.kml.data.networking.DbGetWorksHistory
+import com.kml.data.networking.DbGetWorksHistory.Companion.GET_WORKS
 import com.kml.extensions.async
 import com.kml.models.User
 import com.kml.models.Work

@@ -9,9 +9,9 @@ import com.kml.models.Work
 import com.kml.repositories.WorksHistoryRepository
 import io.reactivex.rxjava3.core.Single
 
-class WorksHistoryViewModel(fileFactory: FileFactory) : ViewModel() {
-
-    private val repository = WorksHistoryRepository(fileFactory)
+class WorksHistoryViewModel(
+    private val repository: WorksHistoryRepository
+) : ViewModel() {
 
     var isSearchExpanded = false
 

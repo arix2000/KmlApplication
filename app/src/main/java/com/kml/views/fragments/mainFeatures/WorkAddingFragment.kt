@@ -4,26 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
-import com.kml.data.utilities.FileFactory
 import com.kml.data.utilities.Validator
 import com.kml.data.utilities.Vibrator
 import com.kml.databinding.FragmentAddingWorkBinding
 import com.kml.extensions.*
 import com.kml.models.WorkToAdd
-import com.kml.viewModelFactories.WorkTimerViewModelFactory
 import com.kml.viewModels.WorkAddingViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.dialogs.MyDatePickerDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WorkAddingFragment : BaseFragment() {
 
     private var _binding: FragmentAddingWorkBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: WorkAddingViewModel
+    private val viewModel: WorkAddingViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAddingWorkBinding.inflate(inflater, container, false)
@@ -33,16 +31,12 @@ class WorkAddingFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         attachProgressBar(binding.worksProgressBar)
-        val viewModelFactory = WorkTimerViewModelFactory(FileFactory(requireContext()))
-        viewModel = ViewModelProvider(this, viewModelFactory).get(WorkAddingViewModel::class.java)
-
         setupUi()
     }
 
     private fun setupUi() {
         with(binding) {
             workCreationDate.text = TODAY
-
             dialogTimerAddInstant.setOnClickListener {
                 getSendWork()
             }

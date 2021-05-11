@@ -1,8 +1,8 @@
 package com.kml.repositories
 
 import androidx.lifecycle.ViewModel
-import com.kml.data.app.KmlApp
-import com.kml.data.externalDbOperations.DbLogin
+import com.kml.KmlApp
+import com.kml.data.networking.DbLogin
 import com.kml.data.utilities.FileFactory
 
 class LoginRepository(val fileFactory: FileFactory) : ViewModel() {

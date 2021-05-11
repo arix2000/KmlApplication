@@ -1,4 +1,4 @@
-package com.kml.data.externalDbOperations
+package com.kml.data.networking
 
 import android.util.Log
 import java.io.BufferedWriter

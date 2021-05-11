@@ -7,23 +7,21 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kml.KmlApp
 import com.kml.R
 import com.kml.adapters.GameAdapter
-import com.kml.data.app.KmlApp
-import com.kml.data.internalRoomDatabase.GameDatabase
 import com.kml.extensions.showSnackBar
 import com.kml.models.Game
 import com.kml.models.GameFilterInfo
-import com.kml.viewModelFactories.GameViewModelFactory
 import com.kml.viewModels.GameViewModel
 import com.kml.views.BaseActivity
 import com.kml.views.fragments.mainFeatures.GameSearchEngineFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GameRecycleViewActivity : BaseActivity() {
-    private lateinit var gameViewModel: GameViewModel
+    private val gameViewModel: GameViewModel by viewModel()
 
     companion object {
         const val EXTRA_GAME = "com.kml.views.EXTRA_GAME"
@@ -66,11 +64,9 @@ class GameRecycleViewActivity : BaseActivity() {
 
     private fun initViewModel() {
         val filterInfo: GameFilterInfo = intent.getParcelableExtra(GameSearchEngineFragment.EXTRA_GAME_FILTER_INFO)
-                ?: GameFilterInfo("", "", "", "", "", "")
+                ?: GameFilterInfo.EMPTY
 
-        val dataSource = GameDatabase.getInstance(this).gameDao
-        val viewModelFactory = GameViewModelFactory(dataSource, filterInfo)
-        gameViewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
+        gameViewModel.filterInfo = filterInfo
     }
 
 

@@ -5,22 +5,19 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.kml.R
-import com.kml.data.utilities.FileFactory
 import com.kml.databinding.ActivityLoginScreenBinding
 import com.kml.extensions.showSnackBar
-import com.kml.viewModelFactories.LoginViewModelFactory
 import com.kml.viewModels.LoginViewModel
 import com.kml.views.BaseActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginScreen : BaseActivity() {
-    private lateinit var cache: FileFactory
     lateinit var binding: ActivityLoginScreenBinding
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModel()
 
     companion object {
         @JvmField
@@ -30,13 +27,8 @@ class LoginScreen : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login_screen)
-        cache = FileFactory(this)
         binding.login.setSelectAllOnFocus(true)
         binding.password.setSelectAllOnFocus(true)
-
-        val viewModelFactory = LoginViewModelFactory(cache)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
-
         binding.logInButton.setOnClickListener {
             binding.loginScreenProgressBar.visibility = ProgressBar.VISIBLE
             CoroutineScope(Dispatchers.Main).launch { logIn() }

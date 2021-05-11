@@ -1,7 +1,7 @@
-package com.kml.data.externalDbOperations
+package com.kml.data.networking
 
 import com.kml.Constants.Strings.EMPTY_STRING
-import com.kml.data.app.KmlApp
+import com.kml.KmlApp
 import com.kml.extensions.logError
 import java.io.BufferedWriter
 import java.io.IOException

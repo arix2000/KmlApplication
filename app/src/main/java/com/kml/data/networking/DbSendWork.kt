@@ -1,7 +1,7 @@
-package com.kml.data.externalDbOperations
+package com.kml.data.networking
 
 import android.util.Log
-import com.kml.data.app.KmlApp
+import com.kml.KmlApp
 import com.kml.models.WorkToAdd
 import java.io.BufferedWriter
 import java.io.IOException
@@ -43,7 +43,8 @@ class DbSendWork(var work: WorkToAdd) : ExternalDbHelper() {
     private fun setDataToSend(timeToSend: Float): String {
         val workTimeExact = work.hours.toString() + "h " + work.minutes + "min"
         return (URLEncoder.encode("czasPracy", "UTF-8") + "=" + URLEncoder.encode(timeToSend.toString(), "UTF-8")
-                + "&&" + URLEncoder.encode("loginId", "UTF-8") + "=" + URLEncoder.encode(java.lang.String.valueOf(KmlApp.loginId), "UTF-8")
+                + "&&" + URLEncoder.encode("loginId", "UTF-8") + "=" + URLEncoder.encode(java.lang.String.valueOf(
+            KmlApp.loginId), "UTF-8")
                 + "&&" + URLEncoder.encode("nazwaZadania", "UTF-8") + "=" + URLEncoder.encode(work.name, "UTF-8")
                 + "&&" + URLEncoder.encode("opisZadania", "UTF-8") + "=" + URLEncoder.encode(work.description, "UTF-8")
                 + "&&" + URLEncoder.encode("czasPracyDokladny", "UTF-8") + "=" + URLEncoder.encode(workTimeExact, "UTF-8")

@@ -1,13 +1,13 @@
 package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.kml.data.utilities.FileFactory
 import com.kml.extensions.logError
 import com.kml.models.User
 import com.kml.repositories.SplashScreenRepository
 
-class SplashScreenViewModel(val fileFactory: FileFactory) : ViewModel() {
-    private val repository = SplashScreenRepository(fileFactory)
+class SplashScreenViewModel(
+    private val repository: SplashScreenRepository
+) : ViewModel() {
 
     fun getLogData(): User {
         val result = repository.getLogDataIfExist()
@@ -27,7 +27,7 @@ class SplashScreenViewModel(val fileFactory: FileFactory) : ViewModel() {
         }
     }
 
-    fun getSwitchDarkModeState():Boolean {
+    fun getSwitchDarkModeState(): Boolean {
         return repository.getSwitchDarkModeState()
     }
 }

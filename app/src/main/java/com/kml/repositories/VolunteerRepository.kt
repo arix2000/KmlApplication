@@ -1,6 +1,6 @@
 package com.kml.repositories
 
-import com.kml.data.externalDbOperations.DbGetAllUsersData
+import com.kml.data.networking.DbGetAllUsersData
 import com.kml.models.Volunteer
 import io.reactivex.rxjava3.core.Single
 

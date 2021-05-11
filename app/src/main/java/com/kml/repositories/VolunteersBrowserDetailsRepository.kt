@@ -1,6 +1,6 @@
 package com.kml.repositories
 
-import com.kml.data.externalDbOperations.DbGetUserData
+import com.kml.data.networking.DbGetUserData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

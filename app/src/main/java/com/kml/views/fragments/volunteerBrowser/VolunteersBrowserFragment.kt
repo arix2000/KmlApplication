@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kml.adapters.VolunteerBrowserAdapter
 import com.kml.databinding.FragmentVolunteersBrowserBinding
@@ -14,9 +13,10 @@ import com.kml.models.Volunteer
 import com.kml.viewModels.VolunteersBrowserViewModel
 import com.kml.views.BaseFragment
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VolunteersBrowserFragment : BaseFragment() {
-    private lateinit var viewModel: VolunteersBrowserViewModel
+    private val viewModel: VolunteersBrowserViewModel by viewModel()
     private var _binding: FragmentVolunteersBrowserBinding? = null
     private val binding get() = _binding!!
     private lateinit var volunteerAdapter: VolunteerBrowserAdapter
@@ -30,7 +30,6 @@ class VolunteersBrowserFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         shouldShowBackButton = true
         attachProgressBar(binding.browserProgressBar)
-        viewModel = ViewModelProvider(this).get(VolunteersBrowserViewModel::class.java)
         setupUi()
         fetchData()
     }
@@ -65,6 +64,5 @@ class VolunteersBrowserFragment : BaseFragment() {
 
     companion object {
         const val VOLUNTEER_ID_KEY = "VOLUNTEER_ID_KEY"
-        const val POSITION_KEY = "POSITION_KEY"
     }
 }

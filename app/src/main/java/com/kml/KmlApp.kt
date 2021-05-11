@@ -1,12 +1,16 @@
-package com.kml.data.app
+package com.kml
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
+import com.kml.di.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-/*
+/**
 * Aplikacja stworzona dla Fundacji Klubu Młodych Liderow do wpisywania sobie godzin pracy a także oglądania aktualnych postępów
 * dodatowo zawiera wyszukiwarke animacji. Stworzona dla wolontariuszy, konta zakładane są z góry dlatego nie ma formularza
 * rejestracji.
@@ -26,6 +30,12 @@ class KmlApp : MultiDexApplication() {
         super.onCreate()
         createNotificationChannel()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //default app mode its light
+
+        startKoin {
+            androidLogger()
+            androidContext(this@KmlApp)
+            modules(listOf(appModule, databaseModule, networkModule, repositoryModule, viewModelModule))
+        }
     }
 
     private fun createNotificationChannel() {

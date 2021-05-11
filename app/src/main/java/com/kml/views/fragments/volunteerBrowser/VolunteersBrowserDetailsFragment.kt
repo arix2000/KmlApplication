@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import com.kml.Constants.Numbers.INVALID_ID
+import com.kml.Constants
 import com.kml.Constants.Signal.EMPTY_ID
 import com.kml.databinding.FragmentVolunteersBrowserDetailsBinding
 import com.kml.extensions.invisible
@@ -15,12 +14,12 @@ import com.kml.extensions.visible
 import com.kml.models.User
 import com.kml.viewModels.VolunteersBrowserDetailsViewModel
 import com.kml.views.BaseFragment
-import com.kml.views.fragments.volunteerBrowser.VolunteersBrowserFragment.Companion.VOLUNTEER_ID_KEY
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VolunteersBrowserDetailsFragment : BaseFragment() {
 
-    private lateinit var viewModel: VolunteersBrowserDetailsViewModel
+    private val viewModel: VolunteersBrowserDetailsViewModel by viewModel()
     private var _binding: FragmentVolunteersBrowserDetailsBinding? = null
     private val binding get() = _binding!!
 
@@ -30,21 +29,18 @@ class VolunteersBrowserDetailsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(VolunteersBrowserDetailsViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         shouldShowBackButton = true
         attachProgressBar(binding.detailsProgressBar)
         showProgressBar()
-        val id = arguments?.getInt(VOLUNTEER_ID_KEY) ?: INVALID_ID
+        val id = arguments?.getInt(VolunteersBrowserFragment.VOLUNTEER_ID_KEY)
+            ?: Constants.Numbers.INVALID_ID
         viewModel.fetchVolunteerData(id)
-                .subscribeBy(
-                        onSuccess = { binding.volunteer = it; hideProgressBar() },
-                        onError = { logError(it); hideProgressBar() }
-                )
-    }
+            .subscribeBy(
+                onSuccess = { binding.volunteer = it; hideProgressBar() },
+                onError = { logError(it); hideProgressBar() }
+            )
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.volunteerWorksButton.setOnClickListener {
             val profile = viewModel.profile
             val bundle = Bundle().apply {

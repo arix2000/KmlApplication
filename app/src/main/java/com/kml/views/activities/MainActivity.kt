@@ -14,22 +14,21 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
 import com.kml.Constants.Tags.MEETINGS_TAG
 import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
 import com.kml.Constants.Tags.WORKS_TAG
+import com.kml.KmlApp
 import com.kml.R
-import com.kml.data.app.KmlApp
-import com.kml.data.utilities.FileFactory
 import com.kml.databinding.ActivityMainBinding
 import com.kml.extensions.setFragment
 import com.kml.extensions.setFragmentWithData
-import com.kml.viewModelFactories.MainViewModelFactory
 import com.kml.viewModels.MainViewModel
 import com.kml.views.BaseActivity
 import com.kml.views.fragments.AboutAppFragment
 import com.kml.views.fragments.mainFeatures.*
+import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -37,53 +36,54 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         const val CONTROL_PANEL_ITEM_ID = 3
     }
 
-    private lateinit var drawer: DrawerLayout
-    private lateinit var navigationView: NavigationView
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModelFactory = MainViewModelFactory(FileFactory(this))
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(toolbar)
 
-        drawer = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.nav_view)
-        setWorksHistoryStyle()
-        navigationView.setNavigationItemSelectedListener(this)
-        drawerToggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer)
-        drawer.addDrawerListener(drawerToggle)
-        setupOptions()
+        with(binding) {
+            setWorksHistoryStyle()
+            navView.setNavigationItemSelectedListener(this@MainActivity)
+            drawerToggle = ActionBarDrawerToggle(
+                this@MainActivity,
+                drawerLayout,
+                toolbar,
+                R.string.open_drawer,
+                R.string.close_drawer
+            )
+            drawerLayout.addDrawerListener(drawerToggle)
+            setupOptions()
 
-        drawerToggle.syncState()
-        if (savedInstanceState == null) {
-            setFragment(ProfileFragment())
-            navigationView.setCheckedItem(R.id.nav_profile)
-        }
-        if (KmlApp.isFromRecycleViewActivity) {
-            setFragment(GameSearchEngineFragment())
-            navigationView.setCheckedItem(R.id.nav_search_engine)
-            KmlApp.isFromRecycleViewActivity = false
-        }
-        if (KmlApp.isFromControlPanel) {
-            setFragment(ControlPanelFragment())
-            navigationView.setCheckedItem(R.id.nav_control_panel)
-            KmlApp.isFromControlPanel = false
-        }
-        if (KmlApp.adminIds.contains(KmlApp.loginId)) {
-            navigationView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
+            drawerToggle.syncState()
+            if (savedInstanceState == null) {
+                setFragment(ProfileFragment())
+                navView.setCheckedItem(R.id.nav_profile)
+            }
+            if (KmlApp.isFromRecycleViewActivity) {
+                setFragment(GameSearchEngineFragment())
+                navView.setCheckedItem(R.id.nav_search_engine)
+                KmlApp.isFromRecycleViewActivity = false
+            }
+            if (KmlApp.isFromControlPanel) {
+                setFragment(ControlPanelFragment())
+                navView.setCheckedItem(R.id.nav_control_panel)
+                KmlApp.isFromControlPanel = false
+            }
+            if (KmlApp.adminIds.contains(KmlApp.loginId)) {
+                navView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
+            }
         }
     }
 
     private fun setWorksHistoryStyle() {
-        val itemTitle = navigationView.menu.findItem(R.id.works_history_title)
+        val itemTitle = binding.navView.menu.findItem(R.id.works_history_title)
         val spannable = SpannableString(itemTitle.title)
         spannable.setSpan(TextAppearanceSpan(this, R.style.nav_drawer_works_history_title), 0, spannable.length, 0)
         itemTitle.title = spannable
@@ -106,12 +106,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun showFragmentAboutApp() {
-        setFragment(AboutAppFragment(), true)
+        setFragment(AboutAppFragment(), true, true)
     }
 
     override fun onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else super.onBackPressed()
     }
 
@@ -125,7 +125,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_meetings_history -> setFragmentWithData(WorksHistoryFragment(), getWorksBundleByTag(MEETINGS_TAG))
 
         }
-        drawer.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -138,18 +138,18 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     fun showBackButton() {
         drawerToggle.isDrawerIndicatorEnabled = false
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         drawerToggle.setToolbarNavigationClickListener {
             onBackPressed()
         }
-        drawer.isEnabled = false
+        binding.drawerLayout.isEnabled = false
         binding.mainToolbar.menu.findItem(R.id.about_app).isVisible = false
     }
 
     fun hideBackButton() {
         drawerToggle.isDrawerIndicatorEnabled = true
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         drawerToggle.syncState()
         binding.mainToolbar.menu.findItem(R.id.about_app).isVisible = true
     }

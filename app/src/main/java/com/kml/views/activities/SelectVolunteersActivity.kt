@@ -3,23 +3,23 @@ package com.kml.views.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kml.Constants.Strings.EMPTY_STRING
+import com.kml.KmlApp
 import com.kml.R
 import com.kml.adapters.VolunteerAdapter
-import com.kml.data.app.KmlApp
 import com.kml.databinding.ActivitySelectVolunteersBinding
 import com.kml.extensions.*
 import com.kml.models.Volunteer
 import com.kml.viewModels.VolunteersViewModel
 import com.kml.views.BaseActivity
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectVolunteersActivity : BaseActivity() {
 
     private lateinit var volunteerAdapter: VolunteerAdapter
-    private lateinit var viewModel: VolunteersViewModel
+    private val viewModel: VolunteersViewModel by viewModel()
     private lateinit var binding: ActivitySelectVolunteersBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +28,6 @@ class SelectVolunteersActivity : BaseActivity() {
         setContentView(binding.root)
         title = "Zaznacz wolontariuszy:"
         KmlApp.isFromControlPanel = true
-
-        viewModel = ViewModelProvider(this).get(VolunteersViewModel::class.java)
 
         createRecycleView()
 

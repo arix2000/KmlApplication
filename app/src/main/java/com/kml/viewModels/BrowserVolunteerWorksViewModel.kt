@@ -9,8 +9,9 @@ import io.reactivex.rxjava3.core.Single
 import java.text.DateFormatSymbols
 import java.util.*
 
-class BrowserVolunteerWorksViewModel : ViewModel() {
-    val repository = BrowserVolunteerWorksRepository()
+class BrowserVolunteerWorksViewModel(
+    private val repository: BrowserVolunteerWorksRepository
+) : ViewModel() {
 
     fun fetchWorks(user: User): Single<List<Work>> {
         return repository.fetchVolunteerWorks(user)

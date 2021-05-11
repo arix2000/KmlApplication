@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.adapters.BrowserVolunteerWorksAdapter
@@ -19,10 +18,11 @@ import com.kml.views.BaseFragment
 import com.kml.views.dialogs.ExtendedWorkDialog
 import com.kml.views.fragments.volunteerBrowser.VolunteersBrowserDetailsFragment.Companion.USER_KEY
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BrowserVolunteerWorksFragment : BaseFragment() {
 
-    private lateinit var viewModel: BrowserVolunteerWorksViewModel
+    private val viewModel: BrowserVolunteerWorksViewModel by viewModel()
     private var _binding: FragmentBrowserVolunteerWorksBinding? = null
     private val binding get() = _binding!!
     private lateinit var worksAdapter: BrowserVolunteerWorksAdapter
@@ -33,11 +33,9 @@ class BrowserVolunteerWorksFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         shouldShowBackButton = true
         attachProgressBar(binding.progressBar)
-        viewModel = ViewModelProvider(this).get(BrowserVolunteerWorksViewModel::class.java)
         worksAdapter = BrowserVolunteerWorksAdapter { extendInDialog(it) }
         val user = arguments?.getParcelable(USER_KEY) ?: User.EMPTY
         fetchWorks(user)

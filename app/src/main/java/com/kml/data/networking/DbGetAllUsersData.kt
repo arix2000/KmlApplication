@@ -1,4 +1,4 @@
-package com.kml.data.externalDbOperations
+package com.kml.data.networking
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

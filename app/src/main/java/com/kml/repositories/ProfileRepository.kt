@@ -1,9 +1,9 @@
 package com.kml.repositories
 
 import android.graphics.Bitmap
-import com.kml.data.app.KmlApp
-import com.kml.data.externalDbOperations.DbChangePass
-import com.kml.data.externalDbOperations.DbGetUserData
+import com.kml.KmlApp
+import com.kml.data.networking.DbChangePass
+import com.kml.data.networking.DbGetUserData
 import com.kml.data.utilities.FileFactory
 import com.kml.extensions.log
 import com.kml.extensions.toBitmap

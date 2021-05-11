@@ -5,14 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Tags.MEETINGS_TAG
 import com.kml.R
-import com.kml.data.app.AppDialogs
+import com.kml.views.BaseDialog
 import com.kml.databinding.DialogWorkHistoryExtendedBinding
 import com.kml.extensions.gone
 import com.kml.extensions.visible
 import com.kml.models.Work
 
 
-class ExtendedWorkDialog(val work: Work, val type: String, private val shouldShowVolunteers: Boolean = false) : AppDialogs() {
+class ExtendedWorkDialog(val work: Work, val type: String, private val shouldShowVolunteers: Boolean = false) : BaseDialog() {
 
     lateinit var binding: DialogWorkHistoryExtendedBinding
     var isVolunteersExpanded = false

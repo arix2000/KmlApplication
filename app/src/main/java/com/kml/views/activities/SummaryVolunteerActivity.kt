@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.kml.Constants
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.Constants.Strings.SPACE
@@ -23,17 +22,17 @@ import com.kml.views.activities.SelectVolunteersActivity.Companion.EXTRA_CHECKED
 import com.kml.views.activities.SelectVolunteersActivity.Companion.EXTRA_IS_ALL_CHOSEN
 import com.kml.views.dialogs.MyDatePickerDialog
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class SummaryVolunteerActivity : BaseActivity() {
 
-    private lateinit var viewModel: SummaryVolunteerViewModel
+    private val viewModel: SummaryVolunteerViewModel by viewModel()
     lateinit var binding: ActivitySummarySelectedBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_summary_selected)
-        viewModel = ViewModelProvider(this).get(SummaryVolunteerViewModel::class.java)
 
         getShowChosenVolunteers()
         binding.apply {

@@ -7,9 +7,9 @@ import com.kml.repositories.VolunteerRepository
 import io.reactivex.rxjava3.core.Single
 import java.util.*
 
-class VolunteersViewModel : ViewModel() {
-
-    private val repository = VolunteerRepository()
+class VolunteersViewModel(
+    private val repository: VolunteerRepository
+) : ViewModel() {
 
     private var _volunteers: List<Volunteer> = listOf()
     val volunteers: List<Volunteer> get() =  _volunteers

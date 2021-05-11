@@ -1,6 +1,6 @@
-package com.kml.data.externalDbOperations
+package com.kml.data.networking
 
-import com.kml.data.app.KmlApp
+import com.kml.KmlApp
 import com.kml.extensions.logError
 import com.kml.models.WorkToAdd
 import java.io.BufferedWriter

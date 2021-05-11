@@ -1,7 +1,7 @@
-package com.kml.data.externalDbOperations
+package com.kml.data.networking
 
 import android.util.Log
-import com.kml.data.app.KmlApp
+import com.kml.KmlApp
 import java.io.BufferedWriter
 import java.io.IOException
 import java.io.OutputStreamWriter

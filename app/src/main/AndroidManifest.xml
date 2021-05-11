@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".data.app.KmlApp"
+        android:name="com.kml.KmlApp"
         android:allowBackup="false"
         android:description="@string/app_description"
         android:fullBackupContent="false"

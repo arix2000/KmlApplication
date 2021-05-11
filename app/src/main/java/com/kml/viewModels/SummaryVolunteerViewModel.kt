@@ -16,9 +16,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 
-class SummaryVolunteerViewModel : ViewModel() {
+class SummaryVolunteerViewModel(
+    private val repository: SummaryVolunteerRepository
+) : ViewModel() {
 
-    private val repository = SummaryVolunteerRepository()
     lateinit var chosenVolunteers: List<Volunteer>
     var isAllVolunteersChosen = false
     private val savedWorkLiveData by lazy { MutableLiveData<WorkToAdd>() }

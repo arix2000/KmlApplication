@@ -6,13 +6,13 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
-import com.kml.data.app.AppDialogs
-import com.kml.data.externalDbOperations.DbChangePass
+import com.kml.views.BaseDialog
+import com.kml.data.networking.DbChangePass
 import com.kml.databinding.DialogChangePassBinding
 import com.kml.extensions.showToast
 import com.kml.viewModels.ProfileViewModel
 
-class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs(false) {
+class ChangePassDialog(private val viewModel: ProfileViewModel) : BaseDialog(false) {
 
     lateinit var binding: DialogChangePassBinding
 

@@ -1,4 +1,4 @@
-package com.kml.data.app
+package com.kml.views
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.kml.data.listeners.OnAcceptDialogListener
 import com.kml.data.listeners.OnCancelDialogListener
 
-abstract class AppDialogs(private val cancelable:Boolean = true) : DialogFragment() {
+abstract class BaseDialog(private val cancelable:Boolean = true) : DialogFragment() {
 
     lateinit var onAcceptListener: OnAcceptDialogListener
     lateinit var onCancelListener: OnCancelDialogListener

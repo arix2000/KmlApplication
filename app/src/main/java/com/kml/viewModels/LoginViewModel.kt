@@ -1,14 +1,14 @@
 package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.kml.data.app.KmlApp
-import com.kml.data.utilities.FileFactory
+import com.kml.KmlApp
 import com.kml.extensions.logError
 import com.kml.models.User
 import com.kml.repositories.LoginRepository
 
-class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
-    private val repository = LoginRepository(fileFactory)
+class LoginViewModel(
+    private val repository: LoginRepository
+) : ViewModel() {
 
     fun checkLogin(login: String, password: String): Boolean {
         val result = repository.checkLoginForResult(login, password)
@@ -50,7 +50,7 @@ class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
 
     fun getPreviousSwitchState(): Boolean {
         val fromFile = repository.getSwitchState()
-        return if(fromFile.isNotEmpty())
+        return if (fromFile.isNotEmpty())
             fromFile.toBoolean()
         else false
     }

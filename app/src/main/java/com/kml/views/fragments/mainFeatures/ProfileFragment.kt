@@ -9,19 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import com.kml.KmlApp
 import com.kml.R
-import com.kml.data.app.KmlApp
-import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentProfileBinding
 import com.kml.extensions.showSnackBar
 import com.kml.extensions.toBitmap
 import com.kml.models.Profile
-import com.kml.viewModelFactories.ProfileViewModelFactory
 import com.kml.viewModels.ProfileViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.activities.LoginScreen
 import com.kml.views.dialogs.ChangePassDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
 
@@ -32,9 +30,8 @@ class ProfileFragment : BaseFragment() {
         const val PHOTO_WIDTH = 480
     }
 
-    private lateinit var viewModel: ProfileViewModel
+    private val viewModel: ProfileViewModel by viewModel()
     lateinit var binding: FragmentProfileBinding
-    private lateinit var dataFile: FileFactory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -43,9 +40,6 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dataFile = FileFactory(requireContext())
-        val viewModelFactory = ProfileViewModelFactory(dataFile)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ProfileViewModel::class.java)
 
         binding.profileProgressBar.visibility = ProgressBar.VISIBLE
         viewModel.profileData.observe(viewLifecycleOwner) {

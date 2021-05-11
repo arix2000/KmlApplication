@@ -5,7 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.google.gson.Gson
 import com.kml.Constants.Keys.WORK_TO_ADD_KEY
-import com.kml.data.externalDbOperations.DbAddingToChosen
+import com.kml.data.networking.DbAddingToChosen
 import com.kml.models.WorkToAdd
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.CoroutineScope
