@@ -1,12 +1,9 @@
 package com.kml.extensions
 
-import android.text.Editable
-import android.text.format.DateFormat
 import android.util.Log
-import com.kml.Constants.Date.NEW_DATE_OUTPUT_FORMAT
-import io.reactivex.rxjava3.core.Single
-import java.text.SimpleDateFormat
-import java.util.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.kml.models.Work
 
 const val DEBUG_TAG = "DEBUG_TAG"
 const val NETWORK_RESPONSE_TAG = "NETWORK_RESPONSE_TAG"
@@ -36,44 +33,10 @@ fun Any.logNetworkResponse(message: String) {
     Log.i(NETWORK_RESPONSE_TAG, logMessage)
 }
 
-fun Calendar.getTodayDate(): String {
-    val date =  get(Calendar.DAY_OF_MONTH).toString() + "." +
-            (get(Calendar.MONTH) + 1) + "." +
-            get(Calendar.YEAR)
-    val validDate = SimpleDateFormat(NEW_DATE_OUTPUT_FORMAT, Locale.getDefault()).parse(date)
-    return DateFormat.format(NEW_DATE_OUTPUT_FORMAT, validDate).toString()
-}
+fun createWorkListFrom(json: String): List<Work> {
+    if (json.isBlank())
+        return arrayListOf()
 
-fun Calendar.getCurrentMonth() = get(Calendar.MONTH)
-fun Calendar.getCurrentYear() = get(Calendar.YEAR)
-
-/**
- * Same as Editable.toSafeString
- *
- * @return safe string ready to send to database by for example php api
- * @see Editable.toSafeString
- */
-fun String.toSafeString(): String {
-    return this.replace("\\", "\\\\")
-}
-
-fun String.toIntOr(default: Int): Int {
-    return try {
-        this.toInt()
-    } catch (e: NumberFormatException) {
-        default
-    }
-}
-
-/**
- * Format Editable to safe string for api requests by basically changing "\" char with "\\"
- *
- * @return safe string ready to send to database by for example php api
- */
-fun Editable.toSafeString(): String {
-    return this.toString().replace("\\", "\\\\")
-}
-
-fun <T> getDeferSingleFrom(async: () -> T): Single<T> {
-    return Single.defer { Single.just(async()) }
+    val type = object : TypeToken<List<Work>>() {}.type
+    return Gson().fromJson(json, type)
 }

@@ -5,10 +5,11 @@ import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.test.AutoCloseKoinTest
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-class BaseUtilsKtTest {
+class BaseUtilsKtTest: AutoCloseKoinTest() {
     lateinit var calendar:Calendar
 
     @Before

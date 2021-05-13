@@ -1,9 +1,8 @@
 package com.kml.repositories
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.kml.data.networking.DbGetWorksHistory
 import com.kml.extensions.async
+import com.kml.extensions.createWorkListFrom
 import com.kml.models.User
 import com.kml.models.Work
 import io.reactivex.rxjava3.core.Single
@@ -16,7 +15,7 @@ class VolunteerLogbookRepository {
                 DbGetWorksHistory(DbGetWorksHistory.GET_WORKS, false)
                     .fetchResult(user.firstName, user.lastName)
             )
-        }.map { createListFromJson(it) }.async()
+        }.map { createWorkListFrom(it) }.async()
     }
 
     fun fetchVolunteerMeetings(user: User): Single<List<Work>> {
@@ -25,14 +24,6 @@ class VolunteerLogbookRepository {
                 DbGetWorksHistory(DbGetWorksHistory.GET_MEETINGS, false)
                     .fetchResult(user.firstName, user.lastName)
             )
-        }.map { createListFromJson(it) }.async()
-    }
-
-    private fun createListFromJson(json: String): List<Work> {
-        if (json.isBlank())
-            return arrayListOf()
-
-        val type = object : TypeToken<List<Work>>() {}.type
-        return Gson().fromJson(json, type)
+        }.map { createWorkListFrom(it) }.async()
     }
 }

@@ -79,6 +79,16 @@
         <item>Wydarzenia</item>
     </string-array>
 
+    <string-array name="work_types_to_choose">
+        <item>Brak</item>
+        <item>Spotkania ogólne</item>
+        <item>Spotkania sekcji</item>
+        <item>Szkolenia</item>
+        <item>Integracje</item>
+        <item>Spotkania do wydarzeń</item>
+        <item>Wydarzenia</item>
+    </string-array>
+
     <string name="open_drawer">Open Navigation Drawer</string>
     <string name="close_drawer">Close Navigation Drawer</string>
     <string name="kml_email">kmlmielec@gmail.com</string>

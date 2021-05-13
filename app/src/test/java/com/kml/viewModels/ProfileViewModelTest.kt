@@ -1,20 +1,20 @@
 package com.kml.viewModels
 
 import android.os.Build
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
-import com.kml.data.utilities.FileFactory
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.runner.RunWith
+import org.koin.core.component.inject
+import org.koin.test.KoinTest
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-internal class ProfileViewModelTest {
-    private val viewModel = ProfileViewModel(FileFactory(ApplicationProvider.getApplicationContext()))
+internal class ProfileViewModelTest: KoinTest {
+    private val viewModel: ProfileViewModel by inject()
 
     @Test
     fun validateTest() {

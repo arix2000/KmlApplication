@@ -48,7 +48,7 @@ class SummaryVolunteerActivity : BaseActivity() {
                 viewModel.clearCache(dataStore)
                 validateAndSend { finishAdding() }
             }
-            workType.adapter = workType.createDefaultSpinnerAdapter(R.array.work_types)
+            workType.adapter = workType.createDefaultSpinnerAdapter(R.array.work_types_to_choose)
             workType.setSelection(0)
 
             if(viewModel.isAllVolunteersChosen) {

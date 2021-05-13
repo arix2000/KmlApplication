@@ -131,7 +131,7 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
         checkResultCount()
         setTotalsBy(meetingsAdapter.itemCount, meetingsAdapter.getWorksTimeTotal())
     }
-//TODO you need to refactor fragments
+
     private fun setTotalsBy(workCount: Int, workTime: String) {
         with(binding) {
             totalWorkCount.text = workCount.toString()

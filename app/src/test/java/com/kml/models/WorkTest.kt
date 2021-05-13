@@ -1,14 +1,22 @@
 package com.kml.models
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.runner.RunWith
+import org.koin.test.AutoCloseKoinTest
 
 @RunWith(AndroidJUnit4::class)
-class WorkTest {
-    val work = Work("Arek","Mądry", "testowanie", "9.9.2020 awjda jwd k alw","","","")
-    val work2 = Work("Arek","Mądry", "testowanie", "01.01.2020 akwhd hak whdj kawh d","","","")
+class WorkTest: AutoCloseKoinTest() {
+    lateinit var work: Work
+    lateinit var work2: Work
+
+    @Before
+    fun setUp() {
+        work = Work("Arek","Mądry", "testowanie", "9.9.2020 awjda jwd k alw","","","","Wydarzenia")
+        work2 = Work("Arek","Mądry", "testowanie", "01.01.2020 akwhd hak whdj kawh d","","","", "Spotkanie ogólne")
+    }
 
     @Test
     fun isExecutionMonthEquals() {
