@@ -6,14 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".views.fragments.volunteerBrowser.BrowserVolunteerWorksFragment">
 
+    <TextView
+        android:id="@+id/total_work_count_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/totals_titles_styles"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/total_work_count" />
+
+    <TextView
+        android:id="@+id/total_work_count"
+        style="@style/totals_values_styles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/total_work_count_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="23" />
+
+    <TextView
+        android:id="@+id/total_work_time_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/totals_titles_styles"
+        app:layout_constraintEnd_toStartOf="@+id/total_work_time"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/total_work_time" />
+
+    <TextView
+        android:id="@+id/total_work_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        style="@style/totals_values_styles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="54h 59min" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/month_spinner"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_work_time_title"
         tools:listitem="@layout/list_item_work_history" />
 
     <View

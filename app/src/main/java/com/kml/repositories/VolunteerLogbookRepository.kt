@@ -3,20 +3,27 @@ package com.kml.repositories
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.kml.data.networking.DbGetWorksHistory
-import com.kml.data.networking.DbGetWorksHistory.Companion.GET_WORKS
 import com.kml.extensions.async
 import com.kml.models.User
 import com.kml.models.Work
 import io.reactivex.rxjava3.core.Single
 
-
-class BrowserVolunteerWorksRepository {
+class VolunteerLogbookRepository {
 
     fun fetchVolunteerWorks(user: User): Single<List<Work>> {
         return Single.create<String> {
             it.onSuccess(
-                    DbGetWorksHistory(GET_WORKS, false)
-                            .fetchResult(user.firstName, user.lastName)
+                DbGetWorksHistory(DbGetWorksHistory.GET_WORKS, false)
+                    .fetchResult(user.firstName, user.lastName)
+            )
+        }.map { createListFromJson(it) }.async()
+    }
+
+    fun fetchVolunteerMeetings(user: User): Single<List<Work>> {
+        return Single.create<String> {
+            it.onSuccess(
+                DbGetWorksHistory(DbGetWorksHistory.GET_MEETINGS, false)
+                    .fetchResult(user.firstName, user.lastName)
             )
         }.map { createListFromJson(it) }.async()
     }

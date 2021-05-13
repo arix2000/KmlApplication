@@ -170,4 +170,16 @@
         <item name="android:background">@color/dividerColor</item>
     </style>
 
+    <style name="totals_titles_styles">
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="totals_values_styles" parent="totals_titles_styles">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 </resources>

@@ -7,8 +7,6 @@ val repositoryModule = module {
 
     single { MainRepository(get()) }
 
-    single { BrowserVolunteerWorksRepository() }
-
     single { GameRepository(get()) }
 
     single { ProfileRepository(get()) }
@@ -29,5 +27,5 @@ val repositoryModule = module {
 
     single { WorksHistoryRepository(get()) }
 
-    single { BrowserVolunteerMeetingsRepository() }
+    single { VolunteerLogbookRepository() }
 }

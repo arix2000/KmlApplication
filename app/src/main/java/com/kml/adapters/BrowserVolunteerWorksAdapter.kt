@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
+import com.kml.extensions.getWorksTimeTotal
 import com.kml.holders.WorkHolder
 import com.kml.models.Work
 
@@ -48,4 +49,6 @@ class BrowserVolunteerWorksAdapter(private val onClickListener: (Work) -> Unit) 
     }
 
     fun isWorksEmpty(): Boolean = works.isEmpty()
+
+    fun getWorksTimeTotal(): String = works.getWorksTimeTotal()
 }

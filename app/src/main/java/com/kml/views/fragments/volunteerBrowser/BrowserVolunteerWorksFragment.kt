@@ -11,9 +11,9 @@ import com.kml.databinding.FragmentBrowserVolunteerWorksBinding
 import com.kml.extensions.*
 import com.kml.models.User
 import com.kml.models.Work
+import com.kml.viewModels.BrowserVolunteerLogbookViewModel.Companion.LAST_YEARS_POSITION
+import com.kml.viewModels.BrowserVolunteerLogbookViewModel.Companion.SHOW_ALL_ITEM_POSITION
 import com.kml.viewModels.BrowserVolunteerWorksViewModel
-import com.kml.viewModels.BrowserVolunteerWorksViewModel.Companion.LAST_YEARS_POSITION
-import com.kml.viewModels.BrowserVolunteerWorksViewModel.Companion.SHOW_ALL_ITEM_POSITION
 import com.kml.views.BaseFragment
 import com.kml.views.dialogs.ExtendedWorkDialog
 import com.kml.views.fragments.volunteerBrowser.VolunteersBrowserDetailsFragment.Companion.USER_KEY
@@ -93,11 +93,20 @@ class BrowserVolunteerWorksFragment : BaseFragment() {
                 else
                     worksAdapter.showAllWorks()
 
+                setTotalsBy(worksAdapter.itemCount, worksAdapter.getWorksTimeTotal())
+
                 if (worksAdapter.isWorksEmpty())
                     noResultsView.visible()
                 else
                     noResultsView.gone()
             }
+        }
+    }
+
+    private fun setTotalsBy(workCount: Int, workTime: String) {
+        with(binding) {
+            totalWorkCount.text = workCount.toString()
+            totalWorkTime.text = workTime
         }
     }
 }

@@ -12,6 +12,7 @@ import com.kml.databinding.FragmentBrowserVolunteerMeetingsBinding
 import com.kml.extensions.*
 import com.kml.models.User
 import com.kml.models.Work
+import com.kml.viewModels.BrowserVolunteerLogbookViewModel.Companion.LAST_YEARS_POSITION
 import com.kml.viewModels.BrowserVolunteerMeetingsViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.dialogs.ExtendedWorkDialog
@@ -68,20 +69,16 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
     private fun setupUi() {
         with(binding) {
             recyclerView.run {
+                setHasFixedSize(true)
                 adapter = meetingsAdapter
                 layoutManager = LinearLayoutManager(requireContext())
-                setHasFixedSize(true)
             }
 
-            typeSpinner.run {
-                val typeList = resources.getStringArray(R.array.work_types).toList()
-                adapter = createDefaultSpinnerAdapter(typeList)
-                setOnItemSelectedListener({}) { _: View?, position: Int ->
-                    meetingsAdapter.filterWorksBy(getItemAtPosition(position).toString(), typeList)
-                    checkResultCount()
-                }
-                setSelection(0)
+            searchButton.setOnClickListener {
+                filterWorks()
             }
+
+            setupSpinners()
         }
     }
 
@@ -94,8 +91,60 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
         }
     }
 
+    private fun FragmentBrowserVolunteerMeetingsBinding.setupSpinners() {
+        typeSpinner.run {
+            val typeList = resources.getStringArray(R.array.work_types).toList()
+            adapter = createDefaultSpinnerAdapter(typeList)
+            setSelection(0)
+        }
+        yearSpinner.run {
+            adapter = createDefaultSpinnerAdapter(viewModel.getYearList())
+            setOnItemSelectedListener({}) { view: View?, i: Int ->
+                monthSpinner.adapter = createMonthArrayAdapter()
+            }
+            setSelection(LAST_YEARS_POSITION)
+        }
+
+        monthSpinner.run {
+            adapter = createMonthArrayAdapter()
+            setSelection(0)
+        }
+        filterWorks()
+    }
+
+    private fun createMonthArrayAdapter() =
+        binding.monthSpinner.createDefaultSpinnerAdapter(
+            viewModel.getMonthList(
+                viewModel.isCurrentYear(binding.yearSpinner.selectedItem.toString().toInt())
+            )
+        )
+
+    private fun filterWorks() {
+        with(binding) {
+            meetingsAdapter.filterWorksBy(
+                typeSpinner.selectedItem.toString(),
+                resources.getStringArray(R.array.work_types).toList(),
+                monthSpinner.selectedItemPosition.toString(),
+                yearSpinner.selectedItem.toString()
+            )
+        }
+        checkResultCount()
+        setTotalsBy(meetingsAdapter.itemCount, meetingsAdapter.getWorksTimeTotal())
+    }
+//TODO you need to refactor fragments
+    private fun setTotalsBy(workCount: Int, workTime: String) {
+        with(binding) {
+            totalWorkCount.text = workCount.toString()
+            totalWorkTime.text = workTime
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        const val ALL_TYPES = "Wszystkie"
     }
 }

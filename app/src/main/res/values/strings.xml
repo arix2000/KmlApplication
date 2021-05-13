@@ -69,6 +69,7 @@
     </string-array>
 
     <string-array name="work_types">
+        <item>Wszystkie</item>
         <item>Brak</item>
         <item>Spotkania ogólne</item>
         <item>Spotkania sekcji</item>
@@ -188,5 +189,7 @@
     <string name="work_type">Typ Działania</string>
     <string name="work_type_two_dots">Typ działania:</string>
     <string name="no_type">Brak</string>
+    <string name="total_work_count">Liczba wyników:</string>
+    <string name="total_work_time">Suma godzin:</string>
 
 </resources>

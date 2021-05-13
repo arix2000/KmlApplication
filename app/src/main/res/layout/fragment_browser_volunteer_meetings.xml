@@ -6,14 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".views.fragments.volunteerBrowser.BrowserVolunteerWorksFragment">
 
+    <TextView
+        android:id="@+id/total_work_count_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/totals_titles_styles"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/total_work_count" />
+
+    <TextView
+        android:id="@+id/total_work_count"
+        style="@style/totals_values_styles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/total_work_count_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="23" />
+
+    <TextView
+        android:id="@+id/total_work_time_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/totals_titles_styles"
+        app:layout_constraintEnd_toStartOf="@+id/total_work_time"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/total_work_time" />
+
+    <TextView
+        android:id="@+id/total_work_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        style="@style/totals_values_styles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="54h 59min" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/type_spinner"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_work_count_title"
         tools:listitem="@layout/list_item_work_history" />
 
     <View
@@ -28,9 +65,42 @@
         android:layout_width="@dimen/zero"
         android:layout_height="45dp"
         android:layout_margin="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/month_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/search_button"
         app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/view_simple_spinner" />
+
+    <ImageButton
+        android:id="@+id/search_button"
+        style="@style/buttons"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="18dp"
+        android:elevation="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_search"
+        app:layout_constraintBottom_toTopOf="@+id/year_spinner"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Spinner
+        android:id="@+id/month_spinner"
+        android:layout_width="@dimen/zero"
+        android:layout_height="45dp"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/year_spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/view_simple_spinner" />
+
+    <Spinner
+        android:id="@+id/year_spinner"
+        android:layout_width="110dp"
+        android:layout_height="@dimen/zero"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/month_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/month_spinner"
         tools:listitem="@layout/view_simple_spinner" />
 
     <ProgressBar
