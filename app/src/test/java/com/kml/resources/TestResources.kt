@@ -8,3 +8,8 @@ fun getTestWorkList(): List<Work> {
     val json = ClassLoaderUtils.getDefaultClassLoader().getResource("WorksList.json").readText()
     return createWorkListFrom(json)
 }
+
+fun getTypesList(): List<String> {
+    return listOf("Wszystkie", "Brak", "Spotkania ogólne", "Spotkania sekcji",
+        "Szkolenia", "Integracje", "Spotkania do wydarzeń", "Wydarzenia")
+}

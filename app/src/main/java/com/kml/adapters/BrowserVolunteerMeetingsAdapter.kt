@@ -36,7 +36,7 @@ class BrowserVolunteerMeetingsAdapter(private val onClickListener: (Work) -> Uni
             worksConstant = newWorks
         notifyDataSetChanged()
     }
-    //TODO TEST IT ALL!!!!!!
+
     fun filterWorksBy(type: String, typeList: List<String>, month: String, year: String) {
         worksConstant.run {
             val typeFiltered = filter {
