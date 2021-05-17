@@ -10,9 +10,6 @@ import com.kml.databinding.ActivityLoginScreenBinding
 import com.kml.extensions.showSnackBar
 import com.kml.viewModels.LoginViewModel
 import com.kml.views.BaseActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginScreen : BaseActivity() {
@@ -31,13 +28,12 @@ class LoginScreen : BaseActivity() {
         binding.password.setSelectAllOnFocus(true)
         binding.logInButton.setOnClickListener {
             binding.loginScreenProgressBar.visibility = ProgressBar.VISIBLE
-            CoroutineScope(Dispatchers.Main).launch { logIn() }
+            logIn()
         }
     }
-//TODO fix threading please!!!
+
     private fun logIn() {
         val timeOnStart = SystemClock.elapsedRealtime()
-        val intent = Intent(this, MainActivity::class.java)
 
         val login = binding.login.text.toString()
         val password = binding.password.text.toString()
@@ -51,7 +47,7 @@ class LoginScreen : BaseActivity() {
         when {
             result -> {
                 viewModel.decideAboutSavingLogData(login, password, binding.loginRememberMe.isChecked)
-                startActivity(intent)
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
             elapsedTime > 6000 -> toast = R.string.external_database_unavailable

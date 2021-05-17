@@ -41,7 +41,7 @@ class VolunteersViewModel(
         }
         return filteredVolunteers
     }
-    //TODO test it!!!!
+
     fun setCheckedVolunteersDisabled() {
         volunteers.forEach {
             if (it.isChecked) it.isDisabled = true

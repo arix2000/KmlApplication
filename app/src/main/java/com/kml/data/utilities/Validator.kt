@@ -22,7 +22,7 @@ class Validator(private val activity: FragmentActivity, var popupType: Int = SNA
 
     private fun isTooManyMinutes(minutes: Int): Boolean = minutes > MINUTES_IN_ONE_HOUR
 
-    /** TODO to test!!
+    /**
      * Validate is any of pools are blank if yes, show popup about empty pools
      *
      * @return false if any of pools are blank or null, true otherwise
