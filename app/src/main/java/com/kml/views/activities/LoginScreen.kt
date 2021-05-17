@@ -7,9 +7,11 @@ import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import com.kml.R
 import com.kml.databinding.ActivityLoginScreenBinding
+import com.kml.extensions.logError
 import com.kml.extensions.showSnackBar
 import com.kml.viewModels.LoginViewModel
 import com.kml.views.BaseActivity
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginScreen : BaseActivity() {
@@ -38,11 +40,18 @@ class LoginScreen : BaseActivity() {
         val login = binding.login.text.toString()
         val password = binding.password.text.toString()
 
-        val result = viewModel.checkLogin(login, password)
+        viewModel.fetchLoginResult(login, password)
+            .subscribeBy(
+                onSuccess = {
+                    val timeOnEnd = SystemClock.elapsedRealtime()
+                    val elapsedTime = timeOnEnd - timeOnStart
+                    onLoginSuccess(it.contains("true"),elapsedTime, login, password)
+                },
+                onError = { logError(it) }
+            )
+    }
 
-        val timeOnEnd = SystemClock.elapsedRealtime()
-        val elapsedTime = timeOnEnd - timeOnStart
-
+    private fun onLoginSuccess(result: Boolean, elapsedTime: Long, login: String, password: String) {
         var toast = 0
         when {
             result -> {

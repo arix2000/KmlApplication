@@ -5,18 +5,18 @@ import com.kml.KmlApp
 import com.kml.extensions.logError
 import com.kml.models.User
 import com.kml.repositories.LoginRepository
+import io.reactivex.rxjava3.core.Single
 
 class LoginViewModel(
     private val repository: LoginRepository
 ) : ViewModel() {
 
-    fun checkLogin(login: String, password: String): Boolean {
-        val result = repository.checkLoginForResult(login, password)
-
-        return if (result.contains("true")) {
-            getLoginId(result)
-            true
-        } else false
+    fun fetchLoginResult(login: String, password: String): Single<String> {
+        return repository.fetchLoginResult(login, password)
+            .doOnSuccess {
+                if (it.contains("true"))
+                    getLoginId(it)
+            }
     }
 
     private fun getLoginId(logResult: String) {

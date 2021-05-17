@@ -13,6 +13,11 @@ class DbLogin(private val login: String, private val password: String) : Externa
     get() { join(); return field}
     private val address: String = BASE_URL + fileName
 
+    fun syncRun(): String {
+        httpConnection = setConnection(address)
+        sendData()
+        return readResult(httpConnection)
+    }
 
     override fun run() {
         httpConnection = setConnection(address)

@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
                 android:backgroundTint="@color/textColorLight"
                 android:ems="10"
-                android:hint="@string/login"
+                android:hint="@string/e_mail"
                 android:inputType="textPersonName"
                 android:textColor="@color/textColorLight"
                 android:autofillHints="" />

@@ -201,5 +201,6 @@
     <string name="no_type">Brak</string>
     <string name="total_work_count">Liczba wyników:</string>
     <string name="total_work_time">Suma godzin:</string>
+    <string name="e_mail">e-mail</string>
 
 </resources>

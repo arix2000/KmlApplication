@@ -4,13 +4,15 @@ import androidx.lifecycle.ViewModel
 import com.kml.KmlApp
 import com.kml.data.networking.DbLogin
 import com.kml.data.utilities.FileFactory
+import com.kml.extensions.async
+import io.reactivex.rxjava3.core.Single
 
 class LoginRepository(val fileFactory: FileFactory) : ViewModel() {
 
-    fun checkLoginForResult(login: String, password: String): String {
+    fun fetchLoginResult(login: String, password: String): Single<String> {
         val dbLogin = DbLogin(login, password)
-        dbLogin.start()
-        return dbLogin.result
+        return Single.create<String> { it.onSuccess(dbLogin.syncRun()) }
+            .async()
     }
 
     fun decideAboutSavingLogData(login: String, password: String, isChecked: Boolean) {
