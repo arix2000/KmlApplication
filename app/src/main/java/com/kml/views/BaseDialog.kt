@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.kml.data.listeners.OnAcceptDialogListener
-import com.kml.data.listeners.OnCancelDialogListener
+import com.kml.utilities.listeners.OnAcceptDialogListener
+import com.kml.utilities.listeners.OnCancelDialogListener
 
 abstract class BaseDialog(private val cancelable:Boolean = true) : DialogFragment() {
 

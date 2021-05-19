@@ -3,7 +3,7 @@ package com.kml.repositories
 import androidx.lifecycle.ViewModel
 import com.kml.KmlApp
 import com.kml.data.networking.DbLogin
-import com.kml.data.utilities.FileFactory
+import com.kml.utilities.FileFactory
 import com.kml.extensions.async
 import io.reactivex.rxjava3.core.Single
 

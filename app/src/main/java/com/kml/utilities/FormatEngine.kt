@@ -1,4 +1,4 @@
-package com.kml.data.utilities
+package com.kml.utilities
 
 import kotlin.math.abs
 import kotlin.math.roundToInt

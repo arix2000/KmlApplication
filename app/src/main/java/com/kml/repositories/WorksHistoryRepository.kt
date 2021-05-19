@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.kml.data.networking.DbGetWorksHistory
 import com.kml.data.networking.DbGetWorksHistory.Companion.GET_MEETINGS
 import com.kml.data.networking.DbGetWorksHistory.Companion.GET_WORKS
-import com.kml.data.utilities.FileFactory
+import com.kml.utilities.FileFactory
 import com.kml.extensions.async
 import com.kml.models.Work
 import io.reactivex.rxjava3.core.Single

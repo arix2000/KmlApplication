@@ -1,6 +1,6 @@
 package com.kml.repositories
 
-import com.kml.data.utilities.FileFactory
+import com.kml.utilities.FileFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

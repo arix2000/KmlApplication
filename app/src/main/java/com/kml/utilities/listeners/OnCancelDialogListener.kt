@@ -1,4 +1,4 @@
-package com.kml.data.listeners
+package com.kml.utilities.listeners
 
 interface OnCancelDialogListener {
     fun onCancel()

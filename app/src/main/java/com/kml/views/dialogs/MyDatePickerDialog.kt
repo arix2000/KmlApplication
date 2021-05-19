@@ -7,7 +7,7 @@ import com.kml.Constants.Date.OLD_DATE_INPUT_FORMAT
 import com.kml.Constants.Date.NEW_DATE_OUTPUT_FORMAT
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.views.BaseDialog
-import com.kml.data.listeners.OnResultListener
+import com.kml.utilities.listeners.OnResultListener
 import com.kml.databinding.DialogDatePickerBinding
 import java.text.SimpleDateFormat
 import java.util.*

@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import com.kml.KmlApp
 import com.kml.data.networking.DbChangePass
 import com.kml.data.networking.DbGetUserData
-import com.kml.data.utilities.FileFactory
+import com.kml.utilities.FileFactory
 import com.kml.extensions.log
 import com.kml.extensions.toBitmap
 import com.kml.extensions.toEncodedString

@@ -1,6 +1,6 @@
 package com.kml.di
 
-import com.kml.data.utilities.FileFactory
+import com.kml.utilities.FileFactory
 import org.koin.dsl.module
 
 val appModule = module {

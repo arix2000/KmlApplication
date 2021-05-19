@@ -1,4 +1,4 @@
-package com.kml.data.utilities
+package com.kml.utilities
 
 import android.content.Context
 import android.util.Log

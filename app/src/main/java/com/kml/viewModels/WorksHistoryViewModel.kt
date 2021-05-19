@@ -2,7 +2,7 @@ package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.kml.Constants.Tags.WORKS_TAG
-import com.kml.data.utilities.FileFactory
+import com.kml.utilities.FileFactory
 import com.kml.extensions.createWorkListFrom
 import com.kml.models.Work
 import com.kml.repositories.WorksHistoryRepository

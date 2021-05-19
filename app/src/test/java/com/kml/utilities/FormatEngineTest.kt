@@ -1,4 +1,4 @@
-package com.kml.data.utilities
+package com.kml.utilities
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals

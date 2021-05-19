@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
-import com.kml.data.utilities.Validator
-import com.kml.data.utilities.Vibrator
+import com.kml.utilities.Validator
+import com.kml.utilities.Vibrator
 import com.kml.databinding.FragmentAddingWorkBinding
 import com.kml.extensions.*
 import com.kml.models.WorkToAdd

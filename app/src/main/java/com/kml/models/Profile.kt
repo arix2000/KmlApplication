@@ -1,6 +1,6 @@
 package com.kml.models
 
-import com.kml.data.utilities.FormatEngine
+import com.kml.utilities.FormatEngine
 
 data class Profile(var firstName: String,
                    var lastName: String,

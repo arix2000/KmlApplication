@@ -1,4 +1,4 @@
-package com.kml.data.utilities
+package com.kml.utilities
 
 import androidx.fragment.app.FragmentActivity
 import com.kml.Constants.Numbers.MINUTES_IN_ONE_HOUR
