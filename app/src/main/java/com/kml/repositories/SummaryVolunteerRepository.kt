@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class SummaryVolunteerRepository {
+class SummaryVolunteerRepository: BaseRepository() {
     private lateinit var addingToChosen: DbAddingToChosen
 
     fun sendWorkToDb(ids: String, volunteersNames: String, work: WorkToAdd): Single<Boolean> {

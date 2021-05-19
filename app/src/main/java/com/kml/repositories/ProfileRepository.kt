@@ -4,17 +4,17 @@ import android.graphics.Bitmap
 import com.kml.KmlApp
 import com.kml.data.networking.DbChangePass
 import com.kml.data.networking.DbGetUserData
-import com.kml.utilities.FileFactory
 import com.kml.extensions.log
 import com.kml.extensions.toBitmap
 import com.kml.extensions.toEncodedString
 import com.kml.models.Profile
+import com.kml.utilities.FileFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class ProfileRepository(val fileFactory: FileFactory) {
+class ProfileRepository(val fileFactory: FileFactory): BaseRepository() {
 
     fun getUserInfoFromDb(): String {
         val dbGetUserData = DbGetUserData()

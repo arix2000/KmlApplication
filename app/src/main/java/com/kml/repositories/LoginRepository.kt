@@ -1,13 +1,12 @@
 package com.kml.repositories
 
-import androidx.lifecycle.ViewModel
 import com.kml.KmlApp
 import com.kml.data.networking.DbLogin
-import com.kml.utilities.FileFactory
 import com.kml.extensions.async
+import com.kml.utilities.FileFactory
 import io.reactivex.rxjava3.core.Single
 
-class LoginRepository(val fileFactory: FileFactory) : ViewModel() {
+class LoginRepository(val fileFactory: FileFactory) : BaseRepository() {
 
     fun fetchLoginResult(login: String, password: String): Single<String> {
         val dbLogin = DbLogin(login, password)

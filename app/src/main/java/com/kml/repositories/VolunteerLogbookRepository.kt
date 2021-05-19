@@ -7,7 +7,7 @@ import com.kml.models.User
 import com.kml.models.Work
 import io.reactivex.rxjava3.core.Single
 
-class VolunteerLogbookRepository {
+class VolunteerLogbookRepository: BaseRepository() {
 
     fun fetchVolunteerWorks(user: User): Single<List<Work>> {
         return Single.create<String> {

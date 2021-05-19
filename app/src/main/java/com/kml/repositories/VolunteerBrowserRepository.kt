@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 
-class VolunteerBrowserRepository {
+class VolunteerBrowserRepository: BaseRepository() {
 
     fun fetchVolunteers(): Single<List<Volunteer>> {
         return Single.create<List<Volunteer>>  {

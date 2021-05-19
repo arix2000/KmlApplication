@@ -1,10 +1,9 @@
 package com.kml.repositories
 
-import androidx.lifecycle.ViewModel
 import com.kml.Constants.Strings.EMPTY_STRING
 import com.kml.utilities.FileFactory
 
-class SplashScreenRepository(val fileFactory: FileFactory) : ViewModel() {
+class SplashScreenRepository(val fileFactory: FileFactory): BaseRepository() {
 
     fun getLogDataIfExist(): String {
         if (fileFactory.readFromFile(FileFactory.DATA_TXT).contains(";")) {
