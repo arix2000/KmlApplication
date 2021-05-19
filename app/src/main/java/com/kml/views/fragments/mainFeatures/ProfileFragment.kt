@@ -14,6 +14,7 @@ import com.kml.R
 import com.kml.databinding.FragmentProfileBinding
 import com.kml.extensions.showSnackBar
 import com.kml.extensions.toBitmap
+import com.kml.extensions.visible
 import com.kml.models.Profile
 import com.kml.viewModels.ProfileViewModel
 import com.kml.views.BaseFragment
@@ -40,21 +41,26 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
+            profileProgressBar.visible()
+            viewModel.profileData.observe(viewLifecycleOwner) {
+                launchProfile(it)
+                swipeRefreshLayout.isRefreshing = false
+            }
 
-        binding.profileProgressBar.visibility = ProgressBar.VISIBLE
-        viewModel.profileData.observe(viewLifecycleOwner) {
-            launchProfile(it)
-            binding.swipeRefreshLayout.isRefreshing = false
+            profilePhoto.setOnClickListener {
+                openGalleryForImage()
+            }
+            changePass.setOnClickListener { showDialogToChangePass() }
+            swipeRefreshLayout.run {
+                setOnRefreshListener {
+                    viewModel.refreshProfile()
+                }
+                setProgressBackgroundColorSchemeResource(R.color.colorCardBackground)
+                setColorSchemeResources(R.color.colorAccent)
+            }
+            restoreProfilePhoto()
         }
-
-        binding.profilePhoto.setOnClickListener {
-            openGalleryForImage()
-        }
-        binding.changePass.setOnClickListener { showDialogToChangePass() }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.refreshProfile()
-        }
-        restoreProfilePhoto()
     }
 
     private fun launchProfile(profile: Profile) {
