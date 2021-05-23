@@ -2,10 +2,11 @@ package com.kml.utilities
 
 import com.kml.models.Game
 import com.kml.models.GameFilterInfo
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import junit.framework.Assert.assertEquals
+import org.junit.Test
+import org.koin.test.AutoCloseKoinTest
 
-internal class FilterTest {
+internal class FilterTest: AutoCloseKoinTest() {
 
     @Test
     fun byAll() {

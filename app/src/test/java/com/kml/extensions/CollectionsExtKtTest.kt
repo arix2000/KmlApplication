@@ -1,10 +1,11 @@
 package com.kml.extensions
 
 import com.kml.resources.getTestWorkList
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import junit.framework.Assert.assertEquals
+import org.junit.Test
+import org.koin.test.AutoCloseKoinTest
 
-internal class CollectionsExtKtTest {
+internal class CollectionsExtKtTest: AutoCloseKoinTest() {
 
     @Test
     fun getWorksTimeTotal() {

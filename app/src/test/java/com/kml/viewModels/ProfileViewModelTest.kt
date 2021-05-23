@@ -4,16 +4,16 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
+import junit.framework.Assert.assertEquals
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.runner.RunWith
 import org.koin.core.component.inject
-import org.koin.test.KoinTest
+import org.koin.test.AutoCloseKoinTest
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-internal class ProfileViewModelTest: KoinTest {
+internal class ProfileViewModelTest: AutoCloseKoinTest() {
     private val viewModel: ProfileViewModel by inject()
 
     @Test

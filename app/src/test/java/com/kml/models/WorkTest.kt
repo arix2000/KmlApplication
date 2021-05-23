@@ -1,9 +1,9 @@
 package com.kml.models
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.runner.RunWith
 import org.koin.test.AutoCloseKoinTest
 

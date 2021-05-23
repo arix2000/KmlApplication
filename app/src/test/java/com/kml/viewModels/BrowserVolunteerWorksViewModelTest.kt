@@ -5,11 +5,11 @@ import com.kml.viewModels.BrowserVolunteerLogbookViewModel.Companion.LAST_YEARS_
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.runner.RunWith
 import org.koin.core.component.inject
 import org.koin.test.AutoCloseKoinTest
 import java.util.*
+import kotlin.test.fail
 
 @RunWith(AndroidJUnit4::class)
 internal class BrowserVolunteerWorksViewModelTest: AutoCloseKoinTest() {
@@ -21,7 +21,11 @@ internal class BrowserVolunteerWorksViewModelTest: AutoCloseKoinTest() {
 
         val result = viewModel.getYearList()
         result.forEach {
-            assertDoesNotThrow { it.toInt() }
+            try {
+                it.toInt()
+            } catch (e: Exception) {
+                fail("Should not throw any exception")
+            }
         }
         assertTrue(result.isNotEmpty())
         assertEquals(result.size, LAST_YEARS_POSITION.inc())
