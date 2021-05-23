@@ -7,6 +7,7 @@ import android.widget.EditText
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.kml.Constants.Keys.DATA_STORE_NAME
 import com.kml.Constants.Strings.EMPTY_STRING
 
 fun Context.hideSoftKeyboard(view: View) {
@@ -14,7 +15,7 @@ fun Context.hideSoftKeyboard(view: View) {
     manager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "workToAdd")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATA_STORE_NAME)
 
 fun clearPools(vararg editTexts: EditText) {
     editTexts.forEach {

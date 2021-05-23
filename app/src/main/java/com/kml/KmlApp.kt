@@ -5,10 +5,12 @@ import android.app.NotificationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
+import androidx.work.*
 import com.kml.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import java.util.*
 
 /**
 * Aplikacja stworzona dla Fundacji Klubu Młodych Liderow do wpisywania sobie godzin pracy a także oglądania aktualnych postępów
@@ -49,7 +51,6 @@ class KmlApp : MultiDexApplication() {
     companion object {
         const val MARTA_ID = 11
         const val SEBASTIAN_ID = 13
-
         const val CHANNEL_1_ID = "serviceChannel"
 
         @JvmField

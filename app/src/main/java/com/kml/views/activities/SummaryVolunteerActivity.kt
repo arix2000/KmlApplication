@@ -9,12 +9,12 @@ import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.SPACE
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
-import com.kml.utilities.Validator
-import com.kml.utilities.Vibrator
 import com.kml.databinding.ActivitySummarySelectedBinding
 import com.kml.extensions.*
 import com.kml.models.Volunteer
 import com.kml.models.WorkToAdd
+import com.kml.utilities.Validator
+import com.kml.utilities.Vibrator
 import com.kml.viewModels.SummaryVolunteerViewModel
 import com.kml.views.BaseActivity
 import com.kml.views.activities.SelectVolunteersActivity.Companion.EXTRA_CHECKED_VOLUNTEERS
@@ -45,7 +45,7 @@ class SummaryVolunteerActivity : BaseActivity() {
             restoreSavedWork()
             navigationIcon.setOnClickListener { onBackPressed() }
             sendWorkAndFinish.setOnClickListener {
-                viewModel.clearCache(dataStore)
+                viewModel.clearCache()
                 validateAndSend { finishAdding() }
             }
             workType.adapter = workType.createDefaultSpinnerAdapter(R.array.work_types_to_choose)
@@ -57,7 +57,7 @@ class SummaryVolunteerActivity : BaseActivity() {
             else {
                 sendWorkAndContinue.setOnClickListener {
                     validateAndSend {
-                        viewModel.cacheWork(dataStore, it)
+                        viewModel.cacheWork(it)
                         setResult(SelectVolunteersActivity.SUMMARY_RESULT)
                         finish()
                     }
@@ -70,7 +70,7 @@ class SummaryVolunteerActivity : BaseActivity() {
         viewModel.getSavedWork().observe(this) {
             restoreViewsStateBy(it)
         }
-        viewModel.fetchSavedWork(dataStore)
+        viewModel.fetchSavedWork()
     }
 
     private fun restoreViewsStateBy(work: WorkToAdd) {

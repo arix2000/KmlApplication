@@ -164,7 +164,7 @@ class WorksHistoryFragment : BaseFragment() {
     private fun setOnTextViewClickListener(noResultsHistoryClickable: TextView) {
         noResultsHistoryClickable.setOnClickListener {
             val navigationView: NavigationView = requireActivity().findViewById(R.id.nav_view)
-            navigationView.setCheckedItem(R.id.nav_timer)
+            navigationView.setCheckedItem(R.id.nav_work_adding)
             setFragment(WorkAddingFragment())
         }
     }

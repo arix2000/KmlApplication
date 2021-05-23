@@ -38,7 +38,7 @@ class ProfileRepository(val fileFactory: FileFactory): BaseRepository() {
     }
 
     fun getProfilePhoto(onBitmapReady: (Bitmap?) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
+        ioScope.launch {
             val bitmap = fileFactory.readFromFile(FileFactory.PROFILE_PHOTO_PATH_TXT).toBitmap()
             bitmap?.height?.let { log(it) }
             CoroutineScope(Dispatchers.Main).launch {
@@ -48,7 +48,7 @@ class ProfileRepository(val fileFactory: FileFactory): BaseRepository() {
     }
 
     fun saveProfilePhoto(path: Bitmap): Job {
-        return CoroutineScope(Dispatchers.IO).launch {
+        return ioScope.launch {
             fileFactory.saveStateToFile(path.toEncodedString(), FileFactory.PROFILE_PHOTO_PATH_TXT)
         }
     }

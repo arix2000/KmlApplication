@@ -15,3 +15,11 @@ fun Calendar.getTodayDate(): String {
 
 fun Calendar.getCurrentMonth() = get(Calendar.MONTH)
 fun Calendar.getCurrentYear() = get(Calendar.YEAR)
+
+fun Calendar.getDaysUntilEndOfThisMonth(): Int {
+    val lastDay = getActualMaximum(Calendar.DAY_OF_MONTH)
+    val currentDay = get(Calendar.DAY_OF_MONTH)
+    return lastDay - currentDay
+}
+
+fun Calendar.isNotLastDayInMonth(): Boolean = get(Calendar.DAY_OF_MONTH) != getActualMaximum(Calendar.DAY_OF_MONTH)

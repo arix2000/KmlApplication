@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.kml.Constants.Keys.IS_FROM_NOTIFICATION_BUNDLE_KEY
 import com.kml.KmlApp
 import com.kml.R
 import com.kml.models.User
@@ -20,25 +21,28 @@ class SplashScreenActivity : AppCompatActivity() {
         decideThenRoute()
     }
 
+    private fun decideAboutDarkMode() {
+        val isDarkMode = viewModel.getSwitchDarkModeState()
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+    }
+
     private fun decideThenRoute() {
         val user = viewModel.getLogData()
         if (user.isEmpty()) {
             startActivity(Intent(this, LoginScreen::class.java))
         } else {
             setUserGlobalId(user)
-            startActivity(Intent(this, MainActivity::class.java))
+            val isFromNotification = intent.getBooleanExtra(IS_FROM_NOTIFICATION_BUNDLE_KEY, false)
+            val intent = Intent(this, MainActivity::class.java)
+                .putExtra(IS_FROM_NOTIFICATION_BUNDLE_KEY,isFromNotification)
+            startActivity(intent)
         }
         finish()
     }
 
     private fun setUserGlobalId(user: User) {
         KmlApp.loginId = user.loginId
-    }
-
-    private fun decideAboutDarkMode() {
-        val isDarkMode = viewModel.getSwitchDarkModeState()
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
     }
 }

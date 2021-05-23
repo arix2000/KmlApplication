@@ -1,7 +1,5 @@
 package com.kml.repositories
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.google.gson.Gson
 import com.kml.Constants.Keys.WORK_TO_ADD_KEY
@@ -22,7 +20,7 @@ class SummaryVolunteerRepository: BaseRepository() {
         return Single.create { it.onSuccess(addingToChosen.syncRun() == "true") }
     }
 
-    fun cacheWork(dataStore: DataStore<Preferences>, work: WorkToAdd) {
+    fun cacheWork(work: WorkToAdd) {
         CoroutineScope(IO).launch {
             dataStore.edit {
                 it[WORK_TO_ADD_KEY] = Gson().toJson(work)
@@ -30,7 +28,7 @@ class SummaryVolunteerRepository: BaseRepository() {
         }
     }
 
-    fun clearCache(dataStore: DataStore<Preferences>) {
+    fun clearCache() {
         CoroutineScope(IO).launch {
             dataStore.edit {
                 it.remove(WORK_TO_ADD_KEY)
@@ -38,7 +36,7 @@ class SummaryVolunteerRepository: BaseRepository() {
         }
     }
 
-    fun getSavedWork(dataStore: DataStore<Preferences>): Flow<WorkToAdd?> {
+    fun getSavedWork(): Flow<WorkToAdd?> {
         return dataStore.data.map { return@map Gson().fromJson(it[WORK_TO_ADD_KEY], WorkToAdd::class.java) }
     }
 }

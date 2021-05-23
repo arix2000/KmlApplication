@@ -26,15 +26,10 @@ import kotlin.math.roundToInt
 
 class ProfileFragment : BaseFragment() {
 
-    companion object {
-        const val PICK_IMAGE_RESULT = 1
-        const val PHOTO_WIDTH = 480
-    }
-
     private val viewModel: ProfileViewModel by viewModel()
     lateinit var binding: FragmentProfileBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         return binding.root
@@ -144,5 +139,10 @@ class ProfileFragment : BaseFragment() {
 
     private fun setProfilePhoto(bitmap: Bitmap) {
         binding.profilePhoto.setImageBitmap(bitmap)
+    }
+
+    companion object {
+        const val PICK_IMAGE_RESULT = 1
+        const val PHOTO_WIDTH = 480
     }
 }

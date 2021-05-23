@@ -1,7 +1,5 @@
 package com.kml.viewModels
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -60,20 +58,20 @@ class SummaryVolunteerViewModel(
         else date
     }
 
-    fun fetchSavedWork(dataStore: DataStore<Preferences>) {
+    fun fetchSavedWork() {
         viewModelScope.launch {
-            repository.getSavedWork(dataStore).collect {
+            repository.getSavedWork().collect {
                 it?.let { savedWorkLiveData.value = it }
             }
         }
     }
 
-    fun cacheWork(dataStore: DataStore<Preferences>, work: WorkToAdd) {
-        repository.cacheWork(dataStore, work)
+    fun cacheWork(work: WorkToAdd) {
+        repository.cacheWork(work)
     }
 
-    fun clearCache(dataStore: DataStore<Preferences>) {
-        repository.clearCache(dataStore)
+    fun clearCache() {
+        repository.clearCache()
     }
 
     fun getSavedWork() = savedWorkLiveData

@@ -14,21 +14,31 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.android.material.navigation.NavigationView
+import com.kml.Constants.Keys.IS_FROM_NOTIFICATION_BUNDLE_KEY
 import com.kml.Constants.Tags.MEETINGS_TAG
+import com.kml.Constants.Tags.REMAINDER_WORKER_UNIQUE_NAME
 import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
 import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.KmlApp
 import com.kml.R
 import com.kml.databinding.ActivityMainBinding
+import com.kml.extensions.getDaysUntilEndOfThisMonth
+import com.kml.extensions.isNotLastDayInMonth
 import com.kml.extensions.setFragment
 import com.kml.extensions.setFragmentWithData
+import com.kml.utilities.RemainderWorker
 import com.kml.viewModels.MainViewModel
 import com.kml.views.BaseActivity
 import com.kml.views.fragments.AboutAppFragment
 import com.kml.views.fragments.mainFeatures.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -81,6 +91,28 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             if (KmlApp.adminIds.contains(KmlApp.loginId)) {
                 navView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
             }
+            handleWhenFromNotification()
+            scheduleRemainderNotificationWork()
+        }
+    }
+
+    private fun handleWhenFromNotification() {
+        intent?.getBooleanExtra(IS_FROM_NOTIFICATION_BUNDLE_KEY, false)?.let {
+            if (it) {
+                setFragment(WorkAddingFragment())
+                binding.navView.setCheckedItem(R.id.nav_work_adding)
+            }
+        }
+    }
+
+    private fun scheduleRemainderNotificationWork() {
+        val calendar = Calendar.getInstance()
+        if (calendar.isNotLastDayInMonth()) {
+            val workRequest = OneTimeWorkRequestBuilder<RemainderWorker>()
+                .setInitialDelay(calendar.getDaysUntilEndOfThisMonth().toLong(), TimeUnit.DAYS)
+                .build()
+            WorkManager.getInstance(this)
+                .enqueueUniqueWork(REMAINDER_WORKER_UNIQUE_NAME, ExistingWorkPolicy.KEEP, workRequest)
         }
     }
 
@@ -120,7 +152,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_profile -> setFragment(ProfileFragment())
-            R.id.nav_timer -> setFragment(WorkAddingFragment())
+            R.id.nav_work_adding -> setFragment(WorkAddingFragment())
             R.id.nav_search_engine -> setFragment(GameSearchEngineFragment())
             R.id.nav_control_panel -> setFragment(ControlPanelFragment())
             R.id.nav_works_history -> setFragmentWithData(WorksHistoryFragment(), getWorksBundleByTag(WORKS_TAG))
