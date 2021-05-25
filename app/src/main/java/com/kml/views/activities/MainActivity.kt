@@ -109,7 +109,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val calendar = Calendar.getInstance()
         if (calendar.isNotLastDayInMonth()) {
             val workRequest = OneTimeWorkRequestBuilder<RemainderWorker>()
-                .setInitialDelay(calendar.getDaysUntilEndOfThisMonth().toLong(), TimeUnit.DAYS)
+                .setInitialDelay(calendar.getDaysUntilEndOfThisMonth().toLong(), TimeUnit.DAYS)// TODO test
                 .build()
             WorkManager.getInstance(this)
                 .enqueueUniqueWork(REMAINDER_WORKER_UNIQUE_NAME, ExistingWorkPolicy.KEEP, workRequest)
