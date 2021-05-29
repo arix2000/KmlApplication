@@ -109,7 +109,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val calendar = Calendar.getInstance()
         if (calendar.isNotLastDayInMonth()) {
             val workRequest = OneTimeWorkRequestBuilder<RemainderWorker>()
-                .setInitialDelay(calendar.getDaysUntilEndOfThisMonth().toLong(), TimeUnit.DAYS)// TODO test
+                .setInitialDelay(calendar.getDaysUntilEndOfThisMonth().toLong(), TimeUnit.DAYS)
                 .build()
             WorkManager.getInstance(this)
                 .enqueueUniqueWork(REMAINDER_WORKER_UNIQUE_NAME, ExistingWorkPolicy.KEEP, workRequest)
@@ -167,6 +167,20 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return Bundle().also {
             it.putString(WORKS_HISTORY_TYPE, tag)
         }
+    }
+
+    fun showAllMeetingsModeMenu(onClick: (MenuItem) -> Unit) {
+        binding.mainToolbar.menu.findItem(R.id.show_all_mode).run {
+            isVisible = true
+            setOnMenuItemClickListener {
+                onClick(it)
+                true
+            }
+        }
+    }
+
+    fun hideAllMeetingsModeMenu() {
+        binding.mainToolbar.menu.findItem(R.id.show_all_mode).isVisible = false
     }
 
     fun showBackButton() {

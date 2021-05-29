@@ -5,7 +5,7 @@ import com.kml.data.networking.DbGetWorksHistory
 import com.kml.data.networking.DbGetWorksHistory.Companion.GET_MEETINGS
 import com.kml.data.networking.DbGetWorksHistory.Companion.GET_WORKS
 import com.kml.extensions.async
-import com.kml.models.Work
+import com.kml.models.dto.Work
 import com.kml.utilities.FileFactory
 import io.reactivex.rxjava3.core.Single
 

@@ -7,6 +7,7 @@ import com.kml.Constants.Date.CREATION_DATE_FORMAT
 import com.kml.Constants.Date.NEW_DATE_OUTPUT_FORMAT
 import com.kml.Constants.Strings.SPACE_CHAR
 import com.kml.extensions.logError
+import com.kml.models.model.User
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,6 +22,10 @@ open class Work(@SerializedName("imie") val firstName: String?,
                 @SerializedName("osoby") val people: String?,
                 @SerializedName("typSpotkania") val type: String?
 ) : Parcelable {
+    fun isUserWasOnMeeting(user:User): Boolean {
+        return people?.contains(user.firstName+" "+ user.lastName) ?: true
+    }
+
     fun isEmpty() = firstName.isNullOrBlank() && lastName.isNullOrBlank()
             && workName.isBlank() && workDescription.isBlank() && workDate.isBlank()
             && executionTime.isBlank() && people.isNullOrBlank()

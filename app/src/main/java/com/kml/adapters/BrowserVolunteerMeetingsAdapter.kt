@@ -7,10 +7,14 @@ import com.kml.Constants.Strings.NO_TYPE
 import com.kml.R
 import com.kml.extensions.getWorksTimeTotal
 import com.kml.holders.WorkHolder
-import com.kml.models.Work
+import com.kml.models.dto.Work
+import com.kml.models.model.User
 import com.kml.views.fragments.volunteerBrowser.BrowserVolunteerMeetingsFragment.Companion.ALL_TYPES
 
-class BrowserVolunteerMeetingsAdapter(private val onClickListener: (Work) -> Unit) :
+class BrowserVolunteerMeetingsAdapter(
+    private val user: User,
+    private val onClickListener: (Work) -> Unit
+) :
     RecyclerView.Adapter<WorkHolder>() {
     private var worksConstant: List<Work> = listOf()
     private var works: List<Work> = listOf()
@@ -23,17 +27,23 @@ class BrowserVolunteerMeetingsAdapter(private val onClickListener: (Work) -> Uni
 
     override fun onBindViewHolder(holder: WorkHolder, position: Int) {
         val work = works[position]
-        holder.bind(work, onClickListener)
+        holder.bind(work, onClickListener, user)
     }
 
     override fun getItemCount(): Int {
         return works.size
     }
 
-    fun updateWorks(newWorks: List<Work>, initialSet:Boolean = false) {
+    fun updateWorks(newWorks: List<Work>, initialSet: Boolean = false) {
         if (!initialSet) works = newWorks
         if (worksConstant.isEmpty())
             worksConstant = newWorks
+        notifyDataSetChanged()
+    }
+
+    fun updateWorksOnAllMeetingsModeToggle(newWorks: List<Work>) {
+        works = newWorks
+        worksConstant = newWorks
         notifyDataSetChanged()
     }
 

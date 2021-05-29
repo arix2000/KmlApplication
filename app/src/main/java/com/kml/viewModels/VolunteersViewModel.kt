@@ -2,7 +2,7 @@ package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.kml.extensions.async
-import com.kml.models.Volunteer
+import com.kml.models.dto.Volunteer
 import com.kml.repositories.VolunteerRepository
 import io.reactivex.rxjava3.core.Single
 import java.util.*

@@ -3,7 +3,7 @@ package com.kml.extensions
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kml.models.Work
+import com.kml.models.dto.Work
 
 const val DEBUG_TAG = "DEBUG_TAG"
 const val NETWORK_RESPONSE_TAG = "NETWORK_RESPONSE_TAG"

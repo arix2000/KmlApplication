@@ -8,4 +8,10 @@
         android:title="@string/about_app_title"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/show_all_mode"
+        android:icon="@drawable/ic_show_more"
+        android:title="@string/about_app_title"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -10,12 +10,14 @@ import com.kml.R
 import com.kml.adapters.BrowserVolunteerMeetingsAdapter
 import com.kml.databinding.FragmentBrowserVolunteerMeetingsBinding
 import com.kml.extensions.*
-import com.kml.models.User
-import com.kml.models.Work
+import com.kml.models.dto.Work
+import com.kml.models.model.User
 import com.kml.viewModels.BrowserVolunteerLogbookViewModel.Companion.LAST_YEARS_POSITION
 import com.kml.viewModels.BrowserVolunteerMeetingsViewModel
 import com.kml.views.BaseFragment
+import com.kml.views.activities.MainActivity
 import com.kml.views.dialogs.ExtendedWorkDialog
+import com.kml.views.fragments.volunteerBrowser.VolunteersBrowserDetailsFragment.Companion.USER_KEY
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,6 +28,8 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
 
     private val viewModel: BrowserVolunteerMeetingsViewModel by viewModel()
     private lateinit var meetingsAdapter: BrowserVolunteerMeetingsAdapter
+    private var isAllMeetingsModeEnabled = false
+    private lateinit var user: User
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +42,40 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         shouldShowBackButton = true
         attachProgressBar(binding.progressBar)
-        meetingsAdapter = BrowserVolunteerMeetingsAdapter { extendInDialog(it) }
-        fetchData()
+        user = arguments?.getParcelable(USER_KEY) ?: User.EMPTY
+        setTitle("${user.firstName} ${user.lastName}")
+        meetingsAdapter = BrowserVolunteerMeetingsAdapter(user) { extendInDialog(it) }
+        fetchData(true)
+    }
+
+    override fun onStart() {
+        (activity as? MainActivity)?.showAllMeetingsModeMenu() {
+            if (isAllMeetingsModeEnabled)
+                stopAllMeetingsMode()
+            else
+                startAllMeetingsMode()
+        }
+        super.onStart()
+    }
+
+    private fun startAllMeetingsMode() {
+        showProgressBar()
+        viewModel.fetchAllMeetings()
+            .subscribeBy(
+                onSuccess = {
+                    meetingsAdapter.updateWorksOnAllMeetingsModeToggle(it)
+                    hideProgressBar()
+                    isAllMeetingsModeEnabled = true
+                },
+                onError = {
+                    logError(it)
+                    hideProgressBar()
+                }
+            )
+    }
+
+    private fun stopAllMeetingsMode() {
+        fetchData(false)
     }
 
     private fun extendInDialog(work: Work) {
@@ -47,16 +83,18 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
             .show(parentFragmentManager, "ExtendedWork")
     }
 
-    private fun fetchData() {
+    private fun fetchData(isInitialSet: Boolean) {
         showProgressBar()
-        val user = arguments?.getParcelable(VolunteersBrowserDetailsFragment.USER_KEY) ?: User.EMPTY
-        setTitle("${user.firstName} ${user.lastName}")
         viewModel.fetchMeetings(user)
             .subscribeBy(
                 onSuccess = {
-                    meetingsAdapter.updateWorks(it, true)
+                    if (isInitialSet)
+                        meetingsAdapter.updateWorks(it, true)
+                    else
+                        meetingsAdapter.updateWorksOnAllMeetingsModeToggle(it)
                     hideProgressBar()
                     setupUi()
+                    isAllMeetingsModeEnabled = false
                 },
                 onError = {
                     logError(it)
@@ -73,11 +111,9 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
                 adapter = meetingsAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-
             searchButton.setOnClickListener {
                 filterWorks()
             }
-
             setupSpinners()
         }
     }
@@ -137,6 +173,11 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
             totalWorkCount.text = workCount.toString()
             totalWorkTime.text = workTime
         }
+    }
+
+    override fun onStop() {
+       (activity as? MainActivity)?.hideAllMeetingsModeMenu()
+        super.onStop()
     }
 
     override fun onDestroy() {
