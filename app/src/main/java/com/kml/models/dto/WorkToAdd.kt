@@ -1,4 +1,4 @@
-package com.kml.models
+package com.kml.models.dto
 
 data class WorkToAdd(
     val name: String,

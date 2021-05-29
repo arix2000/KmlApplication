@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
 import com.kml.databinding.ListItemVolunteerBinding
-import com.kml.models.Volunteer
+import com.kml.models.dto.Volunteer
 
 class VolunteerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

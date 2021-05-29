@@ -24,7 +24,7 @@ import com.kml.R
 import com.kml.adapters.WorkAdapter
 import com.kml.databinding.FragmentAllHistoryBinding
 import com.kml.extensions.*
-import com.kml.models.Work
+import com.kml.models.dto.Work
 import com.kml.viewModels.WorksHistoryViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.dialogs.ExtendedWorkDialog

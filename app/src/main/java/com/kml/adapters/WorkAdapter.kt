@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
 import com.kml.holders.EmptyWorkHolder
 import com.kml.holders.WorkHolder
-import com.kml.models.Work
+import com.kml.models.dto.Work
 import java.util.*
 
 class WorkAdapter(private val onClickListener: (Work) -> Unit)

@@ -11,8 +11,8 @@ import com.kml.Constants.Strings.TODAY
 import com.kml.R
 import com.kml.databinding.ActivitySummarySelectedBinding
 import com.kml.extensions.*
-import com.kml.models.Volunteer
-import com.kml.models.WorkToAdd
+import com.kml.models.dto.Volunteer
+import com.kml.models.dto.WorkToAdd
 import com.kml.utilities.Validator
 import com.kml.utilities.Vibrator
 import com.kml.viewModels.SummaryVolunteerViewModel

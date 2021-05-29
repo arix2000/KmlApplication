@@ -10,7 +10,7 @@ import com.kml.R
 import com.kml.adapters.VolunteerAdapter
 import com.kml.databinding.ActivitySelectVolunteersBinding
 import com.kml.extensions.*
-import com.kml.models.Volunteer
+import com.kml.models.dto.Volunteer
 import com.kml.viewModels.VolunteersViewModel
 import com.kml.views.BaseActivity
 import io.reactivex.rxjava3.kotlin.subscribeBy

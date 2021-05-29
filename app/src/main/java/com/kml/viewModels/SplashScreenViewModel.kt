@@ -2,7 +2,7 @@ package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.kml.extensions.logError
-import com.kml.models.User
+import com.kml.models.model.User
 import com.kml.repositories.SplashScreenRepository
 
 class SplashScreenViewModel(

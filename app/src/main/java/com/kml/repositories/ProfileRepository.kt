@@ -7,7 +7,7 @@ import com.kml.data.networking.DbGetUserData
 import com.kml.extensions.log
 import com.kml.extensions.toBitmap
 import com.kml.extensions.toEncodedString
-import com.kml.models.Profile
+import com.kml.models.dto.Profile
 import com.kml.utilities.FileFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

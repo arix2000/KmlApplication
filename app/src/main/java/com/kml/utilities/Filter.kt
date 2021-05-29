@@ -1,7 +1,7 @@
 package com.kml.utilities
 
-import com.kml.models.Game
-import com.kml.models.GameFilterInfo
+import com.kml.models.entitiy.Game
+import com.kml.models.model.GameFilterInfo
 import java.util.*
 
 class Filter(private val filterInfo: GameFilterInfo) {

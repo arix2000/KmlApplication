@@ -15,7 +15,7 @@ import com.kml.databinding.FragmentProfileBinding
 import com.kml.extensions.showSnackBar
 import com.kml.extensions.toBitmap
 import com.kml.extensions.visible
-import com.kml.models.Profile
+import com.kml.models.dto.Profile
 import com.kml.viewModels.ProfileViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.activities.LoginScreen

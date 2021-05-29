@@ -1,7 +1,7 @@
 package com.kml.repositories
 
 import com.kml.data.networking.DbSendWork
-import com.kml.models.WorkToAdd
+import com.kml.models.dto.WorkToAdd
 import com.kml.utilities.FileFactory
 
 class WorkAddingRepository(val fileFactory: FileFactory): BaseRepository() {

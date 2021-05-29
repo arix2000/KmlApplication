@@ -9,7 +9,7 @@ import com.kml.adapters.VolunteerBrowserAdapter
 import com.kml.databinding.FragmentVolunteersBrowserBinding
 import com.kml.extensions.logError
 import com.kml.extensions.setFragmentWithData
-import com.kml.models.Volunteer
+import com.kml.models.dto.Volunteer
 import com.kml.viewModels.VolunteersBrowserViewModel
 import com.kml.views.BaseFragment
 import io.reactivex.rxjava3.kotlin.subscribeBy

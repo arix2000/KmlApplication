@@ -1,6 +1,6 @@
 package com.kml.extensions
 
-import com.kml.models.Work
+import com.kml.models.dto.Work
 
 fun List<Work>.getWorksTimeTotal(): String {
     var hours = 0

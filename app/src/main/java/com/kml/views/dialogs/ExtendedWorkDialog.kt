@@ -8,7 +8,7 @@ import com.kml.R
 import com.kml.databinding.DialogWorkHistoryExtendedBinding
 import com.kml.extensions.goneAll
 import com.kml.extensions.visibleAll
-import com.kml.models.Work
+import com.kml.models.dto.Work
 import com.kml.views.BaseDialog
 
 

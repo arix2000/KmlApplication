@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.utilities.FileFactory
 import com.kml.extensions.createWorkListFrom
-import com.kml.models.Work
+import com.kml.models.dto.Work
 import com.kml.repositories.WorksHistoryRepository
 import io.reactivex.rxjava3.core.Single
 

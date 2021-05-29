@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@color/cardBackground"
     android:layout_margin="3dp"
     app:cardCornerRadius="@dimen/item_corner_radius">
@@ -17,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/textColorLight"
-            android:layout_alignParentRight="true"
-            android:text="AddDate"
+            android:layout_alignParentEnd="true"
+            tools:text="AddDate"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
@@ -26,11 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/textColorLight"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/history_work_item_date"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/history_work_item_date"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="HistoryWorkName"
+            tools:text="HistoryWorkName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
@@ -41,11 +42,6 @@
             android:textColor="@color/textColorLight"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="HistoryWorkTime" />
+            tools:text="HistoryWorkTime" />
     </RelativeLayout>
-
-
-
-
-
 </androidx.cardview.widget.CardView>

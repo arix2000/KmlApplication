@@ -9,8 +9,8 @@ import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.adapters.BrowserVolunteerWorksAdapter
 import com.kml.databinding.FragmentBrowserVolunteerWorksBinding
 import com.kml.extensions.*
-import com.kml.models.User
-import com.kml.models.Work
+import com.kml.models.dto.Work
+import com.kml.models.model.User
 import com.kml.viewModels.BrowserVolunteerLogbookViewModel.Companion.LAST_YEARS_POSITION
 import com.kml.viewModels.BrowserVolunteerLogbookViewModel.Companion.SHOW_ALL_ITEM_POSITION
 import com.kml.viewModels.BrowserVolunteerWorksViewModel

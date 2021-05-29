@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
 import com.kml.extensions.getWorksTimeTotal
 import com.kml.holders.WorkHolder
-import com.kml.models.Work
+import com.kml.models.dto.Work
 
 class BrowserVolunteerWorksAdapter(private val onClickListener: (Work) -> Unit) :
     RecyclerView.Adapter<WorkHolder>() {

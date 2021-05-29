@@ -2,7 +2,7 @@ package com.kml.data.networking
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kml.models.Volunteer
+import com.kml.models.dto.Volunteer
 import java.net.HttpURLConnection
 
 class DbGetAllUsersData : ExternalDbHelper() {

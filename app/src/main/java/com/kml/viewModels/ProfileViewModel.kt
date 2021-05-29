@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
 import com.kml.data.networking.DbChangePass
-import com.kml.models.Profile
+import com.kml.models.dto.Profile
 import com.kml.repositories.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

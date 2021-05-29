@@ -11,7 +11,7 @@ import com.kml.extensions.invisible
 import com.kml.extensions.logError
 import com.kml.extensions.setFragmentWithData
 import com.kml.extensions.visible
-import com.kml.models.User
+import com.kml.models.model.User
 import com.kml.viewModels.VolunteersBrowserDetailsViewModel
 import com.kml.views.BaseFragment
 import io.reactivex.rxjava3.kotlin.subscribeBy

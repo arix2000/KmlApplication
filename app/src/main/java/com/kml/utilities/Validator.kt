@@ -14,7 +14,7 @@ import com.kml.R
 import com.kml.extensions.logError
 import com.kml.extensions.showSnackBar
 import com.kml.extensions.showToast
-import com.kml.models.WorkToAdd
+import com.kml.models.dto.WorkToAdd
 
 class Validator(private val activity: FragmentActivity, var popupType: Int = SNACK_BAR_TYPE) {
 

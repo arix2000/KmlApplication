@@ -2,7 +2,7 @@ package com.kml.data.networking
 
 import com.kml.KmlApp
 import com.kml.extensions.logError
-import com.kml.models.WorkToAdd
+import com.kml.models.dto.WorkToAdd
 import java.io.BufferedWriter
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -11,7 +11,8 @@ import java.net.URLEncoder
 
 class DbAddingToChosen(private val ids: String,
                        private var volunteersName: String,
-                       private val work: WorkToAdd) : ExternalDbHelper() {
+                       private val work: WorkToAdd
+) : ExternalDbHelper() {
 
     private val fileName = "addTimeOfWorkToChosen.php"
     private val address = BASE_URL + fileName

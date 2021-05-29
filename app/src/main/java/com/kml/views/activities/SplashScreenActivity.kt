@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.kml.Constants.Keys.IS_FROM_NOTIFICATION_BUNDLE_KEY
 import com.kml.KmlApp
 import com.kml.R
-import com.kml.models.User
+import com.kml.models.model.User
 import com.kml.viewModels.SplashScreenViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

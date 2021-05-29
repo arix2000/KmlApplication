@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.kml.R
 import com.kml.databinding.FragmentGameSearchEngineBinding
-import com.kml.models.GameFilterInfo
+import com.kml.models.model.GameFilterInfo
 import com.kml.views.BaseFragment
 import com.kml.views.activities.GameRecycleViewActivity
 

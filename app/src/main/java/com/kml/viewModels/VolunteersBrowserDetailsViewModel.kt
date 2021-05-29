@@ -1,7 +1,7 @@
 package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.kml.models.Profile
+import com.kml.models.dto.Profile
 import com.kml.repositories.VolunteersBrowserDetailsRepository
 import io.reactivex.rxjava3.core.Single
 

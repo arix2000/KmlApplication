@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.kml.Constants
 import com.kml.extensions.async
 import com.kml.extensions.getTodayDate
-import com.kml.models.Volunteer
-import com.kml.models.WorkToAdd
+import com.kml.models.dto.Volunteer
+import com.kml.models.dto.WorkToAdd
 import com.kml.repositories.SummaryVolunteerRepository
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.collect

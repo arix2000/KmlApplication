@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
 import com.kml.holders.VolunteerBrowserHolder
-import com.kml.models.Volunteer
+import com.kml.models.dto.Volunteer
 
 class VolunteerBrowserAdapter(
         private val itemClick: (Volunteer) -> Unit

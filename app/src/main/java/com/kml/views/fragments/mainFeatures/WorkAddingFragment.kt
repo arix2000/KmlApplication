@@ -11,7 +11,7 @@ import com.kml.utilities.Validator
 import com.kml.utilities.Vibrator
 import com.kml.databinding.FragmentAddingWorkBinding
 import com.kml.extensions.*
-import com.kml.models.WorkToAdd
+import com.kml.models.dto.WorkToAdd
 import com.kml.viewModels.WorkAddingViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.dialogs.MyDatePickerDialog

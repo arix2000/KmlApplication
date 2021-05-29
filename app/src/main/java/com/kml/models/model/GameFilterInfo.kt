@@ -1,4 +1,4 @@
-package com.kml.models
+package com.kml.models.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

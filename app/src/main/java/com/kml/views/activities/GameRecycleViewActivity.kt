@@ -13,8 +13,8 @@ import com.kml.KmlApp
 import com.kml.R
 import com.kml.adapters.GameAdapter
 import com.kml.extensions.showSnackBar
-import com.kml.models.Game
-import com.kml.models.GameFilterInfo
+import com.kml.models.entitiy.Game
+import com.kml.models.model.GameFilterInfo
 import com.kml.viewModels.GameViewModel
 import com.kml.views.BaseActivity
 import com.kml.views.fragments.mainFeatures.GameSearchEngineFragment

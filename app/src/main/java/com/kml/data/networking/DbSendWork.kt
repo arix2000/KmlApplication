@@ -2,7 +2,7 @@ package com.kml.data.networking
 
 import android.util.Log
 import com.kml.KmlApp
-import com.kml.models.WorkToAdd
+import com.kml.models.dto.WorkToAdd
 import java.io.BufferedWriter
 import java.io.IOException
 import java.io.OutputStreamWriter

@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.kml.models.Game
+import com.kml.models.entitiy.Game
 import kotlinx.android.synthetic.main.list_item_game.view.*
 
 class GameHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

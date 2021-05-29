@@ -1,4 +1,4 @@
-package com.kml.models
+package com.kml.models.entitiy
 
 import android.os.Parcelable
 import androidx.room.Entity
