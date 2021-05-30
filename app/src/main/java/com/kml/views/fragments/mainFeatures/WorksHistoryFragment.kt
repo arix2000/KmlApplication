@@ -39,7 +39,7 @@ class WorksHistoryFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val viewModel: WorksHistoryViewModel by viewModel()
     private lateinit var historyType: String
-    private var shouldShowAll = false
+    var shouldShowAll = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAllHistoryBinding.inflate(inflater, container, false)
@@ -50,6 +50,7 @@ class WorksHistoryFragment : BaseFragment() {
         attachProgressBar(binding.allHistoryProgressBar)
         shouldShowBackButton = arguments?.getBoolean(SHOULD_SHOW_BACK_BUTTON) ?: false
         shouldShowAll = arguments?.getBoolean(GET_ALL_TAG) ?: false
+        shouldReturnToHome = !shouldShowAll
         setupUi()
     }
 
@@ -200,5 +201,9 @@ class WorksHistoryFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        var shouldReturnToHome = true
     }
 }

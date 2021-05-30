@@ -150,8 +150,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             when(currentFragment) {
                 is ControlPanelFragment,
                 is GameSearchEngineFragment,
-                is WorkAddingFragment,
-                is WorksHistoryFragment -> setDrawerFragment(ProfileFragment(), R.id.nav_profile)
+                is WorkAddingFragment -> setDrawerFragment(ProfileFragment(), R.id.nav_profile)
+                is WorksHistoryFragment -> {
+                    if (WorksHistoryFragment.shouldReturnToHome)
+                        setDrawerFragment(ProfileFragment(), R.id.nav_profile)
+                    else {
+                        super.onBackPressed()
+                        currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                    }
+                }
                 else -> {
                     super.onBackPressed()
                     currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
