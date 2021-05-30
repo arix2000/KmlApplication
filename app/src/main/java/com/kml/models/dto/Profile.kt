@@ -21,10 +21,15 @@ data class Profile(var firstName: String,
         fun createFrom(result: String): Profile {
             val format = FormatEngine()
             val splitData = result.split(";".toRegex()).toTypedArray()
-            return Profile(splitData[0], splitData[1], splitData[2],
+            return try {
+                Profile(splitData[0], splitData[1], splitData[2],
                     format.convertToReadable(splitData[3]),
                     format.formatSections(splitData[4]), splitData[5],
                     format.convertToReadable(splitData[6]))
+            } catch (e: Exception) {
+                EMPTY_PROFILE
+            }
+
         }
     }
 }
