@@ -157,7 +157,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
                 }
             }
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
