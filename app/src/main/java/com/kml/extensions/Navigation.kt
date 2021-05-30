@@ -8,6 +8,8 @@ import androidx.fragment.app.commit
 import com.kml.R
 import com.kml.views.activities.MainActivity
 
+var currentFragment: Fragment? = null
+
 fun AppCompatActivity.setFragment(
     fragment: Fragment,
     addToBackStack: Boolean = false,
@@ -17,6 +19,7 @@ fun AppCompatActivity.setFragment(
         if (addToBackStack) addToBackStack(fragment.tag)
         if (withAnim) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         replace(R.id.fragment_container,fragment)
+        currentFragment = fragment
     }
 }
 
@@ -30,6 +33,7 @@ fun AppCompatActivity.setFragmentWithData(
         if (addToBackStack) addToBackStack(fragment.tag)
         if (withAnim) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         replace(R.id.fragment_container,fragment::class.java, data)
+        currentFragment = fragment
     }
 }
 
@@ -38,6 +42,7 @@ fun Fragment.setFragment(fragment: Fragment) {
         setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         replace(R.id.fragment_container,fragment)
         addToBackStack(fragment.tag)
+        currentFragment = fragment
     }
 }
 
@@ -46,6 +51,7 @@ fun Fragment.setFragmentWithData(fragment: Fragment, data: Bundle) {
         setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         replace(R.id.fragment_container,fragment::class.java, data)
         addToBackStack(fragment.tag)
+        currentFragment = fragment
     }
 }
 

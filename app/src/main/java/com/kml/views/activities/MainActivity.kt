@@ -9,11 +9,13 @@ import android.text.style.TextAppearanceSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -26,10 +28,7 @@ import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.KmlApp
 import com.kml.R
 import com.kml.databinding.ActivityMainBinding
-import com.kml.extensions.getDaysUntilEndOfThisMonth
-import com.kml.extensions.isNotLastDayInMonth
-import com.kml.extensions.setFragment
-import com.kml.extensions.setFragmentWithData
+import com.kml.extensions.*
 import com.kml.utilities.RemainderWorker
 import com.kml.viewModels.MainViewModel
 import com.kml.views.BaseActivity
@@ -74,26 +73,27 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             setupOptions()
 
             drawerToggle.syncState()
-            if (savedInstanceState == null) {
-                setFragment(ProfileFragment())
-                navView.setCheckedItem(R.id.nav_profile)
-            }
+            if (savedInstanceState == null)
+                setDrawerFragment(ProfileFragment(), R.id.nav_profile)
             if (KmlApp.isFromRecycleViewActivity) {
-                setFragment(GameSearchEngineFragment())
-                navView.setCheckedItem(R.id.nav_search_engine)
+                setDrawerFragment(GameSearchEngineFragment(), R.id.nav_search_engine)
                 KmlApp.isFromRecycleViewActivity = false
             }
             if (KmlApp.isFromControlPanel) {
-                setFragment(ControlPanelFragment())
-                navView.setCheckedItem(R.id.nav_control_panel)
+                setDrawerFragment(ControlPanelFragment(), R.id.nav_control_panel)
                 KmlApp.isFromControlPanel = false
             }
-            if (KmlApp.adminIds.contains(KmlApp.loginId)) {
+            if (KmlApp.adminIds.contains(KmlApp.loginId))
                 navView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
-            }
             handleWhenFromNotification()
             scheduleRemainderNotificationWork()
+
         }
+    }
+
+    private fun setDrawerFragment(fragment: Fragment, @IdRes navItemMenuRes: Int) {
+        setFragment(fragment)
+        binding.navView.setCheckedItem(navItemMenuRes)
     }
 
     private fun handleWhenFromNotification() {
@@ -146,7 +146,18 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
-        } else super.onBackPressed()
+        } else
+            when(currentFragment) {
+                is ControlPanelFragment,
+                is GameSearchEngineFragment,
+                is WorkAddingFragment,
+                is WorksHistoryFragment -> setDrawerFragment(ProfileFragment(), R.id.nav_profile)
+                else -> {
+                    super.onBackPressed()
+                    currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                }
+            }
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -157,9 +168,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_control_panel -> setFragment(ControlPanelFragment())
             R.id.nav_works_history -> setFragmentWithData(WorksHistoryFragment(), getWorksBundleByTag(WORKS_TAG))
             R.id.nav_meetings_history -> setFragmentWithData(WorksHistoryFragment(), getWorksBundleByTag(MEETINGS_TAG))
-
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
+
         return true
     }
 
