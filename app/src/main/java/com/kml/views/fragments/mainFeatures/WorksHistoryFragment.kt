@@ -156,7 +156,7 @@ class WorksHistoryFragment : BaseFragment() {
 
     private fun reactOnNoItems() {
         with(binding) {
-            if (adapter.itemCount == 0) {
+            if (adapter.itemCount == 1) {
                 noResultsOnHistory.visible()
                 noResultsOnHistoryClickable.visible()
                 setOnTextViewClickListener(noResultsOnHistoryClickable)
