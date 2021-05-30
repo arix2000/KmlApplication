@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
 import com.kml.databinding.ListItemWorkHistoryBinding
+import com.kml.extensions.gone
+import com.kml.extensions.visible
 import com.kml.models.dto.Work
 import com.kml.models.model.User
 import kotlinx.android.synthetic.main.list_item_work_history.view.*
@@ -37,13 +39,15 @@ open class WorkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private fun setDisabledStyle() {
         binding.apply {
-            root.foreground = ColorDrawable(ContextCompat.getColor(itemView.context, R.color.disablingMask))
+            rootCardView.foreground = ColorDrawable(ContextCompat.getColor(itemView.context, R.color.disablingMask))
+            absenceIcon.visible()
         }
     }
 
     private fun setEnabledStyle() {
         binding.apply {
-            root.foreground = null
+            rootCardView.foreground = null
+            absenceIcon.gone()
         }
     }
 }

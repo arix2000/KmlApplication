@@ -1,47 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardBackgroundColor="@color/cardBackground"
-    android:layout_margin="3dp"
-    app:cardCornerRadius="@dimen/item_corner_radius">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/absence_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_block"
+        android:visibility="gone"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/holo_red_light" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/root_card_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_margin="3dp"
+        app:cardBackgroundColor="@color/cardBackground"
+        app:cardCornerRadius="@dimen/item_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/history_work_item_date"
+        <RelativeLayout
+            android:id="@+id/content_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorLight"
-            android:layout_alignParentEnd="true"
-            tools:text="AddDate"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:padding="8dp">
 
-        <TextView
-            android:id="@+id/history_work_item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textColorLight"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/history_work_item_date"
-            android:ellipsize="end"
-            android:maxLines="1"
-            tools:text="HistoryWorkName"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            <TextView
+                android:id="@+id/history_work_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/textColorLight"
+                tools:text="AddDate" />
 
-        <TextView
-            android:id="@+id/history_work_item_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/history_work_item_name"
-            android:textColor="@color/textColorLight"
-            android:ellipsize="end"
-            android:maxLines="1"
-            tools:text="HistoryWorkTime" />
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/history_work_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/history_work_item_date"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/textColorLight"
+                tools:text="HistoryWorkName" />
+
+            <TextView
+                android:id="@+id/history_work_item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/history_work_item_name"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textColorLight"
+                tools:text="HistoryWorkTime" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
