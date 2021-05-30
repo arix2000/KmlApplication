@@ -88,11 +88,12 @@ class WorksHistoryFragment : BaseFragment() {
         }
 
         binding.searchExpandableView.searchEditText.doAfterTextChanged { text ->
-            if(text != null) {
+            if(!text.isNullOrBlank()) {
                 val isFilteredEmpty = adapter.filterWorksBy(text.toString()).isEmpty()
                 if (isFilteredEmpty)
                     binding.noResultsOnSearch.visible()
-                else binding.noResultsOnSearch.gone()
+                else
+                    binding.noResultsOnSearch.gone()
             }
         }
 
@@ -154,10 +155,15 @@ class WorksHistoryFragment : BaseFragment() {
     }
 
     private fun reactOnNoItems() {
-        if (adapter.itemCount == 0) {
-            binding.noResultsOnHistory.visibility = View.VISIBLE
-            binding.noResultsOnHistoryClickable.visibility = View.VISIBLE
-            setOnTextViewClickListener(binding.noResultsOnHistoryClickable)
+        with(binding) {
+            if (adapter.itemCount == 0) {
+                noResultsOnHistory.visible()
+                noResultsOnHistoryClickable.visible()
+                setOnTextViewClickListener(noResultsOnHistoryClickable)
+            } else {
+                noResultsOnHistory.gone()
+                noResultsOnHistoryClickable.gone()
+            }
         }
     }
 
