@@ -56,10 +56,10 @@ class WorksHistoryFragment : BaseFragment() {
 
     private fun fetchWorks() {
         viewModel.fetchDataBy(historyType, shouldShowAll)
-                .subscribeBy(
-                        onSuccess = { setWorksToAdapter(it, viewModel.isFromFile()) },
-                        onError = { logError(it); hideProgressBar() }
-                )
+            .subscribeBy(
+                onSuccess = { setWorksToAdapter(it, viewModel.isFromFile()) },
+                onError = { logError(it); hideProgressBar() }
+            )
     }
 
     private fun setupUi() {

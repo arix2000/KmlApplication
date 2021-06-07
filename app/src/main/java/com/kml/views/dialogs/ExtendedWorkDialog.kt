@@ -76,7 +76,7 @@ class ExtendedWorkDialog(
 
     private fun showOrHideFullNames() {
         binding.apply {
-            if (type == MEETINGS_TAG && shouldShowFullName)
+            if (shouldShowFullName)
                 visibleAll(fullNameTitle,dialogHistoryFullName)
             else
                 goneAll(fullNameTitle,dialogHistoryFullName)
