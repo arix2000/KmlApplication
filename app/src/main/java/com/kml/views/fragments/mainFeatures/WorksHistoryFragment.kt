@@ -121,6 +121,7 @@ class WorksHistoryFragment : BaseFragment() {
             animateResizing(this.root, newWidth)
             searchButton.setImageResource(R.drawable.ic_search)
             searchEditText.setText(EMPTY_STRING)
+            adapter.filterWorksBy(EMPTY_STRING)
             requireContext().hideSoftKeyboard(this.root)
         }
         viewModel.isSearchExpanded = false
