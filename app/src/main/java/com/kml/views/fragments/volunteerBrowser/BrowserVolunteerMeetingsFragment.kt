@@ -49,7 +49,7 @@ class BrowserVolunteerMeetingsFragment : BaseFragment() {
     }
 
     override fun onStart() {
-        (activity as? MainActivity)?.showAllMeetingsModeMenu() {
+        (activity as? MainActivity)?.showAllMeetingsModeMenu {
             if (isAllMeetingsModeEnabled)
                 stopAllMeetingsMode()
             else

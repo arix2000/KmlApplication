@@ -35,7 +35,7 @@ class VolunteersViewModel(
     fun filterArrayByName(typedText: String): List<Volunteer> {
         val filteredVolunteers: MutableList<Volunteer> = ArrayList()
         for (volunteer in volunteers) {
-            if (volunteer.firstName.toLowerCase(Locale.ROOT).contains(typedText.toLowerCase(Locale.ROOT))) {
+            if (volunteer.firstName.lowercase(Locale.ROOT).contains(typedText.lowercase(Locale.ROOT))) {
                 filteredVolunteers.add(volunteer)
             }
         }

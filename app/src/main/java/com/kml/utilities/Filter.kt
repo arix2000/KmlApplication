@@ -7,7 +7,7 @@ import java.util.*
 class Filter(private val filterInfo: GameFilterInfo) {
 
     fun byName(games: List<Game>): List<Game> {
-        return games.filter { it.name.contains(filterInfo.name.toUpperCase(Locale.getDefault())) }
+        return games.filter { it.name.contains(filterInfo.name.uppercase(Locale.getDefault())) }
     }
 
     fun byNumberOfKids(games: List<Game>): List<Game> {

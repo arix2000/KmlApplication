@@ -15,4 +15,4 @@
 .cxx
 /app/release/KmlApp.apk
 /.idea/dictionaries/arek.xml
-/app/src/main/java/com/kml/data/networking/ExternalDbHelper.kt
+/app/src/main/java/com/kml/data/networking/NetworkingConstants.kt

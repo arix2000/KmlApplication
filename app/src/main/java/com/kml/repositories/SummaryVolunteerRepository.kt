@@ -3,7 +3,8 @@ package com.kml.repositories
 import androidx.datastore.preferences.core.edit
 import com.google.gson.Gson
 import com.kml.Constants.Keys.WORK_TO_ADD_KEY
-import com.kml.data.networking.DbAddingToChosen
+import com.kml.KmlApp
+import com.kml.data.networking.RestApi
 import com.kml.models.dto.WorkToAdd
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.CoroutineScope
@@ -12,12 +13,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class SummaryVolunteerRepository: BaseRepository() {
-    private lateinit var addingToChosen: DbAddingToChosen
+class SummaryVolunteerRepository(private val restApi: RestApi): BaseRepository() {
 
     fun sendWorkToDb(ids: String, volunteersNames: String, work: WorkToAdd): Single<Boolean> {
-        addingToChosen = DbAddingToChosen(ids, volunteersNames, work)
-        return Single.create { it.onSuccess(addingToChosen.syncRun() == "true") }
+        work.apply {
+            return restApi.addWorkToChosen(
+                ids, getWorkTimeFloat().toString(), name,
+                description, getWorkTimeReadable(),volunteersNames,
+                KmlApp.firstName, KmlApp.lastName, type
+            )
+        }
     }
 
     fun cacheWork(work: WorkToAdd) {

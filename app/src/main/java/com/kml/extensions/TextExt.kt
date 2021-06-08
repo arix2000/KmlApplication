@@ -1,6 +1,7 @@
 package com.kml.extensions
 
 import android.text.Editable
+import com.kml.utilities.FormatEngine
 
 
 /**
@@ -19,6 +20,10 @@ fun String.toIntOr(default: Int): Int {
     } catch (e: NumberFormatException) {
         default
     }
+}
+
+fun String.toReadableTime(): String {
+    return FormatEngine().convertToReadable(this)
 }
 
 /**

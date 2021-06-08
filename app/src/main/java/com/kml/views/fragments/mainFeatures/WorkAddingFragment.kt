@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import com.kml.Constants.Numbers.TIME_HAS_NO_VALUE
 import com.kml.Constants.Strings.TODAY
 import com.kml.R
-import com.kml.utilities.Validator
-import com.kml.utilities.Vibrator
 import com.kml.databinding.FragmentAddingWorkBinding
 import com.kml.extensions.*
 import com.kml.models.dto.WorkToAdd
+import com.kml.utilities.Validator
+import com.kml.utilities.Vibrator
 import com.kml.viewModels.WorkAddingViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.dialogs.MyDatePickerDialog
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WorkAddingFragment : BaseFragment() {
@@ -78,14 +79,19 @@ class WorkAddingFragment : BaseFragment() {
             return
 
         binding.worksProgressBar.visible()
-        viewModel.sendWorkToDatabase(work) {
-            binding.worksProgressBar.invisible()
-            if (it) {
-                showSnackBar(getString(R.string.adding_work_confirmation))
-                resetPools()
-                Vibrator(requireContext()).longVibrate()
-            } else showSnackBar(R.string.adding_work_error)
-        }
+        viewModel.sendWorkToDatabase(work)
+            .subscribeBy(
+                onSuccess = {
+                    binding.worksProgressBar.invisible()
+                    if (it) {
+                        showSnackBar(getString(R.string.adding_work_confirmation))
+                        resetPools()
+                        Vibrator(requireContext()).longVibrate()
+                    } else
+                        showSnackBar(R.string.adding_work_error)
+                },
+                onError = { logError(it); binding.worksProgressBar.invisible() }
+            )
     }
 
     private fun resetPools() {

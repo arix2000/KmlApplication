@@ -1,5 +1,6 @@
 package com.kml.utilities
 
+import com.kml.extensions.logError
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -19,6 +20,7 @@ class FormatEngine {
             val minutes = (workTimeFloat * 60).roundToInt()
             convertedTime = "$hours godz $minutes min"
         } catch (e: NumberFormatException) {
+            logError(e)
             return timeOfWork
         }
 

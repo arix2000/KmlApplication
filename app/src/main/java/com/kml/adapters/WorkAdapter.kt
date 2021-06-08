@@ -44,8 +44,8 @@ class WorkAdapter(private val onClickListener: (Work) -> Unit)
 
     fun filterWorksBy(text: String): List<Work> {
         val filteredWorks = worksConstant.filter {
-            it.workName.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))
-                    || it.workDescription.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))
+            it.workName.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))
+                    || it.workDescription.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))
         }
         works = filteredWorks + EMPTY_WORK
         notifyDataSetChanged()

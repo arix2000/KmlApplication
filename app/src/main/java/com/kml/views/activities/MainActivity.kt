@@ -231,7 +231,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private fun setupOptions() {
         with(binding) {
             logOut.root.setOnClickListener {
-                viewModel.clearLogData()
+                clearLogData()
                 startActivity(Intent(this@MainActivity, LoginScreen::class.java))
                 finish()
             }
@@ -242,6 +242,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             restoreDarkModeSwitchState()
         }
+    }
+
+    fun clearLogData() {
+        viewModel.clearLogData()
     }
 
     private fun changeAppMode() {

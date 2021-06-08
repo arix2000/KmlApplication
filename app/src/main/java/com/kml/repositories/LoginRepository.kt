@@ -1,17 +1,18 @@
 package com.kml.repositories
 
 import com.kml.KmlApp
-import com.kml.data.networking.DbLogin
+import com.kml.data.networking.RestApi
 import com.kml.extensions.async
 import com.kml.utilities.FileFactory
 import io.reactivex.rxjava3.core.Single
 
-class LoginRepository(val fileFactory: FileFactory) : BaseRepository() {
+class LoginRepository(
+    val fileFactory: FileFactory,
+    private val restApi: RestApi
+) : BaseRepository() {
 
     fun fetchLoginResult(login: String, password: String): Single<String> {
-        val dbLogin = DbLogin(login, password)
-        return Single.create<String> { it.onSuccess(dbLogin.syncRun()) }
-            .async()
+        return restApi.logIn(login, password).async()
     }
 
     fun decideAboutSavingLogData(login: String, password: String, isChecked: Boolean) {

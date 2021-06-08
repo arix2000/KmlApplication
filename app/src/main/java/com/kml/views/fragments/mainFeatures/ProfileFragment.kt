@@ -14,6 +14,7 @@ import com.kml.R
 import com.kml.databinding.FragmentProfileBinding
 import com.kml.extensions.showSnackBar
 import com.kml.extensions.toBitmap
+import com.kml.extensions.toReadableTime
 import com.kml.extensions.visible
 import com.kml.models.dto.Profile
 import com.kml.viewModels.ProfileViewModel
@@ -76,6 +77,10 @@ class ProfileFragment : BaseFragment() {
         }
 
         binding.profileProgressBar.visibility = ProgressBar.GONE
+        profile.apply {
+            timeOfWorkMonth = timeOfWorkMonth.toReadableTime()
+            timeOfWorkSeason = timeOfWorkSeason.toReadableTime()
+        }
         binding.profile = profile
     }
 
@@ -124,7 +129,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun restoreProfilePhoto() {
-        viewModel.getProfilePhoto() { bitmap ->
+        viewModel.getProfilePhoto { bitmap ->
             if (bitmap != null) {
                 setProfilePhoto(bitmap)
             }

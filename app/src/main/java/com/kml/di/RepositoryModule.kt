@@ -9,23 +9,23 @@ val repositoryModule = module {
 
     single { GameRepository(get()) }
 
-    single { ProfileRepository(get()) }
+    single { ProfileRepository(get(), get()) }
 
     single { SplashScreenRepository(get()) }
 
-    single { LoginRepository(get()) }
+    single { LoginRepository(get(), get()) }
 
-    single { SummaryVolunteerRepository() }
+    single { SummaryVolunteerRepository(get()) }
 
-    single { VolunteerBrowserRepository() }
+    single { VolunteerBrowserRepository(get()) }
 
-    single { VolunteerRepository() }
+    single { VolunteerRepository(get()) }
 
-    single { VolunteersBrowserDetailsRepository() }
+    single { VolunteersBrowserDetailsRepository(get()) }
 
-    single { WorkAddingRepository(get()) }
+    single { WorkAddingRepository(get(), get()) }
 
-    single { WorksHistoryRepository(get()) }
+    single { WorksHistoryRepository(get(), get()) }
 
-    single { VolunteerLogbookRepository() }
+    single { VolunteerLogbookRepository(get()) }
 }

@@ -20,6 +20,7 @@
     <string name="load_previous_data">Brak połączenia z internetem! wczytano ostatnie dane</string>
     <string name="adding_work_confirmation">Dodano pomyślnie!</string>
     <string name="adding_work_error">Nie udało się dodać, sprawdź połączenie z internetem.</string>
+    <string name="change_pass_error">Nie udało się zmienić, sprawdź połączenie z internetem.</string>
     <string name="no_minute_counted">Nie odliczono ani jednej minuty czasu!</string>
     <string name="too_many_minutes">nie można wpisać więcej niż 60 minut</string>
     <string name="cancel">anuluj</string>
@@ -202,5 +203,6 @@
     <string name="total_work_count">Liczba wyników:</string>
     <string name="total_work_time">Suma godzin:</string>
     <string name="e_mail">e-mail</string>
+    <string name="pass_has_been_changed">Sukces! Przy następnym otwarciu pojawi się ekran logowania</string>
 
 </resources>

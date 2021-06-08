@@ -111,6 +111,7 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:$preferences_data_store_version"
     implementation "androidx.datastore:datastore-preferences-rxjava2:$preferences_data_store_version"
     implementation "androidx.datastore:datastore-preferences-rxjava3:$preferences_data_store_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

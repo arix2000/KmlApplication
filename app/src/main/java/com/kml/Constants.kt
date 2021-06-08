@@ -46,6 +46,7 @@ object Constants {
     object Numbers {
         const val TIME_HAS_NO_VALUE = -1
         const val MINUTES_IN_ONE_HOUR = 60
+        const val SECONDS_IN_ONE_MINUTE = 60
         const val INVALID_ID = -1
     }
 

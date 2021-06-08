@@ -12,7 +12,6 @@ class VolunteersBrowserDetailsViewModel(
 
     fun fetchVolunteerData(id: Int): Single<Profile> {
         return repository.fetchVolunteersData(id)
-                .map { Profile.createFrom(it) }
                 .doOnSuccess { profile = it }
     }
 }

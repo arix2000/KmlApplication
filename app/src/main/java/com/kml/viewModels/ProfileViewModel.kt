@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
-import com.kml.data.networking.DbChangePass
 import com.kml.models.dto.Profile
 import com.kml.repositories.ProfileRepository
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -26,21 +27,20 @@ class ProfileViewModel(
     private val ioScope = CoroutineScope(Dispatchers.IO)
 
     init {
-        fetchProfile()
+        getProfileData()
     }
 
-    private fun fetchProfile() {
-        ioScope.launch { profileData.postValue(getProfileData()) }
-    }
-
-    private fun getProfileData(): Profile {
-        val result = repository.getUserInfoFromDb()
-        return if (result.trim().isEmpty()) {
-            isFromFile = true
-            getDataFromFile()
-        } else {
-            getDataFromDatabase(result)
-        }
+    private fun getProfileData() {
+        repository.getUserInfoFromDb().subscribeBy(
+            onSuccess = {
+                profileData.postValue(it)
+                isFromFile = false
+            },
+            onError = {
+                profileData.postValue(getDataFromFile())
+                isFromFile = true
+            }
+        )
     }
 
     private fun getDataFromFile(): Profile {
@@ -54,17 +54,8 @@ class ProfileViewModel(
         }
     }
 
-    private fun getDataFromDatabase(result: String): Profile {
-        return if (result.trim().isNotEmpty()) {
-            Profile.createFrom(result)
-        } else {
-            isDatabaseUnavailable = true
-            Profile.EMPTY_PROFILE
-        }
-    }
-
     fun refreshProfile() {
-        fetchProfile()
+        getProfileData()
     }
 
     fun validatePassword(oldPassword: String, newPassword: String): Int {
@@ -87,7 +78,7 @@ class ProfileViewModel(
         return repository.saveProfilePhoto(path)
     }
 
-    fun resolvePasswordChanging(newPassword: String, oldPassword: String): DbChangePass {
+    fun resolvePasswordChanging(newPassword: String, oldPassword: String): Single<String> {
         return repository.resolvePasswordChanging(newPassword, oldPassword)
     }
 }

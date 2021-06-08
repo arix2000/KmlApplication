@@ -7,6 +7,7 @@ import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import com.kml.R
 import com.kml.databinding.ActivityLoginScreenBinding
+import com.kml.extensions.gone
 import com.kml.extensions.logError
 import com.kml.extensions.showSnackBar
 import com.kml.viewModels.LoginViewModel
@@ -47,7 +48,10 @@ class LoginScreen : BaseActivity() {
                     val elapsedTime = timeOnEnd - timeOnStart
                     onLoginSuccess(it.contains("true"),elapsedTime, login, password)
                 },
-                onError = { logError(it) }
+                onError = {
+                    logError(it)
+                    binding.loginScreenProgressBar.gone()
+                }
             )
     }
 

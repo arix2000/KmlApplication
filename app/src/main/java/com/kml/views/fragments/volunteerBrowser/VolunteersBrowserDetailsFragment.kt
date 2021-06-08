@@ -37,7 +37,10 @@ class VolunteersBrowserDetailsFragment : BaseFragment() {
             ?: Constants.Numbers.INVALID_ID
         viewModel.fetchVolunteerData(id)
             .subscribeBy(
-                onSuccess = { binding.volunteer = it; hideProgressBar() },
+                onSuccess = {
+                    binding.volunteer = it.withReadableTimes()
+                    hideProgressBar()
+                            },
                 onError = { logError(it); hideProgressBar() }
             )
 

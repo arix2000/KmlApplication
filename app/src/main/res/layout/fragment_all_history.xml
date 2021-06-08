@@ -47,7 +47,8 @@
         android:clickable="true"
         android:visibility="gone"
         app:layout_anchor="@+id/no_results_on_history"
-        app:layout_anchorGravity="bottom|center"/>
+        app:layout_anchorGravity="bottom|center"
+        android:focusable="true" />
 
     <ProgressBar
         android:id="@+id/all_history_progress_bar"
