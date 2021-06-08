@@ -17,7 +17,9 @@ interface RestApi {
 
     @FormUrlEncoded
     @POST("getDataAboutUser.php")
-    fun fetchUserInfo(@Field("loginId") loginId: Int): Single<Profile>
+    fun fetchUserInfo(
+        @Field("loginId") loginId: Int
+    ): Single<Profile>
 
     @FormUrlEncoded
     @POST("updateCzasPracy.php")
