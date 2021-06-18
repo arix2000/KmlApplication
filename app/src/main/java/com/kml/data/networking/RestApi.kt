@@ -60,7 +60,7 @@ interface RestApi {
         @Field("readAbleWorkTime") readableWorkTime: String,
         @Field("volunteersName") volunteersName: String,
         @Field("firstName") firstname: String,
-        @Field("lastname") lastname: String,
+        @Field("lastName") lastname: String,
         @Field("meetingType") meetingType: String
     ): Single<Boolean>
 
