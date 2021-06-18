@@ -2,59 +2,61 @@ package com.kml.views.fragments.mainFeatures
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
-import android.os.Build
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import com.kml.KmlApp
 import com.kml.R
-import com.kml.data.app.KmlApp
-import com.kml.data.utilities.FileFactory
 import com.kml.databinding.FragmentProfileBinding
 import com.kml.extensions.showSnackBar
-import com.kml.extensions.showToast
-import com.kml.models.Profile
-import com.kml.viewModelFactories.ProfileViewModelFactory
+import com.kml.extensions.toBitmap
+import com.kml.extensions.toReadableTime
+import com.kml.extensions.visible
+import com.kml.models.dto.Profile
 import com.kml.viewModels.ProfileViewModel
 import com.kml.views.BaseFragment
 import com.kml.views.activities.LoginScreen
 import com.kml.views.dialogs.ChangePassDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.roundToInt
+
 
 class ProfileFragment : BaseFragment() {
 
-    companion object {
-        const val PICK_IMAGE_RESULT = 1
-    }
-
-    private lateinit var viewModel: ProfileViewModel
+    private val viewModel: ProfileViewModel by viewModel()
     lateinit var binding: FragmentProfileBinding
-    private lateinit var dataFile: FileFactory
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
-        dataFile = FileFactory(requireContext())
-
-        val viewModelFactory = ProfileViewModelFactory(dataFile)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ProfileViewModel::class.java)
-
-        binding.profileProgressBar.visibility = ProgressBar.VISIBLE
-        viewModel.profileData.observe(viewLifecycleOwner) {
-            launchProfile(it)
-        }
-
-        binding.profilePhoto.setOnClickListener {
-            openGalleryForImage()
-        }
-        binding.changePass.setOnClickListener { showDialogToChangePass() }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
+            profileProgressBar.visible()
+            viewModel.profileData.observe(viewLifecycleOwner) {
+                launchProfile(it)
+                swipeRefreshLayout.isRefreshing = false
+            }
+
+            profilePhoto.setOnClickListener {
+                openGalleryForImage()
+            }
+            changePass.setOnClickListener { showDialogToChangePass() }
+            swipeRefreshLayout.run {
+                setOnRefreshListener {
+                    viewModel.refreshProfile()
+                }
+                setProgressBackgroundColorSchemeResource(R.color.colorCardBackground)
+                setColorSchemeResources(R.color.colorAccent)
+            }
+            restoreProfilePhoto()
+        }
     }
 
     private fun launchProfile(profile: Profile) {
@@ -62,20 +64,23 @@ class ProfileFragment : BaseFragment() {
         setProfileData(profile)
         setUserIdentity(profile.firstName, profile.lastName)
         if (LoginScreen.isLogNow) welcomeUser()
-
     }
 
     private fun setProfileData(profile: Profile) {
         when {
             viewModel.isFromFile ->
-                showToast(R.string.load_previous_data)
+                showSnackBar(R.string.load_previous_data)
             viewModel.isDatabaseUnavailable ->
-                showToast(R.string.external_database_unavailable)
+                showSnackBar(R.string.external_database_unavailable)
             viewModel.isNoDataFound ->
-                showToast(R.string.something_wrong)
+                showSnackBar(R.string.something_wrong)
         }
 
         binding.profileProgressBar.visibility = ProgressBar.GONE
+        profile.apply {
+            timeOfWorkMonth = timeOfWorkMonth.toReadableTime()
+            timeOfWorkSeason = timeOfWorkSeason.toReadableTime()
+        }
         binding.profile = profile
     }
 
@@ -98,10 +103,7 @@ class ProfileFragment : BaseFragment() {
 
     private fun openGalleryForImage() {
         val imageIntent = Intent()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            imageIntent.action = Intent.ACTION_OPEN_DOCUMENT
-        } else imageIntent.action = Intent.ACTION_PICK
+        imageIntent.action = Intent.ACTION_OPEN_DOCUMENT
         imageIntent.type = "image/*"
         startActivityForResult(imageIntent, PICK_IMAGE_RESULT)
     }
@@ -113,33 +115,39 @@ class ProfileFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_RESULT && resultCode == Activity.RESULT_OK) {
-            if (data == null) {
-                return
+        if (requestCode == PICK_IMAGE_RESULT && resultCode == Activity.RESULT_OK && data != null) {
+            data.data?.toBitmap(requireContext())?.let {
+                val scaledBitmap = scaleProfilePhoto(it)
+                viewModel.saveProfilePhoto(scaledBitmap)
+                        .invokeOnCompletion {
+                            activity?.runOnUiThread {
+                                setProfilePhoto(scaledBitmap)
+                            }
+                        }
             }
         }
-        if (data != null) viewModel.saveProfilePhoto(data.data.toString())
-    }
-
-    override fun onResume() {
-        restoreProfilePhoto()
-        super.onResume()
     }
 
     private fun restoreProfilePhoto() {
-        val path = viewModel.getProfilePhotoPath()
-        if (path.isNotEmpty()) {
-            val photoUri = Uri.parse(path)
-            val handler = Handler(Looper.getMainLooper())
-
-            handler.postDelayed({
-                try {
-                    binding.profilePhoto.setImageURI(photoUri)
-                } catch (e: Exception) {
-                    Log.e("PERMISSION_ERROR", "onResume: " + e.message)
-                    viewModel.saveProfilePhoto("") //clear state
-                }
-            }, 300)
+        viewModel.getProfilePhoto { bitmap ->
+            if (bitmap != null) {
+                setProfilePhoto(bitmap)
+            }
         }
+    }
+
+    private fun scaleProfilePhoto(bitmap: Bitmap): Bitmap {
+        val aspectRatio: Float = bitmap.width / bitmap.height.toFloat()
+        val height = (PHOTO_WIDTH / aspectRatio).roundToInt()
+        return Bitmap.createScaledBitmap(bitmap, PHOTO_WIDTH, height, false)
+    }
+
+    private fun setProfilePhoto(bitmap: Bitmap) {
+        binding.profilePhoto.setImageBitmap(bitmap)
+    }
+
+    companion object {
+        const val PICK_IMAGE_RESULT = 1
+        const val PHOTO_WIDTH = 480
     }
 }

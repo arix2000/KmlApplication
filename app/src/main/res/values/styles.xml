@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"> <!--Theme.AppCompat.Light.DarkActionBar -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -12,6 +12,8 @@
         <item name="android:navigationBarColor">@color/colorCardBackground</item>
 
         <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:listDivider">@color/list_divider_color</item>
     </style>
 
     <style name="AppTheme.DayNight" parent="Theme.AppCompat.DayNight">
@@ -25,6 +27,22 @@
         <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.LoginScreen">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+    </style>
+
+    <style name="AppTheme.SplashScreen">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+    </style>
+
     <style name="buttons">
         <item name="android:topLeftRadius">10dp</item>
         <item name="android:textColor">@color/WhiteContent</item>
@@ -34,11 +52,6 @@
     <style name="MyDatePicker">
         <item name="android:textColorPrimary">@color/textColorLight</item>
         <item name="android:textColorSecondary">@color/textColorLightHint</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="app_edit_texts">
@@ -150,5 +163,23 @@
         <item name="android:layout_margin">10dp</item>
         <item name="actionTextColorAlpha">1.0</item>
     </style>
+
+    <style name="horizontal_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/dividerColor</item>
+    </style>
+
+    <style name="totals_titles_styles">
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="totals_values_styles" parent="totals_titles_styles">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

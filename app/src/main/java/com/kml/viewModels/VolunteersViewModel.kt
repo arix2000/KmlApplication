@@ -1,17 +1,24 @@
 package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.kml.models.Volunteer
+import com.kml.extensions.async
+import com.kml.models.dto.Volunteer
 import com.kml.repositories.VolunteerRepository
+import io.reactivex.rxjava3.core.Single
 import java.util.*
 
-class VolunteersViewModel : ViewModel() {
+class VolunteersViewModel(
+    private val repository: VolunteerRepository
+) : ViewModel() {
 
-    private val repository = VolunteerRepository()
+    private var _volunteers: List<Volunteer> = listOf()
+    val volunteers: List<Volunteer> get() =  _volunteers
 
-    val volunteers: List<Volunteer> = createListFromJson(repository.readArrayFromDatabase())
+    fun fetchVolunteers(): Single<List<Volunteer>> {
+        return repository.fetchVolunteers()
+                .async()
+                .doOnSuccess { _volunteers = it }
+    }
 
     fun selectAllVolunteers() {
         for (volunteer in volunteers) {
@@ -28,19 +35,18 @@ class VolunteersViewModel : ViewModel() {
     fun filterArrayByName(typedText: String): List<Volunteer> {
         val filteredVolunteers: MutableList<Volunteer> = ArrayList()
         for (volunteer in volunteers) {
-            if (volunteer.firstName.toLowerCase(Locale.ROOT).contains(typedText.toLowerCase(Locale.ROOT))) {
+            if (volunteer.firstName.lowercase(Locale.ROOT).contains(typedText.lowercase(Locale.ROOT))) {
                 filteredVolunteers.add(volunteer)
             }
         }
         return filteredVolunteers
     }
 
-    private fun createListFromJson(jsonResult: String): List<Volunteer> {
-        val gson = Gson()
-        val type = object : TypeToken<List<Volunteer>>() {}.type
-        return gson.fromJson(jsonResult, type) ?: emptyList()
+    fun setCheckedVolunteersDisabled() {
+        volunteers.forEach {
+            if (it.isChecked) it.isDisabled = true
+        }
     }
-
 }
 
 

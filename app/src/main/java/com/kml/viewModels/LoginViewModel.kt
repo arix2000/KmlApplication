@@ -1,20 +1,22 @@
 package com.kml.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.kml.data.app.KmlApp
-import com.kml.data.utilities.FileFactory
+import com.kml.KmlApp
+import com.kml.extensions.logError
+import com.kml.models.model.User
 import com.kml.repositories.LoginRepository
+import io.reactivex.rxjava3.core.Single
 
-class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
-    private val repository = LoginRepository(fileFactory)
+class LoginViewModel(
+    private val repository: LoginRepository
+) : ViewModel() {
 
-    fun checkLogin(login: String, password: String): Boolean {
-        val result = repository.checkLoginForResult(login, password)
-
-        return if (result.contains("true")) {
-            getLoginId(result)
-            true
-        } else false
+    fun fetchLoginResult(login: String, password: String): Single<String> {
+        return repository.fetchLoginResult(login, password)
+            .doOnSuccess {
+                if (it.contains("true"))
+                    getLoginId(it)
+            }
     }
 
     private fun getLoginId(logResult: String) {
@@ -28,31 +30,28 @@ class LoginViewModel(val fileFactory: FileFactory) : ViewModel() {
         repository.decideAboutSavingLogData(login, password, isChecked)
     }
 
-    fun getLogData(): Pair<String, String> {
+    fun getLogData(): User {
         val result = repository.getLogDataIfExist()
 
         return if (result.isNotEmpty()) {
             val content = result.split(";".toRegex()).toTypedArray()
-            content[0] to content[1]
-        } else Pair("", "")
+            createUserFrom(content)
+        } else User.EMPTY
+    }
+
+    private fun createUserFrom(content: Array<String>): User {
+        return try {
+            User(content[0].toInt(), content[1], content[2])
+        } catch (e: Exception) {
+            logError(e)
+            User.EMPTY
+        }
     }
 
     fun getPreviousSwitchState(): Boolean {
         val fromFile = repository.getSwitchState()
-        return if(fromFile.isNotEmpty())
+        return if (fromFile.isNotEmpty())
             fromFile.toBoolean()
         else false
     }
-
-    fun saveSwitchDarkMode(state: Boolean)
-    {
-        repository.saveSwitchDarkMode(state.toString())
-    }
-
-    fun getSwitchDarkModeState():Boolean
-    {
-        return repository.getSwitchDarkModeState()
-    }
-
-
 }

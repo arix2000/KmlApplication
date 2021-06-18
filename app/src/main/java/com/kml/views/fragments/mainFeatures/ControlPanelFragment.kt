@@ -5,19 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.preferences.core.edit
+import com.kml.Constants
 import com.kml.Constants.Tags.GET_ALL_TAG
 import com.kml.Constants.Tags.MEETINGS_TAG
 import com.kml.Constants.Tags.SHOULD_SHOW_BACK_BUTTON
 import com.kml.Constants.Tags.WORKS_HISTORY_TYPE
 import com.kml.Constants.Tags.WORKS_TAG
 import com.kml.databinding.FragmentControlPanelBinding
-import com.kml.extensions.gone
+import com.kml.extensions.dataStore
 import com.kml.extensions.setFragment
 import com.kml.extensions.setFragmentWithData
-import com.kml.extensions.visible
 import com.kml.views.BaseFragment
 import com.kml.views.activities.SelectVolunteersActivity
-import com.kml.views.fragments.VolunteersBrowserFragment
+import com.kml.views.fragments.volunteerBrowser.VolunteersBrowserFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ControlPanelFragment : BaseFragment() {
 
@@ -32,7 +36,7 @@ class ControlPanelFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
             addWorkToChosenBtn.setOnClickListener {
-                controlPanelProgressBar.visible()
+                clearWorkToAddCache()
                 val intent = Intent(requireContext(), SelectVolunteersActivity::class.java)
                 startActivity(intent)
             }
@@ -56,8 +60,11 @@ class ControlPanelFragment : BaseFragment() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        binding.controlPanelProgressBar.gone()
+    fun clearWorkToAddCache() {
+        CoroutineScope(Dispatchers.IO).launch {
+            requireContext().dataStore.edit {
+                it.remove(Constants.Keys.WORK_TO_ADD_KEY)
+            }
+        }
     }
 }

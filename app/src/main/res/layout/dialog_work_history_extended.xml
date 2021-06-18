@@ -42,7 +42,7 @@
                 android:text="@string/work_name" />
 
             <TextView
-                android:id="@+id/dialog_history_work_name"
+                android:id="@+id/work_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -58,7 +58,7 @@
                 android:text="@string/work_description" />
 
             <TextView
-                android:id="@+id/dialog_history_work_description"
+                android:id="@+id/work_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -67,19 +67,37 @@
                 tools:text="WorkDescription" />
 
             <TextView
+                android:id="@+id/work_type_title"
                 style="@style/form_text_views"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/date" />
+                android:text="@string/work_type_two_dots"
+                android:visibility="gone"/>
 
             <TextView
-                android:id="@+id/dialog_history_work_date"
+                android:id="@+id/work_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/textColorLight"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="Spotkanie Ogólne" />
+
+            <TextView
+                style="@style/form_text_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date" />
+
+            <TextView
+                android:id="@+id/work_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/textColorLight"
+                android:textSize="18sp"
                 tools:text="Date" />
 
             <TextView
@@ -89,7 +107,7 @@
                 android:text="@string/work_time" />
 
             <TextView
-                android:id="@+id/dialog_history_execution_time"
+                android:id="@+id/execution_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -107,7 +125,7 @@
                 android:text="@string/dialog_history_volunteers" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/dialog_history_volunteers"
+                android:id="@+id/volunteers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"

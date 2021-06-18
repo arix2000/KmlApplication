@@ -1,14 +1,14 @@
 package com.kml.views.activities
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.kml.R
-import com.kml.models.Game
 import com.kml.databinding.ActivityPropertiesGameBinding
+import com.kml.models.entitiy.Game
+import com.kml.views.BaseActivity
 
-class GamePropertiesActivity : AppCompatActivity() {
+class GamePropertiesActivity : BaseActivity() {
 
     private lateinit var binding: ActivityPropertiesGameBinding
 

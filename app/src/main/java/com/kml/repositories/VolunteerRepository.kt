@@ -1,11 +1,11 @@
 package com.kml.repositories
 
-import com.kml.data.externalDbOperations.DbGetAllUsersData
+import com.kml.data.networking.RestApi
+import com.kml.models.dto.Volunteer
+import io.reactivex.rxjava3.core.Single
 
-class VolunteerRepository {
-    fun readArrayFromDatabase(): String {
-        val dbGetAllUsersData = DbGetAllUsersData()
-        dbGetAllUsersData.start()
-        return dbGetAllUsersData.result
+class VolunteerRepository(private val restApi: RestApi): BaseRepository() {
+    fun fetchVolunteers(): Single<List<Volunteer>> {
+        return restApi.fetchVolunteers()
     }
 }

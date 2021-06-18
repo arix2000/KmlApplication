@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
-import com.kml.models.Volunteer
+import com.kml.models.dto.Volunteer
 import com.kml.holders.VolunteerHolder
 
 class VolunteerAdapter(private val onClickListener: (Volunteer) -> Unit)
