@@ -13,12 +13,14 @@
     <string name="external_database_unavailable">Brak połączenia z bazą danych! Spróbuj ponownie później</string>
     <string name="wrong_form_info">Nieprawidłowy login, hasło lub brak połaczenia z intenetem!</string>
     <string name="no_empty_fields">Żadne z pól nie może być puste.</string>
+    <string name="some_pools_are_empty">Niektóre pola pozostały puste</string>
     <string name="too_many_chars">Hasło nie może mieć wiecej niż 64 znaki.</string>
     <string name="empty_fields_and_too_many_minutes">Zostały puste pola lub minut jest zbyt wiele</string>
     <string name="something_wrong">Coś poszło nie tak!</string>
     <string name="load_previous_data">Brak połączenia z internetem! wczytano ostatnie dane</string>
     <string name="adding_work_confirmation">Dodano pomyślnie!</string>
     <string name="adding_work_error">Nie udało się dodać, sprawdź połączenie z internetem.</string>
+    <string name="change_pass_error">Nie udało się zmienić, sprawdź połączenie z internetem.</string>
     <string name="no_minute_counted">Nie odliczono ani jednej minuty czasu!</string>
     <string name="too_many_minutes">nie można wpisać więcej niż 60 minut</string>
     <string name="cancel">anuluj</string>
@@ -65,6 +67,27 @@
         <item>Lina</item>
         <item>Chusta</item>
         <item>Tańce</item>
+    </string-array>
+
+    <string-array name="work_types">
+        <item>Wszystkie</item>
+        <item>Brak</item>
+        <item>Spotkania ogólne</item>
+        <item>Spotkania sekcji</item>
+        <item>Szkolenia</item>
+        <item>Integracje</item>
+        <item>Spotkania do wydarzeń</item>
+        <item>Wydarzenia</item>
+    </string-array>
+
+    <string-array name="work_types_to_choose">
+        <item>Brak</item>
+        <item>Spotkania ogólne</item>
+        <item>Spotkania sekcji</item>
+        <item>Szkolenia</item>
+        <item>Integracje</item>
+        <item>Spotkania do wydarzeń</item>
+        <item>Wydarzenia</item>
     </string-array>
 
     <string name="open_drawer">Open Navigation Drawer</string>
@@ -154,8 +177,8 @@
     <string name="dialog_history_volunteers">Osoby:</string>
     <string name="your_last_meetings">Twoje ostatnie spotkania:</string>
     <string name="your_last_works">Twoje ostatnie zadania:</string>
-    <string name="all_last_works">Wszystkie ostatnie zadania</string>
-    <string name="all_last_meetings">Wszystkie ostatnie spotkania</string>
+    <string name="all_last_works">Wszystkie zadania</string>
+    <string name="all_last_meetings">Wszystkie spotkania</string>
     <string name="executor_of_work">Wykonujący zadanie:</string>
     <string name="show_all_meetings_history">Pokaż całą historię spotkań</string>
     <string name="show_all_works_history">Pokaż całą historię zadań</string>
@@ -163,5 +186,23 @@
     <string name="volunteer_full_name">%s %s</string>
     <string name="type_title">Typ:</string>
     <string name="fullname_title">Imię i nazwisko:</string>
+    <string name="work_history">Historia Zadań</string>
+    <string name="search_by_title">Wyszukaj po tytule</string>
+    <string name="nic_nie_znaleziono">Nic nie znaleziono</string>
+    <string name="all_volunteers_was_selected">Wszyscy wolontariusze zostali już wybrani!</string>
+    <string name="log_out">Wyloguj</string>
+    <string name="dark_mode">Tryb ciemny</string>
+    <string name="work_adding">Dodawanie Godzin</string>
+    <string name="no_results_c">Brak wyników… \nSpróbuj wybrać inny miesiąc :D</string>
+    <string name="no_results_type">Brak wyników… \nSpróbuj wybrać inny typ :D</string>
+    <string name="meetings">Spotkania</string>
+    <string name="works">Zadania</string>
+    <string name="work_type">Typ Działania</string>
+    <string name="work_type_two_dots">Typ działania:</string>
+    <string name="no_type">Brak</string>
+    <string name="total_work_count">Liczba wyników:</string>
+    <string name="total_work_time">Suma godzin:</string>
+    <string name="e_mail">e-mail</string>
+    <string name="pass_has_been_changed">Sukces! Przy następnym otwarciu pojawi się ekran logowania</string>
 
 </resources>

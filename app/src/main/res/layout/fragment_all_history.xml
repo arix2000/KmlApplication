@@ -25,6 +25,17 @@
         android:textSize="18sp"/>
 
     <TextView
+        android:id="@+id/no_results_on_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/nic_nie_znaleziono"
+        android:textColor="@color/textColorLight"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:textSize="18sp"/>
+
+    <TextView
         android:id="@+id/no_results_on_history_clickable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +47,8 @@
         android:clickable="true"
         android:visibility="gone"
         app:layout_anchor="@+id/no_results_on_history"
-        app:layout_anchorGravity="bottom|center"/>
+        app:layout_anchorGravity="bottom|center"
+        android:focusable="true" />
 
     <ProgressBar
         android:id="@+id/all_history_progress_bar"
@@ -44,5 +56,13 @@
         android:layout_height="44dp"
         android:layout_gravity="center"
         android:visibility="invisible" />
+    
+    <include
+        android:id="@+id/search_expandable_view"
+        layout="@layout/view_expandable_search"
+        android:layout_gravity="bottom|end"
+        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_margin="10dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

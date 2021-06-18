@@ -1,17 +1,26 @@
 package com.kml.viewModels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kml.Constants
+import com.kml.extensions.async
 import com.kml.extensions.getTodayDate
-import com.kml.models.Volunteer
-import com.kml.models.WorkToAdd
+import com.kml.models.dto.Volunteer
+import com.kml.models.dto.WorkToAdd
 import com.kml.repositories.SummaryVolunteerRepository
+import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 
-class SummaryVolunteerViewModel : ViewModel() {
+class SummaryVolunteerViewModel(
+    private val repository: SummaryVolunteerRepository
+) : ViewModel() {
 
-    private val repository = SummaryVolunteerRepository()
     lateinit var chosenVolunteers: List<Volunteer>
+    var isAllVolunteersChosen = false
+    private val savedWorkLiveData by lazy { MutableLiveData<WorkToAdd>() }
 
     fun createReadableFromVolunteers(): String {
         val chosenVolunteersMerged = createStringFromVolunteers()
@@ -27,10 +36,11 @@ class SummaryVolunteerViewModel : ViewModel() {
         return stringBuilder.toString()
     }
 
-    fun addWorkToDatabase(work: WorkToAdd): Boolean {
+    fun addWorkToDatabase(work: WorkToAdd): Single<Boolean> {
         val ids = getIdsStringFromVolunteers()
         val volunteersNames = createStringFromVolunteers()
         return repository.sendWorkToDb(ids, volunteersNames, work)
+                .async()
     }
 
     private fun getIdsStringFromVolunteers(): String {
@@ -47,4 +57,22 @@ class SummaryVolunteerViewModel : ViewModel() {
             Calendar.getInstance().getTodayDate()
         else date
     }
+
+    fun fetchSavedWork() {
+        viewModelScope.launch {
+            repository.getSavedWork().collect {
+                it?.let { savedWorkLiveData.value = it }
+            }
+        }
+    }
+
+    fun cacheWork(work: WorkToAdd) {
+        repository.cacheWork(work)
+    }
+
+    fun clearCache() {
+        repository.clearCache()
+    }
+
+    fun getSavedWork() = savedWorkLiveData
 }

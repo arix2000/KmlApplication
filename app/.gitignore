@@ -1,2 +1,3 @@
 /build
 /src/main/assets/key.txt
+/app/src/main/java/com/kml/data/networking/NetworkingConstants.kt

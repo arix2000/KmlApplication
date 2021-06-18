@@ -4,10 +4,10 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.kml.R
-import com.kml.data.app.AppDialogs
+import com.kml.views.BaseDialog
 import com.kml.databinding.DialogRestoreFromFileBinding
 
-class MakeSureDialog : AppDialogs() {
+class MakeSureDialog : BaseDialog() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())

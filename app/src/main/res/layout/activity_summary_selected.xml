@@ -1,152 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground">
+        android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            tools:context=".views.activities.SummaryVolunteerActivity">
-
-            <TextView
-                android:id="@+id/summary_activity_text_view_chosen"
-                style="@style/form_text_views"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chosen_volunteers" />
-
-            <TextView
-                android:id="@+id/summary_activity_chosen_volunteers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/summary_activity_text_view_chosen"
-                android:gravity="center"
-                android:text="Wybrani"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/summary_activity_text_view__work_name"
-                style="@style/form_text_views"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/summary_activity_chosen_volunteers"
-                android:text="@string/operation_name" />
-
-            <EditText
-                android:id="@+id/summary_activity_work_name"
-                style="@style/app_edit_texts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/summary_activity_text_view__work_name"
-                android:hint="@string/name_title_type"/>
-
-            <TextView
-                android:id="@+id/summary_activity_text_view__work_desc"
-                style="@style/form_text_views"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/summary_activity_work_name"
-                android:text="@string/operation_desc" />
-
-            <EditText
-                android:id="@+id/summary_activity_work_desc"
-                style="@style/app_edit_texts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/summary_activity_text_view__work_desc"
-                android:hint="@string/expand_what_was_happen"/>
-
-            <TextView
-                android:id="@+id/execution_date_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/summary_activity_work_desc"
-                android:layout_marginTop="20dp"
-                android:text="@string/creation_date"
-                android:textColor="@color/textColorLight" />
-
-            <TextView
-                android:id="@+id/operation_creation_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_below="@+id/execution_date_label"
-                android:focusable="true"
-                tools:text="20-12-2022"
-                android:textColor="@color/textColorLight"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/summary_activity_text_view_time"
-                style="@style/form_text_views"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/operation_creation_date"
-                android:text="@string/write_time" />
-
-
-            <EditText
-                android:id="@+id/summary_activity_hours"
-                style="@style/app_edit_texts"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:title="@string/finish_writing"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageButton
+                android:id="@+id/navigation_icon"
                 android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="?attr/actionBarItemBackground"
+                android:src="@drawable/ic_back_arrow" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/summary_activity_text_view_time"
                 android:layout_gravity="center"
-                android:inputType="number" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/summary_activity_hours"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/summary_activity_hours"
-                android:text="@string/hours"
-                android:textColor="@color/textColorLight"
-                android:textSize="17sp" />
-
-            <EditText
-                android:id="@+id/summary_activity_minutes"
-                style="@style/app_edit_texts"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/summary_activity_hours"
-                android:layout_toLeftOf="@+id/text_view_minutes_dialog"
-                android:inputType="number" />
-
-            <TextView
-                android:id="@+id/text_view_minutes_dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/summary_activity_minutes"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/minutes"
-                android:textColor="@color/textColorLight"
-                android:textSize="17sp" />
-
-            <Button
-                android:id="@+id/summary_activity_send_work"
-                style="@style/buttons"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/summary_activity_hours"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:paddingHorizontal="10dp"
-                android:text="@string/add"
-                android:textColor="@android:color/holo_green_light" />
-
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_toEndOf="@+id/navigation_icon"
+                android:text="@string/finish_writing" />
         </RelativeLayout>
-    </ScrollView>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                tools:context=".views.activities.SummaryVolunteerActivity">
+
+                <TextView
+                    android:id="@+id/summary_activity_text_view_chosen"
+                    style="@style/form_text_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chosen_volunteers" />
+
+                <TextView
+                    android:id="@+id/summary_activity_chosen_volunteers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/summary_activity_text_view_chosen"
+                    android:gravity="center"
+                    android:text="Wybrani"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/summary_activity_text_view__work_name"
+                    style="@style/form_text_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/summary_activity_chosen_volunteers"
+                    android:text="@string/operation_name" />
+
+                <EditText
+                    android:id="@+id/work_name"
+                    style="@style/app_edit_texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/summary_activity_text_view__work_name"
+                    android:hint="@string/name_title_type" />
+
+                <TextView
+                    android:id="@+id/summary_activity_text_view__work_desc"
+                    style="@style/form_text_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/work_name"
+                    android:text="@string/operation_desc" />
+
+                <EditText
+                    android:id="@+id/work_description"
+                    style="@style/app_edit_texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/summary_activity_text_view__work_desc"
+                    android:hint="@string/expand_what_was_happen" />
+
+                <TextView
+                    android:id="@+id/work_type_title"
+                    style="@style/form_text_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/work_description"
+                    android:text="@string/work_type" />
+
+                <Spinner
+                    android:id="@+id/work_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_below="@+id/work_type_title"
+                    tools:listitem="@layout/view_simple_spinner" />
+
+                <TextView
+                    android:id="@+id/execution_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/work_type"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/creation_date"
+                    android:textColor="@color/textColorLight" />
+
+                <TextView
+                    android:id="@+id/creation_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/execution_date_label"
+                    android:layout_margin="10dp"
+                    android:focusable="true"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="20sp"
+                    tools:text="20-12-2022" />
+
+                <TextView
+                    android:id="@+id/summary_activity_text_view_time"
+                    style="@style/form_text_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/creation_date"
+                    android:text="@string/write_time" />
+
+
+                <EditText
+                    android:id="@+id/hours"
+                    style="@style/app_edit_texts"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/summary_activity_text_view_time"
+                    android:layout_gravity="center"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/hours"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/hours"
+                    android:text="@string/hours"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="17sp" />
+
+                <EditText
+                    android:id="@+id/minutes"
+                    style="@style/app_edit_texts"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/hours"
+                    android:layout_toLeftOf="@+id/text_view_minutes_dialog"
+                    android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/text_view_minutes_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/minutes"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/minutes"
+                    android:textColor="@color/textColorLight"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/send_work_and_finish"
+                    style="@style/buttons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hours"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="Dodaj i zakończ" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/send_work_and_finish"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/send_work_and_continue"
+                    style="@style/buttons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/progress_bar"
+                    android:layout_centerHorizontal="true"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Dodaj i kontynuuj"
+                    android:textColor="@android:color/holo_green_light" />
+
+            </RelativeLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,23 +1,26 @@
 package com.kml.viewModels
 
+import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
-import com.kml.data.externalDbOperations.DbChangePass
-import com.kml.data.utilities.FileFactory
-import com.kml.models.Profile
+import com.kml.models.dto.Profile
 import com.kml.repositories.ProfileRepository
+import com.kml.utilities.FormatEngine
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
 
-    private val repository = ProfileRepository(fileFactory)
+class ProfileViewModel(
+    private val repository: ProfileRepository
+) : ViewModel() {
 
     val profileData = MutableLiveData<Profile>()
-
     var isFromFile = false
     var isNoDataFound = false
     var isDatabaseUnavailable = false
@@ -25,17 +28,21 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
     private val ioScope = CoroutineScope(Dispatchers.IO)
 
     init {
-        ioScope.launch { profileData.postValue(getProfileData()) }
+        getProfileData()
     }
 
-    private fun getProfileData(): Profile {
-        val result = repository.getUserInfoFromDb()
-        return if (result.trim().isEmpty()) {
-            isFromFile = true
-            getDataFromFile()
-        } else {
-            getDataFromDatabase(result)
-        }
+    private fun getProfileData() {
+        repository.getUserInfoFromDb().subscribeBy(
+            onSuccess = {
+                it.sections = FormatEngine().formatSections(it.sections)
+                profileData.postValue(it)
+                isFromFile = false
+            },
+            onError = {
+                profileData.postValue(getDataFromFile())
+                isFromFile = true
+            }
+        )
     }
 
     private fun getDataFromFile(): Profile {
@@ -49,13 +56,8 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
         }
     }
 
-    private fun getDataFromDatabase(result: String): Profile {
-        return if (result.trim().isNotEmpty()) {
-            Profile.createFrom(result)
-        } else {
-            isDatabaseUnavailable = true
-            Profile.EMPTY_PROFILE
-        }
+    fun refreshProfile() {
+        getProfileData()
     }
 
     fun validatePassword(oldPassword: String, newPassword: String): Int {
@@ -70,15 +72,15 @@ class ProfileViewModel(val fileFactory: FileFactory) : ViewModel() {
         ioScope.launch { repository.saveProfileValues(profile) }
     }
 
-    fun getProfilePhotoPath(): String {
-        return repository.getProfilePhotoPath()
+    fun getProfilePhoto(onBitmapReady: (Bitmap?) -> Unit) {
+        repository.getProfilePhoto(onBitmapReady)
     }
 
-    fun saveProfilePhoto(path: String) {
-        repository.saveProfilePhoto(path)
+    fun saveProfilePhoto(path: Bitmap): Job {
+        return repository.saveProfilePhoto(path)
     }
 
-    fun resolvePasswordChanging(newPassword: String, oldPassword: String): DbChangePass {
+    fun resolvePasswordChanging(newPassword: String, oldPassword: String): Single<String> {
         return repository.resolvePasswordChanging(newPassword, oldPassword)
     }
 }

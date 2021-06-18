@@ -15,6 +15,15 @@
         android:scrollbars="vertical"
         tools:listitem="@layout/list_item_volunteer" />
 
+    <ProgressBar
+        android:id="@+id/select_volunteers_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginBottom="100dp"/>
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/control_panel_floating_button"
         android:layout_width="wrap_content"

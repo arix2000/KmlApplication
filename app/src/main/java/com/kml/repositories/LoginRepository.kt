@@ -1,20 +1,23 @@
 package com.kml.repositories
 
-import androidx.lifecycle.ViewModel
-import com.kml.data.utilities.FileFactory
-import com.kml.data.externalDbOperations.DbLogin
+import com.kml.KmlApp
+import com.kml.data.networking.RestApi
+import com.kml.extensions.async
+import com.kml.utilities.FileFactory
+import io.reactivex.rxjava3.core.Single
 
-class LoginRepository(val fileFactory: FileFactory) : ViewModel() {
+class LoginRepository(
+    val fileFactory: FileFactory,
+    private val restApi: RestApi
+) : BaseRepository() {
 
-    fun checkLoginForResult(login: String, password: String): String {
-        val dbLogin = DbLogin(login, password)
-        dbLogin.start()
-        return dbLogin.result
+    fun fetchLoginResult(login: String, password: String): Single<String> {
+        return restApi.logIn(login, password).async()
     }
 
     fun decideAboutSavingLogData(login: String, password: String, isChecked: Boolean) {
         if (isChecked) {
-            fileFactory.saveStateToFile("$login;$password", FileFactory.DATA_TXT)
+            fileFactory.saveStateToFile("${KmlApp.loginId};$login;$password", FileFactory.DATA_TXT)
         } else {
             fileFactory.clearFileState(FileFactory.DATA_TXT) //clear File
         }
@@ -30,13 +33,5 @@ class LoginRepository(val fileFactory: FileFactory) : ViewModel() {
 
     fun getSwitchState(): String {
         return fileFactory.readFromFile(FileFactory.LOGIN_KEEP_SWITCH_CHOICE_TXT)
-    }
-
-    fun saveSwitchDarkMode(state: String) {
-        fileFactory.saveStateToFile(state, FileFactory.LOGIN_KEEP_SWITCH_DARK_MODE_TXT)
-    }
-
-    fun getSwitchDarkModeState(): Boolean {
-        return fileFactory.readFromFile(FileFactory.LOGIN_KEEP_SWITCH_DARK_MODE_TXT).toBoolean()
     }
 }
