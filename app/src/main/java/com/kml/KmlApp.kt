@@ -64,7 +64,6 @@ class KmlApp : MultiDexApplication() {
 
         var isFromRecycleViewActivity = false
         var isFromControlPanel = false
-        var isFromWorksHistory = false
         var adminIds = listOf(9, 18, 13, 4)
     }
 }

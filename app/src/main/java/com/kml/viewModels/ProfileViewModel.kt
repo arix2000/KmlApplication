@@ -7,6 +7,7 @@ import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
 import com.kml.models.dto.Profile
 import com.kml.repositories.ProfileRepository
+import com.kml.utilities.FormatEngine
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.CoroutineScope
@@ -33,6 +34,7 @@ class ProfileViewModel(
     private fun getProfileData() {
         repository.getUserInfoFromDb().subscribeBy(
             onSuccess = {
+                it.sections = FormatEngine().formatSections(it.sections)
                 profileData.postValue(it)
                 isFromFile = false
             },
