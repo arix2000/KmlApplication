@@ -3,16 +3,19 @@ package com.kml.views.dialogs
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kml.Constants.Signal.VALIDATION_SUCCESSFUL
 import com.kml.R
-import com.kml.data.app.AppDialogs
-import com.kml.data.externalDbOperations.DbChangePass
 import com.kml.databinding.DialogChangePassBinding
+import com.kml.extensions.logError
 import com.kml.extensions.showToast
 import com.kml.viewModels.ProfileViewModel
+import com.kml.views.BaseDialog
+import com.kml.views.activities.MainActivity
+import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs(false) {
+class ChangePassDialog(private val viewModel: ProfileViewModel) : BaseDialog(false) {
 
     lateinit var binding: DialogChangePassBinding
 
@@ -34,7 +37,6 @@ class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs(fal
     }
 
     private fun changePass(oldPassword: String, newPassword: String) {
-
         val validationResult = viewModel.validatePassword(oldPassword, newPassword)
         if (validationResult != VALIDATION_SUCCESSFUL) {
             showToast(validationResult)
@@ -42,20 +44,24 @@ class ChangePassDialog(private val viewModel: ProfileViewModel) : AppDialogs(fal
         }
 
         binding.dialogChangePasswordProgressBar.visibility = View.VISIBLE
-        val changeOperation = viewModel.resolvePasswordChanging(newPassword, oldPassword)
-
-        changeOperation.setOnResultListener {
-            resolveResult(it)
-        }
+        viewModel.resolvePasswordChanging(newPassword, oldPassword)
+            .subscribeBy(
+                onSuccess = {
+                    resolveResult(it)
+                }, onError = { logError(it); showToast(R.string.change_pass_error) }
+            )
     }
 
     private fun resolveResult(result: String) {
-        if (result == DbChangePass.CHANGE_SUCCESSFUL) {
-            dismiss()
-        }
         binding.dialogOldPassword.setText("")
         binding.dialogNewPassword.setText("")
-        showToast(result)
+        if(result == "true") {
+            showToast(R.string.pass_has_been_changed, Toast.LENGTH_LONG)
+            (activity as? MainActivity)?.clearLogData()
+            dismiss()
+        }
+        else
+            showToast(result)
         binding.dialogChangePasswordProgressBar.visibility = View.GONE
     }
 }

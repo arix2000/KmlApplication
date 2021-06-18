@@ -9,9 +9,9 @@
             android:icon="@drawable/ic_profile"
             android:title="@string/profile" />
         <item
-            android:id="@+id/nav_timer"
-            android:icon="@drawable/ic_timer"
-            android:title="@string/work_timer" />
+            android:id="@+id/nav_work_adding"
+            android:icon="@drawable/ic_add_rounded"
+            android:title="@string/work_adding" />
         <item
             android:id="@+id/nav_search_engine"
             android:icon="@drawable/ic_search_engine"
@@ -38,8 +38,5 @@
                 </group>
             </menu>
         </item>
-
     </group>
-
-
 </menu>

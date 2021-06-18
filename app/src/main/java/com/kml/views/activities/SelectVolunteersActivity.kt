@@ -2,26 +2,25 @@ package com.kml.views.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kml.Constants.Strings.EMPTY_STRING
+import com.kml.KmlApp
 import com.kml.R
 import com.kml.adapters.VolunteerAdapter
-import com.kml.data.app.KmlApp
 import com.kml.databinding.ActivitySelectVolunteersBinding
-import com.kml.extensions.showSnackBar
-import com.kml.models.Volunteer
+import com.kml.extensions.*
+import com.kml.models.dto.Volunteer
 import com.kml.viewModels.VolunteersViewModel
+import com.kml.views.BaseActivity
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SelectVolunteersActivity : AppCompatActivity() {
+class SelectVolunteersActivity : BaseActivity() {
 
     private lateinit var volunteerAdapter: VolunteerAdapter
-    private lateinit var viewModel: VolunteersViewModel
+    private val viewModel: VolunteersViewModel by viewModel()
     private lateinit var binding: ActivitySelectVolunteersBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +29,17 @@ class SelectVolunteersActivity : AppCompatActivity() {
         title = "Zaznacz wolontariuszy:"
         KmlApp.isFromControlPanel = true
 
-        viewModel = ViewModelProvider(this).get(VolunteersViewModel::class.java)
-
         createRecycleView()
 
-        volunteerAdapter.updateVolunteers(viewModel.volunteers)
+        viewModel.fetchVolunteers()
+                .doOnSubscribe { binding.selectVolunteersProgressBar.visible() }
+                .subscribeBy(
+                        onSuccess = {
+                            volunteerAdapter.updateVolunteers(it)
+                            binding.selectVolunteersProgressBar.gone()
+                        },
+                        onError = { logError(it);binding.selectVolunteersProgressBar.gone() }
+                )
 
         initClickableTextViews()
         initSearchEditText()
@@ -43,7 +48,6 @@ class SelectVolunteersActivity : AppCompatActivity() {
             sendIntentWithCheckedList()
         }
     }
-
 
     private fun createRecycleView() {
         binding.controlPanelRecycleView.run {
@@ -70,22 +74,27 @@ class SelectVolunteersActivity : AppCompatActivity() {
     }
 
     private fun initSearchEditText() {
-        binding.controlPanelSearchByFirstName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                volunteerAdapter.updateVolunteers(viewModel.filterArrayByName(editable.toString()))
-            }
-        })
+        binding.controlPanelSearchByFirstName.doAfterTextChanged {
+            volunteerAdapter.updateVolunteers(viewModel.filterArrayByName(it.toString()))
+        }
     }
 
     private fun sendIntentWithCheckedList() {
         val intent = Intent(this, SummaryVolunteerActivity::class.java)
-        val checkedVolunteers = viewModel.volunteers.filter { it.isChecked } as ArrayList
+        val checkedVolunteers = viewModel.volunteers.filter { it.isChecked && !it.isDisabled } as ArrayList
         if (checkedVolunteers.isNotEmpty()) {
             intent.putParcelableArrayListExtra(EXTRA_CHECKED_VOLUNTEERS, checkedVolunteers)
-            startActivity(intent)
+            intent.putExtra(EXTRA_IS_ALL_CHOSEN, viewModel.volunteers.none { !it.isChecked })
+            startActivityForResult(intent, SUMMARY_RESULT)
         } else showSnackBar(R.string.volunteers_are_not_chosen)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == SUMMARY_RESULT) {
+            viewModel.setCheckedVolunteersDisabled()
+            volunteerAdapter.notifyDataSetChanged()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onBackPressed() {
@@ -97,5 +106,7 @@ class SelectVolunteersActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_CHECKED_VOLUNTEERS = "com.kml.views.activities.EXTRA_CHECKED_VOLUNTEERS"
+        const val EXTRA_IS_ALL_CHOSEN = "EXTRA_IS_ALL_CHOSEN"
+        const val SUMMARY_RESULT = 1
     }
 }

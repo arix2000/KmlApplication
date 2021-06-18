@@ -5,18 +5,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
-
-
-
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.kml"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 6
-        versionName "1.6.2"
+        versionName "1.7.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -38,7 +35,9 @@ android {
     }
 
     testOptions {
-        unitTests.includeAndroidResources = true
+        unitTests {
+            includeAndroidResources = true
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -52,13 +51,14 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
-    testImplementation 'junit:junit:4.13.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    def room_version = "2.3.0"
+    def koin_version = '3.0.2'
+    def preferences_data_store_version = "1.0.0-beta01"
+    def multidex_version = "2.0.1"
+    def work_version = "2.6.0-alpha02"
 
     //for Room -->
-    def room_version = "2.2.6"
     implementation "androidx.room:room-runtime:$room_version"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     annotationProcessor "androidx.room:room-compiler:$room_version"
@@ -68,23 +68,32 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    kapt 'androidx.lifecycle:lifecycle-compiler:2.3.0'
-    implementation 'androidx.room:room-runtime:2.2.6'
-    kapt 'androidx.room:room-compiler:2.2.6'
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     //<--for Room
-
+    //Koin
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-ext:$koin_version"
+    //KTX
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation "androidx.core:core-ktx:1.3.2"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //Retrofit
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //Work Manager
+    implementation "androidx.work:work-rxjava3:$work_version"
+    implementation "androidx.work:work-runtime:$work_version"
+    implementation"androidx.work:work-runtime-ktx:$work_version"
 
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
 
-    def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
 
     implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
@@ -95,13 +104,14 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'com.shreyaspatil:MaterialNavigationView:1.1'
 
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha08"
-    implementation "androidx.datastore:datastore-preferences-rxjava2:1.0.0-alpha08"
-    implementation "androidx.datastore:datastore-preferences-rxjava3:1.0.0-alpha08"
+    implementation "androidx.datastore:datastore-preferences:$preferences_data_store_version"
+    implementation "androidx.datastore:datastore-preferences-rxjava2:$preferences_data_store_version"
+    implementation "androidx.datastore:datastore-preferences-rxjava3:$preferences_data_store_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -111,5 +121,8 @@ dependencies {
     testImplementation "androidx.test.ext:junit-ktx:1.1.2"
     testImplementation "androidx.test:core-ktx:1.3.0"
     testImplementation 'org.robolectric:robolectric:4.5.1'
-
+    testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
+    testImplementation 'io.mockk:mockk:1.11.0'
 }

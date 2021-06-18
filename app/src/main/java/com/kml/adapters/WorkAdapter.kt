@@ -4,23 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
+import com.kml.holders.EmptyWorkHolder
 import com.kml.holders.WorkHolder
-import com.kml.models.Work
+import com.kml.models.dto.Work
 import java.util.*
 
 class WorkAdapter(private val onClickListener: (Work) -> Unit)
     : RecyclerView.Adapter<WorkHolder>() {
-
-    var works: List<Work> = ArrayList()
-        set(value) {
-            notifyDataSetChanged()
-            field = value
-        }
+    private var worksConstant: List<Work> = listOf()
+    private var works: List<Work> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item_work_history, parent, false)
-        return WorkHolder(itemView)
+        return if (viewType == WORK_VIEW_TYPE) WorkHolder(itemView)
+        else EmptyWorkHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: WorkHolder, position: Int) {
@@ -30,5 +28,34 @@ class WorkAdapter(private val onClickListener: (Work) -> Unit)
 
     override fun getItemCount(): Int {
         return works.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (works[position].isEmpty()) EMPTY_WORK_VIEW_TYPE
+        else WORK_VIEW_TYPE
+    }
+
+    fun updateWorks(newWorks: List<Work>) {
+        works = newWorks + EMPTY_WORK
+        if (worksConstant.isEmpty())
+            worksConstant = newWorks
+        notifyDataSetChanged()
+    }
+
+    fun filterWorksBy(text: String): List<Work> {
+        val filteredWorks = worksConstant.filter {
+            it.workName.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))
+                    || it.workDescription.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))
+        }
+        works = filteredWorks + EMPTY_WORK
+        notifyDataSetChanged()
+        return filteredWorks
+    }
+
+    companion object {
+        val EMPTY_WORK = Work("","","","","","","","")
+
+        const val EMPTY_WORK_VIEW_TYPE = 1
+        const val WORK_VIEW_TYPE = 2
     }
 }

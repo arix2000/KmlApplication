@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import com.kml.data.app.AppDialogs
+import com.kml.views.BaseDialog
 import com.kml.databinding.DialogRestoreFromFileBinding
 
-class RestoreDialog : AppDialogs(false) {
+class RestoreDialog : BaseDialog(false) {
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

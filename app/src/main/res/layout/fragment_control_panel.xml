@@ -44,11 +44,4 @@
         android:padding="@dimen/control_panel_padding"
         android:layout_marginBottom="@dimen/margin_xxxxxxlarge"
         android:text="@string/volunteers_browser" />
-
-    <ProgressBar
-        android:id="@+id/control_panel_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
 </LinearLayout>

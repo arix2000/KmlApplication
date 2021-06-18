@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.kml.R
 import com.kml.databinding.ListItemVolunteerBrowserBinding
-import com.kml.models.Volunteer
+import com.kml.models.dto.Volunteer
 
 class VolunteerBrowserHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

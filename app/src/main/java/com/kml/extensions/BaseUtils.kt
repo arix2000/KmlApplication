@@ -1,16 +1,18 @@
 package com.kml.extensions
 
 import android.util.Log
-import io.reactivex.rxjava3.core.Single
-import java.util.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.kml.models.dto.Work
 
 const val DEBUG_TAG = "DEBUG_TAG"
 const val NETWORK_RESPONSE_TAG = "NETWORK_RESPONSE_TAG"
 
-fun Any.log(message: String = "", list: List<Any> = listOf()) {
-    var logMessage = this.javaClass.simpleName + " ---> " + message
+fun Any.log(message: Any? = "", list: List<Any> = listOf()) {
 
-    if(list.isNotEmpty()) {
+    var logMessage = this.javaClass.simpleName + " ---> " + message.toString()
+
+    if (list.isNotEmpty()) {
         logMessage = "\n"
         for (item in list)
             logMessage = logMessage.plus("$item \n")
@@ -31,31 +33,10 @@ fun Any.logNetworkResponse(message: String) {
     Log.i(NETWORK_RESPONSE_TAG, logMessage)
 }
 
-fun Calendar.getTodayDate(): String {
-    apply {
-        return get(Calendar.DAY_OF_MONTH).toString() + "." +
-                (get(Calendar.MONTH)+1) + "." +
-                get(Calendar.YEAR)
-    }
-}
+fun createWorkListFrom(json: String): List<Work> {
+    if (json.isBlank())
+        return arrayListOf()
 
-/**
- * Format string to safe for api requests by basically changing "\" char with "\\"
- *
- * @return safe string ready to send to database by for example php api
- */
-fun String.asSafeString(): String {
-    return this.replace("\\","\\\\")
-}
-
-fun String.toIntOr(default: Int): Int {
-    return try {
-        this.toInt()
-    } catch (e: NumberFormatException) {
-        default
-    }
-}
-
-fun <T> getDeferSingleFrom(async: ()-> T): Single<T> {
-    return Single.defer { Single.just(async()) }
+    val type = object : TypeToken<List<Work>>() {}.type
+    return Gson().fromJson(json, type)
 }

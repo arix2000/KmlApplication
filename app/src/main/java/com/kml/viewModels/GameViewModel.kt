@@ -2,14 +2,14 @@ package com.kml.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.kml.data.internalRoomDatabase.GameDao
-import com.kml.models.Game
-import com.kml.models.GameFilterInfo
-import com.kml.data.utilities.Filter
+import com.kml.data.database.GameDao
+import com.kml.utilities.Filter
+import com.kml.models.entitiy.Game
+import com.kml.models.model.GameFilterInfo
 import com.kml.repositories.GameRepository
 
-class GameViewModel(gameDao: GameDao,
-                    private val filterInfo: GameFilterInfo) : ViewModel() {
+class GameViewModel(gameDao: GameDao) : ViewModel() {
+     lateinit var filterInfo: GameFilterInfo
 
     companion object {
         const val DEFAULT_ALL_RANGES = "Wszystkie przedziały"

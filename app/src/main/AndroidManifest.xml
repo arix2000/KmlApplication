@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".data.app.KmlApp"
+        android:name="com.kml.KmlApp"
         android:allowBackup="false"
         android:description="@string/app_description"
         android:fullBackupContent="false"
@@ -21,11 +21,25 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".views.activities.SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".views.activities.SummaryVolunteerActivity"
-            android:parentActivityName=".views.activities.SelectVolunteersActivity" />
+            android:parentActivityName=".views.activities.SelectVolunteersActivity"
+            android:theme="@style/AppTheme.LoginScreen"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".views.activities.SelectVolunteersActivity"
-            android:parentActivityName=".views.activities.MainActivity" />
+            android:parentActivityName=".views.activities.MainActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -33,11 +47,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-
-        <service
-            android:name=".data.services.TimerService"
-            android:enabled="true"
-            android:stopWithTask="false" />
 
         <activity
             android:name=".views.activities.GamePropertiesActivity"
@@ -53,13 +62,7 @@
         <activity
             android:name=".views.activities.LoginScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.LoginScreen"/>
     </application>
 
 </manifest>

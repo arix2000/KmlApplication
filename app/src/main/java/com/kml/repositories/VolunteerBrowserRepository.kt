@@ -1,19 +1,14 @@
 package com.kml.repositories
 
-import com.kml.data.externalDbOperations.DbGetAllUsersData
-import com.kml.models.Volunteer
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.kml.data.networking.RestApi
+import com.kml.extensions.async
+import com.kml.models.dto.Volunteer
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 
-class VolunteerBrowserRepository {
+class VolunteerBrowserRepository(private val restApi: RestApi): BaseRepository() {
 
     fun fetchVolunteers(): Single<List<Volunteer>> {
-        return Single.create<List<Volunteer>>  {
-            it.onSuccess(DbGetAllUsersData().syncRun())
-        }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        return restApi.fetchVolunteers().async()
     }
 }
