@@ -34,6 +34,7 @@ import com.kml.viewModels.MainViewModel
 import com.kml.views.BaseActivity
 import com.kml.views.fragments.AboutAppFragment
 import com.kml.views.fragments.mainFeatures.*
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -83,11 +84,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 setDrawerFragment(ControlPanelFragment(), R.id.nav_control_panel)
                 KmlApp.isFromControlPanel = false
             }
-            if (KmlApp.adminIds.contains(KmlApp.loginId))
-                navView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
+            viewModel.fetchAdminIds()
+                .subscribeBy(
+                    onSuccess = {
+                        if (it.contains(KmlApp.loginId))
+                            navView.menu.getItem(CONTROL_PANEL_ITEM_ID).isVisible = true
+                    },
+                    onError = { logError(it) }
+                )
             handleWhenFromNotification()
             scheduleRemainderNotificationWork()
-
         }
     }
 

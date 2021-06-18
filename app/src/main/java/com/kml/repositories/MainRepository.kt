@@ -1,15 +1,17 @@
 package com.kml.repositories
 
-import androidx.datastore.preferences.core.edit
-import com.kml.Constants.Keys.IS_FROM_NOTIFICATION_KEY
+import com.kml.data.networking.RestApi
+import com.kml.extensions.async
 import com.kml.utilities.FileFactory
+import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class MainRepository(private val fileFactory: FileFactory): BaseRepository() {
+class MainRepository(
+    private val fileFactory: FileFactory,
+    private val restApi: RestApi
+    ): BaseRepository() {
 
     fun saveSwitchDarkMode(state: String) {
         fileFactory.saveStateToFile(state, FileFactory.LOGIN_KEEP_SWITCH_DARK_MODE_TXT)
@@ -25,11 +27,9 @@ class MainRepository(private val fileFactory: FileFactory): BaseRepository() {
         }
     }
 
-    fun getSavedIsFromNotification(): Flow<Boolean?> {
-        return dataStore.data.map { return@map it[IS_FROM_NOTIFICATION_KEY] }
+    fun fetchAdminIds(): Single<List<Int>> {
+        return restApi.fetchAdminIds()
+            .async()
     }
 
-    fun clearIsFromNotification() {
-        ioScope.launch { dataStore.edit { it[IS_FROM_NOTIFICATION_KEY] = false }}
-    }
 }

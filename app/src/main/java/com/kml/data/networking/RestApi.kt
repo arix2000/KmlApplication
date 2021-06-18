@@ -71,4 +71,7 @@ interface RestApi {
         @Field("oldPassword") oldPassword: String,
         @Field("loginId") loginId: String
     ): Single<String>
+
+    @GET("getAdminList.php")
+    fun fetchAdminIds(): Single<List<Int>>
 }

@@ -37,7 +37,7 @@ class RemainderWorker(appContext: Context, params: WorkerParameters)
 
         val builder = NotificationCompat.Builder(applicationContext, KmlApp.CHANNEL_1_ID)
             .setContentTitle("Kończy się miesiąc. Czas wpisać godziny! :D")
-            .setSmallIcon(R.mipmap.icon_round) //TODO - icon work bad :( maybe try with outline logo or B&W
+            .setSmallIcon(R.mipmap.icon_round)
             .setContentIntent(pendingIntent)
             .setColorized(true)
             .setColor(Color.argb(255, 63, 95, 190))
