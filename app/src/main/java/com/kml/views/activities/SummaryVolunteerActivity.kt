@@ -91,7 +91,7 @@ class SummaryVolunteerActivity : BaseActivity() {
     }
 
     private fun getPositionOf(type: String): Int {
-        return resources.getStringArray(R.array.work_types).toList().indexOf(type)
+        return resources.getStringArray(R.array.work_types).toList().indexOf(type).dec()
     }
 
     private fun setDisabledMaskTo(button: Button) {
